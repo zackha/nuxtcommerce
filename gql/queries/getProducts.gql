@@ -1,10 +1,14 @@
-query getProducts {
-  products {
+query getProducts($after: String) {
+  products(first: 9, after: $after) {
     nodes {
       name
       image {
         sourceUrl
       }
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
     }
   }
 }
