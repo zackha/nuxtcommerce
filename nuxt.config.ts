@@ -1,3 +1,8 @@
 export default defineNuxtConfig({
-  modules: ['nuxt-graphql-client', '@nuxt/image-edge', '@nuxtjs/tailwindcss']
+  modules: [
+    'nuxt-graphql-client',
+    '@nuxt/image-edge',
+    '@nuxtjs/tailwindcss',
+    '@nuxtjs/color-mode'
+  ]
 })
