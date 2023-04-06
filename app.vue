@@ -50,7 +50,8 @@ onMounted(() => {
 </script>
 
 <style lang="postcss">
-.dark-mode body {
+.dark-mode {
   @apply bg-black text-neutral-100;
+  color-scheme: dark;
 }
 </style>
