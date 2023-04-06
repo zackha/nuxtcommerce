@@ -1,5 +1,5 @@
 query getProducts($after: String) {
-  products(first: 9, after: $after) {
+  products(first: 15, after: $after) {
     nodes {
       name
       image {
