@@ -22,7 +22,6 @@ const colorMode = useColorMode()
 const allProducts = ref([])
 const endCursor = ref(null)
 const loading = ref(false)
-const loadMoreObserver = ref(null)
 
 async function fetchProducts() {
   loading.value = true
@@ -34,38 +33,19 @@ async function fetchProducts() {
   loading.value = false
 }
 
-async function loadMore() {
-  if (!endCursor.value || loading.value) {
-    return
-  }
-  await fetchProducts()
-}
 
 onMounted(() => {
   fetchProducts()
 
-  const observerOptions = {
-    root: null,
-    rootMargin: '450px',
-    threshold: .2,
-  }
-
-  loadMoreObserver.value = new IntersectionObserver(async (entries) => {
-    const [entry] = entries
-    if (entry.isIntersecting) {
-      await loadMore()
+  window.addEventListener('scroll', () => {
+    const threshold = 412
+    if (
+      window.innerHeight + window.scrollY >= document.body.offsetHeight - threshold &&
+      !loading.value
+    ) {
+      fetchProducts()
     }
-  }, observerOptions)
-
-  const sentinel = document.createElement('div')
-  document.body.appendChild(sentinel)
-  loadMoreObserver.value.observe(sentinel)
-})
-
-onBeforeUnmount(() => {
-  if (loadMoreObserver.value) {
-    loadMoreObserver.value.disconnect()
-  }
+  })
 })
 </script>
 
