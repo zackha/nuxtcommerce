@@ -3,7 +3,9 @@ query getProducts($after: String) {
     nodes {
       name
       image {
-        sourceUrl
+        sourceUrl(size: WOOCOMMERCE_SINGLE)
+        altText
+        id
       }
     }
     pageInfo {
