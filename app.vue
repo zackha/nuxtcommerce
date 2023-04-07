@@ -10,13 +10,13 @@
       <div class="grid gap-1 grid-cols-3 grid-rows-3">
         <div v-for="node in allProducts" :key="node.id">
           <NuxtImg
+            fit="contain"
+            provider="netlify"
             format="webp"
             loading="lazy"
-            :title="node.image.title || node.name"
+            :title="node.name"
             :alt="node.image.altText || node.name"
             :src="node.image.sourceUrl"
-            width="600"
-            height="900"
           />
         </div>
         <div v-if="loading">loading...</div>
