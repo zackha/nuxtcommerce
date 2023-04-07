@@ -9,12 +9,15 @@
       </div>
       <div class="grid gap-1 grid-cols-3 grid-rows-3">
         <div v-for="node in allProducts" :key="node.id">
-          <NuxtImg
-            loading="lazy"
-            :title="node.name"
-            :alt="node.image.altText || node.name"
-            :src="node.image.sourceUrl"
-          />
+          <div class="relative pb-[133%] overflow-hidden">
+            <NuxtImg
+              loading="lazy"
+              :title="node.name"
+              :alt="node.image.altText || node.name"
+              :src="node.image.sourceUrl"
+              class="object-cover w-full h-full absolute"
+            />
+          </div>
         </div>
         <div v-if="loading">loading...</div>
       </div>
