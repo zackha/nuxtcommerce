@@ -4,7 +4,6 @@ query getProducts($after: String) {
       name
       image {
         sourceUrl(size: WOOCOMMERCE_SINGLE)
-        title
         altText
         id
       }
