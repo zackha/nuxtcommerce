@@ -4,6 +4,9 @@ query getProducts($after: String) {
       name
       image {
         sourceUrl
+        title
+        altText
+        id
       }
     }
     pageInfo {
