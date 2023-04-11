@@ -1,17 +1,13 @@
 <template>
   <div class="flex">
     <div class="p-1 box-content w-[calc(100%+40px)] mx-auto max-w-[935px] grow">
-      <div class="pb-1 text-left">
-        <select>
-          <option v-for="(color, i) in colors" :key="i" :value="color.name">{{ color.name }}</option>
-        </select>
-      </div>
-      <div class="pb-1 text-left">
+      <div class="pb-1 text-right">
         <select>
           <option v-for="(size, i) in sizes" :key="i" :value="size.name">{{ size.name }}</option>
         </select>
-      </div>
-      <div class="pb-1 text-right">
+        <select>
+          <option v-for="(color, i) in colors" :key="i" :value="color.name">{{ color.name }}</option>
+        </select>
         <select v-model="colorMode.preference">
           <option value="light">Light</option>
           <option value="dark">Dark</option>
