@@ -8,7 +8,7 @@
         <select>
           <option v-for="(color, i) in colors" :key="i" :value="color.name">{{ color.name }}</option>
         </select>
-        <select v-model="$colorMode.preference">
+        <select v-model="colorMode.preference">
           <option value="system">System</option>
           <option value="light">Light</option>
           <option value="dark">Dark</option>
@@ -67,13 +67,9 @@ async function fetchProducts() {
 
 onMounted(() => {
   fetchProducts()
-
   window.addEventListener('scroll', () => {
     const threshold = 412
-    if (
-      window.innerHeight + window.scrollY >= document.body.offsetHeight - threshold &&
-      !loading.value
-    ) {
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - threshold && !loading.value) {
       fetchProducts()
     }
   })
