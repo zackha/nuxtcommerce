@@ -26,7 +26,6 @@
             />
           </div>
         </div>
-        <div v-if="loading">loading...</div>
       </div>
     </div>
   </div>
@@ -35,7 +34,6 @@
 <script setup>
 const colorMode = useColorMode()
 const allProducts = ref([])
-const loading = ref(false)
 const colors = ref([])
 const sizes = ref([])
 
