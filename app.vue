@@ -54,7 +54,6 @@ sizes.value = allPaBeden.nodes.filter(size => size.products.nodes.length)
 
 const { products } = await GqlGetProducts()
 allProducts.value = products.nodes
-
 </script>
 
 <style lang="postcss">
