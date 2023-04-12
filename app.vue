@@ -37,6 +37,7 @@ const allProducts = ref([])
 const colors = ref([])
 const sizes = ref([])
 
+//filter colors
 const { allPaRenk } = await GqlGetAllPaRenk()
 colors.value = allPaRenk.nodes.filter(color => color.products.nodes.length)
 
@@ -49,9 +50,20 @@ while (allPaRenk?.pageInfo?.hasNextPage) {
   allPaRenk.pageInfo = response.allPaRenk.pageInfo
 }
 
+//filter sizes
 const { allPaBeden } = await GqlGetAllPaBeden()
 sizes.value = allPaBeden.nodes.filter(size => size.products.nodes.length)
 
+while (allPaBeden?.pageInfo?.hasNextPage) {
+  const response = await GqlGetAllPaBeden({
+    after: allPaBeden.pageInfo.endCursor,
+  })
+  const filteredSizes = response.allPaBeden.nodes.filter(size => size.products.nodes.length)
+  sizes.value = sizes.value.concat(filteredSizes)
+  allPaBeden.pageInfo = response.allPaBeden.pageInfo
+}
+
+//get all products
 const { products } = await GqlGetProducts()
 allProducts.value = products.nodes
 </script>
