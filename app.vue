@@ -35,7 +35,6 @@
 <script setup>
 const colorMode = useColorMode()
 const allProducts = ref([])
-const endCursor = ref(null)
 const loading = ref(false)
 const colors = ref([])
 const sizes = ref([])
@@ -55,25 +54,9 @@ while (allPaRenk?.pageInfo?.hasNextPage) {
 const { allPaBeden } = await GqlGetAllPaBeden()
 sizes.value = allPaBeden.nodes.filter(size => size.products.nodes.length)
 
-async function fetchProducts() {
-  loading.value = true
-  const { products } = await GqlGetProducts({
-    after: endCursor.value,
-  })
-  allProducts.value = [...allProducts.value, ...products.nodes]
-  endCursor.value = products.pageInfo.endCursor
-  loading.value = false
-}
+const { products } = await GqlGetProducts()
+allProducts.value = products.nodes
 
-onMounted(() => {
-  fetchProducts()
-  window.addEventListener('scroll', () => {
-    const threshold = 412
-    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - threshold && !loading.value) {
-      fetchProducts()
-    }
-  })
-})
 </script>
 
 <style lang="postcss">
