@@ -26,7 +26,6 @@
             />
           </div>
         </div>
-        <div v-if="loading">loading...</div>
       </div>
     </div>
   </div>
@@ -35,11 +34,10 @@
 <script setup>
 const colorMode = useColorMode()
 const allProducts = ref([])
-const endCursor = ref(null)
-const loading = ref(false)
 const colors = ref([])
 const sizes = ref([])
 
+//list all colors
 const { allPaRenk } = await GqlGetAllPaRenk()
 colors.value = allPaRenk.nodes.filter(color => color.products.nodes.length)
 
@@ -52,28 +50,22 @@ while (allPaRenk?.pageInfo?.hasNextPage) {
   allPaRenk.pageInfo = response.allPaRenk.pageInfo
 }
 
+//list all sizes
 const { allPaBeden } = await GqlGetAllPaBeden()
 sizes.value = allPaBeden.nodes.filter(size => size.products.nodes.length)
 
-async function fetchProducts() {
-  loading.value = true
-  const { products } = await GqlGetProducts({
-    after: endCursor.value,
+while (allPaBeden?.pageInfo?.hasNextPage) {
+  const response = await GqlGetAllPaBeden({
+    after: allPaBeden.pageInfo.endCursor,
   })
-  allProducts.value = [...allProducts.value, ...products.nodes]
-  endCursor.value = products.pageInfo.endCursor
-  loading.value = false
+  const filteredSizes = response.allPaBeden.nodes.filter(size => size.products.nodes.length)
+  sizes.value = sizes.value.concat(filteredSizes)
+  allPaBeden.pageInfo = response.allPaBeden.pageInfo
 }
 
-onMounted(() => {
-  fetchProducts()
-  window.addEventListener('scroll', () => {
-    const threshold = 412
-    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - threshold && !loading.value) {
-      fetchProducts()
-    }
-  })
-})
+//get all products
+const { products } = await GqlGetProducts()
+allProducts.value = products.nodes
 </script>
 
 <style lang="postcss">
