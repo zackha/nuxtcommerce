@@ -2,6 +2,7 @@
   <div class="flex">
     <div class="p-1 box-content w-[calc(100%+40px)] mx-auto max-w-[935px] grow">
       <div class="pb-1 text-right">
+        <input type="text" v-model="searchTerm" placeholder="Search..." class="float-left pl-1">
         <select>
           <option v-for="(size, i) in sizes" :key="i" :value="size.name">{{ size.name }}</option>
         </select>
@@ -15,7 +16,7 @@
         </select>
       </div>
       <div class="grid gap-1 grid-cols-3 grid-rows-3">
-        <div v-for="node in allProducts" :key="node.id">
+        <div v-for="node in products.nodes" :key="node.id">
           <div class="relative pb-[133%] overflow-hidden">
             <NuxtImg
               loading="lazy"
@@ -33,9 +34,9 @@
 
 <script setup>
 const colorMode = useColorMode()
-const allProducts = ref([])
 const colors = ref([])
 const sizes = ref([])
+const searchTerm = ref('')
 
 //get all colors
 const { allPaRenk } = await GqlGetAllPaRenk()
@@ -64,8 +65,9 @@ while (allPaBeden?.pageInfo?.hasNextPage) {
 }
 
 //get all products
-const { products } = await GqlGetProducts()
-allProducts.value = products.nodes
+const { products } = await GqlGetProducts({
+  search: searchTerm.value
+})
 </script>
 
 <style lang="postcss">
