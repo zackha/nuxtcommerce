@@ -1,5 +1,5 @@
 query getProducts($after: String, $search: String) {
-  products(first: 6, after: $after, where: {stockStatus: IN_STOCK, search: $search}) {
+  products(first: 12, after: $after, where: {stockStatus: IN_STOCK, search: $search}) {
     nodes {
       name
       image {
