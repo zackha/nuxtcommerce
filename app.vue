@@ -16,7 +16,7 @@
         </select>
       </div>
       <div class="grid gap-1 grid-cols-3 grid-rows-3">
-        <div v-for="node in products.nodes" :key="node.id">
+        <div v-for="node in allProducts" :key="node.id">
           <div class="relative pb-[133%] overflow-hidden">
             <NuxtImg
               loading="lazy"
@@ -37,6 +37,8 @@ const colorMode = useColorMode()
 const colors = ref([])
 const sizes = ref([])
 const searchTerm = ref('')
+const allProducts = ref('')
+const delayTimer = ref(null)
 
 //get all colors
 const { allPaRenk } = await GqlGetAllPaRenk()
@@ -65,8 +67,17 @@ while (allPaBeden?.pageInfo?.hasNextPage) {
 }
 
 //get all products
-const { products } = await GqlGetProducts({
-  search: searchTerm.value
+const { products } = await GqlGetProducts()
+allProducts.value = products.nodes
+
+watch(searchTerm, async (newTerm) => {
+  clearTimeout(delayTimer.value);
+  delayTimer.value = setTimeout(async () => {
+    try {
+      const { products } = await GqlGetProducts({ search: newTerm })
+      allProducts.value = products.nodes
+    } catch (error) {}
+  }, 500);
 })
 </script>
 
