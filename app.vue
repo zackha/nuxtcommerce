@@ -2,7 +2,10 @@
   <div class="flex">
     <div class="p-1 box-content w-[calc(100%+40px)] mx-auto max-w-[935px] grow">
       <div class="pb-1 text-right">
-        <input type="text" v-model="searchTerm" placeholder="Search..." class="float-left pl-1">
+        <div class="float-left flex">
+          <input type="text" v-model="searchTerm" placeholder="Search" class="pl-1">
+          <div v-if="loading" class="ml-1">loading...</div>
+        </div>
         <select>
           <option v-for="(size, i) in sizes" :key="i" :value="size.name">{{ size.name }}</option>
         </select>
@@ -16,7 +19,7 @@
         </select>
       </div>
       <div class="grid gap-1 grid-cols-3 grid-rows-3">
-        <div v-for="node in allProducts" :key="node.id">
+        <div v-for="node in allProducts" :key="node.id" class="bg-neutral-200 dark:bg-neutral-800">
           <div class="relative pb-[133%] overflow-hidden">
             <NuxtImg
               loading="lazy"
@@ -39,6 +42,7 @@ const sizes = ref([])
 const searchTerm = ref('')
 const allProducts = ref('')
 const delayTimer = ref(null)
+const loading = ref(false)
 
 //get all colors
 const { allPaRenk } = await GqlGetAllPaRenk()
@@ -71,13 +75,15 @@ const { products } = await GqlGetProducts()
 allProducts.value = products.nodes
 
 watch(searchTerm, async (newTerm) => {
+  loading.value = true;
   clearTimeout(delayTimer.value);
   delayTimer.value = setTimeout(async () => {
     try {
       const { products } = await GqlGetProducts({ search: newTerm })
       allProducts.value = products.nodes
-    } catch (error) {}
-  }, 500);
+    } catch (error) {} 
+      finally {loading.value = false}
+  }, 350);
 })
 </script>
 
