@@ -16,7 +16,7 @@
         </select>
       </div>
       <div class="grid gap-1 grid-cols-3 grid-rows-3">
-        <div v-for="node in filteredProducts" :key="node.id">
+        <div v-for="node in products.nodes" :key="node.id">
           <div class="relative pb-[133%] overflow-hidden">
             <NuxtImg
               loading="lazy"
@@ -37,7 +37,6 @@ const colorMode = useColorMode()
 const colors = ref([])
 const sizes = ref([])
 const searchTerm = ref('')
-const products = ref([])
 
 //get all colors
 const { allPaRenk } = await GqlGetAllPaRenk()
@@ -66,22 +65,8 @@ while (allPaBeden?.pageInfo?.hasNextPage) {
 }
 
 //get all products
-const { products: initialProducts } = await GqlGetProducts({ search: '' })
-products.value = initialProducts.nodes
-
-watch(searchTerm, async (newValue) => {
-  const { products: filteredProducts } = await GqlGetProducts({ search: newValue })
-  products.value = filteredProducts.nodes
-})
-
-const filteredProducts = computed(() => {
-  if (!searchTerm.value) {
-    return products.value
-  }
-  const filtered = products.value.filter((product) =>
-    product.name.toLowerCase().includes(searchTerm.value.toLowerCase())
-  )
-  return filtered
+const { products } = await GqlGetProducts({
+  search: searchTerm.value
 })
 </script>
 
