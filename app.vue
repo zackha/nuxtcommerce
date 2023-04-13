@@ -69,22 +69,27 @@ while (allPaBeden?.pageInfo?.hasNextPage) {
 }
 
 //get all products
-const { products } = await GqlGetProducts()
-allProducts.value = products.nodes
+async function fetchProducts(searchTerm) {
+  loading.value = true;
+  try {
+    const { products } = await GqlGetProducts({ search: searchTerm });
+    allProducts.value = products.nodes;
+  } catch (error) {
+  } finally {
+    loading.value = false;
+  }
+}
 
+// Get first products on page load
+fetchProducts(searchTerm.value);
+
+// Update products when searchTerm changes
 watch(searchTerm, async (newTerm) => {
   clearTimeout(delayTimer.value);
-  delayTimer.value = setTimeout(async () => {
-    loading.value = true
-    try {
-      const { products } = await GqlGetProducts({ search: newTerm })
-      allProducts.value = products.nodes
-    } catch (error) {}
-      finally {
-        loading.value = false
-      }
+  delayTimer.value = setTimeout(() => {
+    fetchProducts(newTerm);
   }, 400);
-})
+});
 </script>
 
 <style lang="postcss">
