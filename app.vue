@@ -16,7 +16,9 @@
         </select>
       </div>
       <div class="grid gap-1 grid-cols-3 grid-rows-3">
-        <div v-if="loading">...</div>
+        <div v-if="loading" v-for="node in 9" :key="node" class="bg-neutral-200 dark:bg-neutral-800">
+          <div class="relative pb-[133%] overflow-hidden"></div>
+        </div>
         <div v-else v-for="node in allProducts" :key="node.id">
           <div class="relative pb-[133%] overflow-hidden">
             <NuxtImg
