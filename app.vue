@@ -9,11 +9,6 @@
         <select>
           <option v-for="(color, i) in colors" :key="i" :value="color.name">{{ color.name }}</option>
         </select>
-        <select v-model="colorMode.preference">
-          <option value="system">System</option>
-          <option value="light">Light</option>
-          <option value="dark">Dark</option>
-        </select>
       </div>
       <div class="grid gap-1 grid-cols-3 grid-rows-3">
         <div v-for="node in allProducts" :key="node.id" class="bg-neutral-200 dark:bg-neutral-800">
@@ -36,7 +31,6 @@
 </template>
 
 <script setup>
-const colorMode = useColorMode()
 const colors = ref([])
 const sizes = ref([])
 const searchTerm = ref('')
