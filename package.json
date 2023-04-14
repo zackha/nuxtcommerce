@@ -11,8 +11,8 @@
   "devDependencies": {
     "@nuxt/image-edge": "^1.0.0-28020728.5df24eb",
     "@nuxtjs/color-mode": "^3.2.0",
-    "@nuxtjs/tailwindcss": "^6.6.5",
-    "nuxt": "^3.4.0"
+    "@nuxtjs/tailwindcss": "^6.6.6",
+    "nuxt": "^3.4.1"
   },
   "dependencies": {
     "nuxt-graphql-client": "^0.2.27"
