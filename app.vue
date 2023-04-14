@@ -10,7 +10,7 @@
           <option v-for="(color, i) in colors" :key="i" :value="color.name">{{ color.name }}</option>
         </select>
       </div>
-      <div class="grid gap-1 grid-cols-3 grid-rows-3">
+      <div class="grid gap-1 grid-cols-3">
         <div v-for="node in allProducts" :key="node.id" class="bg-neutral-200 dark:bg-neutral-800">
           <div class="relative pb-[133%] overflow-hidden">
             <NuxtImg
