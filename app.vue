@@ -19,7 +19,10 @@
         </select>
       </div>
       <div class="grid gap-1 grid-cols-3 grid-rows-3">
-        <div v-for="node in allProducts" :key="node.id" class="bg-neutral-200 dark:bg-neutral-800">
+        <div v-if="loading" v-for="node in 9" :key="node" class="animate-pulse bg-neutral-200 dark:bg-neutral-800">
+          <div class="relative pb-[133%] overflow-hidden"></div>
+        </div>
+        <div v-else v-for="node in allProducts" class="bg-neutral-200 dark:bg-neutral-800">
           <div class="relative pb-[133%] overflow-hidden">
             <NuxtImg
               loading="lazy"
@@ -71,20 +74,28 @@ while (allPaBeden?.pageInfo?.hasNextPage) {
 }
 
 //get all products
-const { products } = await GqlGetProducts()
-allProducts.value = products.nodes
+async function fetchProducts(searchTerm) {
+  loading.value = true;
+  try {
+    const { products } = await GqlGetProducts({ search: searchTerm });
+    allProducts.value = products.nodes;
+  } catch (error) {
+  } finally {
+    loading.value = false;
+  }
+}
 
+// Get first products on page load
+fetchProducts(searchTerm.value);
+
+// Update products when searchTerm changes
 watch(searchTerm, async (newTerm) => {
   loading.value = true;
   clearTimeout(delayTimer.value);
-  delayTimer.value = setTimeout(async () => {
-    try {
-      const { products } = await GqlGetProducts({ search: newTerm })
-      allProducts.value = products.nodes
-    } catch (error) {} 
-      finally {loading.value = false}
-  }, 350);
-})
+  delayTimer.value = setTimeout(() => {
+    fetchProducts(newTerm);
+  }, 400);
+});
 </script>
 
 <style lang="postcss">
