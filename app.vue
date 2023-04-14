@@ -2,10 +2,7 @@
   <div class="flex">
     <div class="p-1 box-content w-[calc(100%+40px)] mx-auto max-w-[935px] grow">
       <div class="pb-1 text-right">
-        <div class="float-left flex">
-          <input type="text" v-model="searchTerm" placeholder="Search" class="pl-1">
-          <div v-if="loading" class="ml-1">loading...</div>
-        </div>
+        <input type="text" v-model="searchTerm" placeholder="Search" class="float-left pl-1">
         <select>
           <option v-for="(size, i) in sizes" :key="i" :value="size.name">{{ size.name }}</option>
         </select>
@@ -30,7 +27,9 @@
             />
           </div>
         </div>
-        <button v-if="hasNextPage && !loading" @click="loadMore">Load More</button>
+        <div v-if="loading" v-for="node in 9" :key="node" class="animate-pulse bg-neutral-200 dark:bg-neutral-800">
+          <div class="relative pb-[133%] overflow-hidden"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -91,11 +90,25 @@ const fetchProducts = async (after, search) => {
   }
 }
 
-fetchProducts(null, '')
+fetchProducts(endCursor.value, searchTerm.value)
 
-const loadMore = async () => {
-  await fetchProducts(endCursor.value, searchTerm.value)
+const handleScroll = () => {
+  const scrollTop = window.pageYOffset || document.documentElement.scrollTop
+  const windowHeight = window.innerHeight
+  const documentHeight = document.documentElement.scrollHeight
+
+  if (scrollTop + windowHeight >= documentHeight - 300 && !loading.value && hasNextPage.value) {
+    fetchProducts(endCursor.value, searchTerm.value)
+  }
 }
+
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll)
+})
 
 watch(searchTerm, async (newTerm) => {
   clearTimeout(delayTimer.value);
