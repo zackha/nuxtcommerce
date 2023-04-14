@@ -30,6 +30,7 @@
             />
           </div>
         </div>
+        <button v-if="hasNextPage && !loading" @click="loadMore">Load More</button>
       </div>
     </div>
   </div>
@@ -40,9 +41,11 @@ const colorMode = useColorMode()
 const colors = ref([])
 const sizes = ref([])
 const searchTerm = ref('')
-const allProducts = ref('')
+const allProducts = ref([])
 const delayTimer = ref(null)
 const loading = ref(false)
+const endCursor = ref(null)
+const hasNextPage = ref(false)
 
 //get all colors
 const { allPaRenk } = await GqlGetAllPaRenk()
@@ -71,19 +74,35 @@ while (allPaBeden?.pageInfo?.hasNextPage) {
 }
 
 //get all products
-const { products } = await GqlGetProducts()
-allProducts.value = products.nodes
+const fetchProducts = async (after, search) => {
+  loading.value = true;
+  try {
+  const { products } = await GqlGetProducts({
+    after: after,
+    search: search
+  })
+  allProducts.value = [...allProducts.value, ...products.nodes];
+  endCursor.value = products.pageInfo.endCursor;
+  hasNextPage.value = products.pageInfo.hasNextPage;
+  } catch (error) {
+    console.error(error);
+  } finally {
+    loading.value = false
+  }
+}
+
+fetchProducts(null, '')
+
+const loadMore = async () => {
+  await fetchProducts(endCursor.value, searchTerm.value)
+}
 
 watch(searchTerm, async (newTerm) => {
-  loading.value = true;
   clearTimeout(delayTimer.value);
   delayTimer.value = setTimeout(async () => {
-    try {
-      const { products } = await GqlGetProducts({ search: newTerm })
-      allProducts.value = products.nodes
-    } catch (error) {} 
-      finally {loading.value = false}
-  }, 350);
+    allProducts.value = []
+    fetchProducts(null, newTerm)
+  }, 500);
 })
 </script>
 
