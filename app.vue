@@ -97,7 +97,7 @@ const handleScroll = () => {
   const windowHeight = window.innerHeight
   const documentHeight = document.documentElement.scrollHeight
 
-  if (scrollTop + windowHeight >= documentHeight - 400 && !loading.value && hasNextPage.value) {
+  if (scrollTop + windowHeight >= documentHeight - 300 && !loading.value && hasNextPage.value) {
     fetchProducts(endCursor.value, searchTerm.value)
   }
 }
