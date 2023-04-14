@@ -67,7 +67,7 @@ while (allPaBeden?.pageInfo?.hasNextPage) {
 }
 
 //get all products
-const fetchProducts = async (after, search) => {
+async function fetchProducts(after, search) {
   loading.value = true;
   try {
   const { products } = await GqlGetProducts({
@@ -109,7 +109,7 @@ watch(searchTerm, async (newTerm) => {
   delayTimer.value = setTimeout(async () => {
     allProducts.value = []
     fetchProducts(null, newTerm)
-  }, 500);
+  }, 700);
 })
 </script>
 
