@@ -39,6 +39,8 @@ const delayTimer = ref(null)
 const loading = ref(false)
 const endCursor = ref(null)
 const hasNextPage = ref(false)
+const router = useRouter()
+const route = useRoute()
 
 //get all colors
 const { allPaRenk } = await GqlGetAllPaRenk()
@@ -67,21 +69,18 @@ while (allPaBeden?.pageInfo?.hasNextPage) {
 }
 
 //get all products
+searchTerm.value = route.query.search;
+
 async function fetchProducts(after, search) {
   loading.value = true;
-  try {
   const { products } = await GqlGetProducts({
     after: after,
     search: search
   })
-  allProducts.value = [...allProducts.value, ...products.nodes];
+  allProducts.value = allProducts.value.concat(products.nodes);
   endCursor.value = products.pageInfo.endCursor;
   hasNextPage.value = products.pageInfo.hasNextPage;
-  } catch (error) {
-    console.error(error);
-  } finally {
-    loading.value = false
-  }
+  loading.value = false
 }
 
 fetchProducts(endCursor.value, searchTerm.value)
@@ -109,6 +108,12 @@ watch(searchTerm, async (newTerm) => {
   delayTimer.value = setTimeout(async () => {
     allProducts.value = []
     fetchProducts(null, newTerm)
+    router.push({ 
+      query: {
+        ...route.query,
+        search: newTerm || undefined
+      } 
+    });
   }, 700);
 })
 </script>
