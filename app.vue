@@ -31,6 +31,8 @@
 </template>
 
 <script setup>
+import { throttle } from 'lodash';
+
 const colors = ref([])
 const sizes = ref([])
 const searchTerm = ref('')
@@ -85,7 +87,7 @@ async function fetchProducts(after, search) {
 
 fetchProducts(endCursor.value, searchTerm.value)
 
-const handleScroll = () => {
+const handleScroll = throttle(() => {
   const scrollTop = window.pageYOffset || document.documentElement.scrollTop
   const windowHeight = window.innerHeight
   const documentHeight = document.documentElement.scrollHeight
@@ -93,7 +95,7 @@ const handleScroll = () => {
   if (scrollTop + windowHeight >= documentHeight - 300 && !loading.value && hasNextPage.value) {
     fetchProducts(endCursor.value, searchTerm.value)
   }
-}
+}, 200);
 
 onMounted(() => {
   window.addEventListener('scroll', handleScroll)
