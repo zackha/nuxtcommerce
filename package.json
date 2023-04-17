@@ -10,6 +10,7 @@
   },
   "devDependencies": {
     "@nuxt/image-edge": "^1.0.0-28020728.5df24eb",
+    "@nuxtjs/apollo": "^5.0.0-alpha.6",
     "@nuxtjs/color-mode": "^3.2.0",
     "@nuxtjs/tailwindcss": "^6.6.6",
     "nuxt": "^3.4.1"
