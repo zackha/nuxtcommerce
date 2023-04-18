@@ -4,7 +4,7 @@
       <div class="pb-1">
         <input
           type="text"
-          v-model="searchTerm"
+          v-model="variables.search"
           placeholder="Search"
           class="pl-1"
         >
@@ -30,13 +30,15 @@
 import getProducts from "~/gql/queries/getProducts.gql"
 
 const allProducts = ref([])
-const searchTerm = ref('')
+const variables = ref({
+  search: ''
+})
 
-const { result } = useQuery(getProducts, () => searchTerm.value)
+const { result } = useQuery(getProducts, () => variables.value)
 allProducts.value = result?.value?.products?.nodes
 
-watch(result, (refetch) => {
-  allProducts.value = refetch.products.nodes;
+watch(result, (newResult) => {
+  allProducts.value = newResult.products.nodes;
 })
 </script>
 
