@@ -29,17 +29,14 @@
 <script setup>
 import getProducts from "~/gql/queries/getProducts.gql"
 
-const allProducts = ref([])
+
 const variables = ref({
   search: ''
 })
 
 const { result } = useQuery(getProducts, () => variables.value)
-allProducts.value = result?.value?.products?.nodes
+const allProducts = computed(() => result?.value?.products.nodes);
 
-watch(result, (newResult) => {
-  allProducts.value = newResult.products.nodes;
-})
 </script>
 
 <style lang="postcss">
