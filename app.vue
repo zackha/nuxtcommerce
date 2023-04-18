@@ -61,6 +61,23 @@ const loadMore = () => {
   })
 }
 
+const handleScroll = () => {
+  const scrollPosition = window.scrollY + window.innerHeight
+  const loadMorePosition = document.documentElement.scrollHeight - 400
+
+  if (scrollPosition >= loadMorePosition && pageInfo.value?.hasNextPage) {
+    loadMore()
+  }
+}
+
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll)
+})
+
 watch(searchTerm, (newTerm) => {
   router.push({ 
     query: {
