@@ -4,7 +4,7 @@
       <div class="pb-1">
         <input
           type="text"
-          v-model="variables.search"
+          v-model="searchTerm"
           placeholder="Search"
           class="pl-1"
         >
@@ -31,11 +31,23 @@
 
 <script setup>
 import getProducts from "~/gql/queries/getProducts.gql"
+const router = useRouter()
+const route = useRoute()
+const searchTerm = ref('')
 const variables = ref({
-  search: ''
+  search: searchTerm
 })
 const { result, loading } = useQuery(getProducts, variables.value)
 const allProducts = computed(() => result?.value?.products.nodes)
+
+watch(searchTerm, (newTerm) => {
+  router.push({ 
+    query: {
+      ...route.query,
+      search: newTerm || undefined
+    } 
+  });
+})
 </script>
 
 <style lang="postcss">
