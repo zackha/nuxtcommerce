@@ -21,6 +21,9 @@
             />
           </div>
         </div>
+        <div v-if="loading" v-for="node in 9" :key="node" class="animate-pulse bg-neutral-200 dark:bg-neutral-800">
+          <div class="relative pb-[133%] overflow-hidden"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -28,15 +31,11 @@
 
 <script setup>
 import getProducts from "~/gql/queries/getProducts.gql"
-
-
 const variables = ref({
   search: ''
 })
-
-const { result } = useQuery(getProducts, () => variables.value)
+const { result, loading } = useQuery(getProducts, () => variables.value)
 const allProducts = computed(() => result?.value?.products.nodes);
-
 </script>
 
 <style lang="postcss">
