@@ -7,7 +7,6 @@
           v-model="variables.search"
           placeholder="Search"
           class="pl-1"
-          @keyup.enter="refresh"
         >
       </div>
       <div class="grid gap-1 grid-cols-3">
@@ -30,18 +29,17 @@
 <script setup>
 import getProducts from "~/gql/queries/getProducts.gql"
 
+
 const allProducts = ref([])
 const variables = ref({
   search: ''
 });
 
-const { data, refresh } = await useAsyncQuery(getProducts, variables.value)
-allProducts.value = data.value.products.nodes
+const { result } = useQuery(getProducts, () => variables.value)
+allProducts.value = result?.value?.products?.nodes
 
-watch(data, (newData) => {
-  if (newData) {
-    allProducts.value = newData.products.nodes
-  }
+watch(result, (newValue) => {
+    allProducts.value = newValue.products.nodes;
 })
 </script>
 
