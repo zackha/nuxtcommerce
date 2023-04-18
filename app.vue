@@ -34,7 +34,7 @@ import getProducts from "~/gql/queries/getProducts.gql"
 const variables = ref({
   search: ''
 })
-const { result, loading } = useQuery(getProducts, () => variables.value)
+const { result, loading } = useQuery(getProducts, variables.value)
 const allProducts = computed(() => result?.value?.products.nodes);
 </script>
 
