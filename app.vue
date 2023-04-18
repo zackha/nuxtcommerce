@@ -37,6 +37,7 @@ const searchTerm = ref('')
 const variables = ref({
   search: searchTerm
 })
+searchTerm.value = route.query.search
 const { result, loading } = useQuery(getProducts, variables.value)
 const allProducts = computed(() => result?.value?.products.nodes)
 
