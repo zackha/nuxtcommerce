@@ -33,11 +33,10 @@
 import getProducts from "~/gql/queries/getProducts.gql"
 const router = useRouter()
 const route = useRoute()
-const searchTerm = ref('')
+const searchTerm = ref(route.query.search || '')
 const variables = ref({
   search: searchTerm
 })
-searchTerm.value = route.query.search
 const { result, loading, fetchMore } = useQuery(getProducts, variables.value)
 const allProducts = computed(() => result.value?.products.nodes)
 const pageInfo = computed(() => result.value?.products.pageInfo)
@@ -84,7 +83,7 @@ watch(searchTerm, (newTerm) => {
       ...route.query,
       search: newTerm || undefined
     } 
-  });
+  })
 })
 </script>
 
