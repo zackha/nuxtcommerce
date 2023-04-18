@@ -65,7 +65,7 @@ const handleScroll = () => {
   const scrollPosition = window.scrollY + window.innerHeight
   const loadMorePosition = document.documentElement.scrollHeight - 400
 
-  if (scrollPosition >= loadMorePosition && pageInfo.value?.hasNextPage) {
+  if (scrollPosition >= loadMorePosition && pageInfo.value?.hasNextPage && !loading.value) {
     loadMore()
   }
 }
