@@ -35,7 +35,7 @@ const variables = ref({
   search: ''
 })
 const { result, loading } = useQuery(getProducts, variables.value)
-const allProducts = computed(() => result?.value?.products.nodes);
+const allProducts = computed(() => result?.value?.products.nodes)
 </script>
 
 <style lang="postcss">
