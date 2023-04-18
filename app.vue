@@ -38,8 +38,28 @@ const variables = ref({
   search: searchTerm
 })
 searchTerm.value = route.query.search
-const { result, loading } = useQuery(getProducts, variables.value)
-const allProducts = computed(() => result?.value?.products.nodes)
+const { result, loading, fetchMore } = useQuery(getProducts, variables.value)
+const allProducts = computed(() => result.value?.products.nodes)
+const pageInfo = computed(() => result.value?.products.pageInfo)
+
+const loadMore = () => {
+  fetchMore({
+    variables: {
+      after: pageInfo.value?.endCursor
+    },
+    updateQuery(prev, {fetchMoreResult}) {
+      const mergedData = {
+        ...prev
+      }
+      mergedData.products = {
+        ...prev.products,
+        nodes: [...prev.products.nodes, ...fetchMoreResult.products.nodes]
+      }
+      mergedData.products.pageInfo = fetchMoreResult.products.pageInfo
+      return mergedData
+    }
+  })
+}
 
 watch(searchTerm, (newTerm) => {
   router.push({ 
