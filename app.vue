@@ -8,7 +8,7 @@
           placeholder="Search"
           class="float-left pl-1"
         >
-        <select @change="updateVariables">
+        <select v-model="selectedOption" @change="updateVariables">
           <option value="newest">Latest</option>
           <option value="priceDesc">Price : High to low</option>
           <option value="priceAsc">Price : Low to high</option>
@@ -39,16 +39,24 @@ import getProducts from "~/gql/queries/getProducts.gql"
 const router = useRouter()
 const route = useRoute()
 const searchTerm = ref(route.query.search || '')
-const sortByOrder = ref('DESC')
-const sortByField = ref('DATE')
+const sortByOrder = ref(route.query.orderby && route.query.orderby !== '' ? route.query.orderby : 'DESC')
+const sortByField = ref(route.query.fieldby && route.query.fieldby !== '' ? route.query.fieldby : 'DATE')
 const variables = ref({
   search: searchTerm,
   order: sortByOrder,
   field: sortByField
 })
+
 const { result, loading, fetchMore } = useQuery(getProducts, variables.value)
 const allProducts = computed(() => result.value?.products.nodes)
 const pageInfo = computed(() => result.value?.products.pageInfo)
+
+const selectedOption = ref(
+  sortByOrder.value === 'DESC' && sortByField.value === 'DATE' 
+  ? 'newest' : sortByOrder.value === 'DESC' 
+  ? 'priceDesc' 
+  : 'priceAsc'
+)
 
 function updateVariables(event) {
   const selectedOption = event.target.value
@@ -66,6 +74,13 @@ function updateVariables(event) {
       sortByField.value = 'PRICE'
       break
   }
+  router.push({
+    query: {
+      ...route.query,
+      orderby: sortByOrder.value || undefined,
+      fieldby: sortByField.value || undefined
+    }
+  })
 }
 
 const loadMore = () => {
@@ -105,11 +120,11 @@ onUnmounted(() => {
 })
 
 watch(searchTerm, (newTerm) => {
-  router.push({ 
+  router.push({
     query: {
       ...route.query,
       search: newTerm || undefined
-    } 
+    }
   })
 })
 </script>
