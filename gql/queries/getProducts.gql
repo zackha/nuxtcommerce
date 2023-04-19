@@ -1,6 +1,6 @@
 query getProducts($after: String, $search: String!, $order: OrderEnum!, $field: ProductsOrderByEnum!) {
   products(
-    first: 18,
+    first: 24,
     after: $after,
     where: {
       stockStatus: IN_STOCK,
