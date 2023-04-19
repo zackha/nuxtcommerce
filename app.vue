@@ -8,7 +8,7 @@
           placeholder="Search"
           class="float-left pl-1"
         >
-        <select v-model="selectedOption" @change="updateVariables">
+        <select v-model="selectedOption">
           <option value="newest">Latest</option>
           <option value="priceDesc">Price : High to low</option>
           <option value="priceAsc">Price : Low to high</option>
@@ -58,31 +58,6 @@ const selectedOption = ref(
   : 'priceAsc'
 )
 
-function updateVariables(event) {
-  const selectedOption = event.target.value
-  switch (selectedOption) {
-    case 'newest':
-      sortByOrder.value = 'DESC'
-      sortByField.value = 'DATE'
-      break
-    case 'priceDesc':
-      sortByOrder.value = 'DESC'
-      sortByField.value = 'PRICE'
-      break
-    case 'priceAsc':
-      sortByOrder.value = 'ASC'
-      sortByField.value = 'PRICE'
-      break
-  }
-  router.push({
-    query: {
-      ...route.query,
-      orderby: sortByOrder.value || undefined,
-      fieldby: sortByField.value || undefined
-    }
-  })
-}
-
 const loadMore = () => {
   fetchMore({
     variables: {
@@ -119,11 +94,27 @@ onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
 })
 
-watch(searchTerm, (newTerm) => {
+watch([selectedOption, searchTerm], ([newSelectedOption, newSearchTerm]) => {
+  switch (newSelectedOption) {
+    case 'newest':
+      sortByOrder.value = 'DESC'
+      sortByField.value = 'DATE'
+      break
+    case 'priceDesc':
+      sortByOrder.value = 'DESC'
+      sortByField.value = 'PRICE'
+      break
+    case 'priceAsc':
+      sortByOrder.value = 'ASC'
+      sortByField.value = 'PRICE'
+      break
+  }
   router.push({
     query: {
       ...route.query,
-      search: newTerm || undefined
+      search: newSearchTerm || undefined,
+      orderby: sortByOrder.value || undefined,
+      fieldby: sortByField.value || undefined
     }
   })
 })
