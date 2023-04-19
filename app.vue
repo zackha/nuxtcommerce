@@ -2,12 +2,16 @@
   <div class="flex">
     <div class="p-1 box-content w-[calc(100%+40px)] mx-auto max-w-[935px] grow">
       <div class="pb-1 text-right">
-        <input type="text" v-model="searchTerm" placeholder="Search" class="float-left pl-1">
-        <select>
-          <option v-for="(size, i) in sizes" :key="i" :value="size.name">{{ size.name }}</option>
-        </select>
-        <select>
-          <option v-for="(color, i) in colors" :key="i" :value="color.name">{{ color.name }}</option>
+        <input
+          type="text"
+          v-model="searchTerm"
+          placeholder="Search"
+          class="float-left pl-1"
+        >
+        <select v-model="selectedOption" @change="updateVariables">
+          <option value="newest">Latest</option>
+          <option value="priceDesc">Price : High to low</option>
+          <option value="priceAsc">Price : Low to high</option>
         </select>
       </div>
       <div class="grid gap-1 grid-cols-3">
@@ -31,71 +35,81 @@
 </template>
 
 <script setup>
-import { throttle } from 'lodash';
-
-const colors = ref([])
-const sizes = ref([])
-const searchTerm = ref('')
-const allProducts = ref([])
-const delayTimer = ref(null)
-const loading = ref(false)
-const endCursor = ref(null)
-const hasNextPage = ref(false)
+import getProducts from "~/gql/queries/getProducts.gql"
 const router = useRouter()
 const route = useRoute()
+const searchTerm = ref(route.query.search || '')
+const sortByOrder = ref(route.query.orderby && route.query.orderby !== '' ? route.query.orderby : 'DESC')
+const sortByField = ref(route.query.fieldby && route.query.fieldby !== '' ? route.query.fieldby : 'DATE')
+const variables = ref({
+  search: searchTerm,
+  order: sortByOrder,
+  field: sortByField
+})
 
-//get all colors
-const { allPaRenk } = await GqlGetAllPaRenk()
-colors.value = allPaRenk.nodes.filter(color => color.products.nodes.length)
+const { result, loading, fetchMore } = useQuery(getProducts, variables.value)
+const allProducts = computed(() => result.value?.products.nodes)
+const pageInfo = computed(() => result.value?.products.pageInfo)
 
-while (allPaRenk?.pageInfo?.hasNextPage) {
-  const response = await GqlGetAllPaRenk({
-    after: allPaRenk.pageInfo.endCursor,
-  })
-  const filteredColors = response.allPaRenk.nodes.filter(color => color.products.nodes.length)
-  colors.value = colors.value.concat(filteredColors)
-  allPaRenk.pageInfo = response.allPaRenk.pageInfo
-}
+const selectedOption = ref(
+  sortByOrder.value === 'DESC' && sortByField.value === 'DATE' 
+  ? 'newest' : sortByOrder.value === 'DESC' 
+  ? 'priceDesc' 
+  : 'priceAsc'
+)
 
-//get all sizes
-const { allPaBeden } = await GqlGetAllPaBeden()
-sizes.value = allPaBeden.nodes.filter(size => size.products.nodes.length)
-
-while (allPaBeden?.pageInfo?.hasNextPage) {
-  const response = await GqlGetAllPaBeden({
-    after: allPaBeden.pageInfo.endCursor,
-  })
-  const filteredSizes = response.allPaBeden.nodes.filter(size => size.products.nodes.length)
-  sizes.value = sizes.value.concat(filteredSizes)
-  allPaBeden.pageInfo = response.allPaBeden.pageInfo
-}
-
-//get all products
-searchTerm.value = route.query.search;
-
-async function fetchProducts(after, search) {
-  loading.value = true;
-  const { products } = await GqlGetProducts({
-    after: after,
-    search: search
-  })
-  allProducts.value = allProducts.value.concat(products.nodes);
-  endCursor.value = products.pageInfo.endCursor;
-  hasNextPage.value = products.pageInfo.hasNextPage;
-  loading.value = false
-}
-
-fetchProducts(endCursor.value, searchTerm.value)
-
-const handleScroll = throttle(() => {
-  const scrollTop = window.pageYOffset || document.documentElement.scrollTop
-  const windowHeight = window.innerHeight
-  const documentHeight = document.documentElement.scrollHeight
-
-  if (scrollTop + windowHeight >= documentHeight - 300 && !loading.value && hasNextPage.value) {
-    fetchProducts(endCursor.value, searchTerm.value)
+function updateVariables(event) {
+  const selectedOption = event.target.value
+  switch (selectedOption) {
+    case 'newest':
+      sortByOrder.value = 'DESC'
+      sortByField.value = 'DATE'
+      break
+    case 'priceDesc':
+      sortByOrder.value = 'DESC'
+      sortByField.value = 'PRICE'
+      break
+    case 'priceAsc':
+      sortByOrder.value = 'ASC'
+      sortByField.value = 'PRICE'
+      break
   }
-}, 200);
+  router.push({
+    query: {
+      ...route.query,
+      orderby: sortByOrder.value || undefined,
+      fieldby: sortByField.value || undefined
+    }
+  })
+}
+
+const loadMore = () => {
+  fetchMore({
+    variables: {
+      after: pageInfo.value?.endCursor
+    },
+    updateQuery(prev, {fetchMoreResult}) {
+      const mergedData = {
+        ...prev
+      }
+      mergedData.products = {
+        ...prev.products,
+        nodes: [...prev.products.nodes, ...fetchMoreResult.products.nodes]
+      }
+      mergedData.products.pageInfo = fetchMoreResult.products.pageInfo
+      return mergedData
+    }
+  })
+}
+
+const handleScroll = () => {
+  const scrollPosition = window.scrollY + window.innerHeight
+  const loadMorePosition = document.documentElement.scrollHeight - 400
+
+  if (scrollPosition >= loadMorePosition && pageInfo.value?.hasNextPage && !loading.value) {
+    loadMore()
+  }
+}
 
 onMounted(() => {
   window.addEventListener('scroll', handleScroll)
@@ -105,18 +119,13 @@ onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
 })
 
-watch(searchTerm, async (newTerm) => {
-  clearTimeout(delayTimer.value);
-  delayTimer.value = setTimeout(async () => {
-    allProducts.value = []
-    fetchProducts(null, newTerm)
-    router.push({ 
-      query: {
-        ...route.query,
-        search: newTerm || undefined
-      } 
-    });
-  }, 700);
+watch(searchTerm, (newTerm) => {
+  router.push({
+    query: {
+      ...route.query,
+      search: newTerm || undefined
+    }
+  })
 })
 </script>
 

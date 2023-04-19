@@ -1,11 +1,22 @@
-query getProducts($after: String, $search: String) {
-  products(first: 9, after: $after, where: {stockStatus: IN_STOCK, search: $search}) {
+query getProducts($after: String, $search: String!, $order: OrderEnum!, $field: ProductsOrderByEnum!) {
+  products(
+    first: 24,
+    after: $after,
+    where: {
+      stockStatus: IN_STOCK,
+      search: $search,
+      orderby: {
+        field: $field,
+        order: $order
+      }
+    }
+  ) {
     nodes {
       name
+      id
       image {
         sourceUrl(size: WOOCOMMERCE_SINGLE)
         altText
-        id
       }
     }
     pageInfo {
