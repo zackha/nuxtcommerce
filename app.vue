@@ -1,13 +1,18 @@
 <template>
   <div class="flex">
     <div class="p-1 box-content w-[calc(100%+40px)] mx-auto max-w-[935px] grow">
-      <div class="pb-1">
+      <div class="pb-1 text-right">
         <input
           type="text"
           v-model="searchTerm"
           placeholder="Search"
-          class="pl-1"
+          class="float-left pl-1"
         >
+        <select @change="updateVariables">
+          <option value="newest">Latest</option>
+          <option value="priceDesc">Price : High to low</option>
+          <option value="priceAsc">Price : Low to high</option>
+        </select>
       </div>
       <div class="grid gap-1 grid-cols-3">
         <div v-for="node in allProducts" :key="node.id" class="bg-neutral-200 dark:bg-neutral-800">
@@ -34,12 +39,34 @@ import getProducts from "~/gql/queries/getProducts.gql"
 const router = useRouter()
 const route = useRoute()
 const searchTerm = ref(route.query.search || '')
+const sortByOrder = ref('DESC')
+const sortByField = ref('DATE')
 const variables = ref({
-  search: searchTerm
+  search: searchTerm,
+  order: sortByOrder,
+  field: sortByField
 })
 const { result, loading, fetchMore } = useQuery(getProducts, variables.value)
 const allProducts = computed(() => result.value?.products.nodes)
 const pageInfo = computed(() => result.value?.products.pageInfo)
+
+function updateVariables(event) {
+  const selectedOption = event.target.value
+  switch (selectedOption) {
+    case 'newest':
+      sortByOrder.value = 'DESC'
+      sortByField.value = 'DATE'
+      break
+    case 'priceDesc':
+      sortByOrder.value = 'DESC'
+      sortByField.value = 'PRICE'
+      break
+    case 'priceAsc':
+      sortByOrder.value = 'ASC'
+      sortByField.value = 'PRICE'
+      break
+  }
+}
 
 const loadMore = () => {
   fetchMore({
