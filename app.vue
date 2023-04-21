@@ -15,7 +15,7 @@
         </select>
       </div>
       <div class="grid gap-1 grid-cols-3">
-        <div v-for="node in allProducts" :key="node.id" class="bg-neutral-200 dark:bg-neutral-800">
+        <div v-for="node in products" :key="node.id" class="bg-neutral-200 dark:bg-neutral-800">
           <div class="relative pb-[133%] overflow-hidden">
             <NuxtImg
               loading="lazy"
@@ -47,9 +47,9 @@ const variables = ref({
   field: sortByField
 })
 
-const { result, loading, fetchMore } = useQuery(getProducts, variables.value)
-const allProducts = computed(() => result.value?.products.nodes)
-const pageInfo = computed(() => result.value?.products.pageInfo)
+const { result: productsResult, loading, fetchMore } = useQuery(getProducts, variables.value)
+const products = computed(() => productsResult.value?.products.nodes)
+const pageInfo = computed(() => productsResult.value?.products.pageInfo)
 
 const selectedOption = ref(
   sortByOrder.value === 'DESC' && sortByField.value === 'DATE' 
