@@ -8,8 +8,23 @@
           placeholder="Search"
           class="float-left pl-1"
         >
+        <select v-model="selectedCategory">
+          <template v-for="category in categories" :key="category.id">
+            <option :value="category.name">
+              {{ category.name }}
+            </option>
+            <template v-for="cat in category.children.nodes.filter(cat => cat.products.nodes.length)" :key="cat.id">
+              <option :value="cat.name">
+                — {{ cat.name }}
+              </option>
+              <option v-for="c in cat.children.nodes.filter(c => c.products.nodes.length)" :key="c.id" :value="c.name">
+                —— {{ c.name }}
+              </option>
+            </template>
+          </template>
+        </select>
         <select v-model="selectedOption">
-          <option value="newest">Latest</option>
+          <option value="newest">Newest</option>
           <option value="priceDesc">Price : High to low</option>
           <option value="priceAsc">Price : Low to high</option>
         </select>
@@ -36,20 +51,27 @@
 
 <script setup>
 import getProducts from "~/gql/queries/getProducts.gql"
+import getCategories from "~/gql/queries/getCategories.gql"
 const router = useRouter()
 const route = useRoute()
-const searchTerm = ref(route.query.search || '')
+const searchTerm = ref(route.query.search || null)
+const selectedCategory = ref(route.query.category || null)
 const sortByOrder = ref(route.query.orderby && route.query.orderby !== '' ? route.query.orderby : 'DESC')
 const sortByField = ref(route.query.fieldby && route.query.fieldby !== '' ? route.query.fieldby : 'DATE')
 const variables = ref({
   search: searchTerm,
+  category: selectedCategory,
   order: sortByOrder,
   field: sortByField
 })
 
+const { result: categoriesResult } = useQuery(getCategories)
 const { result: productsResult, loading, fetchMore } = useQuery(getProducts, variables.value)
 const products = computed(() => productsResult.value?.products.nodes)
 const pageInfo = computed(() => productsResult.value?.products.pageInfo)
+const categories = computed(() => categoriesResult.value?.productCategories.nodes.filter(
+  categories => categories.products.nodes.length && categories.children.nodes.length
+))
 
 const selectedOption = ref(
   sortByOrder.value === 'DESC' && sortByField.value === 'DATE' 
@@ -94,7 +116,7 @@ onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
 })
 
-watch([selectedOption, searchTerm], ([newSelectedOption, newSearchTerm]) => {
+watch([selectedOption, searchTerm, selectedCategory], ([newSelectedOption, newSearchTerm, newCategory]) => {
   switch (newSelectedOption) {
     case 'newest':
       sortByOrder.value = 'DESC'
@@ -113,6 +135,7 @@ watch([selectedOption, searchTerm], ([newSelectedOption, newSearchTerm]) => {
     query: {
       ...route.query,
       search: newSearchTerm || undefined,
+      category: newCategory || undefined,
       orderby: sortByOrder.value || undefined,
       fieldby: sortByField.value || undefined
     }
