@@ -9,6 +9,7 @@
           class="float-left pl-1"
         >
         <select v-model="selectedCategory">
+          <option value="">All Categories</option>
           <template v-for="category in categories" :key="category.id">
             <option :value="category.name">
               {{ category.name }}
@@ -55,7 +56,7 @@ import getCategories from "~/gql/queries/getCategories.gql"
 const router = useRouter()
 const route = useRoute()
 const searchTerm = ref(route.query.search || null)
-const selectedCategory = ref(route.query.category || null)
+const selectedCategory = ref(route.query.category || '')
 const sortByOrder = ref(route.query.orderby && route.query.orderby !== '' ? route.query.orderby : 'DESC')
 const sortByField = ref(route.query.fieldby && route.query.fieldby !== '' ? route.query.fieldby : 'DATE')
 const variables = ref({
@@ -117,6 +118,13 @@ onUnmounted(() => {
 })
 
 watch([selectedOption, searchTerm, selectedCategory], ([newSelectedOption, newSearchTerm, newCategory]) => {
+  if (newSearchTerm !== null && newCategory !== '') {
+    if (newSearchTerm) {
+      newCategory = '';
+    } else if (!newCategory) {
+      newSearchTerm = null;
+    }
+  }
   switch (newSelectedOption) {
     case 'newest':
       sortByOrder.value = 'DESC'
