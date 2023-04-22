@@ -1,4 +1,4 @@
-query getProducts($after: String, $search: String, $category: String, $order: OrderEnum!, $field: ProductsOrderByEnum!) {
+query getProducts($after: String, $search: String, $category: String!, $order: OrderEnum!, $field: ProductsOrderByEnum!) {
   products(
     first: 24,
     after: $after,
