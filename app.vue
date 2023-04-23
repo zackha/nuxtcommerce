@@ -30,7 +30,7 @@
           <option value="priceAsc">Price : Low to high</option>
         </select>
       </div>
-      <div role="tablist" class="border-t dark:border-neutral-800 box-border justify-end flex gap-[60px]">
+      <div role="tablist" class="border-t dark:border-neutral-800 box-border justify-end flex gap-[60px] relative">
         <div class="items-center dark:text-[#a8a8a8] text-xs cursor-pointer flex h-[52px] justify-center">
           <div class="flex box-border items-center">
             <Icon name="system-uicons:grid-squares" size="21" />
@@ -41,6 +41,13 @@
           <div class="flex box-border items-center">
             <Icon name="system-uicons:filter" size="21" />
             <span class="ml-1.5 font-semibold uppercase tracking-wider">Sort by</span>
+          </div>
+          <div class="absolute top-full z-10 text-right min-w-[100px] right-0">
+            <ul class="font-semibold tracking-wider bg-white dark:bg-neutral-800 shadow-lg border dark:border-black">
+              <li class="px-4 py-2 border-b dark:border-black last:border-b-0" v-for="(option, index) in options" :key="index" @click="selectedOption = option.value">
+                <a class="dark:text-neutral-100">{{ option.label }}</a>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -87,6 +94,12 @@ const pageInfo = computed(() => productsResult.value?.products.pageInfo)
 const categories = computed(() => categoriesResult.value?.productCategories.nodes.filter(
   categories => categories.products.nodes.length && categories.children.nodes.length
 ))
+
+const options = reactive([
+  { label: "Newest", value: "newest" },
+  { label: "Price: High to Low", value: "priceDesc" },
+  { label: "Price: Low to High", value: "priceAsc" }
+]);
 
 const selectedOption = ref(
   sortByOrder.value === 'DESC' && sortByField.value === 'DATE' 
