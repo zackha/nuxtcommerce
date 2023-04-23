@@ -1,7 +1,7 @@
 <template>
   <div class="flex">
     <div class="p-1 box-content w-[calc(100%+40px)] mx-auto max-w-[935px] grow">
-      <div class="pb-1 text-right">
+      <div class="pb-4 text-right">
         <input
           type="text"
           v-model="searchTerm"
@@ -29,6 +29,20 @@
           <option value="priceDesc">Price : High to low</option>
           <option value="priceAsc">Price : Low to high</option>
         </select>
+      </div>
+      <div role="tablist" class="border-t dark:border-neutral-800 box-border justify-end flex gap-[60px]">
+        <div class="items-center dark:text-[#a8a8a8] text-xs cursor-pointer flex h-[52px] justify-center">
+          <div class="flex box-border items-center">
+            <Icon name="system-uicons:grid-squares" size="21" />
+            <span class="ml-1.5 font-semibold uppercase tracking-wider">Category</span>
+          </div>
+        </div>
+        <div class="items-center dark:text-[#a8a8a8] text-xs cursor-pointer flex h-[52px] justify-center">
+          <div class="flex box-border items-center">
+            <Icon name="system-uicons:filter" size="21" />
+            <span class="ml-1.5 font-semibold uppercase tracking-wider">Sort by</span>
+          </div>
+        </div>
       </div>
       <div class="grid gap-1 grid-cols-3">
         <div v-for="node in products" :key="node.id" class="bg-neutral-200 dark:bg-neutral-800">
