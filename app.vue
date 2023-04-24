@@ -83,6 +83,14 @@
           <div class="relative pb-[133%] overflow-hidden"></div>
         </div>
       </div>
+      <div v-if="!empty" class="text-lg text-center p-6">
+        <Icon name="system-uicons:search" size="12%"></Icon>
+        <div class="py-4">
+          <span v-if="selectedCategory">In the <strong>{{ selectedCategory }}</strong> category, </span>
+          <span v-if="searchTerm">there are no items matching for: <strong>{{ searchTerm }}</strong></span>
+        </div>
+        <div class="text-sm">Try improving your results by double checking your spelling or trying a more general keyword.</div>
+      </div>
     </div>
   </div>
 </template>
@@ -108,6 +116,7 @@ const variables = ref({
 const { result: categoriesResult } = useQuery(getCategories)
 const { result: productsResult, loading, fetchMore } = useQuery(getProducts, variables.value)
 const products = computed(() => productsResult.value?.products.nodes)
+const empty = computed(() => productsResult.value?.products.nodes.length)
 const pageInfo = computed(() => productsResult.value?.products.pageInfo)
 const categories = computed(() => categoriesResult.value?.productCategories.nodes.filter(
   categories => categories.products.nodes.length && categories.children.nodes.length
