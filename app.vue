@@ -37,18 +37,21 @@
             <span class="ml-1.5 font-semibold uppercase tracking-wider">Category</span>
           </div>
         </div>
-        <div class="items-center dark:text-[#a8a8a8] text-xs cursor-pointer flex h-[52px] justify-center">
+        <div @click.stop="isDropdown = !isDropdown" class="items-center dark:text-[#a8a8a8] text-xs cursor-pointer flex h-[52px] justify-center">
           <div class="flex box-border items-center">
             <Icon name="system-uicons:filter" size="21" />
             <span class="ml-1.5 font-semibold uppercase tracking-wider">Sort by</span>
           </div>
-          <div class="absolute top-full z-10 text-right min-w-[100px] right-0">
-            <ul class="font-semibold tracking-wider bg-white dark:bg-neutral-800 shadow-lg border dark:border-black">
-              <li class="px-4 py-2 border-b dark:border-black last:border-b-0" v-for="(option, index) in options" :key="index" @click="selectedOption = option.value">
-                <a class="dark:text-neutral-100">{{ option.label }}</a>
-              </li>
-            </ul>
-          </div>
+          <Transition>
+            <div v-show="isDropdown" class="absolute top-full z-10 -right-[18px] dropdown">
+              <div class="dropdown-triangle"></div>
+              <div class="text-sm bg-white dark:bg-neutral-800 rounded-2xl overflow-hidden">
+                <div class="border-b dark:border-[#353535] last:border-b-0" v-for="(option, index) in options" :key="index" @click="selectedOption = option.value">
+                  <a class="dark:text-neutral-100 block px-4 py-2.5 hover:dark:bg-[#3c3c3c] hover:transition-all">{{ option.label }}</a>
+                </div>
+              </div>
+            </div>
+          </Transition>
         </div>
       </div>
       <div class="grid gap-1 grid-cols-3">
@@ -74,6 +77,7 @@
 <script setup>
 import getProducts from "~/gql/queries/getProducts.gql"
 import getCategories from "~/gql/queries/getCategories.gql"
+const isDropdown = ref(false)
 const router = useRouter()
 const route = useRoute()
 const searchTerm = ref(route.query.search || null)
@@ -136,12 +140,20 @@ const handleScroll = () => {
   }
 }
 
+const handleClickOutside = (event) => {
+  if (!event.target.closest('.dropdown')) {
+    isDropdown.value = false;
+  }
+};
+
 onMounted(() => {
   window.addEventListener('scroll', handleScroll)
+  document.addEventListener('click', handleClickOutside)
 })
 
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
+  document.removeEventListener('click', handleClickOutside)
 })
 
 watch([selectedOption, searchTerm, selectedCategory], ([newSelectedOption, newSearchTerm, newCategory]) => {
@@ -183,4 +195,29 @@ watch([selectedOption, searchTerm, selectedCategory], ([newSelectedOption, newSe
   @apply bg-black text-neutral-100;
   color-scheme: dark;
 }
+.dropdown {
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,.15));
+}
+.dropdown-triangle {
+  @apply absolute dark:bg-neutral-800 h-5 w-4 -top-[10px] rotate-90;
+  clip-path: path('M8 0C8 4 9.32406e-08 7.819 1.25211e-07 10.5C1.57188e-07 13.1815 8 17.0005 8 21L8 0Z');
+  left: calc(50% - -16px);
+}
+.v-enter-active {
+  @apply transition ease-out duration-100
+}
+.v-enter-from,
+.v-leave-to {
+  @apply transform opacity-0 scale-95;
+}
+
+.v-enter-to,
+.v-leave-from {
+  @apply transform opacity-100 scale-100;
+}
+
+.v-leave-active {
+  @apply transition ease-in duration-75
+} 
+
 </style>
