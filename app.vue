@@ -14,7 +14,7 @@
       <div role="tablist" class="border-t dark:border-neutral-800 box-border items-center grid grid-cols-3 gap-1 relative">
         <div class="flex flex-row items-center dark:text-[#a8a8a8]">
           <label class="w-full group focus-within:text-neutral-100 focus-within:bg-[#121212] focus-within:border-neutral-100 border-t border-transparent -mt-px py-3.5">
-            <div class="box-border flex flex-col group-focus-within:hidden">
+            <div class="box-border flex flex-col group-focus-within:invisible visible">
               <div type="submit" class="absolute left-0 top-0 mt-[18.5px]">
                 <svg aria-label="Search" height="16" role="img" viewBox="0 0 24 24" width="16">
                   <title>Search</title>
@@ -30,10 +30,15 @@
               </div>
             </div>
             <input
-              class="placeholder:group-focus-within:text-neutral-100 px-6 bg-transparent outline-none placeholder:text-[#a8a8a8] group-focus-within:px-5"
+              class="placeholder:group-focus-within:text-neutral-100 px-6 bg-transparent outline-none placeholder:text-[#a8a8a8] w-full"
               type="text"
               v-model="searchTerm"
               placeholder="Search" />
+            <button @click="searchTerm = null" class="box-border flex flex-col group-focus-within:visible invisible">
+              <div type="submit" class="absolute left-[29%] top-0 mt-3">
+                <Icon name="mingcute:close-circle-fill" size="18" />
+              </div>
+            </button>
           </label>
         </div>
         <div class="justify-end flex gap-[60px] col-span-2">
