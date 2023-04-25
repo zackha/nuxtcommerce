@@ -1,28 +1,31 @@
 <template>
   <div class="flex">
     <div class="p-1 box-content w-[calc(100%+40px)] mx-auto max-w-[935px] grow">
-      <div class="pb-4 text-right">
-        <input type="text" v-model="searchTerm" placeholder="Search" class="float-left pl-1" />
-        <select v-model="selectedCategory">
-          <option value="">All Categories</option>
-          <template v-for="category in categories" :key="category.id">
-            <option :value="category.name">
-              {{ category.name }}
-            </option>
-            <template v-for="cat in category.children.nodes.filter((cat) => cat.products.nodes.length)" :key="cat.id">
-              <option :value="cat.name">— {{ cat.name }}</option>
-              <option v-for="c in cat.children.nodes.filter((c) => c.products.nodes.length)" :key="c.id" :value="c.name">—— {{ c.name }}</option>
-            </template>
-          </template>
-        </select>
-        <select v-model="selectedOption">
-          <option value="newest">Newest</option>
-          <option value="priceDesc">Price : High to low</option>
-          <option value="priceAsc">Price : Low to high</option>
-        </select>
+      <div class="pb-11 pt-7 flex justify-center">
+        <div class="my-0 mx-auto">
+          <span class="flex items-center justify-center">
+            <NuxtImg class="my-0 mx-auto" src="https://cdn.shopify.com/s/files/1/0644/6861/5398/t/2/assets/supreme@1x.png" />
+          </span>
+          <div class="mt-4 font-mono">
+            <div class="text-sm text-center m-auto">25/04/2023 09:29am LDN</div>
+          </div>
+        </div>
       </div>
       <div role="tablist" class="border-t dark:border-neutral-800 box-border items-center grid grid-cols-2 gap-2 relative">
-        <div>
+        <div class="flex flex-row items-center dark:text-[#a8a8a8]">
+          <div class="box-border flex flex-col mr-3">
+            <svg aria-label="Search" height="16" role="img" viewBox="0 0 24 24" width="16">
+              <title>Search</title>
+              <path
+                d="M19 10.5A8.5 8.5 0 1 1 10.5 2a8.5 8.5 0 0 1 8.5 8.5Z"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"></path>
+              <line fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="16.511" x2="22" y1="16.511" y2="22"></line>
+            </svg>
+          </div>
           <input type="text" v-model="searchTerm" placeholder="Search" />
         </div>
         <div class="justify-end flex gap-[60px]">
