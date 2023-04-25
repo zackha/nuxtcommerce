@@ -1,143 +1,210 @@
 <template>
   <div class="flex">
     <div class="p-1 box-content w-[calc(100%+40px)] mx-auto max-w-[935px] grow">
-      <div class="pb-1 text-right">
-        <input
-          type="text"
-          v-model="searchTerm"
-          placeholder="Search"
-          class="float-left pl-1"
-        >
-        <select v-model="selectedCategory">
-          <option value="">All Categories</option>
-          <template v-for="category in categories" :key="category.id">
-            <option :value="category.name">
-              {{ category.name }}
-            </option>
-            <template v-for="cat in category.children.nodes.filter(cat => cat.products.nodes.length)" :key="cat.id">
-              <option :value="cat.name">
-                — {{ cat.name }}
-              </option>
-              <option v-for="c in cat.children.nodes.filter(c => c.products.nodes.length)" :key="c.id" :value="c.name">
-                —— {{ c.name }}
-              </option>
-            </template>
-          </template>
-        </select>
-        <select v-model="selectedOption">
-          <option value="newest">Newest</option>
-          <option value="priceDesc">Price : High to low</option>
-          <option value="priceAsc">Price : Low to high</option>
-        </select>
+      <div class="pb-11 pt-7 flex justify-center">
+        <div class="my-0 mx-auto">
+          <span class="flex items-center justify-center">
+            <NuxtImg class="my-0 mx-auto h-14" src="https://seeklogo.com/images/S/supreme-ny-logo-AAF66BE276-seeklogo.com.png" />
+          </span>
+          <div class="mt-4 font-mono">
+            <div class="text-sm text-center m-auto text-neutral-100">25/04/2023 09:29am LDN</div>
+          </div>
+        </div>
+      </div>
+      <div role="tablist" class="border-t dark:border-neutral-800 box-border items-center grid grid-cols-3 gap-1 relative">
+        <div class="flex flex-row items-center dark:text-[#a8a8a8]">
+          <label class="w-full group focus-within:text-neutral-100 focus-within:bg-[#121212] focus-within:border-neutral-100 border-t border-transparent -mt-px py-3.5">
+            <div class="box-border flex flex-col group-focus-within:invisible visible">
+              <div type="submit" class="absolute left-0 top-0 mt-[18.5px]">
+                <svg aria-label="Search" height="16" role="img" viewBox="0 0 24 24" width="16">
+                  <title>Search</title>
+                  <path
+                    d="M19 10.5A8.5 8.5 0 1 1 10.5 2a8.5 8.5 0 0 1 8.5 8.5Z"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"></path>
+                  <line fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="16.511" x2="22" y1="16.511" y2="22"></line>
+                </svg>
+              </div>
+            </div>
+            <input
+              class="placeholder:group-focus-within:text-neutral-100 px-6 bg-transparent outline-none placeholder:text-[#a8a8a8] w-full"
+              type="text"
+              v-model="searchTerm"
+              placeholder="Search" />
+            <button @click="searchTerm = null" class="box-border flex flex-col group-focus-within:visible invisible">
+              <div type="submit" class="absolute left-[29%] top-0 mt-3">
+                <Icon name="mingcute:close-circle-fill" size="18" />
+              </div>
+            </button>
+          </label>
+        </div>
+        <div class="justify-end flex gap-[60px] col-span-2">
+          <div
+            @click.stop="
+              isDropdownCategory = !isDropdownCategory;
+              isDropdownSortBy = false;
+            "
+            :class="{ activeTab: isDropdownCategory }"
+            class="items-center dark:text-[#a8a8a8] text-xs flex h-[52px] justify-center cursor-pointer border-t border-transparent -mt-px">
+            <div class="flex box-border items-center">
+              <Icon name="system-uicons:grid-squares" size="22" />
+              <span class="ml-1.5 font-semibold uppercase tracking-wider select-none">Category</span>
+            </div>
+            <Transition>
+              <div v-show="isDropdownCategory" class="absolute top-full z-10 right-[55px] dropdown">
+                <div class="dropdown-triangle left-[30%]"></div>
+                <div class="text-sm bg-white dark:bg-neutral-800 rounded-2xl overflow-hidden">
+                  <div class="border-b dark:border-[#353535] last:border-b-0" @click="selectedCategory = ''">
+                    <a class="dark:text-neutral-100 block px-4 py-2.5 hover:dark:bg-[#3c3c3c] hover:transition-all">All Categories</a>
+                  </div>
+                  <div class="border-b dark:border-[#353535] last:border-b-0" v-for="category in categories" :key="category.id" @click="selectedCategory = category.name">
+                    <a class="dark:text-neutral-100 block px-4 py-2.5 hover:dark:bg-[#3c3c3c] hover:transition-all">{{ category.name }}</a>
+                  </div>
+                </div>
+              </div>
+            </Transition>
+          </div>
+          <div
+            @click.stop="
+              isDropdownSortBy = !isDropdownSortBy;
+              isDropdownCategory = false;
+            "
+            :class="{ activeTab: isDropdownSortBy }"
+            class="items-center dark:text-[#a8a8a8] text-xs flex h-[52px] justify-center cursor-pointer border-t border-transparent -mt-px">
+            <div class="flex box-border items-center">
+              <Icon name="system-uicons:filter" size="22" />
+              <span class="ml-1.5 font-semibold uppercase tracking-wider select-none">Sort by</span>
+            </div>
+            <Transition>
+              <div v-show="isDropdownSortBy" class="absolute top-full z-10 -right-[18px] dropdown">
+                <div class="dropdown-triangle left-[57%]"></div>
+                <div class="text-sm bg-white dark:bg-neutral-800 rounded-2xl overflow-hidden">
+                  <div class="border-b dark:border-[#353535] last:border-b-0" v-for="(option, index) in options" :key="index" @click="selectedOption = option.value">
+                    <a class="dark:text-neutral-100 block px-4 py-2.5 hover:dark:bg-[#3c3c3c] hover:transition-all">{{ option.value }}</a>
+                  </div>
+                </div>
+              </div>
+            </Transition>
+          </div>
+        </div>
       </div>
       <div class="grid gap-1 grid-cols-3">
         <div v-for="node in products" :key="node.id" class="bg-neutral-200 dark:bg-neutral-800">
           <div class="relative pb-[133%] overflow-hidden">
-            <NuxtImg
-              loading="lazy"
-              :title="node.name"
-              :alt="node.image.altText || node.name"
-              :src="node.image.sourceUrl"
-              class="object-cover w-full h-full absolute"
-            />
+            <NuxtImg loading="lazy" :title="node.name" :alt="node.image.altText || node.name" :src="node.image.sourceUrl" class="object-cover w-full h-full absolute" />
           </div>
         </div>
         <div v-if="loading" v-for="node in 9" :key="node" class="animate-pulse bg-neutral-200 dark:bg-neutral-800">
           <div class="relative pb-[133%] overflow-hidden"></div>
         </div>
       </div>
+      <div v-if="!empty" class="text-lg text-center p-6">
+        <Icon name="system-uicons:search" size="12%"></Icon>
+        <div class="py-4">
+          <span v-if="selectedCategory">
+            In the <strong>{{ selectedCategory }}</strong> category,
+          </span>
+          <span v-if="searchTerm">
+            there are no items matching for: <strong>{{ searchTerm }}</strong>
+          </span>
+        </div>
+        <div class="text-sm">Try improving your results by double checking your spelling or trying a more general keyword.</div>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import getProducts from "~/gql/queries/getProducts.gql"
-import getCategories from "~/gql/queries/getCategories.gql"
-const router = useRouter()
-const route = useRoute()
-const searchTerm = ref(route.query.search || null)
-const selectedCategory = ref(route.query.category || '')
-const sortByOrder = ref(route.query.orderby && route.query.orderby !== '' ? route.query.orderby : 'DESC')
-const sortByField = ref(route.query.fieldby && route.query.fieldby !== '' ? route.query.fieldby : 'DATE')
+import getProducts from '~/gql/queries/getProducts.gql';
+import getCategories from '~/gql/queries/getCategories.gql';
+const isDropdownSortBy = ref(false);
+const isDropdownCategory = ref(false);
+const router = useRouter();
+const route = useRoute();
+const searchTerm = ref(route.query.search || null);
+const selectedCategory = ref(route.query.category || '');
+const sortByOrder = ref(route.query.orderby && route.query.orderby !== '' ? route.query.orderby : 'DESC');
+const sortByField = ref(route.query.fieldby && route.query.fieldby !== '' ? route.query.fieldby : 'DATE');
 const variables = ref({
   search: searchTerm,
   category: selectedCategory,
   order: sortByOrder,
-  field: sortByField
-})
+  field: sortByField,
+});
 
-const { result: categoriesResult } = useQuery(getCategories)
-const { result: productsResult, loading, fetchMore } = useQuery(getProducts, variables.value)
-const products = computed(() => productsResult.value?.products.nodes)
-const pageInfo = computed(() => productsResult.value?.products.pageInfo)
-const categories = computed(() => categoriesResult.value?.productCategories.nodes.filter(
-  categories => categories.products.nodes.length && categories.children.nodes.length
-))
+const { result: categoriesResult } = useQuery(getCategories);
+const { result: productsResult, loading, fetchMore } = useQuery(getProducts, variables.value);
+const products = computed(() => productsResult.value?.products.nodes);
+const empty = computed(() => productsResult.value?.products.nodes.length);
+const pageInfo = computed(() => productsResult.value?.products.pageInfo);
+const categories = computed(() => categoriesResult.value?.productCategories.nodes.filter((categories) => categories.products.nodes.length && categories.children.nodes.length));
 
-const selectedOption = ref(
-  sortByOrder.value === 'DESC' && sortByField.value === 'DATE' 
-  ? 'newest' : sortByOrder.value === 'DESC' 
-  ? 'priceDesc' 
-  : 'priceAsc'
-)
+const options = reactive([{ value: 'Newest' }, { value: 'Price: High to Low' }, { value: 'Price: Low to High' }]);
+
+const selectedOption = ref(sortByOrder.value === 'DESC' && sortByField.value === 'DATE' ? 'Newest' : sortByOrder.value === 'DESC' ? 'Price: High to Low' : 'Price: Low to High');
 
 const loadMore = () => {
   fetchMore({
     variables: {
-      after: pageInfo.value?.endCursor
+      after: pageInfo.value?.endCursor,
     },
-    updateQuery(prev, {fetchMoreResult}) {
+    updateQuery(prev, { fetchMoreResult }) {
       const mergedData = {
-        ...prev
-      }
+        ...prev,
+      };
       mergedData.products = {
         ...prev.products,
-        nodes: [...prev.products.nodes, ...fetchMoreResult.products.nodes]
-      }
-      mergedData.products.pageInfo = fetchMoreResult.products.pageInfo
-      return mergedData
-    }
-  })
-}
+        nodes: [...prev.products.nodes, ...fetchMoreResult.products.nodes],
+      };
+      mergedData.products.pageInfo = fetchMoreResult.products.pageInfo;
+      return mergedData;
+    },
+  });
+};
 
 const handleScroll = () => {
-  const scrollPosition = window.scrollY + window.innerHeight
-  const loadMorePosition = document.documentElement.scrollHeight - 400
+  const scrollPosition = window.scrollY + window.innerHeight;
+  const loadMorePosition = document.documentElement.scrollHeight - 400;
 
   if (scrollPosition >= loadMorePosition && pageInfo.value?.hasNextPage && !loading.value) {
-    loadMore()
+    loadMore();
   }
-}
+};
+
+const handleClickOutside = (event) => {
+  if (!event.target.closest('.dropdown')) {
+    isDropdownSortBy.value = false;
+    isDropdownCategory.value = false;
+  }
+};
 
 onMounted(() => {
-  window.addEventListener('scroll', handleScroll)
-})
+  window.addEventListener('scroll', handleScroll);
+  document.addEventListener('click', handleClickOutside);
+});
 
 onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll)
-})
+  window.removeEventListener('scroll', handleScroll);
+  document.removeEventListener('click', handleClickOutside);
+});
 
 watch([selectedOption, searchTerm, selectedCategory], ([newSelectedOption, newSearchTerm, newCategory]) => {
-  if (newSearchTerm !== null && newCategory !== '') {
-    if (newSearchTerm) {
-      newCategory = '';
-    } else if (!newCategory) {
-      newSearchTerm = null;
-    }
-  }
   switch (newSelectedOption) {
-    case 'newest':
-      sortByOrder.value = 'DESC'
-      sortByField.value = 'DATE'
-      break
-    case 'priceDesc':
-      sortByOrder.value = 'DESC'
-      sortByField.value = 'PRICE'
-      break
-    case 'priceAsc':
-      sortByOrder.value = 'ASC'
-      sortByField.value = 'PRICE'
-      break
+    case 'Newest':
+      sortByOrder.value = 'DESC';
+      sortByField.value = 'DATE';
+      break;
+    case 'Price: High to Low':
+      sortByOrder.value = 'DESC';
+      sortByField.value = 'PRICE';
+      break;
+    case 'Price: Low to High':
+      sortByOrder.value = 'ASC';
+      sortByField.value = 'PRICE';
+      break;
   }
   router.push({
     query: {
@@ -145,15 +212,41 @@ watch([selectedOption, searchTerm, selectedCategory], ([newSelectedOption, newSe
       search: newSearchTerm || undefined,
       category: newCategory || undefined,
       orderby: sortByOrder.value || undefined,
-      fieldby: sortByField.value || undefined
-    }
-  })
-})
+      fieldby: sortByField.value || undefined,
+    },
+  });
+});
 </script>
 
 <style lang="postcss">
 .dark-mode {
   @apply bg-black text-neutral-100;
   color-scheme: dark;
+}
+.dropdown {
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
+}
+.dropdown-triangle {
+  @apply absolute dark:bg-neutral-800 h-5 w-4 -top-[10px] rotate-90;
+  clip-path: path('M8 0C8 4 9.32406e-08 7.819 1.25211e-07 10.5C1.57188e-07 13.1815 8 17.0005 8 21L8 0Z');
+}
+.v-enter-active {
+  @apply transition ease-out duration-100;
+}
+.v-enter-from,
+.v-leave-to {
+  @apply transform opacity-0 scale-95;
+}
+
+.v-enter-to,
+.v-leave-from {
+  @apply transform opacity-100 scale-100;
+}
+
+.v-leave-active {
+  @apply transition ease-in duration-75;
+}
+.activeTab {
+  @apply text-neutral-100 border-neutral-100;
 }
 </style>

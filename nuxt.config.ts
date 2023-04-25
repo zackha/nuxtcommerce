@@ -3,7 +3,8 @@ export default defineNuxtConfig({
     '@nuxt/image-edge',
     '@nuxtjs/tailwindcss',
     '@nuxtjs/color-mode',
-    '@nuxtjs/apollo'
+    '@nuxtjs/apollo',
+    'nuxt-icon'
   ],
 
   apollo: {
