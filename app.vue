@@ -7,7 +7,7 @@
             <NuxtImg class="my-0 mx-auto h-14" src="https://seeklogo.com/images/S/supreme-ny-logo-AAF66BE276-seeklogo.com.png" />
           </span>
           <div class="mt-4 font-mono">
-            <div class="text-sm text-center m-auto">25/04/2023 09:29am LDN</div>
+            <div class="text-sm text-center m-auto text-neutral-100">25/04/2023 09:29am LDN</div>
           </div>
         </div>
       </div>
@@ -26,7 +26,7 @@
               <line fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="16.511" x2="22" y1="16.511" y2="22"></line>
             </svg>
           </div>
-          <input type="text" v-model="searchTerm" placeholder="Search" />
+          <input class="bg-transparent outline-none placeholder:text-[#a8a8a8]" type="text" v-model="searchTerm" placeholder="Search" />
         </div>
         <div class="justify-end flex gap-[60px]">
           <div
@@ -35,9 +35,9 @@
               isDropdownSortBy = false;
             "
             :class="{ activeTab: isDropdownCategory }"
-            class="items-center dark:text-[#a8a8a8] text-xs flex h-[52px] justify-center cursor-pointer">
+            class="items-center dark:text-[#a8a8a8] text-xs flex h-[52px] justify-center cursor-pointer border-t border-transparent -mt-px">
             <div class="flex box-border items-center">
-              <Icon name="system-uicons:grid-squares" size="21" />
+              <Icon name="system-uicons:grid-squares" size="22" />
               <span class="ml-1.5 font-semibold uppercase tracking-wider select-none">Category</span>
             </div>
             <Transition>
@@ -60,9 +60,9 @@
               isDropdownCategory = false;
             "
             :class="{ activeTab: isDropdownSortBy }"
-            class="items-center dark:text-[#a8a8a8] text-xs flex h-[52px] justify-center cursor-pointer">
+            class="items-center dark:text-[#a8a8a8] text-xs flex h-[52px] justify-center cursor-pointer border-t border-transparent -mt-px">
             <div class="flex box-border items-center">
-              <Icon name="system-uicons:filter" size="21" />
+              <Icon name="system-uicons:filter" size="22" />
               <span class="ml-1.5 font-semibold uppercase tracking-wider select-none">Sort by</span>
             </div>
             <Transition>
@@ -234,7 +234,6 @@ watch([selectedOption, searchTerm, selectedCategory], ([newSelectedOption, newSe
   @apply transition ease-in duration-75;
 }
 .activeTab {
-  @apply text-neutral-100;
-  box-shadow: 0 -1px 0 #fff;
+  @apply text-neutral-100 border-neutral-100;
 }
 </style>
