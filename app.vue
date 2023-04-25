@@ -4,7 +4,7 @@
       <div class="pb-11 pt-7 flex justify-center">
         <div class="my-0 mx-auto">
           <span class="flex items-center justify-center">
-            <NuxtImg class="my-0 mx-auto" src="https://cdn.shopify.com/s/files/1/0644/6861/5398/t/2/assets/supreme@1x.png" />
+            <NuxtImg class="my-0 mx-auto h-14" src="https://seeklogo.com/images/S/supreme-ny-logo-AAF66BE276-seeklogo.com.png" />
           </span>
           <div class="mt-4 font-mono">
             <div class="text-sm text-center m-auto">25/04/2023 09:29am LDN</div>
