@@ -12,32 +12,24 @@
         </div>
       </div>
       <div role="tablist" class="border-t dark:border-neutral-800 box-border items-center grid grid-cols-3 gap-1 relative">
-        <div class="flex flex-row items-center dark:text-[#a8a8a8]">
-          <label class="w-full group focus-within:text-neutral-100 focus-within:bg-[#121212] focus-within:border-neutral-100 border-t border-transparent -mt-px py-3.5">
-            <div class="box-border flex flex-col group-focus-within:invisible visible">
-              <div type="submit" class="absolute left-0 top-0 mt-[18.5px]">
-                <svg aria-label="Search" height="16" role="img" viewBox="0 0 24 24" width="16">
-                  <title>Search</title>
-                  <path
-                    d="M19 10.5A8.5 8.5 0 1 1 10.5 2a8.5 8.5 0 0 1 8.5 8.5Z"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"></path>
-                  <line fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="16.511" x2="22" y1="16.511" y2="22"></line>
-                </svg>
-              </div>
+        <div class="flex flex-row items-center dark:text-[#a8a8a8] relative">
+          <label class="w-full group focus-within:text-neutral-100 focus-within:bg-[#121212] focus-within:border-[#262626] border border-transparent rounded-full">
+            <div class="absolute left-0 top-[28%] group-focus-within:invisible visible">
+              <svg aria-label="Search" height="16" role="img" viewBox="0 0 24 24" width="16">
+                <title>Search</title>
+                <path
+                  d="M19 10.5A8.5 8.5 0 1 1 10.5 2a8.5 8.5 0 0 1 8.5 8.5Z"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"></path>
+                <line fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="16.511" x2="22" y1="16.511" y2="22"></line>
+              </svg>
             </div>
-            <input
-              class="placeholder:group-focus-within:text-neutral-100 px-6 bg-transparent outline-none placeholder:text-[#a8a8a8] w-full"
-              type="text"
-              v-model="searchTerm"
-              placeholder="Search" />
-            <button @click="searchTerm = null" class="box-border flex flex-col group-focus-within:visible invisible">
-              <div type="submit" class="absolute left-[29%] top-0 mt-3">
-                <Icon name="mingcute:close-circle-fill" size="18" />
-              </div>
+            <input class="group-focus-within:px-3 px-6 py-1 bg-transparent outline-none placeholder:text-[#a8a8a8] w-full" type="text" v-model="searchTerm" placeholder="Search" />
+            <button @click="searchTerm = null" class="absolute right-2 top-[5%] text-[#a8a8a8] group-focus-within:visible invisible">
+              <Icon name="mingcute:close-circle-fill" size="20" />
             </button>
           </label>
         </div>
