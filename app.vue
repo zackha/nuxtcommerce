@@ -13,18 +13,20 @@
       </div>
       <div role="tablist" class="border-t dark:border-neutral-800 box-border items-center grid grid-cols-2 gap-2 relative">
         <div class="flex flex-row items-center dark:text-[#a8a8a8]">
-          <div class="box-border flex flex-col mr-3">
-            <svg aria-label="Search" height="16" role="img" viewBox="0 0 24 24" width="16">
-              <title>Search</title>
-              <path
-                d="M19 10.5A8.5 8.5 0 1 1 10.5 2a8.5 8.5 0 0 1 8.5 8.5Z"
-                fill="none"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"></path>
-              <line fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="16.511" x2="22" y1="16.511" y2="22"></line>
-            </svg>
+          <div class="box-border flex flex-col mr-6">
+            <div type="submit" class="absolute left-0 top-0 mt-[18px]">
+              <svg aria-label="Search" height="16" role="img" viewBox="0 0 24 24" width="16">
+                <title>Search</title>
+                <path
+                  d="M19 10.5A8.5 8.5 0 1 1 10.5 2a8.5 8.5 0 0 1 8.5 8.5Z"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"></path>
+                <line fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="16.511" x2="22" y1="16.511" y2="22"></line>
+              </svg>
+            </div>
           </div>
           <input class="bg-transparent outline-none placeholder:text-[#a8a8a8]" type="text" v-model="searchTerm" placeholder="Search" />
         </div>
