@@ -63,7 +63,7 @@
               <div class="dropdown-triangle left-[57%]"></div>
               <div class="text-sm bg-white dark:bg-neutral-800 rounded-2xl overflow-hidden">
                 <div class="border-b dark:border-[#353535] last:border-b-0" v-for="(option, index) in options" :key="index" @click="selectedOption = option.value">
-                  <a class="dark:text-neutral-100 block px-4 py-2.5 hover:dark:bg-[#3c3c3c] hover:transition-all">{{ option.label }}</a>
+                  <a class="dark:text-neutral-100 block px-4 py-2.5 hover:dark:bg-[#3c3c3c] hover:transition-all">{{ option.value }}</a>
                 </div>
               </div>
             </div>
@@ -121,13 +121,9 @@ const empty = computed(() => productsResult.value?.products.nodes.length);
 const pageInfo = computed(() => productsResult.value?.products.pageInfo);
 const categories = computed(() => categoriesResult.value?.productCategories.nodes.filter((categories) => categories.products.nodes.length && categories.children.nodes.length));
 
-const options = reactive([
-  { label: 'Newest', value: 'newest' },
-  { label: 'Price: High to Low', value: 'priceDesc' },
-  { label: 'Price: Low to High', value: 'priceAsc' },
-]);
+const options = reactive([{ value: 'Newest' }, { value: 'Price: High to Low' }, { value: 'Price: Low to High' }]);
 
-const selectedOption = ref(sortByOrder.value === 'DESC' && sortByField.value === 'DATE' ? 'newest' : sortByOrder.value === 'DESC' ? 'priceDesc' : 'priceAsc');
+const selectedOption = ref(sortByOrder.value === 'DESC' && sortByField.value === 'DATE' ? 'Newest' : sortByOrder.value === 'DESC' ? 'Price: High to Low' : 'Price: Low to High');
 
 const loadMore = () => {
   fetchMore({
@@ -176,15 +172,15 @@ onUnmounted(() => {
 
 watch([selectedOption, searchTerm, selectedCategory], ([newSelectedOption, newSearchTerm, newCategory]) => {
   switch (newSelectedOption) {
-    case 'newest':
+    case 'Newest':
       sortByOrder.value = 'DESC';
       sortByField.value = 'DATE';
       break;
-    case 'priceDesc':
+    case 'Price: High to Low':
       sortByOrder.value = 'DESC';
       sortByField.value = 'PRICE';
       break;
-    case 'priceAsc':
+    case 'Price: Low to High':
       sortByOrder.value = 'ASC';
       sortByField.value = 'PRICE';
       break;
