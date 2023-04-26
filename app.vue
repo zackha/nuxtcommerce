@@ -7,7 +7,7 @@
             <NuxtImg class="my-0 mx-auto h-14" src="https://seeklogo.com/images/S/supreme-ny-logo-AAF66BE276-seeklogo.com.png" />
           </span>
           <div class="mt-4 font-mono">
-            <div class="text-sm text-center m-auto text-neutral-100">25/04/2023 09:29am LDN</div>
+            <div class="text-sm text-center m-auto">{{ formattedDate }}</div>
           </div>
         </div>
       </div>
@@ -49,10 +49,10 @@
                 <div class="dropdown-triangle left-[30%]"></div>
                 <div class="text-sm bg-white dark:bg-neutral-800 rounded-2xl overflow-hidden">
                   <div class="border-b dark:border-[#353535] last:border-b-0" @click="selectedCategory = ''">
-                    <a class="dark:text-neutral-100 block px-4 py-2.5 hover:dark:bg-[#3c3c3c] hover:transition-all">All Categories</a>
+                    <a class="block px-4 py-2.5 hover:dark:bg-[#3c3c3c] hover:transition-all">All Categories</a>
                   </div>
                   <div class="border-b dark:border-[#353535] last:border-b-0" v-for="category in categories" :key="category.id" @click="selectedCategory = category.name">
-                    <a class="dark:text-neutral-100 block px-4 py-2.5 hover:dark:bg-[#3c3c3c] hover:transition-all">{{ category.name }}</a>
+                    <a class="block px-4 py-2.5 hover:dark:bg-[#3c3c3c] hover:transition-all">{{ category.name }}</a>
                   </div>
                 </div>
               </div>
@@ -74,7 +74,7 @@
                 <div class="dropdown-triangle left-[57%]"></div>
                 <div class="text-sm bg-white dark:bg-neutral-800 rounded-2xl overflow-hidden">
                   <div class="border-b dark:border-[#353535] last:border-b-0" v-for="(option, index) in options" :key="index" @click="selectedOption = option.value">
-                    <a class="dark:text-neutral-100 block px-4 py-2.5 hover:dark:bg-[#3c3c3c] hover:transition-all">{{ option.value }}</a>
+                    <a class="block px-4 py-2.5 hover:dark:bg-[#3c3c3c] hover:transition-all">{{ option.value }}</a>
                   </div>
                 </div>
               </div>
@@ -111,6 +111,7 @@
 <script setup>
 import getProducts from '~/gql/queries/getProducts.gql';
 import getCategories from '~/gql/queries/getCategories.gql';
+const formattedDate = ref('');
 const isDropdownSortBy = ref(false);
 const isDropdownCategory = ref(false);
 const router = useRouter();
@@ -125,6 +126,25 @@ const variables = ref({
   order: sortByOrder,
   field: sortByField,
 });
+
+const formatDate = (date) => {
+  const formatter = new Intl.DateTimeFormat('en-GB', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    timeZone: 'America/Los_Angeles',
+    timeZoneName: 'short',
+  });
+  let formatted = formatter.format(date);
+  formatted = formatted.replace(/,/g, '');
+  return formatted;
+};
+
+const updateDate = () => {
+  formattedDate.value = formatDate(new Date());
+};
 
 const { result: categoriesResult } = useQuery(getCategories);
 const { result: productsResult, loading, fetchMore } = useQuery(getProducts, variables.value);
@@ -172,39 +192,59 @@ const handleClickOutside = (event) => {
   }
 };
 
+updateDate();
+let timer;
 onMounted(() => {
+  updateDate();
+  timer = setInterval(updateDate, 1000);
   window.addEventListener('scroll', handleScroll);
   document.addEventListener('click', handleClickOutside);
 });
 
 onUnmounted(() => {
+  clearInterval(timer);
   window.removeEventListener('scroll', handleScroll);
   document.removeEventListener('click', handleClickOutside);
 });
 
 watch([selectedOption, searchTerm, selectedCategory], ([newSelectedOption, newSearchTerm, newCategory]) => {
+  let updatedQuery = {
+    ...route.query,
+    search: newSearchTerm || undefined,
+    category: newCategory || undefined,
+  };
+
   switch (newSelectedOption) {
     case 'Newest':
       sortByOrder.value = 'DESC';
       sortByField.value = 'DATE';
+      updatedQuery = {
+        ...updatedQuery,
+        orderby: undefined,
+        fieldby: undefined,
+      };
       break;
     case 'Price: High to Low':
       sortByOrder.value = 'DESC';
       sortByField.value = 'PRICE';
+      updatedQuery = {
+        ...updatedQuery,
+        orderby: sortByOrder.value || undefined,
+        fieldby: sortByField.value || undefined,
+      };
       break;
     case 'Price: Low to High':
       sortByOrder.value = 'ASC';
       sortByField.value = 'PRICE';
+      updatedQuery = {
+        ...updatedQuery,
+        orderby: sortByOrder.value || undefined,
+        fieldby: sortByField.value || undefined,
+      };
       break;
   }
   router.push({
-    query: {
-      ...route.query,
-      search: newSearchTerm || undefined,
-      category: newCategory || undefined,
-      orderby: sortByOrder.value || undefined,
-      fieldby: sortByField.value || undefined,
-    },
+    query: updatedQuery,
   });
 });
 </script>
