@@ -13,19 +13,19 @@
       </div>
       <div role="tablist" class="border-t dark:border-neutral-800 box-border items-center grid grid-cols-3 gap-1 relative">
         <div class="flex flex-row text-center dark:text-[#a8a8a8]">
-          <label class="group w-full block relative py-1">
-            <div class="flex relative gap-2">
-              <div class="cursor-pointer py-1.5 -my-2">
+          <label class="group w-full block relative py-1 focus-within:border-[#353535] border border-transparent rounded-full">
+            <button class="flex relative gap-2 w-full">
+              <div class="cursor-pointer py-1.5 -my-2 group-focus-within:-mr-4 group-focus-within:invisible">
                 <Icon name="heroicons-outline:magnifying-glass" size="20"></Icon>
               </div>
               <div class="relative flex-grow">
                 <input class="w-full bg-transparent outline-none placeholder:text-[#a8a8a8]" type="text" v-model="searchTerm" placeholder="Search" />
               </div>
-              <div class="cursor-pointer py-1.5 -my-2 mr-2">
+              <div @click="searchTerm = null" class="cursor-pointer py-1.5 -my-2 mr-2 group-focus-within:visible invisible">
                 <Icon v-if="!loading" name="mingcute:close-circle-fill" size="20" />
                 <Icon v-else-if="loading" name="Loading" size="20" />
               </div>
-            </div>
+            </button>
           </label>
         </div>
         <div class="justify-end flex gap-[60px] col-span-2">
