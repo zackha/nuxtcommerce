@@ -7,7 +7,7 @@
             <NuxtImg class="my-0 mx-auto h-14" src="https://seeklogo.com/images/S/supreme-ny-logo-AAF66BE276-seeklogo.com.png" />
           </span>
           <div class="mt-4 font-mono">
-            <div class="text-sm text-center m-auto text-neutral-100">25/04/2023 09:29am LDN</div>
+            <div class="text-sm text-center m-auto text-neutral-100">{{ formattedDate }}</div>
           </div>
         </div>
       </div>
@@ -111,6 +111,7 @@
 <script setup>
 import getProducts from '~/gql/queries/getProducts.gql';
 import getCategories from '~/gql/queries/getCategories.gql';
+const formattedDate = ref('');
 const isDropdownSortBy = ref(false);
 const isDropdownCategory = ref(false);
 const router = useRouter();
@@ -125,6 +126,25 @@ const variables = ref({
   order: sortByOrder,
   field: sortByField,
 });
+
+const formatDate = (date) => {
+  const formatter = new Intl.DateTimeFormat('en-GB', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    timeZone: 'America/Los_Angeles',
+    timeZoneName: 'short',
+  });
+  let formatted = formatter.format(date);
+  formatted = formatted.replace(/,/g, '');
+  return formatted;
+};
+
+const updateDate = () => {
+  formattedDate.value = formatDate(new Date());
+};
 
 const { result: categoriesResult } = useQuery(getCategories);
 const { result: productsResult, loading, fetchMore } = useQuery(getProducts, variables.value);
@@ -172,12 +192,17 @@ const handleClickOutside = (event) => {
   }
 };
 
+updateDate();
+let timer;
 onMounted(() => {
+  updateDate();
+  timer = setInterval(updateDate, 1000);
   window.addEventListener('scroll', handleScroll);
   document.addEventListener('click', handleClickOutside);
 });
 
 onUnmounted(() => {
+  clearInterval(timer);
   window.removeEventListener('scroll', handleScroll);
   document.removeEventListener('click', handleClickOutside);
 });
