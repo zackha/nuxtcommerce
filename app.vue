@@ -12,31 +12,18 @@
         </div>
       </div>
       <div role="tablist" class="border-t dark:border-neutral-800 box-border items-center grid grid-cols-3 gap-1 relative">
-        <div class="flex flex-row items-center dark:text-[#a8a8a8]">
-          <label class="w-full group focus-within:text-neutral-100 focus-within:bg-[#121212] focus-within:border-neutral-100 border-t border-transparent -mt-px py-3.5">
-            <div class="box-border flex flex-col group-focus-within:invisible visible">
-              <div type="submit" class="absolute left-0 top-0 mt-[18.5px]">
-                <svg aria-label="Search" height="16" role="img" viewBox="0 0 24 24" width="16">
-                  <title>Search</title>
-                  <path
-                    d="M19 10.5A8.5 8.5 0 1 1 10.5 2a8.5 8.5 0 0 1 8.5 8.5Z"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"></path>
-                  <line fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="16.511" x2="22" y1="16.511" y2="22"></line>
-                </svg>
+        <div class="flex flex-row text-center dark:text-[#a8a8a8]">
+          <label class="group w-full block relative py-1 focus-within:border-[#353535] border border-transparent rounded-full">
+            <button class="flex relative gap-2 w-full">
+              <div class="cursor-pointer py-1.5 -my-2 group-focus-within:-mr-4 group-focus-within:invisible">
+                <Icon name="heroicons-outline:magnifying-glass" size="20"></Icon>
               </div>
-            </div>
-            <input
-              class="placeholder:group-focus-within:text-neutral-100 px-6 bg-transparent outline-none placeholder:text-[#a8a8a8] w-full"
-              type="text"
-              v-model="searchTerm"
-              placeholder="Search" />
-            <button @click="searchTerm = null" class="box-border flex flex-col group-focus-within:visible invisible">
-              <div type="submit" class="absolute left-[29%] top-0 mt-3">
-                <Icon name="mingcute:close-circle-fill" size="18" />
+              <div class="relative flex-grow">
+                <input class="w-full bg-transparent outline-none placeholder:text-[#a8a8a8]" type="text" v-model="searchTerm" placeholder="Search" />
+              </div>
+              <div @click="searchTerm = null" class="cursor-pointer py-1.5 -my-2 mr-2 group-focus-within:visible invisible">
+                <Icon v-if="!loading" name="mingcute:close-circle-fill" size="20" />
+                <Icon v-else-if="loading" name="Loading" size="20" />
               </div>
             </button>
           </label>
