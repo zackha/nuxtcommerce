@@ -19,7 +19,11 @@
                 <Icon name="heroicons-outline:magnifying-glass" size="20"></Icon>
               </div>
               <div class="relative flex-grow">
-                <input class="w-full bg-transparent outline-none placeholder:text-[#a8a8a8]" type="text" v-model="searchTerm" placeholder="Search" />
+                <input
+                  class="w-full bg-transparent outline-none placeholder:text-[#a8a8a8]"
+                  type="text"
+                  v-model="searchTerm"
+                  :placeholder="selectedCategory ? `Search in ${selectedCategory}` : 'Search'" />
               </div>
               <div @click="searchTerm = null" class="cursor-pointer py-1.5 -my-2 mr-2 group-focus-within:visible invisible">
                 <Icon v-if="!loading" name="mingcute:close-circle-fill" size="20" />
@@ -88,7 +92,7 @@
           <div class="relative pb-[133%] overflow-hidden"></div>
         </div>
       </div>
-      <div v-if="!empty" class="text-lg text-center p-6">
+      <div v-if="!empty && !loading" class="text-lg text-center p-6">
         <Icon name="heroicons-outline:magnifying-glass" size="99"></Icon>
         <div class="py-4">
           <span v-if="selectedCategory">
