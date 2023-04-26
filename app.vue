@@ -92,7 +92,7 @@
           <div class="relative pb-[133%] overflow-hidden"></div>
         </div>
       </div>
-      <div v-if="!empty" class="text-lg text-center p-6">
+      <div v-if="!empty && !loading" class="text-lg text-center p-6">
         <Icon name="heroicons-outline:magnifying-glass" size="99"></Icon>
         <div class="py-4">
           <span v-if="selectedCategory">
