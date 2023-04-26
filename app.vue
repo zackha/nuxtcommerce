@@ -208,28 +208,43 @@ onUnmounted(() => {
 });
 
 watch([selectedOption, searchTerm, selectedCategory], ([newSelectedOption, newSearchTerm, newCategory]) => {
+  let updatedQuery = {
+    ...route.query,
+    search: newSearchTerm || undefined,
+    category: newCategory || undefined,
+  };
+
   switch (newSelectedOption) {
     case 'Newest':
       sortByOrder.value = 'DESC';
       sortByField.value = 'DATE';
+      updatedQuery = {
+        ...updatedQuery,
+        orderby: undefined,
+        fieldby: undefined,
+      };
       break;
     case 'Price: High to Low':
       sortByOrder.value = 'DESC';
       sortByField.value = 'PRICE';
+      updatedQuery = {
+        ...updatedQuery,
+        orderby: sortByOrder.value || undefined,
+        fieldby: sortByField.value || undefined,
+      };
       break;
     case 'Price: Low to High':
       sortByOrder.value = 'ASC';
       sortByField.value = 'PRICE';
+      updatedQuery = {
+        ...updatedQuery,
+        orderby: sortByOrder.value || undefined,
+        fieldby: sortByField.value || undefined,
+      };
       break;
   }
   router.push({
-    query: {
-      ...route.query,
-      search: newSearchTerm || undefined,
-      category: newCategory || undefined,
-      orderby: sortByOrder.value || undefined,
-      fieldby: sortByField.value || undefined,
-    },
+    query: updatedQuery,
   });
 });
 </script>
