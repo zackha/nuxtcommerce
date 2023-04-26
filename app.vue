@@ -35,14 +35,14 @@
               isDropdownSortBy = false;
             "
             :class="{ activeTab: isDropdownCategory }"
-            class="items-center dark:text-[#a8a8a8] text-xs flex h-[52px] justify-center cursor-pointer border-t border-transparent -mt-px">
+            class="relative items-center dark:text-[#a8a8a8] text-xs flex h-[52px] justify-center cursor-pointer border-t border-transparent -mt-px">
             <div class="flex box-border items-center">
               <Icon name="system-uicons:grid-squares" size="22" />
               <span class="ml-1.5 font-semibold uppercase tracking-wider select-none">{{ selectedCategory ? selectedCategory : 'All Categories' }}</span>
             </div>
             <Transition>
-              <div v-show="isDropdownCategory" class="absolute top-full z-10 right-[55px] dropdown">
-                <div class="dropdown-triangle left-[30%]"></div>
+              <div v-show="isDropdownCategory" class="min-w-max absolute top-full z-10 -left-5 dropdown">
+                <div class="dropdown-triangle left-1/4"></div>
                 <div class="text-sm bg-white dark:bg-neutral-800 rounded-2xl overflow-hidden">
                   <div class="border-b dark:border-[#353535] last:border-b-0" @click="selectedCategory = ''">
                     <a class="dark:text-neutral-100 block px-4 py-2.5 hover:dark:bg-[#3c3c3c] hover:transition-all">All Categories</a>
@@ -60,14 +60,14 @@
               isDropdownCategory = false;
             "
             :class="{ activeTab: isDropdownSortBy }"
-            class="items-center dark:text-[#a8a8a8] text-xs flex h-[52px] justify-center cursor-pointer border-t border-transparent -mt-px">
+            class="relative items-center dark:text-[#a8a8a8] text-xs flex h-[52px] justify-center cursor-pointer border-t border-transparent -mt-px">
             <div class="flex box-border items-center">
               <Icon name="system-uicons:filter" size="22" />
               <span class="ml-1.5 font-semibold uppercase tracking-wider select-none">{{ selectedOption }}</span>
             </div>
             <Transition>
-              <div v-show="isDropdownSortBy" class="absolute top-full z-10 -right-[18px] dropdown">
-                <div class="dropdown-triangle left-[57%]"></div>
+              <div v-show="isDropdownSortBy" class="min-w-max absolute top-full z-10 -right-5 dropdown">
+                <div class="dropdown-triangle right-1/3"></div>
                 <div class="text-sm bg-white dark:bg-neutral-800 rounded-2xl overflow-hidden">
                   <div class="border-b dark:border-[#353535] last:border-b-0" v-for="(option, index) in options" :key="index" @click="selectedOption = option.value">
                     <a class="dark:text-neutral-100 block px-4 py-2.5 hover:dark:bg-[#3c3c3c] hover:transition-all">{{ option.value }}</a>
