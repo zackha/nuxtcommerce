@@ -89,7 +89,7 @@
         </div>
       </div>
       <div v-if="!empty" class="text-lg text-center p-6">
-        <Icon name="system-uicons:search" size="12%"></Icon>
+        <Icon name="heroicons-outline:magnifying-glass" size="99"></Icon>
         <div class="py-4">
           <span v-if="selectedCategory">
             In the <strong>{{ selectedCategory }}</strong> category,
