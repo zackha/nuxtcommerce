@@ -11,7 +11,7 @@
           </div>
         </div>
       </div>
-      <div role="tablist" class="border-t dark:border-neutral-800 box-border items-center grid grid-cols-3 gap-1 relative">
+      <div role="tablist" class="border-t border-[#dbdbdb] dark:border-neutral-800 box-border items-center grid grid-cols-3 gap-1 relative">
         <div class="flex flex-row text-center dark:text-[#a8a8a8]">
           <label class="group w-full block relative py-1 focus-within:border-[#353535] border border-transparent rounded-full">
             <button class="flex relative gap-2 w-full">
@@ -83,9 +83,31 @@
         </div>
       </div>
       <div class="grid gap-1 grid-cols-3">
-        <div v-for="node in products" :key="node.id" class="bg-neutral-200 dark:bg-neutral-800">
+        <div v-for="node in products" :key="node.id" class="bg-neutral-200 dark:bg-neutral-800 group relative">
           <div class="relative pb-[133%] overflow-hidden">
             <NuxtImg loading="lazy" :title="node.name" :alt="node.image.altText || node.name" :src="node.image.sourceUrl" class="object-cover w-full h-full absolute" />
+          </div>
+          <div
+            class="bottom-0 left-0 right-0 top-0 justify-center items-center flex flex-col absolute backdrop-blur-sm bg-black/50 text-white text-sm invisible group-hover:visible">
+            <div class="absolute p-4 flex flex-col items-center gap-1">
+              <div class="text-center font-bold">
+                {{ node.name }}
+              </div>
+              <div class="flex gap-1 text-base">
+                <div class="font-semibold" v-html="node.salePrice"></div>
+                <div class="line-through text-neutral-400" v-html="node.regularPrice"></div>
+              </div>
+              <div class="flex gap-2 mt-3 flex-wrap justify-center">
+                <span
+                  :class="[variation.stockStatus === 'OUT_OF_STOCK' ? 'disabled' : '']"
+                  class="py-1.5 px-2 border rounded leading-[10px] h-6"
+                  v-for="variation in node.variations.nodes"
+                  :key="variation.id"
+                  :disabled="variation.stockStatus === 'OUT_OF_STOCK'">
+                  {{ variation.attributes.nodes.map((attr) => attr.value).toString() }}
+                </span>
+              </div>
+            </div>
           </div>
         </div>
         <div v-if="loading" v-for="node in 9" :key="node" class="animate-pulse bg-neutral-200 dark:bg-neutral-800">
@@ -178,12 +200,14 @@ const loadMore = () => {
 
 const handleScroll = () => {
   const scrollPosition = window.scrollY + window.innerHeight;
-  const loadMorePosition = document.documentElement.scrollHeight - 400;
+  const loadMorePosition = document.documentElement.scrollHeight - 1600;
 
   if (scrollPosition >= loadMorePosition && pageInfo.value?.hasNextPage && !loading.value) {
     loadMore();
   }
 };
+
+const scrollInterval = setInterval(handleScroll, 100);
 
 const handleClickOutside = (event) => {
   if (!event.target.closest('.dropdown')) {
@@ -203,6 +227,7 @@ onMounted(() => {
 
 onUnmounted(() => {
   clearInterval(timer);
+  clearInterval(scrollInterval);
   window.removeEventListener('scroll', handleScroll);
   document.removeEventListener('click', handleClickOutside);
 });
@@ -279,5 +304,8 @@ watch([selectedOption, searchTerm, selectedCategory], ([newSelectedOption, newSe
 }
 .activeTab {
   @apply text-neutral-100 border-neutral-100;
+}
+.disabled {
+  opacity: 0.4;
 }
 </style>
