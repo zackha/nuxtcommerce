@@ -1,23 +1,28 @@
 query getProducts($after: String, $search: String, $category: String!, $order: OrderEnum!, $field: ProductsOrderByEnum!) {
-  products(
-    first: 24,
-    after: $after,
-    where: {
-      stockStatus: IN_STOCK,
-      search: $search,
-      category: $category,
-      orderby: {
-        field: $field,
-        order: $order
-      }
-    }
-  ) {
+  products(first: 24, after: $after, where: { stockStatus: IN_STOCK, search: $search, category: $category, orderby: { field: $field, order: $order } }) {
     nodes {
-      name
-      id
-      image {
-        sourceUrl(size: WOOCOMMERCE_SINGLE)
-        altText
+      ... on VariableProduct {
+        id
+        name
+        regularPrice
+        salePrice
+        image {
+          id
+          sourceUrl(size: WOOCOMMERCE_SINGLE)
+          altText
+        }
+        variations(where: { orderby: { field: NAME, order: DESC } }) {
+          nodes {
+            id
+            stockStatus
+            attributes {
+              nodes {
+                id
+                value
+              }
+            }
+          }
+        }
       }
     }
     pageInfo {
