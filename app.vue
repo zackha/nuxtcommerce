@@ -87,17 +87,16 @@
           <div class="relative pb-[133%] overflow-hidden">
             <NuxtImg loading="lazy" :title="node.name" :alt="node.image.altText || node.name" :src="node.image.sourceUrl" class="object-cover w-full h-full absolute" />
           </div>
-          <div
-            class="bottom-0 left-0 right-0 top-0 justify-center items-center flex flex-col absolute backdrop-blur-sm bg-black/50 text-white text-sm invisible group-hover:visible">
-            <div class="absolute p-4 flex flex-col items-center gap-1">
-              <div class="text-center font-bold">
+          <div class="bottom-0 left-0 right-0 top-0 flex flex-col absolute text-white text-sm invisible group-hover:visible">
+            <div class="absolute p-4 flex flex-col gap-1 bottom-0 backdrop-blur-sm bg-black/80 w-full">
+              <div class="font-bold">
                 {{ node.name }}
               </div>
-              <div class="flex gap-1 text-base">
-                <div class="font-semibold" v-html="node.salePrice"></div>
+              <div class="flex gap-1">
+                <div class="font-semibold text-[#ff0000]" v-html="node.salePrice"></div>
                 <div class="line-through text-neutral-400" v-html="node.regularPrice"></div>
               </div>
-              <div class="flex gap-2 mt-3 flex-wrap justify-center">
+              <div class="flex gap-2 mt-3 flex-wrap">
                 <span
                   :class="[variation.stockStatus === 'OUT_OF_STOCK' ? 'disabled' : '']"
                   class="py-1.5 px-2 border rounded leading-[10px] h-6"
