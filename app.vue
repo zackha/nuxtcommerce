@@ -98,7 +98,12 @@
                 <div class="line-through text-neutral-400" v-html="node.regularPrice"></div>
               </div>
               <div class="flex gap-2 mt-3 flex-wrap justify-center">
-                <span :class="variation.stockStatus" class="py-1.5 px-2 border rounded leading-[10px] h-[25px]" v-for="variation in node.variations.nodes" :key="variation.id">
+                <span
+                  :class="[variation.stockStatus === 'OUT_OF_STOCK' ? 'disabled' : '']"
+                  class="py-1.5 px-2 border rounded leading-[10px] h-6"
+                  v-for="variation in node.variations.nodes"
+                  :key="variation.id"
+                  :disabled="variation.stockStatus === 'OUT_OF_STOCK'">
                   {{ variation.attributes.nodes.map((attr) => attr.value).toString() }}
                 </span>
               </div>
@@ -296,5 +301,8 @@ watch([selectedOption, searchTerm, selectedCategory], ([newSelectedOption, newSe
 }
 .activeTab {
   @apply text-neutral-100 border-neutral-100;
+}
+.disabled {
+  opacity: 0.4;
 }
 </style>
