@@ -88,13 +88,13 @@
             <NuxtImg loading="lazy" :title="node.name" :alt="node.image.altText || node.name" :src="node.image.sourceUrl" class="object-cover w-full h-full absolute" />
           </div>
           <div
-            class="bottom-0 left-0 right-0 top-0 justify-center items-center flex flex-col absolute backdrop-blur-sm bg-black/50 text-white text-sm invisible group-hover:visible">
-            <div class="absolute p-4 flex flex-col items-center gap-1">
-              <div class="text-center font-bold">
+            class="bottom-0 left-0 right-0 top-0 flex flex-col justify-center items-center absolute text-white text-sm backdrop-blur-sm bg-black/80 invisible group-hover:visible">
+            <div class="absolute p-4 flex flex-col gap-1 items-center">
+              <div class="font-bold text-center">
                 {{ node.name }}
               </div>
-              <div class="flex gap-1 text-base">
-                <div class="font-semibold" v-html="node.salePrice"></div>
+              <div class="flex gap-1">
+                <div class="font-semibold text-[#ff0000]" v-html="node.salePrice"></div>
                 <div class="line-through text-neutral-400" v-html="node.regularPrice"></div>
               </div>
               <div class="flex gap-2 mt-3 flex-wrap justify-center">
@@ -207,8 +207,6 @@ const handleScroll = () => {
   }
 };
 
-const scrollInterval = setInterval(handleScroll, 100);
-
 const handleClickOutside = (event) => {
   if (!event.target.closest('.dropdown')) {
     isDropdownSortBy.value = false;
@@ -227,7 +225,6 @@ onMounted(() => {
 
 onUnmounted(() => {
   clearInterval(timer);
-  clearInterval(scrollInterval);
   window.removeEventListener('scroll', handleScroll);
   document.removeEventListener('click', handleClickOutside);
 });
