@@ -38,7 +38,7 @@
               isDropdownCategory = !isDropdownCategory;
               isDropdownSortBy = false;
             "
-            :class="{ activeTab: isDropdownCategory }"
+            :class="{ activeTab: isDropdownCategory || selectedCategory }"
             class="items-center dark:text-[#a8a8a8] text-xs flex h-[52px] justify-center cursor-pointer border-t border-transparent -mt-px">
             <div class="flex box-border items-center">
               <Icon name="system-uicons:grid-squares" size="22" />
@@ -71,7 +71,7 @@
               isDropdownSortBy = !isDropdownSortBy;
               isDropdownCategory = false;
             "
-            :class="{ activeTab: isDropdownSortBy }"
+            :class="{ activeTab: isDropdownSortBy || selectedOption !== 'Newest' }"
             class="items-center dark:text-[#a8a8a8] text-xs flex h-[52px] justify-center cursor-pointer border-t border-transparent -mt-px">
             <div class="flex box-border items-center">
               <Icon name="system-uicons:filter" size="22" />
