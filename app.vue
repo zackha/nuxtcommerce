@@ -199,14 +199,12 @@ const loadMore = () => {
 
 const handleScroll = () => {
   const scrollPosition = window.scrollY + window.innerHeight;
-  const loadMorePosition = document.documentElement.scrollHeight - 1600;
+  const loadMorePosition = document.documentElement.scrollHeight - 400;
 
   if (scrollPosition >= loadMorePosition && pageInfo.value?.hasNextPage && !loading.value) {
     loadMore();
   }
 };
-
-const scrollInterval = setInterval(handleScroll, 100);
 
 const handleClickOutside = (event) => {
   if (!event.target.closest('.dropdown')) {
@@ -226,7 +224,6 @@ onMounted(() => {
 
 onUnmounted(() => {
   clearInterval(timer);
-  clearInterval(scrollInterval);
   window.removeEventListener('scroll', handleScroll);
   document.removeEventListener('click', handleClickOutside);
 });
