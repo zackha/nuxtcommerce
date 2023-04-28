@@ -48,11 +48,19 @@
               <div v-show="isDropdownCategory" class="absolute top-full z-10 right-[55px] dropdown">
                 <div class="dropdown-triangle left-[30%]"></div>
                 <div class="text-sm bg-white dark:bg-neutral-800 rounded-2xl overflow-hidden">
-                  <div class="border-b dark:border-[#353535] last:border-b-0" @click="selectedCategory = ''">
-                    <a class="block px-4 py-2.5 hover:dark:bg-[#3c3c3c] hover:transition-all">All Categories</a>
+                  <div
+                    class="flex justify-between gap-3 px-4 py-2.5 hover:dark:bg-[#3c3c3c] hover:transition-all border-b dark:border-[#353535] last:border-b-0"
+                    @click="selectedCategory = ''">
+                    <div>All Categories</div>
+                    <Icon v-if="selectedCategory === ''" name="system-uicons:check" size="20" />
                   </div>
-                  <div class="border-b dark:border-[#353535] last:border-b-0" v-for="category in categories" :key="category.id" @click="selectedCategory = category.name">
-                    <a class="block px-4 py-2.5 hover:dark:bg-[#3c3c3c] hover:transition-all">{{ category.name }}</a>
+                  <div
+                    class="flex justify-between gap-3 px-4 py-2.5 hover:dark:bg-[#3c3c3c] hover:transition-all border-b dark:border-[#353535] last:border-b-0"
+                    v-for="category in categories"
+                    :key="category.id"
+                    @click="selectedCategory = category.name">
+                    <div>{{ category.name }}</div>
+                    <Icon v-if="selectedCategory === category.name" name="system-uicons:check" size="20" />
                   </div>
                 </div>
               </div>
@@ -73,8 +81,13 @@
               <div v-show="isDropdownSortBy" class="absolute top-full z-10 -right-[18px] dropdown">
                 <div class="dropdown-triangle left-[57%]"></div>
                 <div class="text-sm bg-white dark:bg-neutral-800 rounded-2xl overflow-hidden">
-                  <div class="border-b dark:border-[#353535] last:border-b-0" v-for="(option, index) in options" :key="index" @click="selectedOption = option.value">
-                    <a class="block px-4 py-2.5 hover:dark:bg-[#3c3c3c] hover:transition-all">{{ option.value }}</a>
+                  <div
+                    class="flex justify-between gap-3 px-4 py-2.5 hover:dark:bg-[#3c3c3c] hover:transition-all border-b dark:border-[#353535] last:border-b-0"
+                    v-for="(option, index) in options"
+                    :key="index"
+                    @click="selectedOption = option.value">
+                    <div>{{ option.value }}</div>
+                    <Icon v-if="selectedOption === option.value" name="system-uicons:check" size="20" />
                   </div>
                 </div>
               </div>
