@@ -87,16 +87,17 @@
           <div class="relative pb-[133%] overflow-hidden">
             <NuxtImg loading="lazy" :title="node.name" :alt="node.image.altText || node.name" :src="node.image.sourceUrl" class="object-cover w-full h-full absolute" />
           </div>
-          <div class="bottom-0 left-0 right-0 top-0 flex flex-col absolute text-white text-sm invisible group-hover:visible">
-            <div class="absolute p-4 flex flex-col gap-1 bottom-0 backdrop-blur-sm bg-black/80 w-full">
-              <div class="font-bold">
+          <div
+            class="bottom-0 left-0 right-0 top-0 flex flex-col justify-center items-center absolute text-white text-sm backdrop-blur-sm bg-black/80 invisible group-hover:visible">
+            <div class="absolute p-4 flex flex-col gap-1 items-center">
+              <div class="font-bold text-center">
                 {{ node.name }}
               </div>
               <div class="flex gap-1">
                 <div class="font-semibold text-[#ff0000]" v-html="node.salePrice"></div>
                 <div class="line-through text-neutral-400" v-html="node.regularPrice"></div>
               </div>
-              <div class="flex gap-2 mt-3 flex-wrap">
+              <div class="flex gap-2 mt-3 flex-wrap justify-center">
                 <span
                   :class="[variation.stockStatus === 'OUT_OF_STOCK' ? 'disabled' : '']"
                   class="py-1.5 px-2 border rounded leading-[10px] h-6"
@@ -199,7 +200,7 @@ const loadMore = () => {
 
 const handleScroll = () => {
   const scrollPosition = window.scrollY + window.innerHeight;
-  const loadMorePosition = document.documentElement.scrollHeight - 400;
+  const loadMorePosition = document.documentElement.scrollHeight - 1600;
 
   if (scrollPosition >= loadMorePosition && pageInfo.value?.hasNextPage && !loading.value) {
     loadMore();
