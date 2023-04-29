@@ -1,19 +1,20 @@
 {
-  "name": "nuxt-app",
+  "name": "nuxtcommerce",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
-    "build": "nuxt build",
-    "dev": "nuxt dev",
-    "generate": "nuxt generate",
-    "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "dev": "nuxi dev",
+    "build": "nuxi build",
+    "generate": "nuxi generate",
+    "preview": "nuxi preview",
+    "postinstall": "nuxi prepare"
   },
   "devDependencies": {
     "@nuxt/image-edge": "^1.0.0-28020728.5df24eb",
     "@nuxtjs/apollo": "^5.0.0-alpha.6",
     "@nuxtjs/color-mode": "^3.2.0",
-    "@nuxtjs/tailwindcss": "^6.6.6",
-    "nuxt": "^3.4.2",
+    "@nuxtjs/tailwindcss": "^6.6.7",
+    "nuxt": "^3.4.3",
     "nuxt-icon": "^0.4.0"
   }
 }
