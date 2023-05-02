@@ -7,7 +7,7 @@
             <NuxtImg class="my-0 mx-auto h-14" src="https://seeklogo.com/images/S/supreme-ny-logo-AAF66BE276-seeklogo.com.png" />
           </span>
           <div class="mt-4 font-mono">
-            <div class="text-sm text-center m-auto">{{ formatDate(new Date()) }}</div>
+            <div class="text-sm text-center m-auto">{{ formattedDate }}</div>
           </div>
         </div>
       </div>
@@ -150,6 +150,7 @@ const isDropdownSortBy = ref(false);
 const isDropdownCategory = ref(false);
 const router = useRouter();
 const route = useRoute();
+const formattedDate = ref(null);
 const searchTerm = ref(route.query.search || '');
 const selectedCategory = ref(route.query.category || '');
 const sortByOrder = ref(route.query.orderby && route.query.orderby !== '' ? route.query.orderby : 'DESC');
@@ -175,6 +176,10 @@ const formatDate = (date) => {
   formatted = formatted.replace(/,/g, '');
   return formatted;
 };
+
+setInterval(() => {
+  formattedDate.value = formatDate(new Date());
+}, 1000);
 
 const { result: categoriesResult } = useQuery(getCategories);
 const { result: productsResult, loading, fetchMore } = useQuery(getProducts, variables.value);
