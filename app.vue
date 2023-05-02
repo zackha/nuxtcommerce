@@ -151,7 +151,7 @@ const isDropdownSortBy = ref(false);
 const isDropdownCategory = ref(false);
 const router = useRouter();
 const route = useRoute();
-const searchTerm = ref(route.query.search || null);
+const searchTerm = ref(route.query.search || '');
 const selectedCategory = ref(route.query.category || '');
 const sortByOrder = ref(route.query.orderby && route.query.orderby !== '' ? route.query.orderby : 'DESC');
 const sortByField = ref(route.query.fieldby && route.query.fieldby !== '' ? route.query.fieldby : 'DATE');
