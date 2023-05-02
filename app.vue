@@ -146,7 +146,6 @@
 <script setup>
 import getProducts from '~/gql/queries/getProducts.gql';
 import getCategories from '~/gql/queries/getCategories.gql';
-const formattedDate = ref('');
 const isDropdownSortBy = ref(false);
 const isDropdownCategory = ref(false);
 const router = useRouter();
