@@ -7,7 +7,7 @@
             <NuxtImg class="my-0 mx-auto h-14" src="https://seeklogo.com/images/S/supreme-ny-logo-AAF66BE276-seeklogo.com.png" />
           </span>
           <div class="mt-4 font-mono">
-            <div class="text-sm text-center m-auto">{{ formattedDate }}</div>
+            <div class="text-sm text-center m-auto">{{ formatDate(new Date()) }}</div>
           </div>
         </div>
       </div>
@@ -177,10 +177,6 @@ const formatDate = (date) => {
   return formatted;
 };
 
-const updateDate = () => {
-  formattedDate.value = formatDate(new Date());
-};
-
 const { result: categoriesResult } = useQuery(getCategories);
 const { result: productsResult, loading, fetchMore } = useQuery(getProducts, variables.value);
 const products = computed(() => productsResult.value?.products.nodes);
@@ -227,17 +223,12 @@ const handleClickOutside = (event) => {
   }
 };
 
-updateDate();
-let timer;
 onMounted(() => {
-  updateDate();
-  timer = setInterval(updateDate, 1000);
   window.addEventListener('scroll', handleScroll);
   document.addEventListener('click', handleClickOutside);
 });
 
 onUnmounted(() => {
-  clearInterval(timer);
   window.removeEventListener('scroll', handleScroll);
   document.removeEventListener('click', handleClickOutside);
 });
