@@ -3,12 +3,8 @@
     <div class="p-1 box-content w-[calc(100%+40px)] mx-auto max-w-[935px] grow">
       <div class="pb-11 pt-7 flex justify-center">
         <div class="my-0 mx-auto">
-          <span class="flex items-center justify-center">
-            <NuxtImg class="my-0 mx-auto h-14" src="https://seeklogo.com/images/S/supreme-ny-logo-AAF66BE276-seeklogo.com.png" />
-          </span>
-          <div class="mt-4 font-mono">
-            <div class="text-sm text-center m-auto">{{ formattedDate }}</div>
-          </div>
+          <HeaderLogo />
+          <HeaderDate />
         </div>
       </div>
       <div role="tablist" class="border-t border-[#dbdbdb] dark:border-neutral-800 box-border items-center grid grid-cols-3 gap-1 relative">
@@ -150,7 +146,7 @@ const isDropdownSortBy = ref(false);
 const isDropdownCategory = ref(false);
 const router = useRouter();
 const route = useRoute();
-const formattedDate = ref(null);
+
 const searchTerm = ref(route.query.search || '');
 const selectedCategory = ref(route.query.category || '');
 const sortByOrder = ref(route.query.orderby && route.query.orderby !== '' ? route.query.orderby : 'DESC');
@@ -161,25 +157,6 @@ const variables = ref({
   order: sortByOrder,
   field: sortByField,
 });
-
-const formatDate = (date) => {
-  const formatter = new Intl.DateTimeFormat('en-GB', {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-    timeZone: 'America/Los_Angeles',
-    timeZoneName: 'short',
-  });
-  let formatted = formatter.format(date);
-  formatted = formatted.replace(/,/g, '');
-  return formatted;
-};
-
-setInterval(() => {
-  formattedDate.value = formatDate(new Date());
-}, 1000);
 
 const { result: categoriesResult } = useQuery(getCategories);
 const { result: productsResult, loading, fetchMore } = useQuery(getProducts, variables.value);
