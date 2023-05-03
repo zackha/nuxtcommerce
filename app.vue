@@ -1,12 +1,7 @@
 <template>
   <div class="flex">
     <div class="p-1 box-content w-[calc(100%+40px)] mx-auto max-w-[935px] grow">
-      <div class="pb-11 pt-7 flex justify-center">
-        <div class="my-0 mx-auto">
-          <HeaderLogo />
-          <HeaderDate />
-        </div>
-      </div>
+      <Header />
       <div role="tablist" class="border-t border-[#dbdbdb] dark:border-neutral-800 box-border items-center grid grid-cols-3 gap-1 relative">
         <div class="flex flex-row text-center dark:text-[#a8a8a8]">
           <label class="group w-full block relative py-1 focus-within:border-[#353535] border border-transparent rounded-full">
