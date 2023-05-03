@@ -36,7 +36,7 @@
               <span class="ml-1.5 font-semibold uppercase tracking-wider select-none">Category</span>
             </div>
             <Transition>
-              <div v-show="isDropdownCategory" class="absolute top-full z-10 right-[55px] dropdown">
+              <div v-show="isDropdownCategory" class="absolute top-full z-10 right-[55px] dropdown text-neutral-100">
                 <div class="dropdown-triangle left-[30%]"></div>
                 <div class="text-sm bg-white dark:bg-neutral-800 rounded-2xl overflow-hidden">
                   <div
@@ -69,7 +69,7 @@
               <span class="ml-1.5 font-semibold uppercase tracking-wider select-none">Sort by</span>
             </div>
             <Transition>
-              <div v-show="isDropdownSortBy" class="absolute top-full z-10 -right-[18px] dropdown">
+              <div v-show="isDropdownSortBy" class="absolute top-full z-10 -right-[18px] dropdown text-neutral-100">
                 <div class="dropdown-triangle left-[57%]"></div>
                 <div class="text-sm bg-white dark:bg-neutral-800 rounded-2xl overflow-hidden">
                   <div
