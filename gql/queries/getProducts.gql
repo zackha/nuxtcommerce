@@ -1,5 +1,5 @@
-query getProducts($after: String, $search: String, $category: String!, $order: OrderEnum!, $field: ProductsOrderByEnum!) {
-  products(first: 24, after: $after, where: { stockStatus: IN_STOCK, search: $search, category: $category, orderby: { field: $field, order: $order } }) {
+query getProducts($after: String, $search: String!, $category: String!, $order: OrderEnum!, $field: ProductsOrderByEnum!) {
+  products(first: 12, after: $after, where: { stockStatus: IN_STOCK, search: $search, category: $category, orderby: { field: $field, order: $order } }) {
     nodes {
       ... on VariableProduct {
         id

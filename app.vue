@@ -1,16 +1,7 @@
 <template>
   <div class="flex">
     <div class="p-1 box-content w-[calc(100%+40px)] mx-auto max-w-[935px] grow">
-      <div class="pb-11 pt-7 flex justify-center">
-        <div class="my-0 mx-auto">
-          <span class="flex items-center justify-center">
-            <NuxtImg class="my-0 mx-auto h-14" src="https://seeklogo.com/images/S/supreme-ny-logo-AAF66BE276-seeklogo.com.png" />
-          </span>
-          <div class="mt-4 font-mono">
-            <div class="text-sm text-center m-auto">{{ formattedDate }}</div>
-          </div>
-        </div>
-      </div>
+      <Header />
       <div role="tablist" class="border-t border-[#dbdbdb] dark:border-neutral-800 box-border items-center grid grid-cols-3 gap-1 relative">
         <div class="flex flex-row text-center dark:text-[#a8a8a8]">
           <label class="group w-full block relative py-1 focus-within:border-[#353535] border border-transparent rounded-full">
@@ -146,12 +137,11 @@
 <script setup>
 import getProducts from '~/gql/queries/getProducts.gql';
 import getCategories from '~/gql/queries/getCategories.gql';
-const formattedDate = ref('');
 const isDropdownSortBy = ref(false);
 const isDropdownCategory = ref(false);
 const router = useRouter();
 const route = useRoute();
-const searchTerm = ref(route.query.search || null);
+const searchTerm = ref(route.query.search || '');
 const selectedCategory = ref(route.query.category || '');
 const sortByOrder = ref(route.query.orderby && route.query.orderby !== '' ? route.query.orderby : 'DESC');
 const sortByField = ref(route.query.fieldby && route.query.fieldby !== '' ? route.query.fieldby : 'DATE');
@@ -161,25 +151,6 @@ const variables = ref({
   order: sortByOrder,
   field: sortByField,
 });
-
-const formatDate = (date) => {
-  const formatter = new Intl.DateTimeFormat('en-GB', {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-    timeZone: 'America/Los_Angeles',
-    timeZoneName: 'short',
-  });
-  let formatted = formatter.format(date);
-  formatted = formatted.replace(/,/g, '');
-  return formatted;
-};
-
-const updateDate = () => {
-  formattedDate.value = formatDate(new Date());
-};
 
 const { result: categoriesResult } = useQuery(getCategories);
 const { result: productsResult, loading, fetchMore } = useQuery(getProducts, variables.value);
@@ -227,17 +198,12 @@ const handleClickOutside = (event) => {
   }
 };
 
-updateDate();
-let timer;
 onMounted(() => {
-  updateDate();
-  timer = setInterval(updateDate, 1000);
   window.addEventListener('scroll', handleScroll);
   document.addEventListener('click', handleClickOutside);
 });
 
 onUnmounted(() => {
-  clearInterval(timer);
   window.removeEventListener('scroll', handleScroll);
   document.removeEventListener('click', handleClickOutside);
 });
