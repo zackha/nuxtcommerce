@@ -4,8 +4,8 @@
   </div>
 </template>
 
-<script setup>
-const formatDate = (date) => {
+<script setup lang="ts">
+const formatDate = (date: Date): string => {
   const formatter = new Intl.DateTimeFormat('en-GB', {
     year: 'numeric',
     month: '2-digit',
@@ -20,9 +20,13 @@ const formatDate = (date) => {
   return formatted;
 };
 
-const time = ref(formatDate(new Date()));
+const time = ref<string>(formatDate(new Date()));
 
-setInterval(() => {
+const updateTime = (): void => {
   time.value = formatDate(new Date());
-}, 1000);
+};
+
+onMounted(() => {
+  setInterval(updateTime, 1000);
+});
 </script>
