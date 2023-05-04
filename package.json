@@ -1,16 +1,17 @@
 {
   "name": "nuxtcommerce",
   "version": "0.0.1",
-  "private": true,
+  "private": false,
   "scripts": {
     "dev": "nuxi dev",
     "build": "nuxi build",
     "generate": "nuxi generate",
     "preview": "nuxi preview",
-    "postinstall": "nuxi prepare"
+    "postinstall": "nuxi prepare",
+    "release": "bumpp --commit --push --tag"
   },
   "devDependencies": {
-    "@nuxt/image-edge": "^1.0.0-28020728.5df24eb",
+    "@nuxt/image-edge": "^1.0.0-28050764.aaee7ac",
     "@nuxtjs/apollo": "^5.0.0-alpha.6",
     "@nuxtjs/color-mode": "^3.2.0",
     "@nuxtjs/tailwindcss": "^6.6.7",
