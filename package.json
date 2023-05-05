@@ -1,14 +1,14 @@
 {
   "name": "nuxtcommerce",
   "version": "1.0.1",
-  "private": false,
+  "private": true,
   "scripts": {
     "dev": "nuxi dev",
     "build": "nuxi build",
     "generate": "nuxi generate",
     "preview": "nuxi preview",
     "postinstall": "nuxi prepare",
-    "release": "bumpp --commit --push --tag"
+    "release": "bumpp"
   },
   "devDependencies": {
     "@nuxt/image-edge": "^1.0.0-28050764.aaee7ac",
