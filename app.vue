@@ -2,56 +2,58 @@
   <div class="flex">
     <div class="p-1 box-content w-[calc(100%+40px)] mx-auto max-w-[935px] grow">
       <Header />
-      <div role="tablist" class="border-t border-[#dbdbdb] dark:border-neutral-800 box-border items-center grid grid-cols-3 gap-1 relative">
-        <div class="flex flex-row text-center dark:text-[#a8a8a8]">
-          <label class="group w-full block relative py-1 focus-within:border-[#353535] border border-transparent rounded-full">
-            <button class="flex relative gap-2 w-full">
-              <div class="cursor-pointer py-1.5 -my-2 group-focus-within:-mr-4 group-focus-within:invisible">
-                <Icon name="heroicons-outline:magnifying-glass" size="20"></Icon>
+      <div role="tablist" class="mb-4 flex items-stretch flex-col max-w-full">
+        <div class="flex-row flex-nowrap flex items-center gap-4">
+          <div class="flex-grow flex-shrink flex flex-col text-neutral-300 font-medium">
+            <form
+              class="flex-grow flex bg-white/10 h-10 transition-all pl-4 pr-3 rounded-xl border border-transparent hover:border-neutral-600 focus-within:border-neutral-600 focus-within:bg-neutral-800/30 group">
+              <div class="flex items-center gap-4 w-full">
+                <div class="flex text-neutral-500">
+                  <Icon name="majesticons:search-line" size="22"></Icon>
+                </div>
+                <div class="flex w-full">
+                  <input
+                    class="placeholder:text-neutral-500 bg-transparent outline-none w-full py-2"
+                    v-model="searchTerm"
+                    :placeholder="selectedCategory ? `Search in ${selectedCategory}` : 'Search'" />
+                </div>
+                <div @click="searchTerm = ''" class="flex transition-all cursor-pointer text-neutral-500 group-focus-within:visible invisible">
+                  <Icon v-if="!loading" name="solar:close-square-bold" size="24" />
+                  <Icon v-else-if="loading" name="Loading" size="20" />
+                </div>
               </div>
-              <div class="relative flex-grow">
-                <input
-                  class="w-full bg-transparent outline-none placeholder:text-[#a8a8a8]"
-                  type="text"
-                  v-model="searchTerm"
-                  :placeholder="selectedCategory ? `Search in ${selectedCategory}` : 'Search'" />
-              </div>
-              <div @click="searchTerm = null" class="cursor-pointer py-1.5 -my-2 mr-2 group-focus-within:visible invisible">
-                <Icon v-if="!loading" name="mingcute:close-circle-fill" size="20" />
-                <Icon v-else-if="loading" name="Loading" size="20" />
-              </div>
-            </button>
-          </label>
-        </div>
-        <div class="justify-end flex gap-[60px] col-span-2">
+            </form>
+          </div>
           <div
             @click.stop="
               isDropdownCategory = !isDropdownCategory;
               isDropdownSortBy = false;
             "
-            :class="{ activeTab: isDropdownCategory || selectedCategory }"
-            class="items-center dark:text-[#a8a8a8] text-xs flex h-[52px] justify-center cursor-pointer border-t border-transparent -mt-px">
-            <div class="flex box-border items-center">
-              <Icon name="system-uicons:grid-squares" size="22" />
-              <span class="ml-1.5 font-semibold uppercase tracking-wider select-none">Category</span>
+            class="items-center text-sm justify-center cursor-pointer select-none font-semibold relative">
+            <div class="flex box-border items-center active:scale-95 bg-white/10 hover:bg-white/20 h-10 transition-all py-1.5 pr-3 pl-4 rounded-xl">
+              <span class="mr-3">{{ selectedCategory || 'All Categories' }}</span>
+              <Icon name="ion:chevron-down-outline" size="14" />
             </div>
             <Transition>
-              <div v-show="isDropdownCategory" class="absolute top-full z-10 right-[55px] dropdown text-neutral-100">
-                <div class="dropdown-triangle left-[30%]"></div>
-                <div class="text-sm bg-white dark:bg-neutral-800 rounded-2xl overflow-hidden">
-                  <div
-                    class="flex justify-between gap-3 px-4 py-2.5 hover:dark:bg-[#3c3c3c] hover:transition-all border-b dark:border-[#353535] last:border-b-0"
-                    @click="selectedCategory = ''">
-                    <div>All Categories</div>
-                    <Icon v-if="selectedCategory === ''" name="system-uicons:check" size="20" />
+              <div
+                v-if="isDropdownCategory"
+                class="absolute top-full z-10 text-[13px] font-medium rounded-xl dark:bg-neutral-800/80 border border-white/10 backdrop-blur-xl left-0 mt-3">
+                <div class="w-44 m-2">
+                  <div @click="selectedCategory = ''" class="py-2 px-3 rounded-lg hover:bg-white/5 transition-all duration-300">
+                    <div class="flex justify-between items-center">
+                      <div class="mr-4 w-full">All Categories</div>
+                      <Icon v-if="selectedCategory === ''" name="mingcute:check-line" size="16" />
+                    </div>
                   </div>
                   <div
-                    class="flex justify-between gap-3 px-4 py-2.5 hover:dark:bg-[#3c3c3c] hover:transition-all border-b dark:border-[#353535] last:border-b-0"
                     v-for="category in categories"
                     :key="category.id"
-                    @click="selectedCategory = category.name">
-                    <div>{{ category.name }}</div>
-                    <Icon v-if="selectedCategory === category.name" name="system-uicons:check" size="20" />
+                    @click="selectedCategory = category.name"
+                    class="py-2 px-3 rounded-lg hover:bg-white/5 transition-all duration-300">
+                    <div class="flex justify-between items-center">
+                      <div class="mr-4 w-full">{{ category.name }}</div>
+                      <Icon v-if="selectedCategory === category.name" name="mingcute:check-line" size="16" />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -62,23 +64,25 @@
               isDropdownSortBy = !isDropdownSortBy;
               isDropdownCategory = false;
             "
-            :class="{ activeTab: isDropdownSortBy || selectedOption !== 'Newest' }"
-            class="items-center dark:text-[#a8a8a8] text-xs flex h-[52px] justify-center cursor-pointer border-t border-transparent -mt-px">
-            <div class="flex box-border items-center">
-              <Icon name="system-uicons:filter" size="22" />
-              <span class="ml-1.5 font-semibold uppercase tracking-wider select-none">Sort by</span>
+            class="items-center text-sm justify-center cursor-pointer select-none font-semibold relative">
+            <div class="flex box-border items-center active:scale-95 bg-white/10 hover:bg-white/20 h-10 transition-all py-1.5 pr-3 pl-4 rounded-xl">
+              <span class="mr-3">{{ selectedOption }}</span>
+              <Icon name="ion:chevron-down-outline" size="14" />
             </div>
             <Transition>
-              <div v-show="isDropdownSortBy" class="absolute top-full z-10 -right-[18px] dropdown text-neutral-100">
-                <div class="dropdown-triangle left-[57%]"></div>
-                <div class="text-sm bg-white dark:bg-neutral-800 rounded-2xl overflow-hidden">
+              <div
+                v-if="isDropdownSortBy"
+                class="absolute top-full z-10 text-[13px] font-medium rounded-xl dark:bg-neutral-800/80 border border-white/10 backdrop-blur-xl right-0 mt-3">
+                <div class="w-44 m-2">
                   <div
-                    class="flex justify-between gap-3 px-4 py-2.5 hover:dark:bg-[#3c3c3c] hover:transition-all border-b dark:border-[#353535] last:border-b-0"
                     v-for="(option, index) in options"
                     :key="index"
-                    @click="selectedOption = option.value">
-                    <div>{{ option.value }}</div>
-                    <Icon v-if="selectedOption === option.value" name="system-uicons:check" size="20" />
+                    @click="selectedOption = option.value"
+                    class="py-2 px-3 rounded-lg hover:bg-white/5 transition-all duration-300">
+                    <div class="flex justify-between items-center">
+                      <div class="mr-4 w-full">{{ option.value }}</div>
+                      <Icon v-if="selectedOption === option.value" name="mingcute:check-line" size="16" />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -255,33 +259,18 @@ watch([selectedOption, searchTerm, selectedCategory], ([newSelectedOption, newSe
   @apply bg-black text-neutral-100;
   color-scheme: dark;
 }
-.dropdown {
-  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
-}
-.dropdown-triangle {
-  @apply absolute dark:bg-neutral-800 h-5 w-4 -top-[10px] rotate-90;
-  clip-path: path('M8 0C8 4 9.32406e-08 7.819 1.25211e-07 10.5C1.57188e-07 13.1815 8 17.0005 8 21L8 0Z');
-}
 .v-enter-active {
-  @apply transition ease-out duration-100;
+  @apply transition ease-out duration-200;
 }
 .v-enter-from,
 .v-leave-to {
-  @apply transform opacity-0 scale-95;
+  @apply translate-y-5 opacity-0;
 }
-
 .v-enter-to,
 .v-leave-from {
-  @apply transform opacity-100 scale-100;
+  @apply transform opacity-100;
 }
-
 .v-leave-active {
-  @apply transition ease-in duration-75;
-}
-.activeTab {
-  @apply text-neutral-100 border-neutral-100;
-}
-.disabled {
-  opacity: 0.4;
+  @apply transition ease-in duration-150;
 }
 </style>
