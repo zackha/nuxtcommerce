@@ -90,36 +90,30 @@
           </div>
         </div>
       </div>
-      <div class="grid gap-1 grid-cols-3">
-        <div v-for="node in products" :key="node.id" class="bg-neutral-200 dark:bg-neutral-800 group relative">
-          <div class="relative pb-[133%] overflow-hidden">
-            <NuxtImg loading="lazy" :title="node.name" :alt="node.image.altText || node.name" :src="node.image.sourceUrl" class="object-cover w-full h-full absolute" />
+      <div class="grid gap-4 grid-cols-3">
+        <div v-for="node in products" :key="node.id" class="p-2 border border-neutral-700 rounded-2xl">
+          <div class="relative pb-[133%] mb-3">
+            <NuxtImg
+              loading="lazy"
+              :title="node.name"
+              :alt="node.image.altText || node.name"
+              :src="node.image.sourceUrl"
+              class="object-cover w-full h-full absolute rounded-lg bg-neutral-800" />
           </div>
-          <div
-            class="bottom-0 left-0 right-0 top-0 flex flex-col justify-center items-center absolute text-white text-sm backdrop-blur-sm bg-black/80 invisible group-hover:visible">
-            <div class="absolute p-4 flex flex-col gap-1 items-center">
-              <div class="font-bold text-center">
+          <div class="px-2 mb-1 text-sm font-semibold gap-6 grid-flow-col grid">
+            <div class="flex flex-col min-w-0 justify-between gap-1">
+              <div class="text-neutral-400 text-xs">
+                {{ node.allPaUrunTipi.nodes[0].name }}
+              </div>
+              <div :title="node.name" class="text-ellipsis whitespace-nowrap overflow-hidden">
                 {{ node.name }}
               </div>
-              <div class="flex gap-1">
-                <div class="font-semibold text-[#ff0000]" v-html="node.salePrice"></div>
-                <div class="line-through text-neutral-400" v-html="node.regularPrice"></div>
-              </div>
-              <div class="flex gap-2 mt-3 flex-wrap justify-center">
-                <span
-                  :class="[variation.stockStatus === 'OUT_OF_STOCK' ? 'disabled' : '']"
-                  class="py-1.5 px-2 border rounded leading-[10px] h-6"
-                  v-for="variation in node.variations.nodes"
-                  :key="variation.id"
-                  :disabled="variation.stockStatus === 'OUT_OF_STOCK'">
-                  {{ variation.attributes.nodes.map((attr) => attr.value).toString() }}
-                </span>
-              </div>
+            </div>
+            <div class="text-right gap-1 flex flex-col">
+              <div class="line-through text-neutral-400 text-xs" v-html="node.regularPrice"></div>
+              <div class="text-[#ff0000] font-bold" v-html="node.salePrice"></div>
             </div>
           </div>
-        </div>
-        <div v-if="loading" v-for="node in 9" :key="node" class="animate-pulse bg-neutral-200 dark:bg-neutral-800">
-          <div class="relative pb-[133%] overflow-hidden"></div>
         </div>
       </div>
       <div v-if="!empty && !loading" class="text-lg text-center p-6">

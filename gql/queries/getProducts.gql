@@ -6,6 +6,11 @@ query getProducts($after: String, $search: String, $category: String, $order: Or
         name
         regularPrice
         salePrice
+        allPaUrunTipi {
+          nodes {
+            name
+          }
+        }
         image {
           id
           sourceUrl(size: WOOCOMMERCE_SINGLE)
