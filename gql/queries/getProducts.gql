@@ -6,10 +6,20 @@ query getProducts($after: String, $search: String, $category: String, $order: Or
         name
         regularPrice
         salePrice
+        allPaUrunTipi {
+          nodes {
+            name
+          }
+        }
         image {
           id
           sourceUrl(size: WOOCOMMERCE_SINGLE)
           altText
+        }
+        galleryImages {
+          nodes {
+            sourceUrl(size: WOOCOMMERCE_SINGLE)
+          }
         }
         variations(where: { orderby: { field: NAME, order: DESC } }) {
           nodes {
