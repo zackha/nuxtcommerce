@@ -1,5 +1,5 @@
 <template>
-  <div v-for="i in 15" :key="i" class="p-2 border border-neutral-800 rounded-2xl animate-pulse">
+  <div v-for="i in 9" :key="i" class="p-2 border border-neutral-800 rounded-2xl animate-pulse">
     <div class="relative pb-[133%] mb-3">
       <div class="w-full h-full absolute rounded-lg bg-neutral-800"></div>
     </div>
