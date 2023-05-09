@@ -94,7 +94,7 @@
         <div
           v-for="node in products"
           :key="node.id"
-          class="p-2 border border-neutral-700 rounded-2xl group cursor-pointer transition-all hover:bg-neutral-800/40 hover:border-neutral-600">
+          class="p-2 border border-neutral-800 rounded-2xl group cursor-pointer transition-all hover:bg-neutral-800/40 hover:border-neutral-600">
           <div class="relative pb-[133%] mb-3">
             <NuxtImg
               loading="lazy"
@@ -124,6 +124,7 @@
             </div>
           </div>
         </div>
+        <ProductSkeleton v-if="loading" />
       </div>
       <div v-if="!empty && !loading" class="text-lg text-center p-6">
         <Icon name="heroicons-outline:magnifying-glass" size="99"></Icon>
