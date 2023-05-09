@@ -107,7 +107,7 @@
               :title="node.name"
               :alt="node.image.altText || node.name"
               :src="node.image.sourceUrl"
-              class="object-cover w-full h-full absolute rounded-lg bg-neutral-800 transition-opacity duration-500 group-hover:opacity-0" />
+              class="object-cover w-full h-full absolute rounded-lg bg-neutral-800 transition-opacity duration-300 group-hover:opacity-0" />
           </div>
           <div class="px-2 mb-1 text-sm font-semibold gap-6 grid-flow-col grid">
             <div class="flex flex-col min-w-0 justify-between gap-1">
