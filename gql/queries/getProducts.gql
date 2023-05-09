@@ -16,6 +16,11 @@ query getProducts($after: String, $search: String, $category: String, $order: Or
           sourceUrl(size: WOOCOMMERCE_SINGLE)
           altText
         }
+        galleryImages {
+          nodes {
+            sourceUrl(size: WOOCOMMERCE_SINGLE)
+          }
+        }
         variations(where: { orderby: { field: NAME, order: DESC } }) {
           nodes {
             id

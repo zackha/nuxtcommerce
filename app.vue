@@ -91,14 +91,23 @@
         </div>
       </div>
       <div class="grid gap-4 grid-cols-3">
-        <div v-for="node in products" :key="node.id" class="p-2 border border-neutral-700 rounded-2xl">
+        <div
+          v-for="node in products"
+          :key="node.id"
+          class="p-2 border border-neutral-700 rounded-2xl group cursor-pointer transition-all hover:bg-neutral-800/40 hover:border-neutral-600">
           <div class="relative pb-[133%] mb-3">
             <NuxtImg
               loading="lazy"
               :title="node.name"
               :alt="node.image.altText || node.name"
-              :src="node.image.sourceUrl"
+              :src="node.galleryImages.nodes[0].sourceUrl"
               class="object-cover w-full h-full absolute rounded-lg bg-neutral-800" />
+            <NuxtImg
+              loading="lazy"
+              :title="node.name"
+              :alt="node.image.altText || node.name"
+              :src="node.image.sourceUrl"
+              class="object-cover w-full h-full absolute rounded-lg bg-neutral-800 transition-opacity duration-500 group-hover:opacity-0" />
           </div>
           <div class="px-2 mb-1 text-sm font-semibold gap-6 grid-flow-col grid">
             <div class="flex flex-col min-w-0 justify-between gap-1">
