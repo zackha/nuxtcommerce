@@ -1,6 +1,6 @@
 <template>
   <div class="mt-4 font-mono">
-    <div class="text-sm text-center m-auto">{{ time }}</div>
+    <div class="m-auto text-center text-sm">{{ time }}</div>
   </div>
 </template>
 
