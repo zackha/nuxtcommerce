@@ -138,6 +138,7 @@
         </div>
         <div class="text-sm">Try improving your results by double checking your spelling or trying a more general keyword.</div>
       </div>
+      <Footer />
     </div>
   </div>
 </template>
@@ -259,7 +260,7 @@ watch([selectedOption, searchTerm, selectedCategory], ([newSelectedOption, newSe
 </script>
 
 <style lang="postcss">
-.dark-mode {
+.dark {
   @apply bg-black text-neutral-100;
   color-scheme: dark;
 }
