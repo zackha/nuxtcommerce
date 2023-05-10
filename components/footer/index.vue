@@ -1,15 +1,27 @@
 <template>
-  <button @click="toggleDark" class="box-border flex h-8 items-center rounded-lg p-2 transition-all active:scale-95 dark:bg-white/10 hover:dark:bg-white/20">
-    <Icon :name="colorModeIcon" size="16"></Icon>
-  </button>
+  <div class="my-8 flex items-center justify-between px-2 text-[13px] font-semibold text-secondary-text dark:text-secondary-text-d">
+    <div>
+      <a class="hover:text-black hover:dark:text-neutral-100" href="https://github.com/zackha/nuxtcommerce" target="_blank">NuxtCommerce v{{ config.public.version }}</a>
+      - by <a class="hover:text-black hover:dark:text-neutral-100" href="https://me.zackha.com" target="_blank">Zack Hatlen</a>
+    </div>
+    <div>
+      <button
+        @click="toggleDark"
+        class="box-border flex h-8 items-center gap-1.5 rounded-lg bg-neutral-800/10 p-2 transition-all hover:bg-neutral-800/20 hover:text-black active:scale-95 dark:bg-white/10 hover:dark:bg-white/20 hover:dark:text-neutral-100">
+        <div class="flex"><Icon :name="colorModeIcon" size="16" /></div>
+        <div class="capitalize leading-3">{{ colorMode.preference }}</div>
+      </button>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
+const config = useRuntimeConfig();
 const colorMode = useColorMode();
 
 const toggleDark = () => {
   colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark';
 };
 
-const colorModeIcon = computed(() => (colorMode.preference === 'dark' ? 'solar:moon-bold' : 'solar:sun-bold'));
+const colorModeIcon = computed(() => (colorMode.preference === 'dark' ? 'solar:moon-bold' : 'solar:sun-2-bold'));
 </script>
