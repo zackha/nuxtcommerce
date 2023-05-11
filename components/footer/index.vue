@@ -7,7 +7,7 @@
     <div>
       <button
         @click="toggleDark"
-        class="box-border flex h-8 items-center gap-1.5 rounded-lg bg-neutral-800/10 p-2 transition-all hover:bg-neutral-800/20 hover:text-black active:scale-95 dark:bg-white/10 hover:dark:bg-white/20 hover:dark:text-neutral-100">
+        class="box-border flex h-8 items-center gap-1.5 rounded-lg p-2 transition-all bg-neutral-800/5 hover:bg-neutral-800/10 hover:text-black active:scale-95 dark:bg-white/10 hover:dark:bg-white/20 hover:dark:text-neutral-100">
         <div class="flex"><Icon :name="colorModeIcon" size="16" /></div>
         <div class="capitalize leading-3">{{ colorMode.preference }}</div>
       </button>
