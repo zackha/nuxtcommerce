@@ -1,6 +1,6 @@
 <template>
-  <div class="pb-11 pt-7 flex justify-center">
-    <div class="my-0 mx-auto">
+  <div class="flex justify-center pb-11 pt-7">
+    <div class="mx-auto my-0">
       <HeaderLogo />
       <HeaderDate />
     </div>

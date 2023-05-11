@@ -11,10 +11,10 @@
     "release": "bumpp"
   },
   "devDependencies": {
-    "@nuxt/image-edge": "^1.0.0-28050764.aaee7ac",
+    "@nuxt/image-edge": "^1.0.0-28059208.2abef1b",
     "@nuxtjs/apollo": "^5.0.0-alpha.6",
     "@nuxtjs/color-mode": "^3.2.0",
-    "@nuxtjs/tailwindcss": "^6.6.7",
+    "@nuxtjs/tailwindcss": "^6.6.8",
     "nuxt": "^3.4.3",
     "nuxt-icon": "^0.4.0"
   }
