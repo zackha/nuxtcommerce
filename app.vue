@@ -17,7 +17,7 @@
                     v-model="searchTerm"
                     :placeholder="selectedCategory ? `Search in ${selectedCategory}` : 'Search'" />
                 </div>
-                <div @click="searchTerm = ''" class="invisible flex cursor-pointer text-neutral-300 dark:text-neutral-500 transition-all group-focus-within:visible">
+                <div @click="searchTerm = ''" class="opacity-0 flex cursor-pointer text-neutral-300 dark:text-neutral-500 transition-all group-focus-within:opacity-100">
                   <Icon v-if="!loading" name="solar:close-square-bold" size="24" />
                   <Icon v-else-if="loading" name="Loading" size="20" />
                 </div>

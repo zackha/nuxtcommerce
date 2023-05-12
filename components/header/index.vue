@@ -1,8 +1,7 @@
 <template>
-  <div class="flex justify-center pb-11 pt-7">
+  <div class="flex justify-center py-5">
     <div class="mx-auto my-0">
       <HeaderLogo />
-      <HeaderDate />
     </div>
   </div>
 </template>

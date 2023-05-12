@@ -2,6 +2,8 @@
   "name": "nuxtcommerce",
   "version": "1.0.6",
   "private": true,
+  "author": "zackha",
+  "description": "Headless storefront for Woocommerce (Nuxt/Vue)",
   "scripts": {
     "dev": "nuxi dev",
     "build": "nuxi build",
