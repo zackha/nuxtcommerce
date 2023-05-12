@@ -126,7 +126,7 @@
             </div>
           </div>
         </div>
-        <ProductSkeleton />
+        <ProductSkeleton v-if="loading" />
       </div>
       <div v-if="!empty && !loading" class="p-6 text-center text-lg">
         <Icon name="majesticons:search-line" size="99"></Icon>
