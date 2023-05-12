@@ -1,7 +1,7 @@
 <template>
-  <div v-for="i in 9" :key="i" class="animate-pulse rounded-2xl border border-neutral-200 dark:border-neutral-800 p-2">
-    <div class="relative mb-3 pb-[133%]">
-      <div class="absolute h-full w-full rounded-lg bg-neutral-200 dark:bg-neutral-800"></div>
+  <div v-for="i in 9" :key="i" class="animate-pulse rounded-2xl border dark:bg-secondary-bg-d px-4 pt-4 pb-3 dark:border-[#222222]">
+    <div class="relative mb-4 pb-[133%] dark:shadow-[0_8px_24px_rgba(0,0,0,.5)] rounded-lg overflow-hidden">
+      <div class="absolute h-full w-full bg-neutral-200 dark:bg-neutral-800"></div>
     </div>
     <div class="mb-1 grid grid-flow-row-dense grid-cols-3 px-2">
       <div class="col-span-2 flex min-w-0 flex-col justify-between gap-2">
