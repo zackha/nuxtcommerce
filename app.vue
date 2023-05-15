@@ -3,7 +3,11 @@
     <div class="mx-auto box-content w-[calc(100%+40px)] max-w-[935px] grow p-1">
       <div role="tablist" class="my-4 flex max-w-full flex-col items-stretch">
         <div class="flex flex-row flex-nowrap items-center gap-4">
-          <HeaderLogo />
+          <div class="flex items-center justify-center">
+            <NuxtLink to="/">
+              <img class="mx-auto my-0 h-10 rounded-xl" src="/logo.png" alt="logo" />
+            </NuxtLink>
+          </div>
           <div class="flex flex-shrink flex-grow flex-col text-sm font-semibold text-neutral-600 dark:text-neutral-200">
             <form
               class="group flex h-10 flex-grow rounded-xl border border-transparent bg-neutral-800/5 dark:bg-white/10 pl-4 pr-3 transition-all focus-within:border-neutral-400 focus-within:dark:border-neutral-600 focus-within:bg-white/30 focus-within:dark:bg-neutral-800/30 hover:border-neutral-300 hover:focus-within:border-neutral-400 hover:dark:border-neutral-600">
@@ -145,120 +149,8 @@
   </div>
 </template>
 
-<script setup>
-import getProducts from '~/gql/queries/getProducts.gql';
-import getCategories from '~/gql/queries/getCategories.gql';
-const isDropdownSortBy = ref(false);
-const isDropdownCategory = ref(false);
-const router = useRouter();
-const route = useRoute();
-const searchTerm = ref(route.query.search || '');
-const selectedCategory = ref(route.query.category || '');
-const sortByOrder = ref(route.query.orderby && route.query.orderby !== '' ? route.query.orderby : 'DESC');
-const sortByField = ref(route.query.fieldby && route.query.fieldby !== '' ? route.query.fieldby : 'DATE');
-const variables = ref({
-  search: searchTerm,
-  category: selectedCategory,
-  order: sortByOrder,
-  field: sortByField,
-});
-
-const { result: categoriesResult } = useQuery(getCategories);
-const { result: productsResult, loading, fetchMore } = useQuery(getProducts, variables.value);
-const products = computed(() => productsResult.value?.products.nodes);
-const empty = computed(() => productsResult.value?.products.nodes.length);
-const pageInfo = computed(() => productsResult.value?.products.pageInfo);
-const categories = computed(() => categoriesResult.value?.productCategories.nodes.filter((categories) => categories.products.nodes.length && categories.children.nodes.length));
-
-const options = reactive([{ value: 'Newest' }, { value: 'Price: High to Low' }, { value: 'Price: Low to High' }]);
-
-const selectedOption = ref(sortByOrder.value === 'DESC' && sortByField.value === 'DATE' ? 'Newest' : sortByOrder.value === 'DESC' ? 'Price: High to Low' : 'Price: Low to High');
-
-const loadMore = () => {
-  fetchMore({
-    variables: {
-      after: pageInfo.value?.endCursor,
-    },
-    updateQuery(prev, { fetchMoreResult }) {
-      const mergedData = {
-        ...prev,
-      };
-      mergedData.products = {
-        ...prev.products,
-        nodes: [...prev.products.nodes, ...fetchMoreResult.products.nodes],
-      };
-      mergedData.products.pageInfo = fetchMoreResult.products.pageInfo;
-      return mergedData;
-    },
-  });
-};
-
-const handleScroll = () => {
-  const scrollPosition = window.scrollY + window.innerHeight;
-  const loadMorePosition = document.documentElement.scrollHeight - 1600;
-
-  if (scrollPosition >= loadMorePosition && pageInfo.value?.hasNextPage && !loading.value) {
-    loadMore();
-  }
-};
-
-const handleClickOutside = (event) => {
-  if (!event.target.closest('.dropdown')) {
-    isDropdownSortBy.value = false;
-    isDropdownCategory.value = false;
-  }
-};
-
-onMounted(() => {
-  window.addEventListener('scroll', handleScroll);
-  document.addEventListener('click', handleClickOutside);
-});
-
-onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll);
-  document.removeEventListener('click', handleClickOutside);
-});
-
-watch([selectedOption, searchTerm, selectedCategory], ([newSelectedOption, newSearchTerm, newCategory]) => {
-  let updatedQuery = {
-    ...route.query,
-    search: newSearchTerm || undefined,
-    category: newCategory || undefined,
-  };
-
-  switch (newSelectedOption) {
-    case 'Newest':
-      sortByOrder.value = 'DESC';
-      sortByField.value = 'DATE';
-      updatedQuery = {
-        ...updatedQuery,
-        orderby: undefined,
-        fieldby: undefined,
-      };
-      break;
-    case 'Price: High to Low':
-      sortByOrder.value = 'DESC';
-      sortByField.value = 'PRICE';
-      updatedQuery = {
-        ...updatedQuery,
-        orderby: sortByOrder.value || undefined,
-        fieldby: sortByField.value || undefined,
-      };
-      break;
-    case 'Price: Low to High':
-      sortByOrder.value = 'ASC';
-      sortByField.value = 'PRICE';
-      updatedQuery = {
-        ...updatedQuery,
-        orderby: sortByOrder.value || undefined,
-        fieldby: sortByField.value || undefined,
-      };
-      break;
-  }
-  router.push({
-    query: updatedQuery,
-  });
-});
+<script setup lang="ts">
+const { products, empty, loading, categories, options, searchTerm, selectedCategory, selectedOption, isDropdownCategory, isDropdownSortBy } = useSearch();
 </script>
 
 <style lang="postcss">
