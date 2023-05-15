@@ -1,9 +1,9 @@
 <template>
   <div class="flex">
     <div class="mx-auto box-content w-[calc(100%+40px)] max-w-[935px] grow p-1">
-      <Header />
-      <div role="tablist" class="mb-4 flex max-w-full flex-col items-stretch">
+      <div role="tablist" class="my-4 flex max-w-full flex-col items-stretch">
         <div class="flex flex-row flex-nowrap items-center gap-4">
+          <HeaderLogo />
           <div class="flex flex-shrink flex-grow flex-col text-sm font-semibold text-neutral-600 dark:text-neutral-200">
             <form
               class="group flex h-10 flex-grow rounded-xl border border-transparent bg-neutral-800/5 dark:bg-white/10 pl-4 pr-3 transition-all focus-within:border-neutral-400 focus-within:dark:border-neutral-600 focus-within:bg-white/30 focus-within:dark:bg-neutral-800/30 hover:border-neutral-300 hover:focus-within:border-neutral-400 hover:dark:border-neutral-600">
