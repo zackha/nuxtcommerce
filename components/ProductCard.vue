@@ -32,8 +32,8 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 defineProps({
-  product: { type: Object, default: null },
+  product: Object,
 });
 </script>
