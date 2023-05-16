@@ -2,14 +2,17 @@ import pkg from './package.json';
 
 export default defineNuxtConfig({
   modules: ['@nuxt/image-edge', '@nuxtjs/tailwindcss', '@nuxtjs/color-mode', '@nuxtjs/apollo', 'nuxt-icon'],
+
   runtimeConfig: {
     public: {
       version: pkg.version,
     },
   },
+
   colorMode: {
     classSuffix: '',
   },
+
   apollo: {
     clients: {
       default: {
@@ -17,6 +20,7 @@ export default defineNuxtConfig({
       },
     },
   },
+
   app: {
     head: {
       link: [
@@ -26,4 +30,6 @@ export default defineNuxtConfig({
       ],
     },
   },
+
+  devtools: true
 });

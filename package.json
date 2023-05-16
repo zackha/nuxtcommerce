@@ -13,6 +13,7 @@
     "release": "bumpp"
   },
   "devDependencies": {
+    "@nuxt/devtools": "^0.4.6",
     "@nuxt/image-edge": "^1.0.0-28059208.2abef1b",
     "@nuxtjs/apollo": "^5.0.0-alpha.6",
     "@nuxtjs/color-mode": "^3.2.0",
