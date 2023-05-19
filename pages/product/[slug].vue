@@ -3,7 +3,7 @@
   <div v-else>
     <NuxtImg :src="product.image.sourceUrl" />
   </div>
-  <BackBtn />
+  <ButtonBack />
 </template>
 
 <script setup>
