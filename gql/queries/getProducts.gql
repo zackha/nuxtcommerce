@@ -3,6 +3,7 @@ query getProducts($after: String, $search: String, $category: String, $order: Or
     nodes {
       ... on VariableProduct {
         id
+        slug
         name
         regularPrice
         salePrice

@@ -8,7 +8,7 @@
     </div>
   </div>
   <div class="grid grid-cols-3 gap-4">
-    <ProductCard v-for="product in products" :key="product.id" :product="product" />
+    <ProductCard :products="products" />
     <ProductSkeleton v-if="loading" />
   </div>
   <ProductEmpty v-if="!empty" :selectedCategory="selectedCategory" :searchTerm="searchTerm" />
