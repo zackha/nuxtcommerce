@@ -18,7 +18,7 @@ export default function useSearch() {
   });
 
   const { result: categoriesResult } = useQuery(getCategories);
-  const { result: productsResult, loading, fetchMore } = useQuery(getProducts, variables.value);
+  const { result: productsResult, loading, fetchMore } = useQuery(getProducts, () => variables.value);
   const products = computed(() => productsResult.value?.products.nodes);
   const empty = computed(() => productsResult.value?.products.nodes.length);
   const pageInfo = computed(() => productsResult.value?.products.pageInfo);
