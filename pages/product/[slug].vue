@@ -1,20 +1,17 @@
 <template>
-  <div>
-    <div v-if="loading">loading......</div>
-    <div v-else>
-      {{ product?.name }}
-      <NuxtImg :src="product?.image.sourceUrl" />
-    </div>
-    <button @click="useRouter().go(-1)">Back</button>
+  <div v-if="loading">loading...</div>
+  <div v-else>
+    <NuxtImg :src="product.image.sourceUrl" />
   </div>
+  <BackBtn />
 </template>
 
 <script setup>
-import getProduct from '~/gql/queries/getProduct.gql';
+const route = useRoute();
+import { getProduct } from '~/gql/queries/getProduct.gql';
 
-const { result: productResult, loading } = useQuery(getProduct, () => ({ slug: useRoute().params.slug }));
+const { result: productResult, loading } = useQuery(getProduct, () => ({ slug: route.params.slug }));
 const product = computed(() => productResult.value?.product);
-console.log(product.value?.name);
 
 //  useQuery
 //
@@ -40,4 +37,10 @@ console.log(product.value?.name);
 //   prod.value = product.data.value.product.name;
 //   console.log(product.data.value.product.name);
 // });
+
+// useAsyncQuery 3
+// const route = useRoute();
+// import getProduct from '~/gql/queries/getProduct.gql';
+// const { data } = await useAsyncQuery(getProduct, { slug: route.params.slug });
+// const product = data?.value?.product;
 </script>
