@@ -11,6 +11,8 @@
       <div class="">
         <div class="">
           <h1 class="text-2xl">{{ product.name }}</h1>
+          <h1 class="text-2xl" v-html="product.regularPrice"></h1>
+          <h1 class="text-2xl" v-html="product.salePrice"></h1>
           <p class="">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sed tincidunt augue. Maecenas ac mauris sed magna auctor lacinia. Etiam nec suscipit felis. Quisque
             tempus mi sed commodo eleifend. Pellentesque a ipsum eu lectus auctor imperdiet. Mauris ultricies, metus vitae commodo scelerisque, nibh tellus condimentum turpis,

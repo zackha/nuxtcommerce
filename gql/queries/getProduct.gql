@@ -1,8 +1,13 @@
 query getProduct($slug: ID!) {
   product(id: $slug, idType: SLUG) {
-    name
-    image {
-      sourceUrl(size: WOOCOMMERCE_SINGLE)
+    ... on VariableProduct {
+      slug
+      name
+      regularPrice
+      salePrice
+      image {
+        sourceUrl(size: WOOCOMMERCE_SINGLE)
+      }
     }
   }
 }
