@@ -1,9 +1,20 @@
 <template>
-  <div v-if="loading">loading...</div>
-  <div v-else>
-    <NuxtImg :src="product.image.sourceUrl" />
-  </div>
   <ButtonBack />
+  <div v-if="loading">loading...</div>
+  <div v-else class="border mt-10 mb-10">
+    <div class="flex flex-row p-5 gap-6">
+      <div class="">
+        <div class="">
+          <NuxtImg :src="product.image.sourceUrl" />
+        </div>
+      </div>
+      <div class="">
+        <div class="">
+          <h1 class="">{{ product.name }}</h1>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup>
