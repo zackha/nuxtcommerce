@@ -1,16 +1,24 @@
 <template>
   <ButtonBack />
   <div v-if="loading">loading...</div>
-  <div v-else class="border mt-10 mb-10">
-    <div class="flex flex-row p-5 gap-6">
+  <div v-else class="border mt-10 mb-10 rounded-[32px]">
+    <div class="flex p-5 flex-row gap-6">
       <div class="">
-        <div class="">
-          <NuxtImg :src="product.image.sourceUrl" />
+        <div class="w-[400px]">
+          <NuxtImg :src="product.image.sourceUrl" class="rounded-2xl" />
         </div>
       </div>
       <div class="">
         <div class="">
-          <h1 class="">{{ product.name }}</h1>
+          <h1 class="text-2xl">{{ product.name }}</h1>
+          <p class="">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sed tincidunt augue. Maecenas ac mauris sed magna auctor lacinia. Etiam nec suscipit felis. Quisque
+            tempus mi sed commodo eleifend. Pellentesque a ipsum eu lectus auctor imperdiet. Mauris ultricies, metus vitae commodo scelerisque, nibh tellus condimentum turpis,
+            vitae tristique sapien urna sit amet risus. Donec maximus, est eget molestie accumsan, sapien enim fringilla nisl, vel iaculis mi odio eu massa. Phasellus at vulputate
+            diam, ullamcorper ullamcorper metus. Nulla facilisi. Maecenas quis pretium sapien, vel dignissim nibh. Aliquam risus libero, imperdiet sed elit et, condimentum commodo
+            sapien. Nunc vulputate sollicitudin massa, quis ullamcorper elit ultricies in. Pellentesque at orci in lectus faucibus vestibulum. Integer fringilla purus turpis, at
+            ullamcorper velit suscipit ac. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+          </p>
         </div>
       </div>
     </div>
