@@ -9,18 +9,19 @@
         </div>
       </div>
       <div class="">
-        <div class="">
-          <h1 class="text-2xl">{{ product.name }}</h1>
-          <h1 class="text-2xl" v-html="product.regularPrice"></h1>
-          <h1 class="text-2xl" v-html="product.salePrice"></h1>
-          <p class="">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sed tincidunt augue. Maecenas ac mauris sed magna auctor lacinia. Etiam nec suscipit felis. Quisque
-            tempus mi sed commodo eleifend. Pellentesque a ipsum eu lectus auctor imperdiet. Mauris ultricies, metus vitae commodo scelerisque, nibh tellus condimentum turpis,
-            vitae tristique sapien urna sit amet risus. Donec maximus, est eget molestie accumsan, sapien enim fringilla nisl, vel iaculis mi odio eu massa. Phasellus at vulputate
-            diam, ullamcorper ullamcorper metus. Nulla facilisi. Maecenas quis pretium sapien, vel dignissim nibh. Aliquam risus libero, imperdiet sed elit et, condimentum commodo
-            sapien. Nunc vulputate sollicitudin massa, quis ullamcorper elit ultricies in. Pellentesque at orci in lectus faucibus vestibulum. Integer fringilla purus turpis, at
-            ullamcorper velit suscipit ac. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-          </p>
+        <h1 class="text-2xl">{{ product.name }}</h1>
+        <div class="flex-col flex">
+          <div class="flex justify-between flex-row items-baseline">
+            <div class="flex flex-row items-baseline">
+              <p class="text-xl font-bold" v-html="product.salePrice"></p>
+              <p class="text-sm ml-2">VAT included</p>
+            </div>
+          </div>
+          <div class="flex-wrap items-baseline flex-row flex">
+            <p class="text-sm">Originally:</p>
+            <p class="text-sm ml-1 line-through" v-html="product.regularPrice"></p>
+            <p class="text-sm ml-1">{{ calculateDiscountPercentage }}%</p>
+          </div>
         </div>
       </div>
     </div>
@@ -33,6 +34,12 @@ import { getProduct } from '~/gql/queries/getProduct.gql';
 
 const { result: productResult, loading } = useQuery(getProduct, () => ({ slug: route.params.slug }));
 const product = computed(() => productResult.value?.product);
+
+const calculateDiscountPercentage = computed(() => {
+  const salePriceValue = parseFloat(productResult.value?.product.salePrice.replace(/[^0-9]/g, ''));
+  const regularPriceValue = parseFloat(productResult.value?.product.regularPrice.replace(/[^0-9]/g, ''));
+  return Math.round(((salePriceValue - regularPriceValue) / regularPriceValue) * 100);
+});
 
 //  useQuery
 //
