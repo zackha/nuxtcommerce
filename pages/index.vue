@@ -12,7 +12,6 @@
     <ProductSkeleton v-if="loading" />
   </div>
   <ProductEmpty v-if="!empty" :selectedCategory="selectedCategory" :searchTerm="searchTerm" />
-  <AppFooter />
 </template>
 
 <script setup>

@@ -18,7 +18,7 @@
     "@nuxtjs/apollo": "^5.0.0-alpha.6",
     "@nuxtjs/color-mode": "^3.2.0",
     "@nuxtjs/tailwindcss": "^6.7.0",
-    "nuxt": "^3.5.0",
+    "nuxt": "^3.5.1",
     "nuxt-icon": "^0.4.1"
   }
 }

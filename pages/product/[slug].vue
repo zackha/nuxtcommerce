@@ -1,20 +1,45 @@
 <template>
-  <div>
-    <div v-if="loading">loading......</div>
-    <div v-else>
-      {{ product?.name }}
-      <NuxtImg :src="product?.image.sourceUrl" />
+  <ButtonBack />
+  <div v-if="loading">loading...</div>
+  <div v-else class="border mt-10 mb-10 rounded-[32px]">
+    <div class="flex p-5 flex-row gap-6">
+      <div class="">
+        <div class="w-[400px]">
+          <NuxtImg :src="product.image.sourceUrl" class="rounded-2xl" />
+        </div>
+      </div>
+      <div class="">
+        <h1 class="text-2xl">{{ product.name }}</h1>
+        <div class="flex-col flex">
+          <div class="flex justify-between flex-row items-baseline">
+            <div class="flex flex-row items-baseline">
+              <p class="text-xl font-bold" v-html="product.salePrice"></p>
+              <p class="text-sm ml-2">VAT included</p>
+            </div>
+          </div>
+          <div class="flex-wrap items-baseline flex-row flex">
+            <p class="text-sm">Originally:</p>
+            <p class="text-sm ml-1 line-through" v-html="product.regularPrice"></p>
+            <p class="text-sm ml-1">{{ calculateDiscountPercentage }}%</p>
+          </div>
+        </div>
+      </div>
     </div>
-    <button @click="useRouter().go(-1)">Back</button>
   </div>
 </template>
 
 <script setup>
-import getProduct from '~/gql/queries/getProduct.gql';
+const route = useRoute();
+import { getProduct } from '~/gql/queries/getProduct.gql';
 
-const { result: productResult, loading } = useQuery(getProduct, () => ({ slug: useRoute().params.slug }));
+const { result: productResult, loading } = useQuery(getProduct, () => ({ slug: route.params.slug }));
 const product = computed(() => productResult.value?.product);
-console.log(product.value?.name);
+
+const calculateDiscountPercentage = computed(() => {
+  const salePriceValue = parseFloat(productResult.value?.product.salePrice.replace(/[^0-9]/g, ''));
+  const regularPriceValue = parseFloat(productResult.value?.product.regularPrice.replace(/[^0-9]/g, ''));
+  return Math.round(((salePriceValue - regularPriceValue) / regularPriceValue) * 100);
+});
 
 //  useQuery
 //
@@ -40,4 +65,10 @@ console.log(product.value?.name);
 //   prod.value = product.data.value.product.name;
 //   console.log(product.data.value.product.name);
 // });
+
+// useAsyncQuery 3
+// const route = useRoute();
+// import getProduct from '~/gql/queries/getProduct.gql';
+// const { data } = await useAsyncQuery(getProduct, { slug: route.params.slug });
+// const product = data?.value?.product;
 </script>
