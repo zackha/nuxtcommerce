@@ -8,7 +8,7 @@
           <NuxtImg :src="product.image.sourceUrl" class="rounded-2xl" />
         </div>
       </div>
-      <div class="">
+      <div>
         <h1 class="text-2xl">{{ product.name }}</h1>
         <div class="flex-col flex">
           <div class="flex justify-between flex-row items-baseline">
@@ -22,6 +22,12 @@
             <p class="text-sm ml-1 line-through" v-html="product.regularPrice"></p>
             <p class="text-sm ml-1">{{ calculateDiscountPercentage }}%</p>
           </div>
+          <div class="flex gap-2 mt-3 flex-wrap">
+            <label v-for="variation in product.variations.nodes" :key="variation.id" :class="[variation.stockStatus === 'OUT_OF_STOCK' ? 'disabled' : '']">
+              <input type="radio" class="hidden" :value="variation.attributes.nodes.map((attr) => attr.value).toString()" v-model="selectedVariation" />
+              <span class="py-1.5 px-2 border rounded leading-[10px] h-6">{{ variation.attributes.nodes.map((attr) => attr.value).toString() }}</span>
+            </label>
+          </div>
         </div>
       </div>
     </div>
@@ -29,6 +35,7 @@
 </template>
 
 <script setup>
+const selectedVariation = ref(null);
 const route = useRoute();
 import { getProduct } from '~/gql/queries/getProduct.gql';
 
@@ -72,3 +79,12 @@ const calculateDiscountPercentage = computed(() => {
 // const { data } = await useAsyncQuery(getProduct, { slug: route.params.slug });
 // const product = data?.value?.product;
 </script>
+
+<style>
+.disabled {
+  opacity: 0.4;
+}
+input[type='radio']:checked ~ span {
+  background-color: #f00;
+}
+</style>

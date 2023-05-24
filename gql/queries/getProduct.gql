@@ -8,6 +8,18 @@ query getProduct($slug: ID!) {
       image {
         sourceUrl(size: WOOCOMMERCE_SINGLE)
       }
+      variations(where: { orderby: { field: NAME, order: DESC } }) {
+        nodes {
+          id
+          stockStatus
+          attributes {
+            nodes {
+              id
+              value
+            }
+          }
+        }
+      }
     }
   }
 }
