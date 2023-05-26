@@ -43,12 +43,20 @@
 </template>
 
 <script setup>
-const selectedVariation = ref(null);
 const route = useRoute();
 import { getProduct } from '~/gql/queries/getProduct.gql';
 
 const { result: productResult, loading } = useQuery(getProduct, () => ({ slug: route.params.slug }));
 const product = computed(() => productResult.value?.product);
+
+let selectedVariation = ref(null);
+
+watchEffect(() => {
+  if (productResult.value?.product && productResult.value?.product.variations && productResult.value?.product.variations.nodes) {
+    const variationInStock = product.value.variations.nodes.find((variation) => variation.stockStatus === 'IN_STOCK');
+    selectedVariation.value = variationInStock ? variationInStock.attributes.nodes.map((attr) => attr.value).toString() : null;
+  }
+});
 
 const calculateDiscountPercentage = computed(() => {
   const salePriceValue = parseFloat(productResult.value?.product.salePrice.replace(/[^0-9]/g, ''));
