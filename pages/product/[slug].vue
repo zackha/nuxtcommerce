@@ -31,7 +31,8 @@
                 name="variation"
                 :checked="i == product.variations.nodes.findIndex((attr) => attr.stockStatus === `IN_STOCK`)"
                 :value="variation.attributes.nodes.map((attr) => attr.value).toString()"
-                v-model="selectedVariation" />
+                v-model="selectedVariation"
+                :disabled="variation.stockStatus === 'OUT_OF_STOCK'" />
               <span class="py-1.5 px-2 border rounded leading-[10px] h-6">{{ variation.attributes.nodes.map((attr) => attr.value).toString() }}</span>
             </label>
           </div>
