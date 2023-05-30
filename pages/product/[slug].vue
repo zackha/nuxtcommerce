@@ -31,7 +31,8 @@
                 name="variation"
                 :checked="i == product.variations.nodes.findIndex((attr) => attr.stockStatus === `IN_STOCK`)"
                 :value="variation.attributes.nodes.map((attr) => attr.value).toString()"
-                v-model="selectedVariation" />
+                v-model="selectedVariation"
+                :disabled="variation.stockStatus === 'OUT_OF_STOCK'" />
               <span class="py-1.5 px-2 border rounded leading-[10px] h-6">{{ variation.attributes.nodes.map((attr) => attr.value).toString() }}</span>
             </label>
           </div>
@@ -42,12 +43,20 @@
 </template>
 
 <script setup>
-const selectedVariation = ref(null);
 const route = useRoute();
 import { getProduct } from '~/gql/queries/getProduct.gql';
 
 const { result: productResult, loading } = useQuery(getProduct, () => ({ slug: route.params.slug }));
 const product = computed(() => productResult.value?.product);
+
+let selectedVariation = ref(null);
+
+watchEffect(() => {
+  if (productResult.value?.product && productResult.value?.product.variations && productResult.value?.product.variations.nodes) {
+    const variationInStock = product.value.variations.nodes.find((variation) => variation.stockStatus === 'IN_STOCK');
+    selectedVariation.value = variationInStock ? variationInStock.attributes.nodes.map((attr) => attr.value).toString() : null;
+  }
+});
 
 const calculateDiscountPercentage = computed(() => {
   const salePriceValue = parseFloat(productResult.value?.product.salePrice.replace(/[^0-9]/g, ''));
