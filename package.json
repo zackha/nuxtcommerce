@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "@nuxt/devtools": "^0.5.5",
-    "@nuxt/image-edge": "^1.0.0-28089462.3520a62",
+    "@nuxt/image-edge": "^1.0.0-28092818.5c21f4c",
     "@nuxtjs/apollo": "^5.0.0-alpha.6",
     "@nuxtjs/color-mode": "^3.2.0",
     "@nuxtjs/tailwindcss": "^6.7.0",
