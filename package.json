@@ -1,6 +1,6 @@
 {
   "name": "nuxtcommerce",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "private": true,
   "author": "zackha",
   "description": "Headless storefront for Woocommerce (Nuxt/Vue)",
@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "@nuxt/devtools": "^0.5.5",
-    "@nuxt/image-edge": "^1.0.0-28092818.5c21f4c",
+    "@nuxt/image-edge": "^1.0.0-28094923.e859bba",
     "@nuxtjs/apollo": "^5.0.0-alpha.6",
     "@nuxtjs/color-mode": "^3.2.0",
     "@nuxtjs/tailwindcss": "^6.7.0",
