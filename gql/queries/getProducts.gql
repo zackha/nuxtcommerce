@@ -7,7 +7,7 @@ query getProducts($after: String, $search: String, $category: String, $order: Or
         name
         regularPrice
         salePrice
-        allPaUrunTipi {
+        allPaStyle {
           nodes {
             name
           }

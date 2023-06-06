@@ -20,7 +20,7 @@
         <div class="mb-1 grid grid-flow-col gap-6 px-2 text-sm font-semibold">
           <div class="flex min-w-0 flex-col justify-between gap-1">
             <div class="text-xs text-secondary-text dark:text-secondary-text-d transition-all hover:text-black hover:dark:text-neutral-100">
-              {{ product.allPaUrunTipi.nodes[0].name }}
+              {{ product.allPaStyle.nodes[0].name }}
             </div>
             <div :title="product.name" class="overflow-hidden text-ellipsis whitespace-nowrap">
               {{ product.name }}
