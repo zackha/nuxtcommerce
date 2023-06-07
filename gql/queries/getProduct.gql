@@ -1,12 +1,26 @@
-query getProduct($slug: ID!) {
+query getProduct($slug: ID!, $sku: String!) {
   product(id: $slug, idType: SLUG) {
     ... on VariableProduct {
+      sku
       slug
       name
       regularPrice
       salePrice
+      description
       image {
         sourceUrl(size: WOOCOMMERCE_SINGLE)
+      }
+      productTypes {
+        nodes {
+          products(where: { sku: $sku }) {
+            nodes {
+              slug
+              image {
+                sourceUrl(size: THUMBNAIL)
+              }
+            }
+          }
+        }
       }
       variations(where: { orderby: { field: NAME, order: DESC } }) {
         nodes {

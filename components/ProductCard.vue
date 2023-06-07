@@ -1,6 +1,6 @@
 <template>
   <article v-for="product in products">
-    <NuxtLink :to="`/product/${product.slug}`" class="group">
+    <NuxtLink :to="`/product/${product.slug}-${product.sku.split('-')[0]}`" class="group">
       <div
         class="cursor-pointer rounded-2xl dark:bg-secondary-bg-d hover:dark:bg-[#222222] px-4 pt-4 pb-3 transition ease-[ease] duration-300 dark:border-[#222222] hover:dark:border-[#303030] border">
         <div class="relative mb-4 pb-[133%] dark:shadow-[0_8px_24px_rgba(0,0,0,.5)] rounded-lg overflow-hidden">

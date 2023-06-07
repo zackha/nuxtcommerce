@@ -22,6 +22,11 @@
             <p class="text-sm ml-1 line-through" v-html="product.regularPrice"></p>
             <p class="text-sm ml-1">{{ calculateDiscountPercentage }}%</p>
           </div>
+          <div v-for="(variation, i) in product.productTypes.nodes" :key="variation.id">
+            <div v-for="(vars, i) in variation.products.nodes" :key="vars.id">
+              <NuxtLink :to="`/product/${vars.slug}-${product.sku.split('-')[0]}`"><NuxtImg :src="vars.image.sourceUrl" /></NuxtLink>
+            </div>
+          </div>
           <div>Size: {{ selectedVariation }}</div>
           <div class="flex gap-2 mt-3 flex-wrap">
             <label v-for="(variation, i) in product.variations.nodes" :key="variation.id" :class="[variation.stockStatus === 'OUT_OF_STOCK' ? 'disabled' : '']">
@@ -36,6 +41,7 @@
               <span class="py-1.5 px-2 border rounded leading-[10px] h-6">{{ variation.attributes.nodes.map((attr) => attr.value).toString() }}</span>
             </label>
           </div>
+          <div v-html="product.description"></div>
         </div>
       </div>
     </div>
@@ -43,10 +49,14 @@
 </template>
 
 <script setup>
-const route = useRoute();
+const route = useRoute().params.slug;
+const parts = route.split('-');
+const sku = parts.pop();
+const slug = parts.join('-');
+
 import { getProduct } from '~/gql/queries/getProduct.gql';
 
-const { result: productResult, loading } = useQuery(getProduct, () => ({ slug: route.params.slug }));
+const { result: productResult, loading } = useQuery(getProduct, () => ({ slug: slug, sku: sku }));
 const product = computed(() => productResult.value?.product);
 
 let selectedVariation = ref(null);
