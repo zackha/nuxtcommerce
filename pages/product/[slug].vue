@@ -9,39 +9,74 @@
         </div>
       </div>
       <div>
-        <h1 class="text-2xl">{{ product.name }}</h1>
-        <div class="flex-col flex">
-          <div class="flex justify-between flex-row items-baseline">
-            <div class="flex flex-row items-baseline">
-              <p class="text-xl font-bold" v-html="product.salePrice"></p>
-              <p class="text-sm ml-2">VAT included</p>
+        <div class="flex-col flex gap-4">
+          <div class="pb-4 border-b border-white/20">
+            <h1 class="text-2xl font-semibold mb-1">{{ product.name }}</h1>
+            <div class="flex justify-between flex-row items-baseline">
+              <div class="flex flex-row items-baseline">
+                <p class="text-xl font-bold text-[#ff0000]" v-html="product.salePrice"></p>
+                <p class="text-sm ml-2">VAT included</p>
+              </div>
+            </div>
+            <div class="flex-wrap items-baseline flex-row flex">
+              <p class="text-sm">Originally:</p>
+              <p class="text-sm ml-1 line-through" v-html="product.regularPrice"></p>
+              <p class="text-sm ml-1 text-[#ff0000]">{{ calculateDiscountPercentage }}%</p>
             </div>
           </div>
-          <div class="flex-wrap items-baseline flex-row flex">
-            <p class="text-sm">Originally:</p>
-            <p class="text-sm ml-1 line-through" v-html="product.regularPrice"></p>
-            <p class="text-sm ml-1">{{ calculateDiscountPercentage }}%</p>
-          </div>
-          <div v-for="(variation, i) in product.productTypes.nodes" :key="variation.id">
+          <div class="flex gap-2" v-for="(variation, i) in product.productTypes.nodes" :key="variation.id">
             <div v-for="(vars, i) in variation.products.nodes" :key="vars.id">
-              <NuxtLink :to="`/product/${vars.slug}-${product.sku.split('-')[0]}`"><NuxtImg :src="vars.image.sourceUrl" /></NuxtLink>
+              <NuxtLink :to="`/product/${vars.slug}-${product.sku.split('-')[0]}`" class="flex w-12">
+                <div class="">
+                  <NuxtImg :src="vars.image.sourceUrl" :title="vars.allPaColor.nodes[0].name" class="rounded-md" />
+                </div>
+              </NuxtLink>
             </div>
           </div>
-          <div>Size: {{ selectedVariation }}</div>
-          <div class="flex gap-2 mt-3 flex-wrap">
-            <label v-for="(variation, i) in product.variations.nodes" :key="variation.id" :class="[variation.stockStatus === 'OUT_OF_STOCK' ? 'disabled' : '']">
-              <input
-                type="radio"
-                class="hidden"
-                name="variation"
-                :checked="i == product.variations.nodes.findIndex((attr) => attr.stockStatus === `IN_STOCK`)"
-                :value="variation.attributes.nodes.map((attr) => attr.value).toString()"
-                v-model="selectedVariation"
-                :disabled="variation.stockStatus === 'OUT_OF_STOCK'" />
-              <span class="py-1.5 px-2 border rounded leading-[10px] h-6">{{ variation.attributes.nodes.map((attr) => attr.value).toString() }}</span>
-            </label>
+          <div class="pb-4 border-b border-white/20">
+            <div class="text-sm font-semibold leading-5">Size: {{ selectedVariation }}</div>
+            <div class="flex gap-2 mt-3 mb-4 flex-wrap">
+              <label
+                class="py-1 px-3 border rounded-md cursor-pointer select"
+                v-for="variation in product.variations.nodes"
+                :key="variation.id"
+                :class="[
+                  variation.stockStatus === 'OUT_OF_STOCK' ? 'disabled' : '',
+                  selectedVariation === variation.attributes.nodes.map((attr) => attr.value).toString() ? 'selected' : '',
+                ]">
+                <input
+                  type="radio"
+                  class="hidden"
+                  name="variation"
+                  :value="variation.attributes.nodes.map((attr) => attr.value).toString()"
+                  :disabled="variation.stockStatus === 'OUT_OF_STOCK'"
+                  v-model="selectedVariation" />
+                <span :title="`Size: ${variation.attributes.nodes.map((attr) => attr.value).toString()}`">{{
+                  variation.attributes.nodes.map((attr) => attr.value).toString()
+                }}</span>
+              </label>
+            </div>
+            <div class="flex">
+              <button type="submit" class="w-full h-12 border rounded-md tracking-wide font-semibold border-[#990000] bg-[#ff0000] transition duration-200 hover:bg-[#c90000]">
+                Add to Cart
+              </button>
+              <div class="cursor-pointer">
+                <div class="w-12 h-12 rounded-md border ml-4 flex justify-center items-center">
+                  <Icon name="ion:heart-outline" size="26" />
+                </div>
+              </div>
+            </div>
           </div>
-          <div v-html="product.description"></div>
+          <div>
+            <div class="text-base mb-2 font-semibold">Featured Information</div>
+            <div class="description leading-7 overflow-hidden max-h-84 text-sm">
+              <ul>
+                <li>Free returns within 15 days. Click for detailed <a class="underline" href="#">information</a>.</li>
+                <li>Article number: {{ product.sku }}</li>
+                <div v-html="product.description"></div>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -59,10 +94,10 @@ import { getProduct } from '~/gql/queries/getProduct.gql';
 const { result: productResult, loading } = useQuery(getProduct, () => ({ slug: slug, sku: sku }));
 const product = computed(() => productResult.value?.product);
 
-let selectedVariation = ref(null);
+const selectedVariation = ref(null);
 
 watchEffect(() => {
-  if (productResult.value?.product && productResult.value?.product.variations && productResult.value?.product.variations.nodes) {
+  if (productResult.value?.product.variations.nodes) {
     const variationInStock = product.value.variations.nodes.find((variation) => variation.stockStatus === 'IN_STOCK');
     selectedVariation.value = variationInStock ? variationInStock.attributes.nodes.map((attr) => attr.value).toString() : null;
   }
@@ -106,11 +141,20 @@ const calculateDiscountPercentage = computed(() => {
 // const product = data?.value?.product;
 </script>
 
-<style>
+<style lang="postcss">
 .disabled {
-  opacity: 0.4;
+  @apply opacity-40 cursor-default;
 }
-input[type='radio']:checked ~ span {
-  background-color: #f00;
+.selected,
+.select:hover:not(.disabled) {
+  background-color: rgb(242 26 26 / 15%);
+  border: solid 2px #ff0000;
+  padding: 0.188rem 0.688rem;
+  color: #ff0000;
+}
+.description ul li {
+  background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxlbGxpcHNlIHJ5PSIzIiByeD0iMyIgY3k9IjMiIGN4PSIzIiBmaWxsPSIjYzljOWM5Ii8+PC9zdmc+)
+    no-repeat 0 0.7rem;
+  padding-left: 0.938rem;
 }
 </style>
