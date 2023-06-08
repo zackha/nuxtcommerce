@@ -8,7 +8,7 @@ query getProduct($slug: ID!, $sku: String!) {
       salePrice
       description
       image {
-        sourceUrl(size: WOOCOMMERCE_SINGLE)
+        sourceUrl(size: LARGE)
       }
       productTypes {
         nodes {
@@ -16,7 +16,12 @@ query getProduct($slug: ID!, $sku: String!) {
             nodes {
               slug
               image {
-                sourceUrl(size: THUMBNAIL)
+                sourceUrl(size: LARGE)
+              }
+              allPaColor {
+                nodes {
+                  name
+                }
               }
             }
           }

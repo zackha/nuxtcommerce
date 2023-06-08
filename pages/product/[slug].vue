@@ -9,37 +9,53 @@
         </div>
       </div>
       <div>
-        <h1 class="text-2xl">{{ product.name }}</h1>
-        <div class="flex-col flex">
-          <div class="flex justify-between flex-row items-baseline">
-            <div class="flex flex-row items-baseline">
-              <p class="text-xl font-bold" v-html="product.salePrice"></p>
-              <p class="text-sm ml-2">VAT included</p>
+        <div class="flex-col flex gap-3">
+          <div>
+            <h1 class="text-2xl">{{ product.name }}</h1>
+          </div>
+          <div>
+            <div class="flex justify-between flex-row items-baseline">
+              <div class="flex flex-row items-baseline">
+                <p class="text-xl font-bold" v-html="product.salePrice"></p>
+                <p class="text-sm ml-2">VAT included</p>
+              </div>
+            </div>
+            <div class="flex-wrap items-baseline flex-row flex">
+              <p class="text-sm">Originally:</p>
+              <p class="text-sm ml-1 line-through" v-html="product.regularPrice"></p>
+              <p class="text-sm ml-1">{{ calculateDiscountPercentage }}%</p>
             </div>
           </div>
-          <div class="flex-wrap items-baseline flex-row flex">
-            <p class="text-sm">Originally:</p>
-            <p class="text-sm ml-1 line-through" v-html="product.regularPrice"></p>
-            <p class="text-sm ml-1">{{ calculateDiscountPercentage }}%</p>
-          </div>
-          <div v-for="(variation, i) in product.productTypes.nodes" :key="variation.id">
+          <div class="flex gap-2" v-for="(variation, i) in product.productTypes.nodes" :key="variation.id">
             <div v-for="(vars, i) in variation.products.nodes" :key="vars.id">
-              <NuxtLink :to="`/product/${vars.slug}-${product.sku.split('-')[0]}`"><NuxtImg :src="vars.image.sourceUrl" /></NuxtLink>
+              <NuxtLink :to="`/product/${vars.slug}-${product.sku.split('-')[0]}`" class="flex w-12">
+                <div class="">
+                  <NuxtImg :src="vars.image.sourceUrl" :title="vars.allPaColor.nodes[0].name" class="rounded-md" />
+                </div>
+              </NuxtLink>
             </div>
           </div>
-          <div>Size: {{ selectedVariation }}</div>
-          <div class="flex gap-2 mt-3 flex-wrap">
-            <label v-for="(variation, i) in product.variations.nodes" :key="variation.id" :class="[variation.stockStatus === 'OUT_OF_STOCK' ? 'disabled' : '']">
-              <input
-                type="radio"
-                class="hidden"
-                name="variation"
-                :checked="i == product.variations.nodes.findIndex((attr) => attr.stockStatus === `IN_STOCK`)"
-                :value="variation.attributes.nodes.map((attr) => attr.value).toString()"
-                v-model="selectedVariation"
-                :disabled="variation.stockStatus === 'OUT_OF_STOCK'" />
-              <span class="py-1.5 px-2 border rounded leading-[10px] h-6">{{ variation.attributes.nodes.map((attr) => attr.value).toString() }}</span>
-            </label>
+          <div>
+            <div>Size: {{ selectedVariation }}</div>
+            <div class="flex gap-2 mt-3 flex-wrap">
+              <label
+                class="py-1 px-3 border rounded-md"
+                v-for="variation in product.variations.nodes"
+                :key="variation.id"
+                :class="[
+                  variation.stockStatus === 'OUT_OF_STOCK' ? 'disabled' : '',
+                  selectedVariation === variation.attributes.nodes.map((attr) => attr.value).toString() ? 'bg-red-500' : '',
+                ]">
+                <input
+                  type="radio"
+                  class="hidden"
+                  name="variation"
+                  :value="variation.attributes.nodes.map((attr) => attr.value).toString()"
+                  :disabled="variation.stockStatus === 'OUT_OF_STOCK'"
+                  v-model="selectedVariation" />
+                <span>{{ variation.attributes.nodes.map((attr) => attr.value).toString() }}</span>
+              </label>
+            </div>
           </div>
           <div v-html="product.description"></div>
         </div>
@@ -59,10 +75,10 @@ import { getProduct } from '~/gql/queries/getProduct.gql';
 const { result: productResult, loading } = useQuery(getProduct, () => ({ slug: slug, sku: sku }));
 const product = computed(() => productResult.value?.product);
 
-let selectedVariation = ref(null);
+const selectedVariation = ref(null);
 
 watchEffect(() => {
-  if (productResult.value?.product && productResult.value?.product.variations && productResult.value?.product.variations.nodes) {
+  if (productResult.value?.product.variations.nodes) {
     const variationInStock = product.value.variations.nodes.find((variation) => variation.stockStatus === 'IN_STOCK');
     selectedVariation.value = variationInStock ? variationInStock.attributes.nodes.map((attr) => attr.value).toString() : null;
   }
@@ -109,8 +125,5 @@ const calculateDiscountPercentage = computed(() => {
 <style>
 .disabled {
   opacity: 0.4;
-}
-input[type='radio']:checked ~ span {
-  background-color: #f00;
 }
 </style>
