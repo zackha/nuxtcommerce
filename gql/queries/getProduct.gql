@@ -12,7 +12,7 @@ query getProduct($slug: ID!, $sku: String!) {
       }
       productTypes {
         nodes {
-          products(where: { sku: $sku }) {
+          products(where: { stockStatus: IN_STOCK, sku: $sku }) {
             nodes {
               slug
               image {
