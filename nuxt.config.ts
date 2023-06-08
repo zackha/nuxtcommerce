@@ -1,7 +1,7 @@
 import pkg from './package.json';
 
 export default defineNuxtConfig({
-  modules: ['@nuxt/image-edge', '@nuxtjs/tailwindcss', '@nuxtjs/color-mode', '@nuxtjs/apollo', 'nuxt-icon'],
+  modules: ['@nuxt/image', '@nuxtjs/tailwindcss', '@nuxtjs/color-mode', '@nuxtjs/apollo', 'nuxt-icon'],
 
   runtimeConfig: {
     public: {
@@ -31,5 +31,5 @@ export default defineNuxtConfig({
     },
   },
 
-  devtools: true
+  devtools: true,
 });
