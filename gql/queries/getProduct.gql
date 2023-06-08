@@ -10,6 +10,12 @@ query getProduct($slug: ID!, $sku: String!) {
       image {
         sourceUrl(size: LARGE)
       }
+      galleryImages {
+        nodes {
+          id
+          sourceUrl
+        }
+      }
       productTypes {
         nodes {
           products(where: { stockStatus: IN_STOCK, sku: $sku }) {

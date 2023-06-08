@@ -3,9 +3,15 @@
   <div v-if="loading">loading...</div>
   <div v-else class="border mt-10 mb-10 rounded-[32px]">
     <div class="flex p-5 flex-row gap-6">
-      <div class="">
+      <div class="relative">
         <div class="w-[400px]">
           <NuxtImg :src="product.image.sourceUrl" class="rounded-2xl" />
+          <div class="bullets-wrapper">
+            <div class="bullets-container gap-2">
+              <NuxtImg class="w-6 rounded-sm" :src="product.image.sourceUrl" />
+              <NuxtImg class="w-6 rounded-sm" v-for="node in product.galleryImages.nodes" :key="node.id" :src="node.sourceUrl" />
+            </div>
+          </div>
         </div>
       </div>
       <div>
@@ -156,5 +162,11 @@ const calculateDiscountPercentage = computed(() => {
   background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxlbGxpcHNlIHJ5PSIzIiByeD0iMyIgY3k9IjMiIGN4PSIzIiBmaWxsPSIjYzljOWM5Ii8+PC9zdmc+)
     no-repeat 0 0.7rem;
   padding-left: 0.938rem;
+}
+.bullets-wrapper {
+  @apply p-2 rounded-xl absolute left-1/2 bottom-2 -translate-x-1/2 shadow-2xl backdrop-blur-xl border dark:bg-neutral-800/30 dark:border-white/10;
+}
+.bullets-wrapper .bullets-container {
+  @apply flex justify-center items-center overflow-hidden rounded-md;
 }
 </style>
