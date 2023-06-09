@@ -1,16 +1,22 @@
 <template>
   <ButtonBack />
   <div v-if="loading">loading...</div>
-  <div v-else class="border mt-10 mb-10 rounded-[32px]">
+  <div v-else class="border border-[#262626] mt-10 mb-10 rounded-[32px]">
     <div class="flex p-5 flex-row gap-6">
-      <div class="">
+      <div class="relative">
         <div class="w-[400px]">
-          <NuxtImg :src="product.image.sourceUrl" class="rounded-2xl" />
+          <NuxtImg :src="product.image.sourceUrl" class="rounded-2xl border border-[#262626]" />
+          <div class="bullets-wrapper">
+            <div class="bullets-container gap-2">
+              <NuxtImg class="w-6 rounded-sm" :src="product.image.sourceUrl" />
+              <NuxtImg class="w-6 rounded-sm" v-for="node in product.galleryImages.nodes" :key="node.id" :src="node.sourceUrl" />
+            </div>
+          </div>
         </div>
       </div>
       <div>
         <div class="flex-col flex gap-4">
-          <div class="pb-4 border-b border-white/20">
+          <div class="pb-4 border-b border-[#262626]">
             <h1 class="text-2xl font-semibold mb-1">{{ product.name }}</h1>
             <div class="flex justify-between flex-row items-baseline">
               <div class="flex flex-row items-baseline">
@@ -28,14 +34,14 @@
             <div v-for="(vars, i) in variation.products.nodes" :key="vars.id">
               <NuxtLink :to="`/product/${vars.slug}-${product.sku.split('-')[0]}`" class="flex w-12">
                 <div class="">
-                  <NuxtImg :src="vars.image.sourceUrl" :title="vars.allPaColor.nodes[0].name" class="rounded-md" />
+                  <NuxtImg :src="vars.image.sourceUrl" :title="vars.allPaColor.nodes[0].name" class="rounded-md border border-[#262626]" />
                 </div>
               </NuxtLink>
             </div>
           </div>
-          <div class="pb-4 border-b border-white/20">
-            <div class="text-sm font-semibold leading-5">Size: {{ selectedVariation }}</div>
-            <div class="flex gap-2 mt-3 mb-4 flex-wrap">
+          <div class="pb-4 border-b border-[#262626]">
+            <div class="text-sm font-semibold leading-5 opacity-50">Size: {{ selectedVariation }}</div>
+            <div class="flex gap-2 mt-2 mb-4 flex-wrap">
               <label
                 class="py-1 px-3 border rounded-md cursor-pointer select"
                 v-for="variation in product.variations.nodes"
@@ -61,7 +67,7 @@
                 Add to Cart
               </button>
               <div class="cursor-pointer">
-                <div class="w-12 h-12 rounded-md border ml-4 flex justify-center items-center">
+                <div class="w-12 h-12 rounded-md border border-[#262626] ml-4 flex justify-center items-center">
                   <Icon name="ion:heart-outline" size="26" />
                 </div>
               </div>
@@ -156,5 +162,11 @@ const calculateDiscountPercentage = computed(() => {
   background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxlbGxpcHNlIHJ5PSIzIiByeD0iMyIgY3k9IjMiIGN4PSIzIiBmaWxsPSIjYzljOWM5Ii8+PC9zdmc+)
     no-repeat 0 0.7rem;
   padding-left: 0.938rem;
+}
+.bullets-wrapper {
+  @apply p-2 rounded-xl absolute left-1/2 bottom-2 -translate-x-1/2 shadow-2xl backdrop-blur-xl border dark:bg-neutral-800/30 dark:border-white/10;
+}
+.bullets-wrapper .bullets-container {
+  @apply flex justify-center items-center overflow-hidden rounded-md;
 }
 </style>
