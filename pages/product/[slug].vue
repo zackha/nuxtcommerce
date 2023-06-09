@@ -1,11 +1,11 @@
 <template>
   <ButtonBack />
-  <div v-if="loading">loading...</div>
+  <ProductPageSkeleton v-if="loading" />
   <div v-else class="border border-[#262626] mt-10 mb-10 rounded-[32px]">
     <div class="flex p-5 flex-row gap-6">
       <div class="relative">
-        <div class="w-[400px]">
-          <NuxtImg :src="product.image.sourceUrl" class="rounded-2xl border border-[#262626]" />
+        <div class="w-[400px] h-[600px]">
+          <NuxtImg :src="product.image.sourceUrl" class="h-full w-full rounded-2xl border border-[#262626]" />
           <div class="bullets-wrapper">
             <div class="bullets-container gap-2">
               <NuxtImg class="w-6 rounded-sm" :src="product.image.sourceUrl" />
