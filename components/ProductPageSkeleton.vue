@@ -6,7 +6,7 @@
           <div class="rounded-2xl border border-[#333] absolute h-full w-full bg-neutral-800"></div>
           <div class="bullets-wrapper-skeleton border border-[#333]">
             <div class="bullets-container-skeleton relative gap-2">
-              <div class="w-6 rounded-sm h-8 bg-[#333]" v-for="i in 6" :key="i"></div>
+              <div class="w-6 rounded-sm h-9 bg-[#333]" v-for="i in 6" :key="i"></div>
             </div>
           </div>
         </div>
@@ -61,6 +61,6 @@
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
 }
 .bullets-wrapper-skeleton .bullets-container-skeleton {
-  @apply flex justify-center items-center rounded-md;
+  @apply flex justify-center overflow-hidden items-center rounded-md;
 }
 </style>
