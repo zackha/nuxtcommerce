@@ -1,11 +1,11 @@
 <template>
   <ButtonBack />
   <div v-if="loading">loading...</div>
-  <div v-else class="border mt-10 mb-10 rounded-[32px]">
+  <div v-else class="border border-[#262626] mt-10 mb-10 rounded-[32px]">
     <div class="flex p-5 flex-row gap-6">
       <div class="relative">
         <div class="w-[400px]">
-          <NuxtImg :src="product.image.sourceUrl" class="rounded-2xl" />
+          <NuxtImg :src="product.image.sourceUrl" class="rounded-2xl border border-[#262626]" />
           <div class="bullets-wrapper">
             <div class="bullets-container gap-2">
               <NuxtImg class="w-6 rounded-sm" :src="product.image.sourceUrl" />
@@ -16,7 +16,7 @@
       </div>
       <div>
         <div class="flex-col flex gap-4">
-          <div class="pb-4 border-b border-white/20">
+          <div class="pb-4 border-b border-[#262626]">
             <h1 class="text-2xl font-semibold mb-1">{{ product.name }}</h1>
             <div class="flex justify-between flex-row items-baseline">
               <div class="flex flex-row items-baseline">
@@ -34,14 +34,14 @@
             <div v-for="(vars, i) in variation.products.nodes" :key="vars.id">
               <NuxtLink :to="`/product/${vars.slug}-${product.sku.split('-')[0]}`" class="flex w-12">
                 <div class="">
-                  <NuxtImg :src="vars.image.sourceUrl" :title="vars.allPaColor.nodes[0].name" class="rounded-md" />
+                  <NuxtImg :src="vars.image.sourceUrl" :title="vars.allPaColor.nodes[0].name" class="rounded-md border border-[#262626]" />
                 </div>
               </NuxtLink>
             </div>
           </div>
-          <div class="pb-4 border-b border-white/20">
-            <div class="text-sm font-semibold leading-5">Size: {{ selectedVariation }}</div>
-            <div class="flex gap-2 mt-3 mb-4 flex-wrap">
+          <div class="pb-4 border-b border-[#262626]">
+            <div class="text-sm font-semibold leading-5 opacity-50">Size: {{ selectedVariation }}</div>
+            <div class="flex gap-2 mt-2 mb-4 flex-wrap">
               <label
                 class="py-1 px-3 border rounded-md cursor-pointer select"
                 v-for="variation in product.variations.nodes"
@@ -67,7 +67,7 @@
                 Add to Cart
               </button>
               <div class="cursor-pointer">
-                <div class="w-12 h-12 rounded-md border ml-4 flex justify-center items-center">
+                <div class="w-12 h-12 rounded-md border border-[#262626] ml-4 flex justify-center items-center">
                   <Icon name="ion:heart-outline" size="26" />
                 </div>
               </div>
