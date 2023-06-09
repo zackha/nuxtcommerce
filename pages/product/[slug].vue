@@ -75,7 +75,7 @@
           </div>
           <div>
             <div class="text-base mb-2 font-semibold">Featured Information</div>
-            <div class="description leading-7 overflow-hidden max-h-84 text-sm">
+            <div class="description leading-7 overflow-hidden max-h-84 text-sm max-h-48">
               <ul>
                 <li>Free returns within 15 days. Click for detailed <a class="underline" href="#">information</a>.</li>
                 <li>Article number: {{ product.sku }}</li>

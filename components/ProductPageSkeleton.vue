@@ -13,24 +13,24 @@
       </div>
       <div class="w-full">
         <div class="flex-col flex gap-4">
-          <div class="pb-4 border-b border-[#333]">
-            <div class="h-7 w-2/3 bg-neutral-800 mb-2 rounded"></div>
+          <div class="pb-3 border-b border-[#333]">
+            <div class="h-8 w-80 bg-neutral-800 mb-2 rounded"></div>
             <div class="flex justify-between flex-row items-baseline">
               <div class="flex flex-row items-baseline">
-                <div class="h-5 w-40 bg-neutral-800 mb-1 rounded"></div>
+                <div class="h-5 w-44 bg-neutral-800 mb-1 rounded"></div>
               </div>
             </div>
             <div class="flex-wrap items-baseline flex-row flex">
-              <div class="h-5 w-36 bg-neutral-800 mb-1 rounded"></div>
+              <div class="h-5 w-40 bg-neutral-800 mb-1 rounded"></div>
             </div>
           </div>
           <div class="flex gap-2">
             <div class="rounded-md border border-[#333] w-12 h-[71px] bg-neutral-800" v-for="i in 2" :key="i"></div>
           </div>
           <div class="pb-4 border-b border-[#333]">
-            <div class="h-5 w-20 bg-neutral-800 mb-2 rounded"></div>
+            <div class="h-5 w-14 bg-neutral-800 mb-2 rounded"></div>
             <div class="flex gap-2 mt-2 mb-4 flex-wrap">
-              <div class="py-1 px-3 border w-11 h-[34px] rounded-md border-[#333] bg-neutral-800" v-for="i in 5" :key="i"></div>
+              <div class="py-1 px-3 border w-12 h-[34px] rounded-md border-[#333] bg-neutral-800" v-for="i in 5" :key="i"></div>
             </div>
             <div class="flex">
               <div class="w-full h-12 border rounded-md border-[#333] bg-neutral-800"></div>
@@ -40,14 +40,14 @@
             </div>
           </div>
           <div>
-            <div class="bg-neutral-800 h-7 rounded w-44 mb-4"></div>
+            <div class="bg-neutral-800 h-6 rounded w-44 mb-3"></div>
             <div class="bg-neutral-800 h-5 rounded w-96 mb-2"></div>
-            <div class="bg-neutral-800 h-5 rounded w-72 mb-2"></div>
-            <div class="bg-neutral-800 h-5 rounded w-24 mb-2"></div>
+            <div class="bg-neutral-800 h-5 rounded w-80 mb-2"></div>
+            <div class="bg-neutral-800 h-5 rounded w-28 mb-2"></div>
             <div class="bg-neutral-800 h-5 rounded w-40 mb-2"></div>
             <div class="bg-neutral-800 h-5 rounded w-32 mb-2"></div>
             <div class="bg-neutral-800 h-5 rounded w-full mb-2"></div>
-            <div class="bg-neutral-800 h-5 rounded w-60"></div>
+            <div class="bg-neutral-800 h-5 rounded w-64"></div>
           </div>
         </div>
       </div>
