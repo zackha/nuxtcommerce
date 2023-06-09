@@ -164,9 +164,10 @@ const calculateDiscountPercentage = computed(() => {
   padding-left: 0.938rem;
 }
 .bullets-wrapper {
-  @apply p-2 rounded-xl absolute left-1/2 bottom-2 -translate-x-1/2 shadow-2xl backdrop-blur-xl border dark:bg-neutral-800/30 dark:border-white/10;
+  @apply p-2 rounded-xl absolute left-1/2 bottom-2 -translate-x-1/2 backdrop-blur-xl border dark:bg-neutral-800/30 dark:border-white/10;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
 }
 .bullets-wrapper .bullets-container {
-  @apply flex justify-center items-center overflow-hidden rounded-md;
+  @apply flex justify-center overflow-hidden items-center rounded-md;
 }
 </style>
