@@ -15,12 +15,12 @@ query getProducts($after: String, $search: String, $category: String, $order: Or
         }
         image {
           id
-          sourceUrl(size: LARGE)
+          sourceUrl(size: WOOCOMMERCE_THUMBNAIL)
           altText
         }
         galleryImages {
           nodes {
-            sourceUrl(size: LARGE)
+            sourceUrl(size: WOOCOMMERCE_THUMBNAIL)
           }
         }
         variations(where: { orderby: { field: NAME, order: DESC } }) {
