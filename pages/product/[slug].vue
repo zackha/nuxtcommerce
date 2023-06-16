@@ -2,18 +2,22 @@
   <ButtonBack />
   <ProductPageSkeleton v-if="loading" />
   <div v-else class="justify-center flex flex-row">
-    <div class="flex p-5 flex-row gap-6 w-3/5 border border-[#262626] mt-10 mb-10 rounded-[32px]">
+    <div class="flex p-5 flex-row gap-6 w-3/5 border border-[#262626] mb-10 rounded-[32px]">
       <div class="relative">
-        <div class="w-[400px] h-[600px]">
-          <NuxtImg :src="product.image.sourceUrl" class="h-full w-full rounded-2xl border border-[#262626]" />
-          <div class="bullets-wrapper">
-            <div class="bullets-container gap-2">
-              <NuxtImg class="w-6 rounded-sm" :src="product.image.sourceUrl" />
-              <NuxtImg class="w-6 rounded-sm" v-for="node in product.galleryImages.nodes" :key="node.id" :src="node.sourceUrl" />
-            </div>
-          </div>
-        </div>
+        <swiper
+          :slidesPerView="'auto'"
+          :pagination="{
+            dynamicBullets: true,
+          }"
+          :spaceBetween="4"
+          :navigation="true"
+          :modules="modules"
+          class="w-[632px] h-[600px] rounded-2xl border border-[#262626]">
+          <swiper-slide><NuxtImg class="h-full w-full" :src="product.image.sourceUrl" /></swiper-slide>
+          <swiper-slide v-for="node in product.galleryImages.nodes"><NuxtImg class="h-full w-full" :key="node.id" :src="node.sourceUrl" /></swiper-slide>
+        </swiper>
       </div>
+
       <div class="w-full">
         <div class="flex-col flex gap-4">
           <div class="pb-4 border-b border-[#262626]">
@@ -90,12 +94,19 @@
 </template>
 
 <script setup>
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import { Navigation, Pagination } from 'swiper';
+import { getProduct } from '~/gql/queries/getProduct.gql';
+
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+
+const modules = [Navigation, Pagination];
 const route = useRoute().params.slug;
 const parts = route.split('-');
 const sku = parts.pop();
 const slug = parts.join('-');
-
-import { getProduct } from '~/gql/queries/getProduct.gql';
 
 const { result: productResult, loading } = useQuery(getProduct, () => ({ slug: slug, sku: sku }));
 const product = computed(() => productResult.value?.product);
@@ -148,6 +159,9 @@ const calculateDiscountPercentage = computed(() => {
 </script>
 
 <style lang="postcss">
+.swiper-slide {
+  width: 63.2%;
+}
 .disabled {
   @apply opacity-40 cursor-default;
 }
