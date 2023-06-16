@@ -1,8 +1,8 @@
 <template>
   <ButtonBack />
   <ProductPageSkeleton v-if="loading" />
-  <div v-else class="border border-[#262626] mt-10 mb-10 rounded-[32px]">
-    <div class="flex p-5 flex-row gap-6">
+  <div v-else class="justify-center flex flex-row">
+    <div class="flex p-5 flex-row gap-6 w-3/5 border border-[#262626] mt-10 mb-10 rounded-[32px]">
       <div class="relative">
         <div class="w-[400px] h-[600px]">
           <NuxtImg :src="product.image.sourceUrl" class="h-full w-full rounded-2xl border border-[#262626]" />
@@ -14,7 +14,7 @@
           </div>
         </div>
       </div>
-      <div>
+      <div class="w-full">
         <div class="flex-col flex gap-4">
           <div class="pb-4 border-b border-[#262626]">
             <h1 class="text-2xl font-semibold mb-1">{{ product.name }}</h1>

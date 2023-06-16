@@ -1,6 +1,6 @@
 <template>
-  <div class="animate-pulse border border-[#333] mt-10 mb-10 rounded-[32px]">
-    <div class="flex p-5 flex-row gap-6">
+  <div class="animate-pulse justify-center flex flex-row">
+    <div class="flex p-5 flex-row gap-6 w-3/5 border border-[#333] mt-10 mb-10 rounded-[32px]">
       <div class="relative">
         <div class="w-[400px] h-[600px]">
           <div class="rounded-2xl border border-[#333] absolute h-full w-full bg-neutral-800"></div>
