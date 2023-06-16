@@ -16,6 +16,11 @@ query getProduct($slug: ID!, $sku: String!) {
           sourceUrl(size: LARGE)
         }
       }
+      allPaColor {
+        nodes {
+          name
+        }
+      }
       productTypes {
         nodes {
           products(where: { stockStatus: IN_STOCK, sku: $sku }) {

@@ -2,7 +2,7 @@
   <ButtonBack />
   <ProductPageSkeleton v-if="loading" />
   <div v-else class="justify-center flex flex-row">
-    <div class="flex p-5 flex-row gap-6 w-3/5 border border-[#262626] mb-10 rounded-[32px]">
+    <div class="flex p-5 flex-row gap-6 w-3/5 border border-[#efefef] dark:border-[#262626] mb-10 rounded-[32px] shadow-[0_1px_20px_rgba(0,0,0,.1)]">
       <div class="relative">
         <swiper
           :slidesPerView="'auto'"
@@ -12,7 +12,7 @@
           :spaceBetween="4"
           :navigation="true"
           :modules="modules"
-          class="w-[632px] h-[600px] rounded-2xl border border-[#262626]">
+          class="w-[632px] h-[600px] rounded-2xl">
           <swiper-slide><NuxtImg class="h-full w-full" :src="product.image.sourceUrl" /></swiper-slide>
           <swiper-slide v-for="node in product.galleryImages.nodes"><NuxtImg class="h-full w-full" :key="node.id" :src="node.sourceUrl" /></swiper-slide>
         </swiper>
@@ -20,7 +20,7 @@
 
       <div class="w-full">
         <div class="flex-col flex gap-4">
-          <div class="pb-4 border-b border-[#262626]">
+          <div class="pb-4 border-b border-[#efefef] dark:border-[#262626]">
             <h1 class="text-2xl font-semibold mb-1">{{ product.name }}</h1>
             <div class="flex justify-between flex-row items-baseline">
               <div class="flex flex-row items-baseline">
@@ -34,20 +34,23 @@
               <p class="text-sm ml-1 text-[#ff0000]">{{ calculateDiscountPercentage }}%</p>
             </div>
           </div>
-          <div class="flex gap-2" v-for="(variation, i) in product.productTypes.nodes" :key="variation.id">
+          <div class="flex gap-2" v-for="variation in product.productTypes.nodes" :key="variation.id">
             <div v-for="(vars, i) in variation.products.nodes" :key="vars.id">
-              <NuxtLink :to="`/product/${vars.slug}-${product.sku.split('-')[0]}`" class="flex w-12">
+              <NuxtLink
+                :to="`/product/${vars.slug}-${product.sku.split('-')[0]}`"
+                class="flex w-12 rounded-lg border-2 border-[#9b9b9b] dark:border-[#8c8c8c]"
+                :class="[vars.allPaColor.nodes[0].name === product.allPaColor.nodes[0].name ? 'selected' : '']">
                 <div class="">
-                  <NuxtImg :src="vars.image.sourceUrl" :title="vars.allPaColor.nodes[0].name" class="rounded-md border border-[#262626]" />
+                  <NuxtImg :src="vars.image.sourceUrl" :title="vars.allPaColor.nodes[0].name" class="rounded-md border-2 border-white dark:border-black" />
                 </div>
               </NuxtLink>
             </div>
           </div>
-          <div class="pb-4 border-b border-[#262626]">
+          <div class="pb-4 border-b border-[#efefef] dark:border-[#262626]">
             <div class="text-sm font-semibold leading-5 opacity-50">Size: {{ selectedVariation }}</div>
             <div class="flex gap-2 mt-2 mb-4 flex-wrap">
               <label
-                class="py-1 px-3 border rounded-md cursor-pointer select"
+                class="py-1 px-3 rounded-md cursor-pointer select border-2 border-[#9b9b9b] dark:border-[#8c8c8c]"
                 v-for="variation in product.variations.nodes"
                 :key="variation.id"
                 :class="[
@@ -61,18 +64,18 @@
                   :value="variation.attributes.nodes.map((attr) => attr.value).toString()"
                   :disabled="variation.stockStatus === 'OUT_OF_STOCK'"
                   v-model="selectedVariation" />
-                <span :title="`Size: ${variation.attributes.nodes.map((attr) => attr.value).toString()}`">{{
+                <span class="font-semibold" :title="`Size: ${variation.attributes.nodes.map((attr) => attr.value).toString()}`">{{
                   variation.attributes.nodes.map((attr) => attr.value).toString()
                 }}</span>
               </label>
             </div>
             <div class="flex">
-              <button type="submit" class="w-full h-12 border rounded-md tracking-wide font-semibold border-[#990000] bg-[#ff0000] transition duration-200 hover:bg-[#c90000]">
+              <button type="submit" class="w-full h-12 text-white rounded-md tracking-wide font-semibold bg-[#ff0000] transition duration-200 hover:bg-[#c90000]">
                 Add to Cart
               </button>
               <div class="cursor-pointer">
-                <div class="w-12 h-12 rounded-md border border-[#262626] ml-4 flex justify-center items-center">
-                  <Icon name="ion:heart-outline" size="26" />
+                <div class="w-12 h-12 rounded-md ml-4 flex justify-center items-center border-2 text-[#8c8c8c] border-[#e6e6e6] dark:border-[#262626]">
+                  <Icon name="ph:heart-bold" size="24" />
                 </div>
               </div>
             </div>
@@ -167,9 +170,8 @@ const calculateDiscountPercentage = computed(() => {
 }
 .selected,
 .select:hover:not(.disabled) {
-  background-color: rgb(242 26 26 / 15%);
-  border: solid 2px #ff0000;
-  padding: 0.188rem 0.688rem;
+  background-color: rgb(242 26 26 / 10%);
+  border-color: #ff0000 !important;
   color: #ff0000;
 }
 .description ul li {
