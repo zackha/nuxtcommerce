@@ -2,22 +2,31 @@
   <ButtonBack />
   <ProductPageSkeleton v-if="loading" />
   <div v-else class="justify-center flex flex-row">
-    <div class="flex p-5 flex-row gap-6 w-3/5 border border-[#efefef] dark:border-[#262626] mb-10 rounded-[32px] shadow-[0_1px_20px_rgba(0,0,0,.1)]">
+    <div class="mr-6 mt-5">
+      <swiper :modules="modules" @swiper="setThumbsSwiper" class="product-images-thumbs w-14">
+        <swiper-slide class="rounded-xl overflow-hidden border-2 border-white dark:border-black">
+          <NuxtImg class="h-full w-full border-2 border-white dark:border-black rounded-[10px]" :src="product.image.sourceUrl" />
+        </swiper-slide>
+        <swiper-slide class="rounded-xl overflow-hidden border-2 border-white dark:border-black" v-for="node in product.galleryImages.nodes" :key="node.id">
+          <NuxtImg class="h-full w-full border-2 border-white dark:border-black rounded-[10px]" :src="node.sourceUrl" />
+        </swiper-slide>
+      </swiper>
+    </div>
+    <div class="flex p-5 flex-row gap-6 w-3/5 border border-[#efefef] dark:border-[#262626] rounded-[32px] shadow-[0_1px_20px_rgba(0,0,0,.1)]">
       <div class="relative">
         <swiper
           :slidesPerView="'auto'"
           :pagination="{
             dynamicBullets: true,
           }"
-          :spaceBetween="4"
           :navigation="true"
           :modules="modules"
-          class="w-[632px] h-[600px] rounded-2xl">
+          :thumbs="{ swiper: thumbsSwiper }"
+          class="w-[632px] h-[600px] rounded-2xl product-images">
           <swiper-slide><NuxtImg class="h-full w-full" :src="product.image.sourceUrl" /></swiper-slide>
-          <swiper-slide v-for="node in product.galleryImages.nodes"><NuxtImg class="h-full w-full" :key="node.id" :src="node.sourceUrl" /></swiper-slide>
+          <swiper-slide v-for="node in product.galleryImages.nodes" :key="node.id"><NuxtImg class="h-full w-full" :src="node.sourceUrl" /></swiper-slide>
         </swiper>
       </div>
-
       <div class="w-full">
         <div class="flex-col flex gap-4">
           <div class="pb-4 border-b border-[#efefef] dark:border-[#262626]">
@@ -98,14 +107,19 @@
 
 <script setup>
 import { Swiper, SwiperSlide } from 'swiper/vue';
-import { Navigation, Pagination } from 'swiper';
+import { Navigation, Pagination, Thumbs } from 'swiper';
 import { getProduct } from '~/gql/queries/getProduct.gql';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-const modules = [Navigation, Pagination];
+const thumbsSwiper = ref(null);
+const setThumbsSwiper = (swiper) => {
+  thumbsSwiper.value = swiper;
+};
+
+const modules = [Navigation, Pagination, Thumbs];
 const route = useRoute().params.slug;
 const parts = route.split('-');
 const sku = parts.pop();
@@ -162,8 +176,17 @@ const calculateDiscountPercentage = computed(() => {
 </script>
 
 <style lang="postcss">
-.swiper-slide {
+.product-images .swiper-slide {
   width: 63.2%;
+}
+.product-images .swiper-wrapper {
+  @apply gap-1;
+}
+.product-images-thumbs .swiper-wrapper {
+  @apply flex-col gap-3;
+}
+.product-images-thumbs .swiper-slide-thumb-active {
+  @apply border-black dark:border-white;
 }
 .disabled {
   @apply opacity-40 cursor-default;
