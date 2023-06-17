@@ -1,5 +1,5 @@
 <template>
-  <div class="my-8 flex items-center justify-between px-2 text-[13px] font-semibold text-secondary-text dark:text-secondary-text-d">
+  <div class="my-8 flex items-center justify-between px-8 text-[13px] font-semibold text-secondary-text dark:text-secondary-text-d">
     <div>
       <a class="hover:text-black hover:dark:text-neutral-100" href="https://github.com/zackha/nuxtcommerce" target="_blank">NuxtCommerce v{{ config.public.version }}</a>
       - by <a class="hover:text-black hover:dark:text-neutral-100" href="https://me.zackha.com" target="_blank">Zack Hatlen</a>

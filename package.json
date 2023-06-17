@@ -13,12 +13,15 @@
     "release": "bumpp"
   },
   "devDependencies": {
-    "@nuxt/devtools": "^0.6.0",
+    "@nuxt/devtools": "^0.6.1",
     "@nuxt/image": "rc",
     "@nuxtjs/apollo": "^5.0.0-alpha.6",
     "@nuxtjs/color-mode": "^3.2.0",
     "@nuxtjs/tailwindcss": "^6.7.2",
     "nuxt": "^3.5.3",
     "nuxt-icon": "^0.4.1"
+  },
+  "dependencies": {
+    "swiper": "^9.4.1"
   }
 }

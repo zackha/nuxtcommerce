@@ -13,7 +13,12 @@ query getProduct($slug: ID!, $sku: String!) {
       galleryImages {
         nodes {
           id
-          sourceUrl(size: WOOCOMMERCE_THUMBNAIL)
+          sourceUrl(size: LARGE)
+        }
+      }
+      allPaColor {
+        nodes {
+          name
         }
       }
       productTypes {
