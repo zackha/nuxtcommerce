@@ -48,7 +48,7 @@
             <div v-for="(vars, i) in variation.products.nodes" :key="vars.id">
               <NuxtLink
                 :to="`/product/${vars.slug}-${product.sku.split('-')[0]}`"
-                class="flex w-12 rounded-lg border-2 border-[#9b9b9b] dark:border-[#8c8c8c]"
+                class="flex w-12 rounded-lg border-2 border-[#9b9b9b] dark:border-[#8c8c8c] select"
                 :class="[vars.allPaColor.nodes[0].name === product.allPaColor.nodes[0].name ? 'selected' : '']">
                 <div class="">
                   <NuxtImg :src="vars.image.sourceUrl" :title="vars.allPaColor.nodes[0].name" class="rounded-md border-2 border-white dark:border-black" />
