@@ -1,14 +1,13 @@
 <template>
-  <div class="flex flex-shrink flex-grow flex-col text-sm font-semibold text-neutral-600 dark:text-neutral-200">
-    <form
-      class="group flex h-10 flex-grow rounded-xl border border-transparent bg-neutral-800/5 dark:bg-white/10 pl-4 pr-3 transition-all focus-within:border-neutral-400 focus-within:dark:border-neutral-600 focus-within:bg-white/30 focus-within:dark:bg-neutral-800/30 hover:border-neutral-300 hover:focus-within:border-neutral-400 hover:dark:border-neutral-600">
+  <div class="flex flex-shrink flex-grow flex-col text-sm font-semibold text-neutral-600 px-2">
+    <form class="group flex h-12 flex-grow rounded-full bg-[#e9e9e9] pl-4 pr-3 transition-all hover:bg-[#e1e1e1]">
       <div class="flex w-full items-center gap-4">
         <div class="flex text-neutral-500 dark:text-neutral-400">
-          <Icon name="majesticons:search-line" size="20" />
+          <Icon name="iconamoon:search-bold" size="20" />
         </div>
         <div class="flex w-full">
           <input
-            class="w-full bg-transparent py-2 outline-none placeholder:text-neutral-400 placeholder:dark:text-neutral-500"
+            class="w-full bg-transparent py-2 outline-none placeholder:text-[#757575] placeholder:dark:text-neutral-500"
             :value="searchTerm"
             @input="updateSearchTerm"
             :placeholder="selectedCategory ? `Search in ${selectedCategory}` : 'Search'" />
