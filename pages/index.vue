@@ -7,7 +7,7 @@
       <ButtonSortBy @click.stop="toggleDropdown('sortBy')" :show="isDropdownSortBy" :options="options" v-model:selectedOption="selectedOption" />
     </div>
   </div>
-  <div class="grid grid-cols-7 gap-4 px-8">
+  <div class="grid grid-cols-7 gap-4 px-20">
     <ProductCard :products="products" />
     <ProductSkeleton v-if="loading" />
   </div>
