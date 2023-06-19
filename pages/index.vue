@@ -24,7 +24,7 @@
 </template>
 
 <script setup>
-const { products, empty, loading, categories, options, searchTerm, selectedCategory, selectedOption, isDropdownCategory, isDropdownSortBy } = useSearch();
+const { products, empty, loading, categories, options, searchTerm, selectedCategory, selectedOption, isDropdownCategory, isDropdownSortBy } = useProducts();
 
 const toggleDropdown = (type) => {
   if (type === 'category') {
