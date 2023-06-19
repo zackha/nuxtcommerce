@@ -1,5 +1,5 @@
 <template>
-  <div class="animate-pulse justify-center flex flex-row">
+  <div class="animate-pulse justify-center flex flex-row pt-2.5">
     <div class="mr-6 mt-5 w-14"></div>
     <div class="flex p-5 flex-row gap-6 w-3/5 dark:border dark:border-[#262626] rounded-[32px] shadow-[0_1px_20px_rgba(0,0,0,.1)]">
       <div class="relative">
