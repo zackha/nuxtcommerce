@@ -1,0 +1,17 @@
+query getSearchProducts($search: String) {
+  products(first: 19, where: { stockStatus: IN_STOCK, search: $search }) {
+    nodes {
+      ... on VariableProduct {
+        sku
+        slug
+        name
+        regularPrice
+        salePrice
+        image {
+          sourceUrl(size: WOOCOMMERCE_THUMBNAIL)
+          altText
+        }
+      }
+    }
+  }
+}
