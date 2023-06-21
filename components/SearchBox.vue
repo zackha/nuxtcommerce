@@ -21,13 +21,34 @@
     </form>
 
     <div v-if="suggestionMenu" id="suggestionMenu" class="absolute top-full left-0 right-0 z-10 mt-3 bg-white border rounded-xl w-full">
-      <div class="m-2">
+      <div class="m-8">
+        <!-- Loading State -->
         <div v-if="loading">Loading...</div>
-        <div v-else-if="searchResult.length === 0">Empty</div>
-        <div v-else v-for="product in searchResult">
-          <NuxtLink :to="`/product/${product.slug}-${product.sku.split('-')[0]}`">
-            <div>{{ product.name }}</div>
-          </NuxtLink>
+        <!-- Empty State -->
+        <div v-else-if="searchResult.length === 0">
+          <div class="p-6 text-center text-lg">
+            <Icon name="majesticons:search-line" size="99"></Icon>
+            <div class="py-4">
+              <span v-if="searchQuery">
+                there are no items matching for: <strong>{{ searchQuery }}</strong>
+              </span>
+            </div>
+            <div class="text-sm">Try improving your results by double checking your spelling or trying a more general keyword.</div>
+          </div>
+        </div>
+        <!-- Results State -->
+        <div v-else>
+          <div v-if="!searchQuery" class="font-semibold text-base text-[#111] my-2">New</div>
+          <div class="items-center gap-2 flex">
+            <NuxtLink :to="`/product/${product.slug}-${product.sku.split('-')[0]}`" v-for="product in searchResult" class="flex items-center border border-red-700 rounded-xl">
+              <div class="h-28 rounded-lg overflow-hidden m-1 border border-red-700">
+                <NuxtImg class="w-full h-full" :src="product.image.sourceUrl" />
+              </div>
+              <div class="">
+                {{ product.name }}
+              </div>
+            </NuxtLink>
+          </div>
         </div>
       </div>
     </div>
