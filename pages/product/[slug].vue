@@ -116,7 +116,6 @@ import { getProduct } from '~/gql/queries/getProduct.gql';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import SearchBox from '~/components/SearchBox.vue';
 
 const thumbsSwiper = ref(null);
 const setThumbsSwiper = (swiper) => {
