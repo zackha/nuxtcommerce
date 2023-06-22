@@ -25,7 +25,7 @@
         </swiper-slide>
       </swiper>
     </div>
-    <div class="flex p-5 flex-row gap-6 w-3/5 dark:border dark:border-[#262626] rounded-[32px] shadow-[0_1px_20px_rgba(0,0,0,.1)]">
+    <div class="flex p-5 flex-row gap-6 w-3/5 border border-transparent dark:border-[#262626] rounded-[32px] shadow-[0_1px_20px_rgba(0,0,0,.1)]">
       <div class="relative">
         <swiper
           :spaceBetween="4"
