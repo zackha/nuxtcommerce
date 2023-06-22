@@ -1,21 +1,10 @@
 <template>
-  <div role="tablist" class="flex w-full flex-row items-center px-4 py-1 h-20">
-    <div class="flex flex-row w-full flex-nowrap items-center h-14">
-      <div class="flex items-center justify-center w-12 h-12 hover:bg-[#e9e9e9] rounded-full">
-        <NuxtLink to="/">
-          <Icon name="Logo" size="32" />
-        </NuxtLink>
-      </div>
-      <div class="font-semibold px-4 rounded-full hover:bg-black h-12 flex items-center justify-center hover:text-white">Categories</div>
-      <div class="font-semibold px-4 rounded-full hover:bg-black h-12 flex items-center justify-center hover:text-white">Favorites</div>
-      <SearchBox />
-      <div class="hover:bg-[#e9e9e9] w-12 h-12 flex items-center justify-center rounded-full"><Icon color="#5f5f5f" name="fa6-solid:bag-shopping" size="22" /></div>
-    </div>
-  </div>
-  <ButtonBack />
+  <AppHeader />
+
   <ProductPageSkeleton v-if="loading" />
-  <div v-else class="justify-center flex flex-row pt-2.5">
-    <div class="mr-6 mt-5">
+  <div v-else class="justify-center flex flex-row pt-20">
+    <ButtonBack />
+    <div class="mr-6 mt-5 pt-2.5">
       <swiper :modules="modules" @swiper="setThumbsSwiper" class="product-images-thumbs w-14">
         <swiper-slide class="cursor-pointer rounded-xl overflow-hidden border-2 border-white dark:border-black">
           <NuxtImg class="h-full w-full border-2 border-white dark:border-black rounded-[10px]" :src="product.image.sourceUrl" />
@@ -25,7 +14,7 @@
         </swiper-slide>
       </swiper>
     </div>
-    <div class="flex p-5 flex-row gap-6 w-3/5 border border-transparent dark:border-[#262626] rounded-[32px] shadow-[0_1px_20px_rgba(0,0,0,.1)]">
+    <div class="flex p-5 flex-row gap-6 w-3/5 border border-transparent dark:border-[#262626] rounded-[32px] shadow-[0_1px_20px_rgba(0,0,0,.1)] mt-2.5">
       <div class="relative">
         <swiper
           :spaceBetween="4"
