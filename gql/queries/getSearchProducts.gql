@@ -1,5 +1,5 @@
 query getSearchProducts($search: String) {
-  products(first: 20, where: { stockStatus: IN_STOCK, search: $search }) {
+  products(first: 8, where: { stockStatus: IN_STOCK, search: $search }) {
     nodes {
       ... on VariableProduct {
         sku
@@ -9,7 +9,6 @@ query getSearchProducts($search: String) {
         salePrice
         image {
           sourceUrl(size: WOOCOMMERCE_THUMBNAIL)
-          altText
         }
       }
     }

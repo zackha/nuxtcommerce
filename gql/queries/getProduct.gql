@@ -12,7 +12,6 @@ query getProduct($slug: ID!, $sku: String!) {
       }
       galleryImages {
         nodes {
-          id
           sourceUrl(size: LARGE)
         }
       }
@@ -40,12 +39,10 @@ query getProduct($slug: ID!, $sku: String!) {
       }
       variations(where: { orderby: { field: NAME, order: DESC } }) {
         nodes {
-          id
           stockStatus
           stockQuantity
           attributes {
             nodes {
-              id
               value
             }
           }

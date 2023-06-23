@@ -47,14 +47,14 @@
             <!-- Results State -->
             <div v-else>
               <div v-if="!searchQuery" class="font-semibold text-base text-[#111] my-2">New</div>
-              <div class="items-center gap-2 flex">
+              <div class="items-center gap-2 flex flex-wrap flex-row">
                 <NuxtLink :to="`/product/${product.slug}-${product.sku.split('-')[0]}`" v-for="product in searchResult" class="flex bg-black/5 rounded-2xl overflow-hidden">
-                  <div class="relative w-32 h-32">
+                  <div class="relative w-32 h-32 will-change-transform">
                     <div class="h-full relative box-border">
                       <NuxtImg class="object-cover absolute w-full h-full" :src="product.image.sourceUrl" />
                     </div>
                   </div>
-                  <div class="p-4 items-center flex">
+                  <div class="p-4 items-center flex flex-row box-border w-60">
                     <div class="text-base text-[#111]">
                       {{ product.name }}
                     </div>

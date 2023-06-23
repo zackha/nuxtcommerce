@@ -9,7 +9,7 @@
         <swiper-slide class="cursor-pointer rounded-xl overflow-hidden border-2 border-white dark:border-black">
           <NuxtImg class="h-full w-full border-2 border-white dark:border-black rounded-[10px]" :src="product.image.sourceUrl" />
         </swiper-slide>
-        <swiper-slide class="cursor-pointer rounded-xl overflow-hidden border-2 border-white dark:border-black" v-for="node in product.galleryImages.nodes" :key="node.id">
+        <swiper-slide class="cursor-pointer rounded-xl overflow-hidden border-2 border-white dark:border-black" v-for="(node, i) in product.galleryImages.nodes" :key="i">
           <NuxtImg class="h-full w-full border-2 border-white dark:border-black rounded-[10px]" :src="node.sourceUrl" />
         </swiper-slide>
       </swiper>
@@ -27,7 +27,7 @@
           :thumbs="{ swiper: thumbsSwiper }"
           class="w-[600px] h-[600px] rounded-2xl product-images">
           <swiper-slide><NuxtImg class="h-full w-full" :src="product.image.sourceUrl" /></swiper-slide>
-          <swiper-slide v-for="node in product.galleryImages.nodes" :key="node.id"><NuxtImg class="h-full w-full" :src="node.sourceUrl" /></swiper-slide>
+          <swiper-slide v-for="(node, i) in product.galleryImages.nodes" :key="i"><NuxtImg class="h-full w-full" :src="node.sourceUrl" /></swiper-slide>
         </swiper>
       </div>
       <div class="w-full">
@@ -46,8 +46,8 @@
               <p class="text-sm ml-1 text-[#ff0000]">{{ calculateDiscountPercentage }}%</p>
             </div>
           </div>
-          <div class="flex gap-2" v-for="variation in product.productTypes.nodes" :key="variation.id">
-            <div v-for="(vars, i) in variation.products.nodes" :key="vars.id">
+          <div class="flex gap-2" v-for="(variation, i) in product.productTypes.nodes" :key="i">
+            <div v-for="(vars, i) in variation.products.nodes" :key="i">
               <NuxtLink
                 :to="`/product/${vars.slug}-${product.sku.split('-')[0]}`"
                 class="flex w-12 rounded-lg border-2 border-[#9b9b9b] dark:border-[#8c8c8c] select"
@@ -63,8 +63,8 @@
             <div class="flex gap-2 mt-2 mb-4 flex-wrap">
               <label
                 class="py-1 px-3 rounded-md cursor-pointer select border-2 border-[#9b9b9b] dark:border-[#8c8c8c]"
-                v-for="variation in product.variations.nodes"
-                :key="variation.id"
+                v-for="(variation, i) in product.variations.nodes"
+                :key="i"
                 :class="[
                   variation.stockStatus === 'OUT_OF_STOCK' ? 'disabled' : '',
                   selectedVariation === variation.attributes.nodes.map((attr) => attr.value).toString() ? 'selected' : '',

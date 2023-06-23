@@ -2,7 +2,6 @@ query getProducts($after: String, $search: String, $category: String, $order: Or
   products(first: 28, after: $after, where: { stockStatus: IN_STOCK, search: $search, category: $category, orderby: { field: $field, order: $order } }) {
     nodes {
       ... on VariableProduct {
-        id
         sku
         slug
         name
@@ -14,25 +13,11 @@ query getProducts($after: String, $search: String, $category: String, $order: Or
           }
         }
         image {
-          id
           sourceUrl(size: WOOCOMMERCE_THUMBNAIL)
-          altText
         }
         galleryImages {
           nodes {
             sourceUrl(size: WOOCOMMERCE_THUMBNAIL)
-          }
-        }
-        variations(where: { orderby: { field: NAME, order: DESC } }) {
-          nodes {
-            id
-            stockStatus
-            attributes {
-              nodes {
-                id
-                value
-              }
-            }
           }
         }
       }

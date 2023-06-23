@@ -17,8 +17,8 @@
             </div>
           </div>
           <div
-            v-for="category in categories"
-            :key="category.id"
+            v-for="(category, i) in categories"
+            :key="i"
             @click="selectCategory(category.name)"
             class="rounded-lg px-3 py-2 transition-all duration-300 hover:bg-neutral-800/5 hover:dark:bg-white/5">
             <div class="flex items-center justify-between">
