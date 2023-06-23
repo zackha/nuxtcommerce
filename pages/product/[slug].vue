@@ -1,6 +1,5 @@
 <template>
   <AppHeader />
-
   <ProductPageSkeleton v-if="loading" />
   <div v-else class="justify-center flex flex-row pt-20">
     <ButtonBack />
