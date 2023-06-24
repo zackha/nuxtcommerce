@@ -1,7 +1,7 @@
 import getProducts from '~/gql/queries/getProducts.gql';
 import getCategories from '~/gql/queries/getCategories.gql';
 
-export default function useSearch() {
+export default function useProducts() {
   const isDropdownSortBy = ref(false);
   const isDropdownCategory = ref(false);
   const router = useRouter();

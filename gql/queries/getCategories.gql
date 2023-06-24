@@ -1,7 +1,6 @@
 query getCategories {
   productCategories(first: 100, where: { orderby: COUNT, order: DESC }) {
     nodes {
-      id
       name
       products(where: { stockStatus: IN_STOCK }, first: 1) {
         nodes {
@@ -10,7 +9,6 @@ query getCategories {
       }
       children(first: 100, where: { orderby: COUNT, order: DESC }) {
         nodes {
-          id
           name
           products(where: { stockStatus: IN_STOCK }, first: 1) {
             nodes {
@@ -19,7 +17,6 @@ query getCategories {
           }
           children(first: 100, where: { orderby: COUNT, order: DESC }) {
             nodes {
-              id
               name
               products(where: { stockStatus: IN_STOCK }, first: 1) {
                 nodes {
