@@ -1,7 +1,6 @@
 <template>
-  <div class="relative cursor-pointer select-none items-center justify-center text-sm font-semibold">
-    <div
-      class="box-border flex h-10 items-center rounded-xl py-1.5 pl-4 pr-3 transition-all bg-neutral-800/5 hover:bg-neutral-800/10 dark:bg-white/10 hover:dark:bg-white/20 active:scale-95">
+  <div class="relative cursor-pointer select-none items-center justify-center text-base font-semibold">
+    <div class="box-border flex items-center rounded-full py-3.5 px-5 transition-all bg-[#efefef] hover:bg-neutral-800/10 dark:bg-white/10 hover:dark:bg-white/20 active:scale-95">
       <span class="mr-3">{{ selectedCategory || 'All Categories' }}</span>
       <Icon name="ion:chevron-down-outline" size="14" />
     </div>

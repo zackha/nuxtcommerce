@@ -12,11 +12,11 @@
       <div class="hover:bg-[#e9e9e9] w-12 h-12 flex items-center justify-center rounded-full"><Icon color="#5f5f5f" name="fa6-solid:bag-shopping" size="22" /></div>
     </div>
   </div>
-  <div class="flex items-center gap-4 px-10">
+  <div class="flex items-center gap-4 px-20 h-[70px]">
     <ButtonSelectCategory @click.stop="toggleDropdown('category')" :show="isDropdownCategory" :categories="categories" v-model:selectedCategory="selectedCategory" />
     <ButtonSortBy @click.stop="toggleDropdown('sortBy')" :show="isDropdownSortBy" :options="options" v-model:selectedOption="selectedOption" />
   </div>
-  <div class="grid grid-cols-7 gap-4 px-20">
+  <div class="grid grid-cols-7 gap-4 px-20 mt-4">
     <ProductCard :products="products" />
     <ProductSkeleton v-if="loading" />
   </div>
