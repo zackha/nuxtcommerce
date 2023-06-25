@@ -1,7 +1,7 @@
 <template>
   <AppHeader />
   <ProductPageSkeleton v-if="loading" />
-  <div v-else class="justify-center flex flex-row pt-20">
+  <div v-else class="justify-center flex flex-row pt-20 mb-8">
     <ButtonBack />
     <div class="mr-6 mt-5 pt-2.5">
       <swiper :modules="modules" @swiper="setThumbsSwiper" class="product-images-thumbs w-14">
@@ -105,6 +105,10 @@
       </div>
     </div>
   </div>
+  <div class="text-xl font-semibold text-center my-5">Shop similar</div>
+  <div class="grid grid-cols-7 gap-4 px-20 mt-4">
+    <ProductCard :products="related" />
+  </div>
 </template>
 
 <script setup>
@@ -129,6 +133,7 @@ const slug = parts.join('-');
 
 const { result: productResult, loading } = useQuery(getProduct, () => ({ slug: slug, sku: sku }));
 const product = computed(() => productResult.value?.product);
+const related = computed(() => productResult.value?.product.related.nodes);
 
 const selectedVariation = ref(null);
 
