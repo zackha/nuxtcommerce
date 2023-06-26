@@ -81,7 +81,7 @@
               </label>
             </div>
             <div class="flex">
-              <button type="submit" class="w-full h-12 text-white rounded-md tracking-wide font-semibold bg-[#ff0000] transition duration-200 hover:bg-[#c90000]">
+              <button type="submit" class="w-full h-12 text-white rounded-md tracking-wide font-semibold bg-[#e60023] transition duration-200 hover:bg-[#ad081b]">
                 Add to Cart
               </button>
               <div class="cursor-pointer">
