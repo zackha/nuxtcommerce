@@ -5,31 +5,25 @@
   NuxtCommerce
 </h1>
 <p align="center">
-  Nuxt Storefront: Your open-source frontend starter pack for building performant e-commerce experiences with Woocommerce.
+  An open-source, dynamic e-commerce solution powered by Nuxt 3 and GraphQL technologies, headless storefront replacement for Woocommerce. Featuring a user interface in the style of Pinterest and Fully customizable (Vue, Nuxt3).
 </p>
 
 ## Introduction
-
-开发基于 vue 全家桶 + vuetify + [NeteaseCloudMusicApi](https://github.com/Binaryify/NeteaseCloudMusicApi) + electron, 提供网易云音乐的基础功能。[🎵 网页版](https://v-player-git-dev-gumengyu.vercel.app/) (vercel 部署，可能有点慢 😁， 建议下载桌面客户端体验)
+NuxtCommerce is a dynamic and lively e-commerce platform developed with Nuxt 3 and Vue. Designed for WooCommerce, NuxtCommerce optimizes data flow with [WPGraphQL](https://github.com/wp-graphql/wp-graphql), offering an efficient shopping experience. It stands out with its Pinterest-style user-friendly interface and fashion-oriented structure. With its dark mode feature and open-source nature, it offers flexibility and continuous development opportunities. NuxtCommerce is a modern and customizable e-commerce solution.
 
 If your product stocks and prices are changeable, and you are not continuously uploading new products, it could be beneficial for you to opt for [Woonuxt](https://github.com/scottyzen/woonuxt#readme). This project, developed by [scottyzen](https://github.com/scottyzen), is static, thus providing a faster solution.
 
-vue3 + ts 重构 2.0 版本
+## Stack
 
-[桌面客户端下载](https://github.com/GuMengYu/v-player/releases)
+- Nuxt3 / Vue
+- Headless Storefront
+- GraphQL with Apollo Client
+- Tailwind CSS
+- Pinterest Interface
+- Developed for WooCommerce
+- Dynamic
+- Open Source
+- Suitable for Fashion Category
+- Dark Mode
 
-🎨 已有功能
-
-- 单纯的播放器，不能网抑云
-- 支持手机号，手机扫码登录
-- 资料库
-- 日推，私人 fm, 心动模式
-- darkmode
-- 歌词
-- 桌面客户端 ([下载](https://github.com/GuMengYu/v-player/releases))
-
-...and more
-
-<picture>
-  <img alt="home" src="https://github.com/zackha/nuxtcommerce/assets/79358543/2882c480-283c-46f9-8f37-e2ae79700637">
-</picture>
+![Nuxtcommerce](https://github.com/zackha/nuxtcommerce/assets/79358543/7dd5bdc6-7bca-4512-9ed1-aef4f6ea344c)
