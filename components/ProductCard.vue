@@ -6,13 +6,11 @@
           <NuxtImg
             loading="lazy"
             :title="product.name"
-            :alt="product.image.altText || product.name"
             :src="product.galleryImages.nodes[0].sourceUrl"
             class="absolute h-full w-full dark:bg-neutral-800 bg-neutral-200 object-cover" />
           <NuxtImg
             loading="lazy"
             :title="product.name"
-            :alt="product.image.altText || product.name"
             :src="product.image.sourceUrl"
             class="absolute h-full w-full dark:bg-neutral-800 bg-neutral-200 object-cover transition-opacity duration-300 group-hover:opacity-0" />
         </div>
