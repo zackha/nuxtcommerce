@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="64" align="center" src="https://github.com/zackha/nuxtcommerce/assets/79358543/d452b687-82b0-4b12-8a63-f7823073a4a8">
+  <img width="64" align="center" src="https://github.com/zackha/nuxtcommerce/assets/79358543/ac0ae5da-b077-4c5d-9e56-23a6b16498ed">
 </p>
 <h1 align="center">
   NuxtCommerce
@@ -26,4 +26,4 @@ If your product stocks and prices are changeable, and you are not continuously u
 - Suitable for Fashion Category
 - Dark Mode
 
-![Nuxtcommerce](https://github.com/zackha/nuxtcommerce/assets/79358543/7dd5bdc6-7bca-4512-9ed1-aef4f6ea344c)
+![Nuxtcommerce](https://github.com/zackha/nuxtcommerce/assets/79358543/0fbd5415-f449-4a7f-9031-33f8be0e447c)
