@@ -9,23 +9,21 @@
 </p>
 
 ## Introduction
+NuxtCommerce is a dynamic and lively e-commerce platform developed with Nuxt 3 and Vue. Designed for WooCommerce, NuxtCommerce optimizes data flow with [WPGraphQL](https://github.com/wp-graphql/wp-graphql), offering an efficient shopping experience. It stands out with its Pinterest-style user-friendly interface and fashion-oriented structure. With its dark mode feature and open-source nature, it offers flexibility and continuous development opportunities. NuxtCommerce is a modern and customizable e-commerce solution.
 
-NuxtCommerce is a dynamic, open-source solution specifically designed to meet the complex requirements of the e-commerce world. This platform comes with several impressive features, each of which assists users in achieving their sales objectives.
+If your product stocks and prices are changeable, and you are not continuously uploading new products, it could be beneficial for you to opt for [Woonuxt](https://github.com/scottyzen/woonuxt#readme). This project, developed by [scottyzen](https://github.com/scottyzen), is static, thus providing a faster solution.
 
-NuxtCommerce operates on Nuxt 3. Nuxt 3 is a modern web application framework based on Vue.js. Its versatility and high performance allow users to quickly and easily develop complex web applications. NuxtCommerce's utilization of this infrastructure simplifies the work for developers while also providing users with a fast and efficient website experience.
+## Stack
 
-NuxtCommerce works seamlessly with Apollo GraphQL. Apollo GraphQL facilitates the transmission of data from server to client and is key to NuxtCommerce's "live" data structure. As a result, information added or changed on the site is immediately reflected to the user. This provides e-commerce site users with up-to-date information, enhancing customer satisfaction and trust.
+- Nuxt3 / Vue
+- Headless Storefront
+- GraphQL with Apollo Client
+- Tailwind CSS
+- Pinterest Interface
+- Developed for WooCommerce
+- Dynamic
+- Open Source
+- Suitable for Fashion Category
+- Dark Mode
 
-NuxtCommerce features a headless storefront. This implies that the user interface and the underlying e-commerce engine can operate independently. This feature allows for customization and flexibility, giving developers greater control over design and functionality.
-
-The platform boasts a user-friendly and aesthetically appealing Pinterest-style interface. This simplifies navigation for users and facilitates easy browsing through products.
-
-NuxtCommerce is particularly suitable for the fashion sales category. It provides a platform where products can be displayed in a visually appealing way, and users can easily navigate.
-
-Finally, NuxtCommerce is open source. This means that developers are free to view, modify, and even use the code in their own projects. This provides greater control and customization over the platform.
-
-Looking at its features, it's clear that NuxtCommerce has been designed to provide both developers and end-users with a modern and effective e-commerce solution.
-
-<picture>
-  <img alt="home" src="https://github.com/zackha/nuxtcommerce/assets/79358543/2882c480-283c-46f9-8f37-e2ae79700637">
-</picture>
+![Nuxtcommerce](https://github.com/zackha/nuxtcommerce/assets/79358543/7dd5bdc6-7bca-4512-9ed1-aef4f6ea344c)
