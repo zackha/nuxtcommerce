@@ -6,12 +6,11 @@ export default function useProducts() {
   const isDropdownCategory = ref(false);
   const router = useRouter();
   const route = useRoute();
-  const searchTerm = ref(route.query.search || '');
   const selectedCategory = ref(route.query.category || '');
   const sortByOrder = ref(route.query.orderby && route.query.orderby !== '' ? route.query.orderby : 'DESC');
   const sortByField = ref(route.query.fieldby && route.query.fieldby !== '' ? route.query.fieldby : 'DATE');
   const variables = ref({
-    search: searchTerm,
+    search: route.query.q,
     category: selectedCategory,
     order: sortByOrder,
     field: sortByField,
@@ -73,10 +72,9 @@ export default function useProducts() {
     document.removeEventListener('click', handleClickOutside);
   });
 
-  watch([selectedOption, searchTerm, selectedCategory], ([newSelectedOption, newSearchTerm, newCategory]) => {
+  watch([selectedOption, selectedCategory], ([newSelectedOption, newCategory]) => {
     let updatedQuery = {
       ...route.query,
-      search: newSearchTerm || undefined,
       category: newCategory || undefined,
     };
 
@@ -120,7 +118,6 @@ export default function useProducts() {
     loading,
     categories,
     options,
-    searchTerm,
     selectedCategory,
     selectedOption,
     isDropdownSortBy,
