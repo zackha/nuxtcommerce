@@ -9,7 +9,12 @@
       <div class="font-semibold px-4 rounded-full hover:bg-black h-12 flex items-center justify-center hover:text-white">Categories</div>
       <div class="font-semibold px-4 rounded-full hover:bg-black h-12 flex items-center justify-center hover:text-white">Favorites</div>
       <div class="relative flex flex-shrink flex-grow flex-col text-sm font-semibold text-neutral-600 px-2">
-        <form class="group flex h-12 flex-grow rounded-full bg-[#e9e9e9] pl-4 pr-3 transition-all hover:bg-[#e1e1e1]" @submit.prevent="search(searchQuery)">
+        <form
+          class="group flex h-12 flex-grow rounded-full bg-[#e9e9e9] pl-4 pr-3 transition-all hover:bg-[#e1e1e1]"
+          @submit.prevent="
+            search(searchQuery);
+            suggestionMenu = false;
+          ">
           <div class="flex w-full items-center gap-4">
             <div v-if="!suggestionMenu" class="flex text-neutral-500 dark:text-neutral-400">
               <Icon name="iconamoon:search-bold" size="20" />
