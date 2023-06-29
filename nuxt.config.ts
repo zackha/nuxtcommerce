@@ -24,6 +24,6 @@ export default defineNuxtConfig({
   devtools: true,
 
   routeRules: {
-    '/': { isr: true },
+    '/': { ssr: false },
   },
 });
