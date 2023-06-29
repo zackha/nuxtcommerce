@@ -9,30 +9,37 @@ export function useProducts() {
   const { result: productsResult, loading, fetchMore } = useQuery(getProducts, () => variables.value);
   const products = computed(() => productsResult.value?.products.nodes);
 
-  const loadMore = () => {
-    fetchMore({
-      variables: {
-        after: productsResult.value?.products.pageInfo.endCursor,
+  const mergeData = (prev, { fetchMoreResult }) => {
+    const mergedData = {
+      ...prev,
+      products: {
+        ...prev.products,
+        nodes: [...prev.products.nodes, ...fetchMoreResult.products.nodes],
+        pageInfo: fetchMoreResult.products.pageInfo,
       },
-      updateQuery(prev, { fetchMoreResult }) {
-        const mergedData = {
-          ...prev,
-        };
-        mergedData.products = {
-          ...prev.products,
-          nodes: [...prev.products.nodes, ...fetchMoreResult.products.nodes],
-        };
-        mergedData.products.pageInfo = fetchMoreResult.products.pageInfo;
-        return mergedData;
-      },
-    });
+    };
+    return mergedData;
+  };
+
+  const loadMore = async () => {
+    if (productsResult.value?.products.pageInfo.hasNextPage && !loading.value) {
+      await fetchMore({
+        variables: {
+          after: productsResult.value?.products.pageInfo.endCursor,
+        },
+        updateQuery: mergeData,
+      });
+    }
+  };
+
+  const shouldLoadMore = () => {
+    const scrollPosition = window.scrollY + window.innerHeight;
+    const loadMorePosition = document.documentElement.scrollHeight - 1600;
+    return scrollPosition >= loadMorePosition;
   };
 
   const handleScroll = () => {
-    const scrollPosition = window.scrollY + window.innerHeight;
-    const loadMorePosition = document.documentElement.scrollHeight - 1600;
-
-    if (scrollPosition >= loadMorePosition && productsResult.value?.products.pageInfo.hasNextPage && !loading.value) {
+    if (shouldLoadMore()) {
       loadMore();
     }
   };
