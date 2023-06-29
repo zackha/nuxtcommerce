@@ -1,7 +1,7 @@
 <template>
   <div class="relative cursor-pointer select-none items-center justify-center text-base font-semibold" @click.stop="isDropdownVisible = !isDropdownVisible">
     <div class="box-border flex items-center rounded-full py-3.5 px-5 transition-all bg-[#efefef] hover:bg-neutral-800/10 dark:bg-white/10 hover:dark:bg-white/20 active:scale-95">
-      <span class="mr-3">{{ activeCategory || 'All Categories' }}</span>
+      <span class="mr-3">{{ route.query.category || 'All Categories' }}</span>
       <Icon name="ion:chevron-down-outline" size="14" />
     </div>
     <Transition>
@@ -13,7 +13,7 @@
           <div @click="setCategory()" class="rounded-lg px-3 py-2 transition-all duration-300 hover:bg-neutral-800/5 hover:dark:bg-white/5">
             <div class="flex items-center justify-between">
               <div class="mr-4 w-full">All Categories</div>
-              <Icon v-if="!activeCategory" name="mingcute:check-line" size="16" />
+              <Icon v-if="!route.query.category" name="mingcute:check-line" size="16" />
             </div>
           </div>
           <div
@@ -23,7 +23,7 @@
             class="rounded-lg px-3 py-2 transition-all duration-300 hover:bg-neutral-800/5 hover:dark:bg-white/5">
             <div class="flex items-center justify-between">
               <div class="mr-4 w-full">{{ category.name }}</div>
-              <Icon v-if="activeCategory === category.name" name="mingcute:check-line" size="16" />
+              <Icon v-if="route.query.category === category.name" name="mingcute:check-line" size="16" />
             </div>
           </div>
         </div>
