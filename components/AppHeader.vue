@@ -24,7 +24,7 @@
                 class="w-full bg-transparent py-2 outline-none placeholder:text-[#757575] placeholder:dark:text-neutral-500"
                 v-model="searchQuery"
                 @click.stop="suggestionMenu = true"
-                :placeholder="selectedCategory ? `Search in ${selectedCategory}` : 'Search'" />
+                :placeholder="route.query.category ? `Search in ${route.query.category}` : 'Search'" />
             </div>
             <div v-if="suggestionMenu" class="flex cursor-pointer text-black dark:text-neutral-500 transition-all" @click="clearSearch">
               <Icon v-if="!loading" name="carbon:close-filled" size="24" />
