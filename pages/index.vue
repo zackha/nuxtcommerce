@@ -6,11 +6,12 @@
     </div>
     <div class="grid grid-cols-7 gap-4 px-20 mt-4">
       <ProductCard :products="products" />
-      <ProductSkeleton v-if="loading" />
+      <ProductsSkeleton v-if="loading" />
     </div>
+    <ProductsEmpty v-if="!productsEmpty" />
   </div>
 </template>
 
 <script setup>
-const { products, loading } = useProducts();
+const { products, loading, productsEmpty } = useProducts();
 </script>

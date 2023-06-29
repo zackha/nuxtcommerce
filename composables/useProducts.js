@@ -11,6 +11,7 @@ export function useProducts() {
 
   const { result: productsResult, loading, fetchMore } = useQuery(getProducts, () => variables.value);
   const products = computed(() => productsResult.value?.products.nodes);
+  const productsEmpty = computed(() => productsResult.value?.products.nodes.length);
 
   const mergeData = (prev, { fetchMoreResult }) => {
     const mergedData = {
@@ -58,5 +59,6 @@ export function useProducts() {
   return {
     products,
     loading,
+    productsEmpty,
   };
 }

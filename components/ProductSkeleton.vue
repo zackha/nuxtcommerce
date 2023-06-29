@@ -1,16 +1,18 @@
 <template>
-  <div v-for="i in 21" :key="i" class="animate-pulse rounded-2xl border dark:bg-secondary-bg-d px-4 pt-4 pb-3 dark:border-[#222222]">
-    <div class="relative mb-4 pb-[133%] dark:shadow-[0_8px_24px_rgba(0,0,0,.5)] rounded-lg overflow-hidden">
-      <div class="absolute h-full w-full bg-neutral-200 dark:bg-neutral-800"></div>
-    </div>
-    <div class="mb-1 grid grid-flow-row-dense grid-cols-3 px-2">
-      <div class="col-span-2 flex min-w-0 flex-col justify-between gap-2">
-        <div class="h-8 w-2/4 rounded bg-neutral-200 dark:bg-neutral-800"></div>
-        <div class="h-full w-full rounded bg-neutral-200 dark:bg-neutral-800"></div>
+  <div class="animate-pulse justify-center flex flex-row pt-20">
+    <div class="mr-6 mt-5 gap-4 flex flex-col pt-2.5">
+      <div class="h-[76px] w-[56px] rounded-xl border-2 border-neutral-200 bg-neutral-200" v-for="node in 6">
+        <div class="h-full w-full border-2 border-white rounded-[10px]"></div>
       </div>
-      <div class="flex flex-col items-end gap-2">
-        <div class="h-8 w-2/3 rounded bg-neutral-200 dark:bg-neutral-800"></div>
-        <div class="h-full w-3/4 rounded bg-neutral-200 dark:bg-neutral-800"></div>
+    </div>
+    <div class="flex p-5 flex-row gap-6 w-3/5 border border-transparent bg-white dark:border-[#262626] rounded-[32px] shadow-[0_1px_20px_rgba(0,0,0,.1)] mt-2.5">
+      <div class="relative">
+        <div class="w-[600px] h-[600px]">
+          <div class="rounded-2xl h-full w-full bg-neutral-200 dark:bg-neutral-800"></div>
+        </div>
+      </div>
+      <div class="w-full flex flex-row items-center">
+        <Icon class="my-0 mx-auto" name="Loading" size="26" />
       </div>
     </div>
   </div>
