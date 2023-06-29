@@ -80,15 +80,15 @@
 <script setup>
 import getSearchProducts from '~/gql/queries/getSearchProducts.gql';
 
-const searchQuery = ref();
+const suggestionMenu = ref(false);
+const router = useRouter();
+const route = useRoute();
+const searchQuery = ref(route.query.q);
 
 function search(search) {
   searchQuery.value = search;
   router.push({ path: '/', query: { q: search || undefined } });
 }
-
-const suggestionMenu = ref(false);
-const router = useRouter();
 
 const { result, loading } = useQuery(getSearchProducts, () => ({ search: searchQuery.value }));
 const searchResult = computed(() => result.value?.products.nodes);
