@@ -24,7 +24,6 @@ export default defineNuxtConfig({
   devtools: true,
 
   routeRules: {
-    // Homepage pre-rendered at build time
-    '/': { prerender: true },
+    '/': { swr: true },
   },
 });
