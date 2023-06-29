@@ -12,7 +12,7 @@
         <form
           class="group flex h-12 flex-grow rounded-full bg-[#e9e9e9] pl-4 pr-3 transition-all hover:bg-[#e1e1e1]"
           @submit.prevent="
-            search(searchQuery);
+            setSearch(searchQuery);
             suggestionMenu = false;
           ">
           <div class="flex w-full items-center gap-4">
@@ -85,30 +85,30 @@ const router = useRouter();
 const route = useRoute();
 const searchQuery = ref(route.query.q);
 
-function search(search) {
-  searchQuery.value = search;
-  router.push({ path: '/', query: { q: search || undefined } });
-}
-
 const { result, loading } = useQuery(getSearchProducts, () => ({ search: searchQuery.value }));
 const searchResult = computed(() => result.value?.products.nodes);
+
+const setSearch = (search) => {
+  searchQuery.value = search;
+  router.push({ path: '/', query: { ...route.query, q: search } });
+};
 
 const clearSearch = () => {
   suggestionMenu.value = false;
   searchQuery.value = '';
 };
 
-const clickOutsideHandler = (event) => {
+const outsideClickHandler = (event) => {
   if (!event.target.closest('#suggestionMenu')) {
     clearSearch();
   }
 };
 
 onMounted(() => {
-  window.addEventListener('click', clickOutsideHandler);
+  window.addEventListener('click', outsideClickHandler);
 });
 
 onUnmounted(() => {
-  window.removeEventListener('click', clickOutsideHandler);
+  window.removeEventListener('click', outsideClickHandler);
 });
 </script>
