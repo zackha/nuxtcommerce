@@ -9,7 +9,12 @@
       <div class="font-semibold px-4 rounded-full hover:bg-black h-12 flex items-center justify-center hover:text-white">Categories</div>
       <div class="font-semibold px-4 rounded-full hover:bg-black h-12 flex items-center justify-center hover:text-white">Favorites</div>
       <div class="relative flex flex-shrink flex-grow flex-col text-sm font-semibold text-neutral-600 px-2">
-        <form class="group flex h-12 flex-grow rounded-full bg-[#e9e9e9] pl-4 pr-3 transition-all hover:bg-[#e1e1e1]">
+        <form
+          class="group flex h-12 flex-grow rounded-full bg-[#e9e9e9] pl-4 pr-3 transition-all hover:bg-[#e1e1e1]"
+          @submit.prevent="
+            setSearch(searchQuery);
+            suggestionMenu = false;
+          ">
           <div class="flex w-full items-center gap-4">
             <div v-if="!suggestionMenu" class="flex text-neutral-500 dark:text-neutral-400">
               <Icon name="iconamoon:search-bold" size="20" />
@@ -18,7 +23,6 @@
               <input
                 class="w-full bg-transparent py-2 outline-none placeholder:text-[#757575] placeholder:dark:text-neutral-500"
                 v-model="searchQuery"
-                @keydown.enter="search"
                 @click.stop="suggestionMenu = true"
                 placeholder="Search" />
             </div>
@@ -76,33 +80,35 @@
 <script setup>
 import getSearchProducts from '~/gql/queries/getSearchProducts.gql';
 
-const searchQuery = ref();
 const suggestionMenu = ref(false);
 const router = useRouter();
+const route = useRoute();
+const searchQuery = ref(route.query.q);
 
 const { result, loading } = useQuery(getSearchProducts, () => ({ search: searchQuery.value }));
 const searchResult = computed(() => result.value?.products.nodes);
+
+const setSearch = (search) => {
+  searchQuery.value = search;
+  router.push({ path: '/', query: { ...route.query, q: search } });
+};
 
 const clearSearch = () => {
   suggestionMenu.value = false;
   searchQuery.value = '';
 };
 
-const clickOutsideHandler = (event) => {
+const outsideClickHandler = (event) => {
   if (!event.target.closest('#suggestionMenu')) {
     clearSearch();
   }
 };
 
 onMounted(() => {
-  window.addEventListener('click', clickOutsideHandler);
+  window.addEventListener('click', outsideClickHandler);
 });
 
 onUnmounted(() => {
-  window.removeEventListener('click', clickOutsideHandler);
+  window.removeEventListener('click', outsideClickHandler);
 });
-
-async function search() {
-  router.push({ path: '/', query: { search: searchQuery.value } });
-}
 </script>

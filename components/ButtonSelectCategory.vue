@@ -1,28 +1,27 @@
 <template>
-  <div class="relative cursor-pointer select-none items-center justify-center text-base font-semibold">
-    <div class="box-border flex items-center rounded-full py-3.5 px-5 transition-all bg-[#efefef] hover:bg-neutral-800/10 dark:bg-white/10 hover:dark:bg-white/20 active:scale-95">
-      <span class="mr-3">{{ selectedCategory || 'All Categories' }}</span>
-      <Icon name="ion:chevron-down-outline" size="14" />
+  <div class="relative cursor-pointer select-none items-center justify-center text-base font-semibold" @click.stop="isDropdownVisible = !isDropdownVisible">
+    <div
+      class="box-border flex items-center rounded-full py-3.5 pl-5 pr-4 transition-all active:scale-95"
+      :class="{ 'bg-black text-white hover:bg-black': isDropdownVisible, 'bg-[#efefef] hover:bg-[#e2e2e2]': !isDropdownVisible }">
+      <span class="mr-1.5">{{ route.query.category || 'All Categories' }}</span>
+      <Icon name="iconamoon:arrow-down-2" size="24" />
     </div>
     <Transition>
-      <div
-        v-show="show"
-        class="absolute left-0 top-full z-10 mt-3 rounded-xl border border-neutral-800/10 dark:border-white/10 text-[13px] font-medium backdrop-blur-xl bg-white/90 dark:bg-neutral-800/80 shadow-lg">
-        <div class="m-2 w-44">
-          <div @click="selectCategory('')" class="rounded-lg px-3 py-2 transition-all duration-300 hover:bg-neutral-800/5 hover:dark:bg-white/5">
+      <div v-if="isDropdownVisible" id="dropdown" class="absolute left-0 top-full z-10 mt-[18px] rounded-2xl text-base font-semibold bg-white shadow-[0_0_8px_rgba(0,0,0,.1)]">
+        <div class="m-2 w-52">
+          <div @click="setCategory()" class="rounded-lg px-3 py-2 transition-all duration-300 hover:bg-[#e9e9e9]" :class="{ 'bg-[#e9e9e9]': !route.query.category }">
             <div class="flex items-center justify-between">
               <div class="mr-4 w-full">All Categories</div>
-              <Icon v-if="selectedCategory === ''" name="mingcute:check-line" size="16" />
             </div>
           </div>
           <div
             v-for="(category, i) in categories"
             :key="i"
-            @click="selectCategory(category.name)"
-            class="rounded-lg px-3 py-2 transition-all duration-300 hover:bg-neutral-800/5 hover:dark:bg-white/5">
+            @click="setCategory(category.name)"
+            class="rounded-lg px-3 py-2 transition-all duration-300 hover:bg-[#e9e9e9]"
+            :class="{ 'bg-[#e9e9e9]': route.query.category === category.name }">
             <div class="flex items-center justify-between">
               <div class="mr-4 w-full">{{ category.name }}</div>
-              <Icon v-if="selectedCategory === category.name" name="mingcute:check-line" size="16" />
             </div>
           </div>
         </div>
@@ -32,15 +31,36 @@
 </template>
 
 <script setup>
-defineProps({
-  show: Boolean,
-  categories: Array,
-  selectedCategory: String,
+import getCategories from '~/gql/queries/getCategories.gql';
+
+const isDropdownVisible = ref(false);
+const router = useRouter();
+const route = useRoute();
+const activeCategory = ref(route.query.category);
+
+const { result: categoriesResult } = useQuery(getCategories);
+const categories = computed(() => categoriesResult.value?.productCategories.nodes.filter((category) => category.products.nodes.length && category.children.nodes.length));
+
+const setCategory = (category) => {
+  activeCategory.value = category;
+  router.push({ query: { ...route.query, category: category } });
+};
+
+const hideDropdown = () => {
+  isDropdownVisible.value = false;
+};
+
+const outsideClickHandler = (event) => {
+  if (!event.target.closest('#dropdown')) {
+    hideDropdown();
+  }
+};
+
+onMounted(() => {
+  window.addEventListener('click', outsideClickHandler);
 });
 
-const emit = defineEmits(['update:selectedCategory']);
-
-const selectCategory = (category) => {
-  emit('update:selectedCategory', category);
-};
+onUnmounted(() => {
+  window.removeEventListener('click', outsideClickHandler);
+});
 </script>
