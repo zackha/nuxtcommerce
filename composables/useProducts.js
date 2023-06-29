@@ -4,6 +4,9 @@ export function useProducts() {
   const route = useRoute();
   const variables = computed(() => ({
     search: route.query.q,
+    order: route.query.orderby || 'DESC',
+    field: route.query.fieldby || 'DATE',
+    category: route.query.category,
   }));
 
   const { result: productsResult, loading, fetchMore } = useQuery(getProducts, () => variables.value);
