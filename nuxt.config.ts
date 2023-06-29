@@ -22,4 +22,6 @@ export default defineNuxtConfig({
   },
 
   devtools: true,
+
+  ssr: false,
 });
