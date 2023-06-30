@@ -1,7 +1,6 @@
 <template>
-  <AppHeader />
   <ProductSkeleton v-if="loading" />
-  <div v-else class="justify-center flex flex-row pt-20 mb-8">
+  <div v-else class="justify-center flex flex-row mb-8">
     <ButtonBack />
     <div class="mr-6 mt-5 pt-2.5">
       <swiper :modules="modules" @swiper="setThumbsSwiper" class="product-images-thumbs w-14">

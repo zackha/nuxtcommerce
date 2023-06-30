@@ -1,5 +1,5 @@
 <template>
-  <div class="animate-pulse justify-center flex flex-row pt-20">
+  <div class="animate-pulse justify-center flex flex-row">
     <div class="mr-6 mt-5 gap-4 flex flex-col pt-2.5">
       <div class="h-[76px] w-[56px] rounded-xl border-2 border-neutral-200 bg-neutral-200" v-for="node in 6">
         <div class="h-full w-full border-2 border-white rounded-[10px]"></div>
