@@ -26,7 +26,7 @@
                 @click.stop="suggestionMenu = true"
                 :placeholder="route.query.category ? `Search in ${route.query.category}` : 'Search'" />
             </div>
-            <div v-if="suggestionMenu" class="flex cursor-pointer text-black dark:text-neutral-500 transition-all" @click="clearSearch">
+            <div v-if="searchQuery || suggestionMenu" class="flex cursor-pointer text-black dark:text-neutral-500 transition-all" @click="clearSearch">
               <Icon v-if="!loading" name="carbon:close-filled" size="24" />
               <Icon v-else name="Loading" size="20" />
             </div>
@@ -95,12 +95,17 @@ const setSearch = (search) => {
 
 const clearSearch = () => {
   suggestionMenu.value = false;
-  searchQuery.value = '';
+  setSearch();
+};
+
+const hidesuggestionMenu = () => {
+  suggestionMenu.value = false;
+  searchQuery.value = route.query.q;
 };
 
 const outsideClickHandler = (event) => {
   if (!event.target.closest('#suggestionMenu')) {
-    clearSearch();
+    hidesuggestionMenu();
   }
 };
 
