@@ -39,10 +39,10 @@
             <!-- Empty State -->
             <div v-else-if="searchResult.length === 0">
               <div class="p-6 text-center text-lg">
-                <Icon name="majesticons:search-line" size="99"></Icon>
+                <Icon name="iconamoon:search-bold" size="99"></Icon>
                 <div class="py-4">
                   <span>
-                    there are no items matching for: <strong>{{ searchQuery }}</strong>
+                    No items matching for: <strong>{{ searchQuery }}</strong>
                   </span>
                 </div>
                 <div class="text-sm">Try improving your results by double checking your spelling or trying a more general keyword.</div>
