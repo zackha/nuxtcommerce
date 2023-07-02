@@ -23,7 +23,7 @@
               <input
                 class="w-full bg-transparent py-2 outline-none placeholder:text-[#757575] placeholder:dark:text-neutral-500"
                 v-model="searchQuery"
-                @click.stop="suggestionMenu = true"
+                @click="suggestionMenu = !suggestionMenu"
                 :placeholder="route.query.category ? `Search in ${route.query.category}` : 'Search'" />
             </div>
             <div v-if="searchQuery || suggestionMenu" class="flex cursor-pointer text-black dark:text-neutral-500 transition-all" @click="clearSearch">
@@ -32,7 +32,7 @@
             </div>
           </div>
         </form>
-        <div v-if="suggestionMenu" id="suggestionMenu" class="absolute top-full left-0 right-0 z-50 bg-white rounded-b-2xl w-full">
+        <div v-if="suggestionMenu" ref="suggestionMenuRef" class="absolute top-full left-0 right-0 z-50 bg-white rounded-b-2xl w-full">
           <div class="m-8">
             <!-- Loading State -->
             <div v-if="loading">Loading...</div>
@@ -81,6 +81,7 @@
 import getSearchProducts from '~/gql/queries/getSearchProducts.gql';
 
 const suggestionMenu = ref(false);
+const suggestionMenuRef = ref(null);
 const router = useRouter();
 const route = useRoute();
 const searchQuery = ref(route.query.q);
@@ -98,22 +99,10 @@ const clearSearch = () => {
   setSearch();
 };
 
-const hidesuggestionMenu = () => {
-  suggestionMenu.value = false;
-  searchQuery.value = route.query.q;
-};
-
-const outsideClickHandler = (event) => {
-  if (!event.target.closest('#suggestionMenu')) {
-    hidesuggestionMenu();
+useOnClickOutside(suggestionMenuRef, () => {
+  if (suggestionMenu.value) {
+    suggestionMenu.value = false;
+    searchQuery.value = route.query.q;
   }
-};
-
-onMounted(() => {
-  window.addEventListener('click', outsideClickHandler);
-});
-
-onUnmounted(() => {
-  window.removeEventListener('click', outsideClickHandler);
 });
 </script>
