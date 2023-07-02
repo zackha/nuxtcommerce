@@ -1,5 +1,5 @@
 <template>
-  <div class="relative cursor-pointer select-none items-center justify-center text-base font-semibold" @click="isDropdownVisible = !isDropdownVisible">
+  <div class="relative cursor-pointer select-none items-center justify-center text-base font-semibold" ref="dropdownRef" @click="isDropdownVisible = !isDropdownVisible">
     <div
       class="box-border flex items-center rounded-full py-3.5 pl-5 pr-4 transition-all active:scale-95"
       :class="{ 'bg-black text-white hover:bg-black': isDropdownVisible, 'bg-[#efefef] hover:bg-[#e2e2e2]': !isDropdownVisible }">
@@ -7,7 +7,7 @@
       <Icon name="iconamoon:arrow-down-2" size="24" />
     </div>
     <Transition>
-      <div v-if="isDropdownVisible" ref="dropdownRef" class="absolute top-full z-10 mt-[18px] rounded-2xl text-base font-semibold bg-white shadow-[0_0_8px_rgba(0,0,0,.1)]">
+      <div v-if="isDropdownVisible" class="absolute top-full z-10 mt-[18px] rounded-2xl text-base font-semibold bg-white shadow-[0_0_8px_rgba(0,0,0,.1)]">
         <div class="m-2 w-44">
           <div @click="setCategory()" class="rounded-lg px-3 py-2 transition-all duration-300 hover:bg-[#e9e9e9]">
             <div class="flex items-center justify-between">
