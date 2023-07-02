@@ -1,5 +1,5 @@
 <template>
-  <div class="relative cursor-pointer select-none items-center justify-center text-base font-semibold" @click.stop="isDropdownVisible = !isDropdownVisible">
+  <div class="relative cursor-pointer select-none items-center justify-center text-base font-semibold" ref="dropdownRef" @click="isDropdownVisible = !isDropdownVisible">
     <div
       class="box-border flex items-center rounded-full py-3.5 pl-5 pr-4 transition-all active:scale-95"
       :class="{ 'bg-black text-white hover:bg-black': isDropdownVisible, 'bg-[#efefef] hover:bg-[#e2e2e2]': !isDropdownVisible }">
@@ -23,6 +23,7 @@
 
 <script setup>
 const isDropdownVisible = ref(false);
+const dropdownRef = ref(null);
 const router = useRouter();
 const route = useRoute();
 const selectedSort = ref(
@@ -51,21 +52,9 @@ const setSort = (value) => {
   router.push({ query });
 };
 
-const hideDropdown = () => {
-  isDropdownVisible.value = false;
-};
-
-const outsideClickHandler = (event) => {
-  if (!event.target.closest('#dropdown')) {
-    hideDropdown();
+useOnClickOutside(dropdownRef, () => {
+  if (isDropdownVisible.value) {
+    isDropdownVisible.value = false;
   }
-};
-
-onMounted(() => {
-  window.addEventListener('click', outsideClickHandler);
-});
-
-onUnmounted(() => {
-  window.removeEventListener('click', outsideClickHandler);
 });
 </script>
