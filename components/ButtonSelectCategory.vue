@@ -9,7 +9,7 @@
     <Transition>
       <div v-if="isDropdownVisible" class="absolute top-full z-10 mt-[18px] rounded-2xl text-base font-semibold bg-white shadow-[0_0_8px_rgba(0,0,0,.1)]">
         <div class="m-2 w-44">
-          <div @click="setCategory()" class="rounded-lg px-3 py-2 transition-all duration-300 hover:bg-[#e9e9e9]">
+          <div @click="setCategory()" class="rounded-[10px] px-3 py-2 transition-all duration-300 hover:bg-[#e9e9e9]">
             <div class="flex items-center justify-between">
               <div class="mr-1 w-full">All Categories</div>
               <Icon v-if="!route.query.category" name="iconamoon:check-bold" size="20" />

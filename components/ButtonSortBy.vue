@@ -9,7 +9,7 @@
     <Transition>
       <div v-if="isDropdownVisible" class="absolute top-full right-0 z-10 mt-[18px] rounded-2xl text-base font-semibold bg-white shadow-[0_0_8px_rgba(0,0,0,.1)]">
         <div class="m-2 w-48">
-          <div v-for="(option, i) in options" :key="i" @click="setSort(option.value)" class="rounded-lg px-3 py-2 transition-all duration-300 hover:bg-[#e9e9e9]">
+          <div v-for="(option, i) in options" :key="i" @click="setSort(option.value)" class="rounded-[10px] px-3 py-2 transition-all duration-300 hover:bg-[#e9e9e9]">
             <div class="flex items-center justify-between">
               <div class="mr-1 w-full">{{ option.value }}</div>
               <Icon v-if="selectedSort === option.value" name="iconamoon:check-bold" size="20" />
