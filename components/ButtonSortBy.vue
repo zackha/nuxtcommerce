@@ -1,22 +1,18 @@
 <template>
-  <div class="relative cursor-pointer select-none items-center justify-center text-base font-semibold">
-    <div class="box-border flex items-center rounded-full py-3.5 px-5 transition-all bg-[#efefef] hover:bg-neutral-800/10 dark:bg-white/10 hover:dark:bg-white/20 active:scale-95">
-      <span class="mr-3">{{ selectedOption }}</span>
-      <Icon name="ion:chevron-down-outline" size="14" />
+  <div class="relative cursor-pointer select-none items-center justify-center text-base font-semibold" @click.stop="isDropdownVisible = !isDropdownVisible">
+    <div
+      class="box-border flex items-center rounded-full py-3.5 pl-5 pr-4 transition-all active:scale-95"
+      :class="{ 'bg-black text-white hover:bg-black': isDropdownVisible, 'bg-[#efefef] hover:bg-[#e2e2e2]': !isDropdownVisible }">
+      <span class="mr-1.5">{{ selectedSort }}</span>
+      <Icon name="iconamoon:arrow-down-2" size="24" />
     </div>
     <Transition>
-      <div
-        v-show="show"
-        class="absolute right-0 top-full z-10 mt-3 rounded-xl border border-neutral-800/10 dark:border-white/10 text-[13px] font-medium backdrop-blur-xl bg-white/90 dark:bg-neutral-800/80 shadow-lg">
-        <div class="m-2 w-44">
-          <div
-            v-for="(option, index) in options"
-            :key="index"
-            @click="selectOption(option.value)"
-            class="rounded-lg px-3 py-2 transition-all duration-300 hover:bg-neutral-800/5 hover:dark:bg-white/5">
+      <div v-if="isDropdownVisible" id="dropdown" class="absolute top-full z-10 mt-[18px] rounded-2xl text-base font-semibold bg-white shadow-[0_0_8px_rgba(0,0,0,.1)]">
+        <div class="m-2 w-48">
+          <div v-for="(option, i) in options" :key="i" @click="setSort(option.value)" class="rounded-lg px-3 py-2 transition-all duration-300 hover:bg-[#e9e9e9]">
             <div class="flex items-center justify-between">
-              <div class="mr-4 w-full">{{ option.value }}</div>
-              <Icon v-if="selectedOption === option.value" name="mingcute:check-line" size="16" />
+              <div class="mr-1 w-full">{{ option.value }}</div>
+              <Icon v-if="selectedSort === option.value" name="iconamoon:check-bold" size="20" />
             </div>
           </div>
         </div>
@@ -26,15 +22,48 @@
 </template>
 
 <script setup>
-defineProps({
-  show: Boolean,
-  options: Array,
-  selectedOption: String,
+const isDropdownVisible = ref(false);
+const router = useRouter();
+const route = useRoute();
+const selectedSort = ref(
+  !route.query.orderby && !route.query.fieldby ? 'Newest' : route.query.orderby === 'DESC' && route.query.fieldby === 'PRICE' ? 'Price: High to Low' : 'Price: Low to High'
+);
+
+const options = reactive([{ value: 'Newest' }, { value: 'Price: High to Low' }, { value: 'Price: Low to High' }]);
+
+const setSort = (value) => {
+  selectedSort.value = value;
+  let query = {};
+
+  switch (value) {
+    case 'Newest':
+      query = { ...route.query };
+      break;
+    case 'Price: High to Low':
+      query = { ...route.query, orderby: 'DESC', fieldby: 'PRICE' };
+      break;
+    case 'Price: Low to High':
+      query = { ...route.query, orderby: 'ASC', fieldby: 'PRICE' };
+      break;
+  }
+  router.push({ query });
+};
+
+const hideDropdown = () => {
+  isDropdownVisible.value = false;
+};
+
+const outsideClickHandler = (event) => {
+  if (!event.target.closest('#dropdown')) {
+    hideDropdown();
+  }
+};
+
+onMounted(() => {
+  window.addEventListener('click', outsideClickHandler);
 });
 
-const emit = defineEmits(['update:selectedOption']);
-
-const selectOption = (option) => {
-  emit('update:selectedOption', option);
-};
+onUnmounted(() => {
+  window.removeEventListener('click', outsideClickHandler);
+});
 </script>
