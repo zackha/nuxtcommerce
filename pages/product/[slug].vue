@@ -107,6 +107,7 @@
   <div class="text-xl font-semibold text-center my-5">Shop similar</div>
   <div class="grid grid-cols-7 gap-4 px-20 mt-4">
     <ProductCard :products="related" />
+    <ProductsSkeleton v-if="loading" />
   </div>
 </template>
 
