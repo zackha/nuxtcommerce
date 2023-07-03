@@ -26,4 +26,15 @@ If your product stocks and prices are not changeable, and you are not continuous
 - Suitable for Fashion Category
 - Dark Mode
 
+## Contributing
+
+Contributions of any kind are welcome! You can open an issue for requests, bug reports, or general feedback, or you can directly create a pull request(PR).
+
+## Contact
+
+Don't hesitate to get in touch if you have any questions or suggestions:
+
+Email: zckhtln@icloud.com</br>
+Twitter: [@ZHatlen](https://twitter.com/ZHatlen)
+
 ![Nuxtcommerce](https://github.com/zackha/nuxtcommerce/assets/79358543/0fbd5415-f449-4a7f-9031-33f8be0e447c)
