@@ -1,16 +1,20 @@
 <template>
-  <div role="tablist" class="flex w-full flex-row items-center px-4 py-1 h-20 z-50 fixed bg-white">
+  <div role="tablist" class="flex w-full flex-row items-center px-4 py-1 h-20 z-50 fixed bg-white dark:bg-black">
     <div class="flex flex-row w-full flex-nowrap items-center h-14">
-      <div class="flex items-center justify-center w-12 h-12 hover:bg-[#e9e9e9] rounded-full">
+      <div class="flex items-center justify-center w-12 h-12 hover:bg-[#e9e9e9] hover:dark:bg-[#262626] rounded-full">
         <NuxtLink to="/">
           <Icon name="Logo" size="32" />
         </NuxtLink>
       </div>
-      <div class="font-semibold px-4 rounded-full hover:bg-black h-12 flex items-center justify-center hover:text-white">Categories</div>
-      <div class="font-semibold px-4 rounded-full hover:bg-black h-12 flex items-center justify-center hover:text-white">Favorites</div>
-      <div class="relative flex flex-shrink flex-grow flex-col text-sm font-semibold text-neutral-600 px-2">
+      <div class="font-semibold cursor-pointer px-4 rounded-full hover:bg-black hover:dark:bg-white h-12 flex items-center justify-center hover:text-white hover:dark:text-black">
+        Categories
+      </div>
+      <div class="font-semibold cursor-pointer px-4 rounded-full hover:bg-black hover:dark:bg-white h-12 flex items-center justify-center hover:text-white hover:dark:text-black">
+        Favorites
+      </div>
+      <div class="relative flex flex-shrink flex-grow flex-col text-sm font-semibold text-neutral-500 dark:text-neutral-300 px-2">
         <form
-          class="group flex h-12 flex-grow rounded-full bg-[#e9e9e9] pl-4 pr-3 transition-all hover:bg-[#e1e1e1]"
+          class="group flex h-12 flex-grow rounded-full bg-[#e9e9e9] dark:bg-[#262626] pl-4 pr-3 transition-all hover:bg-[#e1e1e1]"
           @submit.prevent="
             setSearch(searchQuery);
             suggestionMenu = false;
@@ -21,7 +25,7 @@
             </div>
             <div class="flex w-full">
               <input
-                class="w-full bg-transparent py-2 outline-none placeholder:text-[#757575] placeholder:dark:text-neutral-500"
+                class="w-full bg-transparent py-2 outline-none placeholder:text-[#757575] placeholder:dark:text-neutral-400"
                 v-model="searchQuery"
                 @click="suggestionMenu = !suggestionMenu"
                 :placeholder="route.query.category ? `Search in ${route.query.category}` : 'Search'" />
@@ -32,7 +36,7 @@
             </div>
           </div>
         </form>
-        <div v-if="suggestionMenu" ref="suggestionMenuRef" class="absolute top-full left-0 right-0 z-50 bg-white rounded-b-2xl w-full">
+        <div v-if="suggestionMenu" ref="suggestionMenuRef" class="absolute top-full left-0 right-0 z-50 bg-white dark:bg-black rounded-b-2xl w-full">
           <div class="m-8">
             <!-- Loading State -->
             <div v-if="loading">Loading...</div>
@@ -50,16 +54,19 @@
             </div>
             <!-- Results State -->
             <div v-else>
-              <div v-if="!searchQuery" class="font-semibold text-base text-[#111] my-2">New</div>
+              <div v-if="!searchQuery" class="font-semibold text-base my-2">New</div>
               <div class="items-center gap-2 flex flex-wrap flex-row">
-                <NuxtLink :to="`/product/${product.slug}-${product.sku.split('-')[0]}`" v-for="product in searchResult" class="flex bg-black/5 rounded-2xl overflow-hidden">
+                <NuxtLink
+                  :to="`/product/${product.slug}-${product.sku.split('-')[0]}`"
+                  v-for="product in searchResult"
+                  class="flex bg-black/5 dark:bg-[#141414] rounded-2xl overflow-hidden">
                   <div class="relative w-32 h-32 will-change-transform">
                     <div class="h-full relative box-border">
                       <NuxtImg class="object-cover absolute w-full h-full" :src="product.image.sourceUrl" />
                     </div>
                   </div>
                   <div class="p-4 items-center flex flex-row box-border w-60">
-                    <div class="text-base text-[#111]">
+                    <div class="text-base">
                       {{ product.name }}
                     </div>
                   </div>
@@ -69,7 +76,9 @@
           </div>
         </div>
       </div>
-      <div class="hover:bg-[#e9e9e9] w-12 h-12 flex items-center justify-center rounded-full"><Icon color="#5f5f5f" name="fa6-solid:bag-shopping" size="22" /></div>
+      <div class="hover:bg-[#e9e9e9] hover:dark:bg-[#262626] w-12 h-12 flex items-center justify-center rounded-full">
+        <Icon color="#5f5f5f" name="fa6-solid:bag-shopping" size="22" />
+      </div>
     </div>
   </div>
   <div v-if="suggestionMenu" class="fixed inset-0 z-40">
