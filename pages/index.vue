@@ -7,7 +7,7 @@
     <ProductCard :products="products" />
     <ProductsSkeleton v-if="loading" />
   </div>
-  <ProductsEmpty v-if="!productsEmpty" />
+  <ProductsEmpty v-if="!productsEmpty && !loading" />
 </template>
 
 <script setup>
