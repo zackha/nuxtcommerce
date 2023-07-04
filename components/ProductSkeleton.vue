@@ -1,5 +1,5 @@
 <template>
-  <div class="justify-center flex flex-row">
+  <div class="justify-center flex flex-row mb-8">
     <div class="mr-6 mt-5 gap-4 flex flex-col pt-2.5">
       <div class="h-[76px] w-[56px] rounded-xl border-2 border-[#e5e5e5] dark:border-[#262626] relative overflow-hidden" v-for="i in 6" :key="i">
         <div class="skeleton-thumb"></div>
