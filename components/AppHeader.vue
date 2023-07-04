@@ -7,7 +7,7 @@
         </NuxtLink>
       </div>
       <div class="font-semibold cursor-pointer px-4 rounded-full hover:bg-black hover:dark:bg-white h-12 flex items-center justify-center hover:text-white hover:dark:text-black">
-        Categories
+        <NuxtLink to="/categories">Categories</NuxtLink>
       </div>
       <div class="font-semibold cursor-pointer px-4 rounded-full hover:bg-black hover:dark:bg-white h-12 flex items-center justify-center hover:text-white hover:dark:text-black">
         Favorites
