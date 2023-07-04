@@ -77,8 +77,8 @@
         </div>
       </div>
       <div class="hover:bg-[#e9e9e9] hover:dark:bg-[#262626] w-12 h-12 flex items-center justify-center rounded-full relative">
-        <Icon color="#5f5f5f" name="fa6-solid:bag-shopping" size="22" />
-        <div class="w-[18px] rounded-full absolute bg-[#e60023] top-1 right-1 text-xs font-semibold leading-[16px] pb-0.5 text-center text-white">1</div>
+        <Icon class="text-[#5f5f5f] dark:text-[#b7b7b7]" name="fa6-solid:bag-shopping" size="22" />
+        <div v-if="cart" class="w-[18px] rounded-full absolute bg-[#e60023] top-1 right-1 text-xs font-semibold leading-[16px] pb-0.5 text-center text-white">1</div>
       </div>
     </div>
   </div>
@@ -95,6 +95,7 @@ const suggestionMenuRef = ref(null);
 const router = useRouter();
 const route = useRoute();
 const searchQuery = ref(route.query.q);
+const cart = ref(false);
 
 const { result, loading } = useQuery(getSearchProducts, () => ({ search: searchQuery.value }));
 const searchResult = computed(() => result.value?.products.nodes);
