@@ -12,7 +12,7 @@
       <div class="font-semibold cursor-pointer px-4 rounded-full hover:bg-black hover:dark:bg-white h-12 flex items-center justify-center hover:text-white hover:dark:text-black">
         Favorites
       </div>
-      <div class="relative flex flex-shrink flex-grow flex-col text-sm font-semibold text-neutral-500 dark:text-neutral-300 px-2">
+      <div class="relative flex flex-shrink flex-grow flex-col text-sm font-semibold text-[#111] dark:text-[#eee] px-2">
         <form
           class="group flex h-12 flex-grow rounded-full bg-[#e9e9e9] dark:bg-[#262626] pl-4 pr-3 transition-all hover:bg-[#e1e1e1]"
           @submit.prevent="
