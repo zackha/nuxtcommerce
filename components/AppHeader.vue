@@ -30,8 +30,8 @@
                 @click="suggestionMenu = !suggestionMenu"
                 :placeholder="route.query.category ? `Search in ${route.query.category}` : 'Search'" />
             </div>
-            <div v-if="searchQuery || suggestionMenu" class="flex cursor-pointer text-black dark:text-neutral-500 transition-all" @click="clearSearch">
-              <Icon v-if="!loading" name="carbon:close-filled" size="24" />
+            <div v-if="searchQuery || suggestionMenu" class="flex cursor-pointer transition-all" @click="clearSearch">
+              <Icon v-if="!loading" class="text-black dark:text-white" name="carbon:close-filled" size="24" />
               <Icon v-else name="Loading" size="20" />
             </div>
           </div>
