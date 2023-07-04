@@ -1,7 +1,7 @@
 <template>
   <div role="tablist" class="flex w-full flex-row items-center px-4 py-1 h-20 z-50 fixed bg-white dark:bg-black">
     <div class="flex flex-row w-full flex-nowrap items-center h-14">
-      <div class="flex items-center justify-center w-12 h-12 hover:bg-[#e9e9e9] hover:dark:bg-[#262626] rounded-full">
+      <div class="flex items-center justify-center w-12 h-12 hover:bg-[#e9e9e9] hover:dark:bg-[#262626] rounded-[14px]">
         <NuxtLink to="/">
           <Icon name="Logo" size="32" />
         </NuxtLink>
