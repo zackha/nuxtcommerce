@@ -1,14 +1,13 @@
 <template>
   <div class="py-8 w-full items-center flex-col">
     <div class="container m-auto">
-      <div class="flex flex-row flex-wrap gap-4 justify-center">
+      <div class="flex flex-row flex-wrap justify-center">
         <NuxtLink v-for="(category, i) in categories" :key="i" class="group" :to="`/?category=${category.name}`">
-          <div class="w-[444px] min-h-[306px]">
+          <div v-if="category.image" class="w-[444px] min-h-[306px] p-2">
             <div class="pb-[75%] relative overflow-hidden">
               <div class="absolute left-0 right-0 top-0 bottom-0">
                 <div class="h-full relative">
                   <NuxtImg
-                    v-if="category.image"
                     class="object-cover absolute w-full h-full transition-all group-active:scale-95 rounded-[32px]"
                     :src="category.image.sourceUrl"
                     loading="lazy"
