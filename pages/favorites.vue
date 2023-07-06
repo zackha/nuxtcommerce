@@ -1,16 +1,18 @@
 <template>
   <div>
-    <div v-for="product in products" :key="product.id">
+    <div v-for="product in products" :key="product.id" class="flex gap-2">
       <div>{{ product.title }}</div>
       <button @click="toggleWishlist(product)">
-        {{ wishlist.includes(product.id) ? 'Remove from Wishlist' : 'Add to Wishlist' }}
+        <Icon :name="wishlist.includes(product.id) ? 'iconamoon:heart-fill' : 'iconamoon:heart'" size="16" />
       </button>
     </div>
     <br />
     <div class="text-2xl">Wishlist</div>
-    <div v-for="id in wishlist" :key="id">
+    <div v-for="id in wishlist" :key="id" class="flex gap-2">
       <div>{{ getWishlist(id) }}</div>
-      <button @click="toggleWishlist({ id })">Remove from Wishlist</button>
+      <button @click="toggleWishlist({ id })">
+        <Icon name="iconamoon:close" size="16" />
+      </button>
     </div>
   </div>
 </template>
