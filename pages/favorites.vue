@@ -10,9 +10,13 @@
 <script setup>
 const theList = ref([]);
 
+const updateLocalStorage = () => {
+  localStorage.setItem('wishlist', JSON.stringify(theList.value));
+};
+
 const removeFromList = (databaseId) => {
   theList.value = theList.value.filter((item) => item.databaseId !== databaseId);
-  localStorage.setItem('wishlist', JSON.stringify(theList.value));
+  updateLocalStorage();
 };
 
 onMounted(() => {
