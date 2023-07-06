@@ -6,12 +6,16 @@
           <Icon name="Logo" size="32" />
         </NuxtLink>
       </div>
-      <div class="font-semibold cursor-pointer px-4 rounded-full hover:bg-black hover:dark:bg-white h-12 flex items-center justify-center hover:text-white hover:dark:text-black">
-        <NuxtLink to="/categories">Categories</NuxtLink>
-      </div>
-      <div class="font-semibold cursor-pointer px-4 rounded-full hover:bg-black hover:dark:bg-white h-12 flex items-center justify-center hover:text-white hover:dark:text-black">
+      <NuxtLink
+        class="font-semibold cursor-pointer px-4 rounded-full hover:bg-black hover:dark:bg-white h-12 flex items-center justify-center hover:text-white hover:dark:text-black"
+        to="/categories">
+        Categories
+      </NuxtLink>
+      <NuxtLink
+        class="font-semibold cursor-pointer px-4 rounded-full hover:bg-black hover:dark:bg-white h-12 flex items-center justify-center hover:text-white hover:dark:text-black"
+        to="/favorites">
         Favorites
-      </div>
+      </NuxtLink>
       <div class="relative flex flex-shrink flex-grow flex-col text-sm font-semibold text-[#111] dark:text-[#eee] px-2">
         <form
           class="flex h-12 flex-grow rounded-full bg-[#e9e9e9] dark:bg-[#262626] pl-4 pr-3 transition-all hover:bg-[#e1e1e1]"
