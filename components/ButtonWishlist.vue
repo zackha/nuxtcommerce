@@ -11,16 +11,16 @@ const props = defineProps({
   product: Object,
 });
 
-const theList = ref(JSON.parse(localStorage.getItem('wishlist')) || []);
+const wishlist = ref(JSON.parse(localStorage.getItem('wishlist')) || []);
 
-const isWishlisted = computed(() => theList.value.some((item) => item.databaseId === props.product.databaseId));
+const isWishlisted = computed(() => wishlist.value.some((item) => item.databaseId === props.product.databaseId));
 
 const toggleWishlist = (item) => {
   if (isWishlisted.value) {
-    theList.value = theList.value.filter((item) => item.databaseId !== props.product.databaseId);
+    wishlist.value = wishlist.value.filter((item) => item.databaseId !== props.product.databaseId);
   } else {
-    theList.value.push(item);
+    wishlist.value.push(item);
   }
-  localStorage.setItem('wishlist', JSON.stringify(theList.value));
+  localStorage.setItem('wishlist', JSON.stringify(wishlist.value));
 };
 </script>
