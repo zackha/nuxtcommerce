@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div v-for="product in products" :key="product.id" class="flex gap-2">
+    <div v-for="product in products" :key="product.id" class="flex gap-2 items-center mb-2">
+      <img :src="product.image" />
       <div>{{ product.title }}</div>
       <button @click="toggleWishlist(product)">
         <Icon :name="wishlist.includes(product.id) ? 'iconamoon:heart-fill' : 'iconamoon:heart'" size="16" />
@@ -8,8 +9,9 @@
     </div>
     <br />
     <div class="text-2xl">Wishlist</div>
-    <div v-for="id in wishlist" :key="id" class="flex gap-2">
-      <div>{{ getWishlist(id) }}</div>
+    <div v-for="id in wishlist" :key="id" class="flex gap-2 items-center mb-2">
+      <img :src="getWishlist(id).image" />
+      <div>{{ getWishlist(id).title }}</div>
       <button @click="toggleWishlist({ id })">
         <Icon name="iconamoon:close" size="16" />
       </button>
@@ -19,9 +21,9 @@
 
 <script setup>
 const products = ref([
-  { id: 1, title: 'Product 1' },
-  { id: 2, title: 'Product 2' },
-  { id: 3, title: 'Product 3' },
+  { id: 1, title: 'Product 1', image: 'https://loremflickr.com/50/50' },
+  { id: 2, title: 'Product 2', image: 'https://loremflickr.com/50/50' },
+  { id: 3, title: 'Product 3', image: 'https://loremflickr.com/50/50' },
   // Daha fazla ürün eklenebilir
 ]);
 const wishlist = ref([]);
@@ -49,6 +51,6 @@ const toggleWishlist = (product) => {
 
 const getWishlist = (id) => {
   const product = products.value.find((product) => product.id === id);
-  return product ? product.title : '';
+  return product ? product : '';
 };
 </script>
