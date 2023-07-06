@@ -11,16 +11,5 @@ const props = defineProps({
   product: Object,
 });
 
-const wishlist = ref(JSON.parse(localStorage.getItem('wishlist')) || []);
-
-const isWishlisted = computed(() => wishlist.value.some((item) => item.databaseId === props.product.databaseId));
-
-const toggleWishlist = (item) => {
-  if (isWishlisted.value) {
-    wishlist.value = wishlist.value.filter((item) => item.databaseId !== props.product.databaseId);
-  } else {
-    wishlist.value.push(item);
-  }
-  localStorage.setItem('wishlist', JSON.stringify(wishlist.value));
-};
+const { isWishlisted, toggleWishlist } = useWishlist(props.product);
 </script>
