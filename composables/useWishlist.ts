@@ -16,7 +16,7 @@ export const useWishlist = (product: any) => {
     updateLocalStorage();
   };
 
-  const removeFromList = (databaseId: any) => {
+  const removeFromList = (databaseId: number) => {
     wishlist.value = wishlist.value.filter((item) => item.databaseId !== databaseId);
     updateLocalStorage();
   };
