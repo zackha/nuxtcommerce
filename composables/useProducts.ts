@@ -1,6 +1,6 @@
 import getProducts from '~/gql/queries/getProducts.gql';
 
-export function useProducts() {
+export const useProducts = () => {
   const route = useRoute();
   const variables = computed(() => ({
     search: route.query.q,
@@ -61,4 +61,4 @@ export function useProducts() {
     loading,
     productsEmpty,
   };
-}
+};
