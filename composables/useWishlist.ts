@@ -1,13 +1,13 @@
 interface Product {
   databaseId: number;
-  title: string;
+  name: string;
 }
 
 export const useWishlist = () => {
   const products = ref<Product[]>([
-    { databaseId: 1, title: 'Product 1' },
-    { databaseId: 2, title: 'Product 2' },
-    { databaseId: 3, title: 'Product 3' },
+    { databaseId: 1, name: 'Product 1' },
+    { databaseId: 2, name: 'Product 2' },
+    { databaseId: 3, name: 'Product 3' },
   ]);
 
   const wishlist = ref<number[]>([]);
