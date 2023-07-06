@@ -1,23 +1,23 @@
-export const useWishlist = (product: { databaseId: number }) => {
-  const wishlist = ref([]);
+export const useWishlist = (product: any) => {
+  const wishlist = ref<any[]>([]);
 
-  const isWishlisted = computed(() => wishlist.value.some((item: { databaseId: number }) => item.databaseId === product.databaseId));
+  const isWishlisted = computed(() => wishlist.value.some((item) => item.databaseId === product.databaseId));
 
   const updateLocalStorage = () => {
     localStorage.setItem('wishlist', JSON.stringify(wishlist.value));
   };
 
-  const toggleWishlist = (item: { databaseId: number }) => {
+  const toggleWishlist = (item: any) => {
     if (isWishlisted.value) {
-      wishlist.value = wishlist.value.filter((item: { databaseId: number }) => item.databaseId !== product.databaseId);
+      wishlist.value = wishlist.value.filter((item) => item.databaseId !== product.databaseId);
     } else {
       wishlist.value.push(item);
     }
     updateLocalStorage();
   };
 
-  const removeFromList = (databaseId: number) => {
-    wishlist.value = wishlist.value.filter((item: { databaseId: number }) => item.databaseId !== databaseId);
+  const removeFromList = (databaseId: any) => {
+    wishlist.value = wishlist.value.filter((item) => item.databaseId !== databaseId);
     updateLocalStorage();
   };
 
