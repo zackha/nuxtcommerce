@@ -21,6 +21,11 @@ query getProduct($slug: ID!, $sku: String!) {
           name
         }
       }
+      allPaStyle {
+        nodes {
+          name
+        }
+      }
       productTypes {
         nodes {
           products(where: { stockStatus: IN_STOCK, sku: $sku }) {

@@ -17,7 +17,7 @@
                   <NuxtImg
                     v-else
                     class="object-cover absolute w-full h-full transition-all group-active:scale-95 rounded-[32px]"
-                    src="https://via.placeholder.com/444x333"
+                    src="/placeholder-categories-444x333.png"
                     loading="lazy"
                     :title="category.name" />
                   <div class="absolute left-0 right-0 top-0 bottom-0 overflow-hidden bg-gradient-to-t hover:from-black/40 transition-all group-active:scale-95 rounded-[32px]">
