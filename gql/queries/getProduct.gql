@@ -1,6 +1,7 @@
 query getProduct($slug: ID!, $sku: String!) {
   product(id: $slug, idType: SLUG) {
     ... on VariableProduct {
+      databaseId
       sku
       slug
       name
@@ -16,6 +17,11 @@ query getProduct($slug: ID!, $sku: String!) {
         }
       }
       allPaColor {
+        nodes {
+          name
+        }
+      }
+      allPaStyle {
         nodes {
           name
         }

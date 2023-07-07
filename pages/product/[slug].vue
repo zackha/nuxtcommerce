@@ -83,11 +83,7 @@
               <button type="submit" class="w-full h-12 text-white rounded-md tracking-wide font-semibold bg-[#e60023] transition duration-200 hover:bg-[#ad081b]">
                 Add to Cart
               </button>
-              <div class="cursor-pointer">
-                <div class="w-12 h-12 rounded-md ml-4 flex justify-center items-center border-2 text-[#8c8c8c] border-[#e6e6e6] dark:border-[#262626]">
-                  <Icon name="ph:heart-bold" size="24" />
-                </div>
-              </div>
+              <ButtonWishlist :product="product" />
             </div>
           </div>
           <div>

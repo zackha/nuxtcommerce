@@ -2,7 +2,8 @@
   <div class="py-8 w-full items-center flex-col">
     <div class="container m-auto">
       <div class="flex flex-row flex-wrap justify-center">
-        <NuxtLink v-for="(category, i) in categories" :key="i" class="group" :to="`/?category=${category.name}`">
+        <div v-if="loading">Loading...</div>
+        <NuxtLink v-else v-for="(category, i) in categories" :key="i" class="group" :to="`/?category=${category.name}`">
           <div class="w-[444px] min-h-[306px] p-2">
             <div class="pb-[75%] relative overflow-hidden">
               <div class="absolute left-0 right-0 top-0 bottom-0">
@@ -16,7 +17,7 @@
                   <NuxtImg
                     v-else
                     class="object-cover absolute w-full h-full transition-all group-active:scale-95 rounded-[32px]"
-                    src="https://via.placeholder.com/444x333"
+                    src="/placeholder-categories-444x333.png"
                     loading="lazy"
                     :title="category.name" />
                   <div class="absolute left-0 right-0 top-0 bottom-0 overflow-hidden bg-gradient-to-t hover:from-black/40 transition-all group-active:scale-95 rounded-[32px]">
@@ -38,6 +39,6 @@
 <script setup>
 import getCategories from '~/gql/queries/getCategories.gql';
 
-const { result: categoriesResult } = useQuery(getCategories);
+const { result: categoriesResult, loading } = useQuery(getCategories);
 const categories = computed(() => categoriesResult.value?.productCategories.nodes.filter((category) => category.products.nodes.length && category.children.nodes.length));
 </script>
