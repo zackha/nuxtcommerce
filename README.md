@@ -8,6 +8,8 @@
   An open-source, dynamic e-commerce solution powered by Nuxt 3 and GraphQL, headless storefront replacement for Woocommerce. Featuring a user interface in the style of Pinterest and fully customizable (Vue, Nuxt3).
 </p>
 
+### [🚀 Live Demo](https://nuxtcommerce.netlify.app/)
+
 ## Introduction
 NuxtCommerce is a dynamic and lively e-commerce platform developed with Nuxt 3. Developed for WooCommerce, NuxtCommerce optimizes data flow with [WPGraphQL](https://github.com/wp-graphql/wp-graphql), offering an efficient shopping experience. It stands out with its Pinterest-style user-friendly interface and fashion-oriented structure. With its dark mode feature and open-source nature, it offers flexibility and continuous development opportunities.
 
