@@ -1,128 +1,191 @@
+<script setup>
+const router = useRouter();
+const route = useRoute();
+const searchQuery = ref((route.query.q || '').toString());
+const searchResults = ref([]);
+const isLoading = ref(false);
+const suggestionMenu = ref(false);
+const suggestionMenuRef = ref(null);
+
+const search = () => {
+  router.push({ path: '/', query: { ...route.query, q: searchQuery.value || undefined } });
+  suggestionMenu.value = false;
+};
+
+async function fetch() {
+  try {
+    const response = await searchProducts(searchQuery.value);
+    searchResults.value = response.products.nodes;
+  } finally {
+    isLoading.value = false;
+  }
+}
+
+onMounted(fetch);
+
+const throttledFetch = useDebounceFn(async () => {
+  await fetch();
+}, 300);
+
+watch(
+  () => searchQuery.value,
+  () => {
+    isLoading.value = true;
+    throttledFetch();
+  }
+);
+
+const clearSearch = () => {
+  suggestionMenu.value = false;
+  searchQuery.value = '';
+  router.push({ query: { ...route.query, q: undefined } });
+};
+
+onClickOutside(suggestionMenuRef, event => {
+  suggestionMenu.value = false;
+});
+</script>
+
 <template>
-  <div role="tablist" class="flex w-full flex-row items-center px-4 py-1 h-20 z-50 fixed bg-white dark:bg-black">
-    <div class="flex flex-row w-full flex-nowrap items-center h-14">
-      <div class="flex items-center justify-center w-12 h-12 hover:bg-[#e9e9e9] hover:dark:bg-[#262626] rounded-[14px]">
-        <NuxtLink to="/">
-          <Icon name="Logo" size="32" />
-        </NuxtLink>
-      </div>
+  <div class="flex w-full flex-row items-center px-3 lg:px-5 h-20 z-50 fixed bg-white/85 dark:bg-black/85 backdrop-blur-sm dark:backdrop-blur-lg">
+    <div class="flex flex-row w-full flex-nowrap items-center gap-2">
       <NuxtLink
-        class="font-semibold cursor-pointer px-4 rounded-full hover:bg-black hover:dark:bg-white h-12 flex items-center justify-center hover:text-white hover:dark:text-black"
+        class="flex items-center justify-center min-w-[52px] min-h-[52px] max-lg:min-w-12 max-lg:min-h-12 hover:bg-black/5 hover:dark:bg-white/15 max-lg:dark:bg-white/15 max-lg:bg-black/5 max-lg:hover:bg-black/10 max-lg:hover:dark:bg-white/20 rounded-2xl max-lg:rounded-full transition active:scale-95"
+        to="/">
+        <svg viewBox="0 0 30.72 30.72" class="rounded-lg max-lg:rounded-full bg-[#b31015] w-8 h-8">
+          <path
+            d="M -1e-4,1e-4 H 15.3296 C 14.7944,0.0047 14.2692,0.1464 13.8054,0.4117 13.334,0.6813 12.9429,1.0691 12.6707,1.536 L -1e-4,23.2893 Z m 15.3807,0 h 15.3392 v 5.1132 c -0.4077,-0.1874 -0.8524,-0.2855 -1.304,-0.2855 -0.5439,0 -1.0786,0.142 -1.5494,0.4116 -0.4711,0.2696 -0.8623,0.6577 -1.1341,1.1245 L 23.7908,11.4167 18.0395,1.536 C 17.7674,1.0691 17.376,0.6813 16.9048,0.4117 16.4411,0.1464 15.9158,0.0047 15.3806,1e-4 Z M 30.7198,13.6563 V 25.8989 H 26.6036 L 23.791,30.7198 H 11.8305 c 4.2401,-0.0117 7.3693,-1.8658 9.5244,-5.4729 l 5.2487,-9.0088 2.8114,-4.8214 z M 11.6157,25.8941 4.1115,25.8924 15.3602,6.5839 l 5.6126,9.6542 -3.7579,6.4525 c -1.4357,2.348 -3.0668,3.2035 -5.5992,3.2035 z"
+            fill="#ed3237" />
+        </svg>
+      </NuxtLink>
+      <NuxtLink
+        exactActiveClass="bg-black dark:bg-white text-white dark:text-black"
+        class="font-semibold cursor-pointer px-4 rounded-full hover:bg-black hover:dark:bg-white h-12 items-center justify-center hover:text-white hover:dark:text-black transition active:scale-95 lg:flex hidden"
         to="/categories">
         Categories
       </NuxtLink>
       <NuxtLink
-        class="font-semibold cursor-pointer px-4 rounded-full hover:bg-black hover:dark:bg-white h-12 flex items-center justify-center hover:text-white hover:dark:text-black"
+        exactActiveClass="bg-black dark:bg-white text-white dark:text-black"
+        class="font-semibold cursor-pointer px-4 rounded-full hover:bg-black hover:dark:bg-white h-12 items-center justify-center hover:text-white hover:dark:text-black transition active:scale-95 lg:flex hidden"
         to="/favorites">
         Favorites
       </NuxtLink>
-      <div class="relative flex flex-shrink flex-grow flex-col text-sm font-semibold text-[#111] dark:text-[#eee] px-2">
-        <form
-          class="flex h-12 flex-grow rounded-full bg-[#e9e9e9] dark:bg-[#262626] pl-4 pr-3 transition-all hover:bg-[#e1e1e1]"
-          @submit.prevent="
-            setSearch(searchQuery);
-            suggestionMenu = false;
-          ">
-          <div class="flex w-full items-center gap-4">
+      <NuxtLink
+        exactActiveClass="!bg-black/10 dark:!bg-white/30"
+        class="lg:hidden flex items-center justify-center min-w-12 min-h-12 rounded-full bg-black/5 dark:bg-white/15 hover:bg-black/10 hover:dark:bg-white/20 transition active:scale-95"
+        to="/categories">
+        <UIcon class="text-[#5f5f5f] dark:text-[#b7b7b7]" name="i-iconamoon-category-fill" size="26" />
+      </NuxtLink>
+      <NuxtLink
+        exactActiveClass="!bg-black/10 dark:!bg-white/30"
+        class="lg:hidden flex items-center justify-center min-w-12 min-h-12 rounded-full bg-black/5 dark:bg-white/15 hover:bg-black/10 hover:dark:bg-white/20 transition active:scale-95"
+        to="/favorites">
+        <UIcon class="text-[#5f5f5f] dark:text-[#b7b7b7]" name="i-iconamoon-heart-fill" size="26" />
+      </NuxtLink>
+      <div class="flex flex-shrink flex-grow flex-col text-sm font-semibold text-[#111] dark:text-[#eee]">
+        <div
+          :class="[
+            'flex h-12 flex-grow rounded-full  pl-4 pr-3 transition-all hover:bg-black/10 hover:dark:bg-white/20',
+            suggestionMenu ? 'bg-black/10 dark:bg-white/20' : 'bg-black/5 dark:bg-white/15',
+          ]">
+          <div @click="suggestionMenu = true" class="flex w-full items-center gap-4">
             <div v-if="!suggestionMenu" class="flex text-neutral-500 dark:text-neutral-400">
-              <Icon name="iconamoon:search-bold" size="20" />
+              <UIcon name="i-iconamoon-search-bold" size="20" />
             </div>
             <div class="flex w-full">
               <input
                 class="w-full bg-transparent py-2 outline-none placeholder:text-[#757575] placeholder:dark:text-neutral-400"
+                type="text"
                 v-model="searchQuery"
-                @click="suggestionMenu = !suggestionMenu"
-                :placeholder="route.query.category ? `Search in ${route.query.category}` : 'Search'" />
-            </div>
-            <div v-if="searchQuery || suggestionMenu" class="flex cursor-pointer transition-all" @click="clearSearch">
-              <Icon v-if="!loading" class="text-black dark:text-white" name="carbon:close-filled" size="24" />
-              <Icon v-else name="Loading" size="20" />
-            </div>
-          </div>
-        </form>
-        <div v-if="suggestionMenu" ref="suggestionMenuRef" class="absolute top-full left-0 right-0 z-50 bg-white dark:bg-black rounded-b-2xl w-full">
-          <div class="m-8">
-            <!-- Loading State -->
-            <div v-if="loading">Loading...</div>
-            <!-- Empty State -->
-            <div v-else-if="searchResult.length === 0">
-              <div class="p-6 text-center text-lg">
-                <Icon name="iconamoon:search-bold" size="99"></Icon>
-                <div class="py-4">
-                  <span>
-                    No items matching for: <strong>{{ searchQuery }}</strong>
-                  </span>
-                </div>
-                <div class="text-sm">Try improving your results by double checking your spelling or trying a more general keyword.</div>
-              </div>
-            </div>
-            <!-- Results State -->
-            <div v-else>
-              <div v-if="!searchQuery" class="font-semibold text-base my-2">New</div>
-              <div class="items-center gap-2 flex flex-wrap flex-row">
-                <NuxtLink
-                  :to="`/product/${product.slug}-${product.sku.split('-')[0]}`"
-                  v-for="product in searchResult"
-                  class="flex bg-black/5 dark:bg-[#141414] rounded-2xl overflow-hidden">
-                  <div class="relative w-32 h-32 will-change-transform">
-                    <div class="h-full relative box-border">
-                      <NuxtImg class="object-cover absolute w-full h-full" :src="product.image.sourceUrl" />
-                    </div>
-                  </div>
-                  <div class="p-4 items-center flex flex-row box-border w-60">
-                    <div class="text-base">
-                      {{ product.name }}
-                    </div>
-                  </div>
-                </NuxtLink>
+                @keyup.enter="search"
+                :placeholder="route.query.category ? `Search in ${route.query.category}...` : 'Search...'" />
+              <div v-if="searchQuery || suggestionMenu" @click.stop="clearSearch" class="flex items-center justify-center cursor-pointer transition-all">
+                <UIcon v-if="!isLoading" class="text-black dark:text-white" name="i-iconamoon-close-circle-1-fill" size="24" />
+                <UIcon v-else name="i-svg-spinners-bars-rotate-fade" size="20" />
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div @click="cart = !cart" class="hover:bg-[#e9e9e9] hover:dark:bg-[#262626] w-12 h-12 flex items-center justify-center rounded-full relative cursor-pointer">
-        <Icon class="text-[#5f5f5f] dark:text-[#b7b7b7]" name="fa6-solid:bag-shopping" size="22" />
-        <div v-if="cart" class="w-[18px] rounded-full absolute bg-[#e60023] top-1 right-1 text-xs font-semibold leading-[16px] pb-0.5 text-center text-white">1</div>
-      </div>
       <div
-        v-if="cart"
-        class="h-[calc((100vh-80px)-8px)] mt-[80px] mb-2 mx-2 min-w-[360px] shadow-2xl rounded-2xl bottom-0 right-0 fixed bg-white text-black flex justify-center items-center">
-        cart
+        class="hover:bg-black/5 hover:dark:bg-white/15 max-lg:dark:bg-white/15 max-lg:bg-black/5 max-lg:hover:bg-black/10 max-lg:hover:dark:bg-white/20 min-w-12 min-h-12 flex items-center justify-center rounded-full cursor-pointer">
+        <UIcon class="text-[#5f5f5f] dark:text-[#b7b7b7]" name="i-iconamoon-shopping-bag-fill" size="26" />
+      </div>
+    </div>
+  </div>
+  <div
+    v-if="suggestionMenu"
+    ref="suggestionMenuRef"
+    class="fixed top-20 left-0 right-0 z-50 bg-white/85 dark:bg-black/85 backdrop-blur-sm dark:backdrop-blur-lg lg:rounded-b-3xl w-full">
+    <div class="max-h-[calc(100vh-80px)] overflow-auto">
+      <!-- Loading State -->
+      <div v-if="isLoading" class="flex items-center justify-center h-80">
+        <div class="bg-black/10 dark:bg-white/20 flex rounded-full w-12 h-12 items-center justify-center skeleton">
+          <UIcon class="text-white dark:text-black" name="i-svg-spinners-8-dots-rotate" size="26" />
+        </div>
+      </div>
+      <!-- Empty State -->
+      <div v-else-if="!searchResults.length" class="w-full items-center flex flex-col justify-center text-center p-8">
+        <div class="w-28 h-28 bg-black/10 dark:bg-white/20 rounded-full items-center justify-center flex">
+          <UIcon name="i-iconamoon-search-bold" class="w-16 h-16 dark:text-white" />
+        </div>
+        <div class="font-semibold text-3xl my-6">
+          No items matching for:
+          <strong>{{ searchQuery }}</strong>
+        </div>
+        <div class="text-sm text-center mb-5">
+          Try improving your results by double checking your spelling
+          <br />
+          or trying a more general keyword.
+        </div>
+      </div>
+      <!-- Results State-->
+      <div v-else class="mx-auto p-4 max-w-screen-2xl">
+        <h2 v-if="!searchQuery" class="text-2xl font-bold tracking-tight">New Products</h2>
+        <div class="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-5 mt-5">
+          <NuxtLink
+            @click="suggestionMenu = false"
+            :to="`/product/${product.slug}-${product.sku.split('-')[0]}`"
+            v-for="(product, i) in searchResults"
+            :key="i"
+            class="group select-none">
+            <div class="cursor-pointer transition ease-[ease] duration-300">
+              <div class="relative pb-[133%] dark:shadow-[0_8px_24px_rgba(0,0,0,.5)] rounded-2xl overflow-hidden">
+                <NuxtImg
+                  loading="lazy"
+                  :title="product.name"
+                  :src="product.galleryImages.nodes[0].sourceUrl"
+                  class="absolute h-full w-full dark:bg-neutral-800 bg-neutral-200 object-cover" />
+                <NuxtImg
+                  loading="lazy"
+                  :title="product.name"
+                  :src="product.image.sourceUrl"
+                  class="absolute h-full w-full dark:bg-neutral-800 bg-neutral-200 object-cover transition-opacity duration-300 group-hover:opacity-0" />
+              </div>
+              <div class="grid gap-0.5 pt-3 pb-4 px-1.5 text-sm font-semibold">
+                <div class="flex gap-1">
+                  <div v-html="product.salePrice"></div>
+                  <div class="text-[#5f5f5f] dark:text-[#a3a3a3] line-through" v-html="product.regularPrice"></div>
+                </div>
+                <div>{{ product.name }}</div>
+                <div class="font-normal text-[#5f5f5f] dark:text-[#a3a3a3]">
+                  {{ product.allPaStyle.nodes[0].name }}
+                </div>
+              </div>
+            </div>
+          </NuxtLink>
+        </div>
+      </div>
+      <div v-if="searchQuery && !isLoading && searchResults.length" class="flex items-center justify-center border-t border-black/10 dark:border-white/20 p-4">
+        <button
+          @click="search"
+          class="bg-black/15 dark:bg-white/15 hover:bg-black/10 hover:dark:bg-white/20 px-4 py-2 rounded-full active:scale-95 tracking-wide text-sm transition">
+          View All Results
+        </button>
       </div>
     </div>
   </div>
   <div v-if="suggestionMenu" class="fixed inset-0 z-40">
-    <div class="w-full h-full bg-black/50"></div>
+    <div class="w-full h-full bg-black/70"></div>
   </div>
 </template>
-
-<script setup>
-import getSearchProducts from '~/gql/queries/getSearchProducts.gql';
-
-const suggestionMenu = ref(false);
-const suggestionMenuRef = ref(null);
-const router = useRouter();
-const route = useRoute();
-const searchQuery = ref(route.query.q);
-const cart = ref(false);
-
-const { result, loading } = useQuery(getSearchProducts, () => ({ search: searchQuery.value }));
-const searchResult = computed(() => result.value?.products.nodes);
-
-const setSearch = (search) => {
-  searchQuery.value = search;
-  router.push({ path: '/', query: { ...route.query, q: search } });
-};
-
-const clearSearch = () => {
-  suggestionMenu.value = false;
-  setSearch();
-};
-
-useOnClickOutside(suggestionMenuRef, () => {
-  if (suggestionMenu.value) {
-    suggestionMenu.value = false;
-    searchQuery.value = route.query.q;
-  }
-});
-</script>

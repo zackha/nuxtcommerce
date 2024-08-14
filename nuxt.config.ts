@@ -1,22 +1,22 @@
 import pkg from './package.json';
 
 export default defineNuxtConfig({
-  modules: ['@nuxt/image', '@nuxtjs/tailwindcss', '@nuxtjs/color-mode', '@nuxtjs/apollo', 'nuxt-icon'],
+  devtools: { enabled: false },
+  modules: ['nuxt-graphql-request', '@vueuse/nuxt', '@nuxt/ui', '@nuxt/image'],
+
   runtimeConfig: {
     public: {
       version: pkg.version,
     },
   },
-  colorMode: {
-    classSuffix: '',
-  },
-  apollo: {
+
+  graphql: {
     clients: {
       default: {
-        httpEndpoint: process.env.GQL_HOST,
+        endpoint: process.env.GQL_HOST || '',
       },
     },
   },
-  devtools: true,
-  ssr: false,
+
+  compatibilityDate: '2024-08-03',
 });

@@ -1,6 +1,12 @@
+<script setup>
+defineProps({
+  products: Object,
+});
+</script>
+
 <template>
   <article v-for="product in products">
-    <NuxtLink :to="`/product/${product.slug}-${product.sku.split('-')[0]}`" class="group">
+    <NuxtLink :to="`/product/${product.slug}-${product.sku.split('-')[0]}`" class="group select-none">
       <div class="cursor-pointer transition ease-[ease] duration-300">
         <div class="relative pb-[133%] dark:shadow-[0_8px_24px_rgba(0,0,0,.5)] rounded-2xl overflow-hidden">
           <NuxtImg
@@ -28,9 +34,3 @@
     </NuxtLink>
   </article>
 </template>
-
-<script setup>
-defineProps({
-  products: Object,
-});
-</script>

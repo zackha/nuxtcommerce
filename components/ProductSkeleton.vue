@@ -1,86 +1,27 @@
 <template>
-  <div class="justify-center flex flex-row mb-8">
-    <div class="mr-6 mt-5 gap-4 flex flex-col pt-2.5">
-      <div class="h-[76px] w-[56px] rounded-xl border-2 border-[#e5e5e5] dark:border-[#262626] relative overflow-hidden" v-for="i in 6" :key="i">
-        <div class="skeleton-thumb"></div>
+  <div class="justify-center flex flex-col lg:flex-row lg:mx-5">
+    <ButtonBack />
+    <div class="mr-6 mt-5 pt-2.5 gap-3 flex flex-col max-xl:hidden">
+      <div class="h-20 w-14 p-1 relative" v-for="i in 6" :key="i">
+        <div class="skeleton bg-neutral-200/70 dark:bg-neutral-800/80 w-full h-full rounded-lg"></div>
       </div>
     </div>
-    <div class="flex p-5 flex-row gap-6 w-3/5 border border-transparent dark:border-[#262626] rounded-[32px] shadow-[0_1px_20px_rgba(0,0,0,.1)] mt-2.5">
-      <div class="w-[600px] h-[600px]">
+    <div
+      class="flex lg:p-5 lg:gap-5 flex-col w-full lg:w-[1110px] lg:flex-row lg:border lg:border-transparent lg:dark:border-[#262626] lg:rounded-[32px] lg:shadow-[0_1px_20px_rgba(0,0,0,.15)] lg:mt-2.5">
+      <div class="w-[600px] h-[600px] max-lg:hidden">
         <div class="items-center overflow-hidden flex flex-row rounded-2xl">
           <div class="flex flex-row">
             <div v-for="i in 2" :key="i" class="w-[400px] h-[600px] mr-1 relative">
-              <div class="skeleton-product"></div>
+              <div class="skeleton bg-neutral-200/70 dark:bg-neutral-800/80 w-full h-full"></div>
             </div>
           </div>
         </div>
       </div>
-      <div class="w-full flex flex-row items-center">
-        <Icon class="my-0 mx-auto" name="Loading" size="26" />
+      <div class="w-full max-lg:h-72 flex flex-row items-center justify-center">
+        <div class="bg-neutral-200 dark:bg-neutral-800 flex rounded-full w-12 h-12 items-center justify-center skeleton">
+          <UIcon class="text-white dark:text-black" name="i-svg-spinners-8-dots-rotate" size="26" />
+        </div>
       </div>
     </div>
   </div>
 </template>
-
-<style lang="postcss">
-.skeleton-thumb {
-  @apply h-full w-full bg-[#e5e5e5];
-  &:before {
-    @apply absolute w-full h-full;
-    content: '';
-    background: linear-gradient(110deg, #e5e5e5 8%, #f5f5f5 18%, #e5e5e5 33%);
-    background-repeat: no-repeat;
-    background-size: 600%;
-    animation: 1.5s shimmer-product linear infinite;
-    border: 2px solid #fff;
-    border-radius: 10px;
-  }
-}
-
-.dark .skeleton-thumb {
-  @apply h-full w-full bg-[#262626];
-  &:before {
-    @apply absolute w-full h-full;
-    content: '';
-    background: linear-gradient(110deg, #262626 8%, #141414 18%, #262626 33%);
-    background-repeat: no-repeat;
-    background-size: 600%;
-    animation: 1.5s shimmer-product linear infinite;
-    border: 2px solid #000;
-    border-radius: 10px;
-  }
-}
-
-.skeleton-product {
-  @apply h-full w-full bg-[#e5e5e5];
-  &:before {
-    @apply absolute w-full h-full;
-    content: '';
-    background: linear-gradient(110deg, #e5e5e5 8%, #f5f5f5 18%, #e5e5e5 33%);
-    background-repeat: no-repeat;
-    background-size: 600%;
-    animation: 1.5s shimmer-product linear infinite;
-  }
-}
-
-.dark .skeleton-product {
-  @apply h-full w-full bg-[#262626];
-  &:before {
-    @apply absolute w-full h-full;
-    content: '';
-    background: linear-gradient(110deg, #262626 8%, #141414 18%, #262626 33%);
-    background-repeat: no-repeat;
-    background-size: 600%;
-    animation: 1.5s shimmer-product linear infinite;
-  }
-}
-
-@keyframes shimmer-product {
-  0% {
-    background-position: 40%;
-  }
-  100% {
-    background-position: -40%;
-  }
-}
-</style>

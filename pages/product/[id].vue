@@ -1,0 +1,222 @@
+<script setup>
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import { Navigation, Pagination, Thumbs } from 'swiper/modules';
+
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+
+const thumbsSwiper = ref(null);
+const setThumbsSwiper = swiper => {
+  thumbsSwiper.value = swiper;
+};
+
+const modules = [Navigation, Pagination, Thumbs];
+
+const route = useRoute();
+const id = computed(() => route.params.id);
+const parts = id.value.split('-');
+const sku = parts.pop();
+const slug = parts.join('-');
+
+const productResult = ref({});
+const selectedVariation = ref(null);
+
+onMounted(async () => {
+  const data = await getProduct(slug, sku);
+  productResult.value = data.product;
+});
+
+const product = computed(() => productResult.value);
+
+const sizeOrder = ['xxs', 'xs', 's', 'm', 'l', 'xl', '2xl', '23-24', '25', '26-27', '28-29', '30', '31-32', '33', '34-25'];
+
+const sortedVariations = computed(() => {
+  if (!product.value.variations?.nodes) return [];
+  return product.value.variations.nodes.slice().sort((a, b) => {
+    const aSize = a.attributes.nodes[0].value.toLowerCase();
+    const bSize = b.attributes.nodes[0].value.toLowerCase();
+    return sizeOrder.indexOf(aSize) - sizeOrder.indexOf(bSize);
+  });
+});
+
+watchEffect(() => {
+  if (sortedVariations.value.length > 0) {
+    const variationInStock = sortedVariations.value.find(variation => variation.stockStatus === 'IN_STOCK');
+    selectedVariation.value = variationInStock ? variationInStock.attributes.nodes.map(attr => attr.value).toString() : null;
+  }
+});
+
+const calculateDiscountPercentage = computed(() => {
+  if (!product.value.salePrice || !product.value.regularPrice) return 0;
+  const salePriceValue = parseFloat(product.value.salePrice.replace(/[^0-9]/g, ''));
+  const regularPriceValue = parseFloat(product.value.regularPrice.replace(/[^0-9]/g, ''));
+  return Math.round(((salePriceValue - regularPriceValue) / regularPriceValue) * 100);
+});
+</script>
+
+<template>
+  <ProductSkeleton v-if="!product.name" />
+  <div v-else class="justify-center flex flex-col lg:flex-row lg:mx-5">
+    <ButtonBack />
+    <div class="mr-6 mt-5 pt-2.5 max-xl:hidden">
+      <swiper :modules="modules" @swiper="setThumbsSwiper" class="product-images-thumbs w-14">
+        <swiper-slide class="cursor-pointer rounded-xl overflow-hidden border-2 border-white dark:border-black">
+          <NuxtImg class="h-full w-full border-2 border-white bg-neutral-200 dark:bg-neutral-800 dark:border-black rounded-[10px]" :src="product.image?.sourceUrl" />
+        </swiper-slide>
+        <swiper-slide class="cursor-pointer rounded-xl overflow-hidden border-2 border-white dark:border-black" v-for="(node, i) in product.galleryImages?.nodes" :key="i">
+          <NuxtImg class="h-full w-full border-2 border-white bg-neutral-200 dark:bg-neutral-800 dark:border-black rounded-[10px]" :src="node.sourceUrl" />
+        </swiper-slide>
+      </swiper>
+    </div>
+    <div
+      class="flex lg:p-5 lg:gap-5 flex-col lg:flex-row lg:border lg:border-transparent lg:dark:border-[#262626] lg:rounded-[32px] lg:shadow-[0_1px_20px_rgba(0,0,0,.15)] lg:mt-2.5 select-none">
+      <div class="relative">
+        <swiper
+          :style="{
+            '--swiper-navigation-size': '16px',
+            '--swiper-navigation-color': '#000',
+            '--swiper-pagination-color': 'rgb(0 0 0 / 50%)',
+          }"
+          :spaceBetween="4"
+          :slidesPerView="1.5"
+          :pagination="{
+            dynamicBullets: true,
+          }"
+          :navigation="true"
+          :modules="modules"
+          :thumbs="{ swiper: thumbsSwiper }"
+          class="lg:w-[530px] lg:h-[530px] xl:w-[600px] xl:h-[600px] lg:rounded-2xl">
+          <swiper-slide><NuxtImg class="h-full w-full bg-neutral-200 dark:bg-neutral-800" :src="product.image?.sourceUrl" /></swiper-slide>
+          <swiper-slide v-for="(node, i) in product.galleryImages?.nodes" :key="i">
+            <NuxtImg class="h-full w-full bg-neutral-200 dark:bg-neutral-800" :src="node.sourceUrl" />
+          </swiper-slide>
+        </swiper>
+      </div>
+      <div class="w-full lg:max-w-[28rem]">
+        <div class="flex-col flex gap-4 lg:max-h-[530px] xl:max-h-[600px] overflow-hidden">
+          <div class="p-3 lg:pb-4 lg:p-0 border-b border-[#efefef] dark:border-[#262626]">
+            <h1 class="text-2xl font-semibold mb-1">{{ product.name }}</h1>
+            <div class="flex justify-between flex-row items-baseline">
+              <div class="flex flex-row items-baseline">
+                <p class="text-xl font-bold text-alizarin-crimson-700" v-html="product.salePrice"></p>
+                <p class="text-sm ml-2">VAT included</p>
+              </div>
+            </div>
+            <div class="flex-wrap items-baseline flex-row flex">
+              <p class="text-sm">Originally:</p>
+              <p class="text-sm ml-1 line-through" v-html="product.regularPrice"></p>
+              <p class="text-sm ml-1 text-alizarin-crimson-700">{{ calculateDiscountPercentage }}%</p>
+            </div>
+          </div>
+
+          <div class="flex gap-2 px-3 lg:px-0" v-for="(variation, i) in product.productTypes?.nodes" :key="i">
+            <div v-for="(vars, i) in variation.products.nodes" :key="i">
+              <NuxtLink
+                :to="`/product/${vars.slug}-${product.sku.split('-')[0]}`"
+                :class="[
+                  'flex w-12 rounded-lg border-2 select-varitaion transition-all duration-200 bg-neutral-200 dark:bg-neutral-800',
+                  vars.allPaColor.nodes[0].name === product.allPaColor.nodes[0].name ? 'selected-varitaion' : 'border-[#9b9b9b] dark:border-[#8c8c8c]',
+                ]">
+                <NuxtImg :src="vars.image.sourceUrl" :title="vars.allPaColor.nodes[0].name" class="rounded-md border-2 border-white dark:border-black" />
+              </NuxtLink>
+            </div>
+          </div>
+
+          <div class="pb-4 px-3 lg:px-0 border-b border-[#efefef] dark:border-[#262626]">
+            <div class="text-sm font-semibold leading-5 opacity-50 flex gap-1">
+              Size:
+              <div class="uppercase">{{ selectedVariation }}</div>
+            </div>
+            <div class="flex gap-2 mt-2 mb-4 flex-wrap">
+              <label
+                class="py-1 px-3 rounded-md cursor-pointer select-varitaion border-2 border-[#9b9b9b] dark:border-[#8c8c8c] transition-all duration-200"
+                v-for="(variation, i) in sortedVariations"
+                :key="i"
+                :class="[
+                  variation.stockStatus === 'OUT_OF_STOCK' ? 'disabled' : '',
+                  selectedVariation === variation.attributes.nodes.map(attr => attr.value).toString() ? 'selected-varitaion' : '',
+                ]">
+                <input
+                  type="radio"
+                  class="hidden"
+                  name="variation"
+                  :value="variation.attributes.nodes.map(attr => attr.value).toString()"
+                  :disabled="variation.stockStatus === 'OUT_OF_STOCK'"
+                  v-model="selectedVariation" />
+                <span class="font-semibold uppercase" :title="`Size: ${variation.attributes.nodes.map(attr => attr.value).toString()}`">
+                  {{ variation.attributes.nodes.map(attr => attr.value).toString() }}
+                </span>
+              </label>
+            </div>
+
+            <div class="flex">
+              <button type="submit" class="button-bezel w-full h-12 rounded-md tracking-wide font-semibold text-white">Add to Cart</button>
+              <ButtonWishlist :product="product" />
+            </div>
+          </div>
+          <div class="px-3 lg:px-0">
+            <div class="text-base mb-2 font-semibold">Featured Information</div>
+            <div class="description leading-7 text-sm">
+              <ul>
+                <li>
+                  Free returns within 15 days. Click for detailed
+                  <a class="underline" href="#">information</a>
+                </li>
+                <li>Article number: {{ product.sku }}</li>
+                <div v-html="product.description"></div>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="text-lg lg:text-xl lg:text-center font-semibold mt-4 pt-4 px-3 border-t border-[#efefef] dark:border-[#262626] lg:border-none">Shop similar</div>
+  <div class="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 3xl:grid-cols-7 gap-4 px-3 lg:px-5 xl:px-8 mt-4 lg:mt-5">
+    <ProductCard :products="product.related?.nodes" />
+    <ProductsSkeleton v-if="!product.name" />
+  </div>
+</template>
+
+<style lang="postcss">
+.product-images-thumbs .swiper-wrapper {
+  @apply flex-col gap-3;
+}
+.product-images-thumbs .swiper-slide-thumb-active {
+  @apply border-black dark:border-white;
+}
+.swiper-button-next,
+.swiper-button-prev {
+  @apply bg-white/50 hover:bg-white p-6 rounded-full flex items-center justify-center shadow transition backdrop-blur-sm;
+}
+
+.swiper-button-prev.swiper-button-disabled,
+.swiper-button-next.swiper-button-disabled {
+  @apply hidden;
+}
+
+.swiper-pagination {
+  @apply bg-white/50 shadow-sm rounded-full py-1 backdrop-blur-sm;
+}
+
+.selected-varitaion,
+.select-varitaion:hover:not(.disabled) {
+  @apply border-alizarin-crimson-700 dark:border-alizarin-crimson-700 text-alizarin-crimson-700 bg-red-700/10;
+}
+
+.disabled {
+  @apply opacity-40 cursor-default;
+}
+
+.button-bezel {
+  @apply bg-alizarin-crimson-700 transition duration-200 hover:bg-alizarin-crimson-600;
+  box-shadow: 0 0 0 0 hsla(0, 0%, 100%, 0.2), inset 0 -1px 1px 0 rgba(0, 0, 0, 0.25), inset 0 1px 0 0 rgba(255, 255, 255, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+}
+
+.description ul li {
+  background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxlbGxpcHNlIHJ5PSIzIiByeD0iMyIgY3k9IjMiIGN4PSIzIiBmaWxsPSIjYzljOWM5Ii8+PC9zdmc+)
+    no-repeat 0 0.7rem;
+  padding-left: 0.938rem;
+}
+</style>

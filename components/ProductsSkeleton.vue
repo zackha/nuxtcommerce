@@ -1,45 +1,40 @@
 <template>
   <div v-for="i in 21" :key="i">
-    <div class="rounded-2xl overflow-hidden w-full h-[313px] skeleton"></div>
+    <div class="rounded-2xl overflow-hidden w-full pb-[133%] bg-neutral-200 dark:bg-neutral-800 skeleton"></div>
     <div class="grid gap-1.5 pt-3 pb-4 px-1.5">
-      <div class="h-4 w-20 rounded skeleton"></div>
-      <div class="h-4 w-44 rounded skeleton"></div>
-      <div class="h-4 w-28 rounded skeleton"></div>
+      <div class="h-4 w-20 rounded bg-neutral-200/80 dark:bg-neutral-800/80 skeleton"></div>
+      <div class="h-4 w-44 rounded bg-neutral-200/60 dark:bg-neutral-800/60 skeleton"></div>
+      <div class="h-4 w-28 rounded bg-neutral-200/40 dark:bg-neutral-800/40 skeleton"></div>
     </div>
   </div>
 </template>
 
 <style lang="postcss">
-.skeleton {
-  @apply bg-neutral-200 relative overflow-hidden;
-  &:before {
-    @apply absolute w-full h-full;
-    content: '';
-    background: linear-gradient(110deg, #e5e5e5 8%, #f5f5f5 18%, #e5e5e5 33%);
-    background-repeat: no-repeat;
-    background-size: 400% 400%;
-    animation: 1.5s shimmer linear infinite;
-  }
+.dark .skeleton {
+  --skeleton-bg: #141414;
 }
 
-.dark .skeleton {
-  @apply bg-[#262626] relative overflow-hidden;
+.skeleton {
+  --skeleton-bg: #f5f5f5;
+}
+
+.skeleton {
+  @apply relative overflow-hidden;
   &:before {
     @apply absolute w-full h-full;
     content: '';
-    background: linear-gradient(110deg, #262626 8%, #141414 18%, #262626 33%);
-    background-repeat: no-repeat;
-    background-size: 400% 400%;
-    animation: 1.5s shimmer linear infinite;
+    background: linear-gradient(110deg, rgba(0, 0, 0, 0) 25%, var(--skeleton-bg) 50%, rgba(0, 0, 0, 0) 75%);
+    background-size: 400% 100%;
+    animation: shimmer 4s infinite linear;
   }
 }
 
 @keyframes shimmer {
   0% {
-    background-position: -500px 0;
+    background-position: 200% 0;
   }
   100% {
-    background-position: 500px 0;
+    background-position: -200% 0;
   }
 }
 </style>

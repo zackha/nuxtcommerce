@@ -1,36 +1,26 @@
-module.exports = {
-  darkMode: 'class',
+import type { Config } from 'tailwindcss';
+
+export default <Partial<Config>>{
   theme: {
     extend: {
-      colors: {
-        'secondary-text': '#737373',
-        'secondary-text-d': '#a8a8a8',
-        'secondary-bg-d': '#181818',
+      screens: {
+        xs: '320px',
+        '3xl': '1920px',
       },
-      fontFamily: {
-        sans: [
-          '-apple-system',
-          ' BlinkMacSystemFont',
-          'Segoe UI',
-          'Roboto',
-          'Oxygen-Sans',
-          'Ubuntu',
-          'Cantarell',
-          'Fira Sans',
-          'Droid Sans',
-          'Helvetica Neue',
-          'Helvetica',
-          'ヒラギノ角ゴ Pro W3',
-          'Hiragino Kaku Gothic Pro',
-          'メイリオ',
-          'Meiryo',
-          'ＭＳ Ｐゴシック',
-          'Arial',
-          'sans-serif',
-          'Apple Color Emoji',
-          'Segoe UI Emoji',
-          'Segoe UI Symbol',
-        ],
+      colors: {
+        'alizarin-crimson': {
+          '50': '#fff0f2',
+          '100': '#ffdde2',
+          '200': '#ffc1ca',
+          '300': '#ff95a5',
+          '400': '#ff5972',
+          '500': '#ff2646',
+          '600': '#fc062a',
+          '700': '#e60022',
+          '800': '#af051e',
+          '900': '#900c20',
+          '950': '#50000c',
+        },
       },
     },
   },
