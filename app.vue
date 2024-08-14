@@ -1,3 +1,22 @@
+<script setup lang="ts">
+const { siteName, shortDescription, siteImage } = useAppConfig();
+
+useHead({
+  htmlAttrs: {
+    lang: 'en',
+  },
+  charset: 'utf-8',
+  title: siteName,
+  meta: [
+    { name: 'description', content: shortDescription },
+    { property: 'og:image', content: siteImage },
+    { name: 'twitter:card', content: 'summary_large_image' },
+    { name: 'twitter:site', content: '@zhatlen' },
+    { name: 'twitter:creator', content: '@zhatlen' },
+  ],
+});
+</script>
+
 <template>
   <AppHeader />
   <div class="pt-20 min-h-[calc(100vh-72px)]">
