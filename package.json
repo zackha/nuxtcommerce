@@ -4,24 +4,29 @@
   "private": true,
   "author": "zackha",
   "description": "Headless storefront for Woocommerce (Nuxt/Vue)",
+  "type": "module",
   "scripts": {
-    "dev": "nuxi dev",
-    "build": "nuxi build",
-    "generate": "nuxi generate",
-    "preview": "nuxi preview",
-    "postinstall": "nuxi prepare",
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
     "release": "bumpp"
   },
-  "devDependencies": {
-    "@nuxt/devtools": "^0.6.7",
-    "@nuxt/image": "rc",
-    "@nuxtjs/apollo": "^5.0.0-alpha.6",
-    "@nuxtjs/color-mode": "^3.3.0",
-    "@nuxtjs/tailwindcss": "^6.8.0",
-    "nuxt": "^3.11.2",
-    "nuxt-icon": "^0.4.1"
-  },
   "dependencies": {
-    "swiper": "^9.4.1"
+    "@nuxt/image": "^1.7.0",
+    "@nuxt/ui": "^2.18.3",
+    "nuxt": "^3.12.4",
+    "nuxt-graphql-request": "^8.1.0",
+    "swiper": "^11.1.9",
+    "vue": "latest"
+  },
+  "devDependencies": {
+    "@iconify-json/iconamoon": "^1.1.4",
+    "@iconify-json/svg-spinners": "^1.1.3",
+    "@vueuse/core": "^10.11.0",
+    "@vueuse/nuxt": "^10.11.0",
+    "lru-cache": "^10.4.3",
+    "ohash": "^1.1.3"
   }
 }
