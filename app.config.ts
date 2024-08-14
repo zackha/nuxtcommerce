@@ -1,8 +1,5 @@
 export default defineAppConfig({
   siteName: 'NuxtCommerce',
-  shortDescription: 'NuxtCommerce is a dynamic e-commerce solution developed with Nuxt 3 and GraphQL, tailored for WooCommerce.',
-  siteImage:
-    'https://private-user-images.githubusercontent.com/79358543/249402335-0fbd5415-f449-4a7f-9031-33f8be0e447c.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MjM2MjY4ODEsIm5iZiI6MTcyMzYyNjU4MSwicGF0aCI6Ii83OTM1ODU0My8yNDk0MDIzMzUtMGZiZDU0MTUtZjQ0OS00YTdmLTkwMzEtMzNmOGJlMGU0NDdjLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDA4MTQlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwODE0VDA5MDk0MVomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWNhZDY0MWFiMTBjYWE4ZjUzMDA0ZTJmNzZjMTVlMDc4NTE3OTZmNzY4MmM3Nzk5MTE4MjAzZjgwNmVmZGE5NjYmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.KUAC7e4NGpo1Smi0aQlrPnk4HbD3j8SVXvBvNLbU0m4',
   ui: {
     primary: 'red',
   },

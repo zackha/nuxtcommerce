@@ -7,7 +7,7 @@
   An open-source, dynamic e-commerce solution powered by Nuxt 3 and GraphQL, headless storefront replacement for Woocommerce. Featuring a user interface in the style of Pinterest and fully customizable (Vue, Nuxt3).
 </p>
 
-### [🚀 Live Demo](https://nuxtcommerce.netlify.app/)
+### [🚀 Live Demo](https://commerce.nuxt.dev)
 
 ## Introduction
 
