@@ -7,7 +7,7 @@ const { isWishlisted, toggleWishlist } = useWishlist(props.product);
 </script>
 
 <template>
-  <button @click="toggleWishlist(props.product)">
+  <button @click="toggleWishlist(props.product)" class="active:scale-95 transition">
     <div
       :class="[
         'w-12 h-12 rounded-full ml-3 flex justify-center items-center',
