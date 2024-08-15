@@ -1,13 +1,19 @@
-![Nuxtcommerce](https://github.com/zackha/nuxtcommerce/assets/79358543/0fbd5415-f449-4a7f-9031-33f8be0e447c)
-
-<h1 align="center">
-  NuxtCommerce
-</h1>
 <p align="center">
-  An open-source, dynamic e-commerce solution powered by Nuxt 3 and GraphQL, headless storefront replacement for Woocommerce. Featuring a user interface in the style of Pinterest and fully customizable (Vue, Nuxt3).
-</p>
+  <a href="https://spreecommerce.org">
+    <img alt="NuxtCommerce - Headless storefront for Woocommerce" src="https://github.com/user-attachments/assets/1c6720b7-5aea-4f6b-be55-8944fb81799a">
+  </a>
 
-### [🚀 Live Demo](https://commerce.nuxt.dev)
+  <h1 align="center">NuxtCommerce</h2>
+
+  <p align="center">
+    An open-source, dynamic e-commerce solution powered by Nuxt 3 and GraphQL, headless storefront replacement for Woocommerce.
+    <br />
+    Featuring a user interface in the style of Pinterest and fully customizable (Vue, Nuxt3).
+    <br />
+    <br />
+    <a href="https://commerce.nuxt.dev"><strong>🚀 Live Demo</strong></a>
+  </p>
+</p>
 
 ## Introduction
 
