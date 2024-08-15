@@ -1,14 +1,12 @@
 <p align="center">
-  <a href="https://spreecommerce.org">
+  <a href="https://commerce.nuxt.dev">
     <img alt="NuxtCommerce - Headless storefront for Woocommerce" src="https://github.com/user-attachments/assets/1c6720b7-5aea-4f6b-be55-8944fb81799a">
   </a>
 
   <h1 align="center">NuxtCommerce</h2>
 
   <p align="center">
-    An open-source, dynamic e-commerce solution powered by Nuxt 3 and GraphQL, headless storefront replacement for Woocommerce.
-    <br />
-    Featuring a user interface in the style of Pinterest and fully customizable (Vue, Nuxt3).
+    An open-source, dynamic e-commerce solution powered by Nuxt 3 and GraphQL, headless storefront replacement for Woocommerce. Featuring a user interface in the style of Pinterest and fully customizable (Vue, Nuxt3).
     <br />
     <br />
     <a href="https://commerce.nuxt.dev"><strong>🚀 Live Demo</strong></a>
@@ -26,13 +24,14 @@ If your product stocks and prices are not changeable, and you are not continuous
 - Nuxt3 / Vue
 - Headless Storefront
 - GraphQL with Apollo Client
-- Tailwind CSS
+- NUXT UI / Tailwind CSS
 - Pinterest Interface
 - Developed for WooCommerce
 - Dynamic
 - Open Source
 - Suitable for Fashion Category
 - Dark Mode
+- UI Lab
 
 ## Contributing
 
