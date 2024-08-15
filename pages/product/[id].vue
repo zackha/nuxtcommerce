@@ -53,6 +53,23 @@ const calculateDiscountPercentage = computed(() => {
   const regularPriceValue = parseFloat(product.value.regularPrice.replace(/[^0-9]/g, ''));
   return Math.round(((salePriceValue - regularPriceValue) / regularPriceValue) * 100);
 });
+
+const isLoading = ref(false);
+const buttonText = ref('add');
+
+const addToCart = async () => {
+  isLoading.value = true;
+  buttonText.value = 'loading';
+
+  await new Promise(resolve => setTimeout(resolve, 2000));
+
+  buttonText.value = 'added';
+  isLoading.value = false;
+
+  setTimeout(() => {
+    buttonText.value = 'add';
+  }, 2000);
+};
 </script>
 
 <template>
@@ -151,7 +168,13 @@ const calculateDiscountPercentage = computed(() => {
             </div>
 
             <div class="flex">
-              <button type="submit" class="button-bezel w-full h-12 rounded-md tracking-wide font-semibold text-white">Add to Cart</button>
+              <button @click="addToCart" class="button-bezel w-full h-12 rounded-md relative tracking-wide font-semibold text-white text-sm flex justify-center items-center">
+                <Transition name="slide-up">
+                  <button v-if="buttonText === 'add'" class="absolute">Add to Cart</button>
+                  <UIcon v-else-if="buttonText === 'loading'" class="absolute" name="i-svg-spinners-90-ring-with-bg" size="20" />
+                  <button v-else-if="buttonText === 'added'" class="absolute">Added to Cart!</button>
+                </Transition>
+              </button>
               <ButtonWishlist :product="product" />
             </div>
           </div>
@@ -210,13 +233,36 @@ const calculateDiscountPercentage = computed(() => {
 }
 
 .button-bezel {
-  @apply bg-alizarin-crimson-700 transition duration-200 hover:bg-alizarin-crimson-600;
-  box-shadow: 0 0 0 0 hsla(0, 0%, 100%, 0.2), inset 0 -1px 1px 0 rgba(0, 0, 0, 0.25), inset 0 1px 0 0 rgba(255, 255, 255, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 0 var(--button-outline, 0px) rgb(222, 92, 92, 0.3), inset 0 -1px 1px 0 rgba(0, 0, 0, 0.25), inset 0 1px 0 0 rgba(255, 255, 255, 0.3),
+    0 1px 2px 0 rgba(0, 0, 0, 0.5);
+  @apply bg-alizarin-crimson-700 outline-none tracking-[-0.125px] transition scale-[var(--button-scale,1)] duration-200;
+  &:hover {
+    @apply bg-alizarin-crimson-600;
+  }
+  &:active {
+    --button-outline: 4px;
+    --button-scale: 0.975;
+  }
 }
 
 .description ul li {
   background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxlbGxpcHNlIHJ5PSIzIiByeD0iMyIgY3k9IjMiIGN4PSIzIiBmaWxsPSIjYzljOWM5Ii8+PC9zdmc+)
     no-repeat 0 0.7rem;
   padding-left: 0.938rem;
+}
+
+.slide-up-enter-active,
+.slide-up-leave-active {
+  transition: all 0.25s ease-out;
+}
+
+.slide-up-enter-from {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.slide-up-leave-to {
+  opacity: 0;
+  transform: translateY(-20px);
 }
 </style>
