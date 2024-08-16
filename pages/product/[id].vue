@@ -168,11 +168,14 @@ const addToCart = async () => {
             </div>
 
             <div class="flex">
-              <button @click="addToCart" class="button-bezel w-full h-12 rounded-md relative tracking-wide font-semibold text-white text-sm flex justify-center items-center">
+              <button
+                @click="addToCart"
+                :disabled="buttonText !== 'add'"
+                class="button-bezel w-full h-12 rounded-md relative tracking-wide font-semibold text-white text-sm flex justify-center items-center">
                 <Transition name="slide-up">
-                  <button v-if="buttonText === 'add'" class="absolute">Add to Cart</button>
-                  <UIcon v-else-if="buttonText === 'loading'" class="absolute" name="i-svg-spinners-90-ring-with-bg" size="20" />
-                  <button v-else-if="buttonText === 'added'" class="absolute">Added to Cart!</button>
+                  <div v-if="buttonText === 'add'" class="absolute">Add to Cart</div>
+                  <UIcon v-else-if="buttonText === 'loading'" class="absolute" name="i-svg-spinners-90-ring-with-bg" size="22" />
+                  <div v-else-if="buttonText === 'added'" class="absolute">Currently working on!</div>
                 </Transition>
               </button>
               <ButtonWishlist :product="product" />
@@ -253,16 +256,16 @@ const addToCart = async () => {
 
 .slide-up-enter-active,
 .slide-up-leave-active {
-  transition: all 0.25s ease-out;
+  transition: transform 0.3s ease 0s, opacity 0.3s ease 0s;
 }
 
 .slide-up-enter-from {
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(-30px) scale(0);
 }
 
 .slide-up-leave-to {
   opacity: 0;
-  transform: translateY(-20px);
+  transform: translateY(30px) scale(0);
 }
 </style>
