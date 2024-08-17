@@ -94,7 +94,7 @@ img {
 }
 
 .selected {
-  @apply bg-black text-white hover:bg-black/80 dark:bg-alizarin-crimson-800 hover:dark:bg-alizarin-crimson-700;
+  @apply bg-black text-white dark:bg-alizarin-crimson-800 hover:dark:bg-alizarin-crimson-700;
 }
 
 .slider-container {
