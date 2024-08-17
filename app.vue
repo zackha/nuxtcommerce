@@ -5,7 +5,6 @@ useHead({
   htmlAttrs: {
     lang: 'en',
   },
-  charset: 'utf-8',
   title: siteName,
   meta: [
     { name: 'description', content: 'NuxtCommerce is a dynamic e-commerce solution developed with Nuxt 3 and GraphQL, tailored for WooCommerce.' },
@@ -19,7 +18,7 @@ useHead({
 
 <template>
   <AppHeader />
-  <div class="pt-20 min-h-[calc(100vh-72px)]">
+  <div class="pt-[72px] lg:pt-20 min-h-[calc(100vh-72px)]">
     <NuxtPage />
   </div>
   <AppFooter />

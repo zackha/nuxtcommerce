@@ -47,7 +47,7 @@ onClickOutside(suggestionMenuRef, event => {
 </script>
 
 <template>
-  <div class="flex w-full flex-row items-center px-3 lg:px-5 h-20 z-50 fixed bg-white/85 dark:bg-black/85 backdrop-blur-sm dark:backdrop-blur-lg">
+  <div class="flex w-full flex-row items-center px-3 lg:px-5 h-[72px] lg:h-20 z-50 fixed bg-white/85 dark:bg-black/85 backdrop-blur-sm dark:backdrop-blur-lg">
     <div class="flex flex-row w-full flex-nowrap items-center gap-2">
       <NuxtLink
         aria-label="Home"
@@ -121,8 +121,8 @@ onClickOutside(suggestionMenuRef, event => {
   <div
     v-if="suggestionMenu"
     ref="suggestionMenuRef"
-    class="fixed top-20 left-0 right-0 z-50 bg-white/85 dark:bg-black/85 backdrop-blur-sm dark:backdrop-blur-lg lg:rounded-b-3xl w-full">
-    <div class="max-h-[calc(100vh-80px)] overflow-auto">
+    class="fixed top-[72px] lg:top-20 left-0 right-0 z-50 bg-white/85 dark:bg-black/85 backdrop-blur-sm dark:backdrop-blur-lg lg:rounded-b-3xl w-full">
+    <div class="max-h-[calc(100vh-72px)] lg:max-h-[calc(100vh-80px)] overflow-auto">
       <!-- Loading State -->
       <div v-if="isLoading" class="flex items-center justify-center h-80">
         <div class="bg-black/10 dark:bg-white/20 flex rounded-full w-12 h-12 items-center justify-center skeleton">
@@ -145,9 +145,9 @@ onClickOutside(suggestionMenuRef, event => {
         </div>
       </div>
       <!-- Results State-->
-      <div v-else class="mx-auto p-4 max-w-screen-2xl">
+      <div v-else class="mx-auto p-3 lg:p-4 max-w-screen-2xl">
         <h2 v-if="!searchQuery" class="text-2xl font-bold tracking-tight">New Products</h2>
-        <div class="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-5 mt-5">
+        <div class="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 lg:gap-5 mt-3 lg:mt-5">
           <NuxtLink
             @click="suggestionMenu = false"
             :to="`/product/${product.slug}-${product.sku.split('-')[0]}`"
