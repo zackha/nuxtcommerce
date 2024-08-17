@@ -3,7 +3,7 @@ const router = useRouter();
 const route = useRoute();
 
 defineProps({
-  categories: Object,
+  categories: Array,
 });
 
 const cardsSlider = ref(null);
@@ -13,10 +13,16 @@ const isDragging = ref(false);
 const dragThreshold = 10;
 let startX, scrollLeft;
 
+const colors = ['bg-[#dad5ff]', 'bg-[#ffe2eb]', 'bg-[#ffe4c2]', 'bg-[#fffd92]', 'bg-[#cfffcb]', 'bg-[#dbfff6]', 'bg-[#d7edff]'];
+
 const setCategory = category => {
   if (!isDragging.value && (route.query.category || '') !== category) {
     router.push({ query: { ...route.query, category: category || undefined } });
   }
+};
+
+const getCategoryClass = index => {
+  return `${colors[index % colors.length]} hover:brightness-90`;
 };
 
 const initializeDrag = e => {
@@ -61,14 +67,19 @@ onBeforeUnmount(() => {
     <div v-if="showPrev" class="slider-btn prev-btn"></div>
     <div class="slider-wrapper">
       <div ref="cardsSlider" class="cards-slider" @scroll="updateButtonVisibility">
-        <div @click="setCategory('')" :class="['card ml-4', !route.query.category ? 'selected' : 'unselected']">
+        <div
+          @click="setCategory('')"
+          :class="[
+            'card ml-4 transition',
+            !route.query.category ? 'selected' : 'bg-[#efefef] hover:bg-[#e2e2e2] dark:bg-[#262626] hover:dark:bg-[#333] text-black dark:text-white',
+          ]">
           <div class="px-3.5">All Categories</div>
         </div>
         <div
-          v-for="category in categories"
+          v-for="(category, i) in categories"
           :key="category.id"
           @click="setCategory(category.name)"
-          :class="['card', route.query.category === category.name ? 'selected' : 'unselected']">
+          :class="['card text-black transition', route.query.category === category.name ? 'selected' : getCategoryClass(i)]">
           <NuxtImg loading="lazy" :src="category.image?.sourceUrl" class="w-[38px] h-[38px] rounded-full object-cover" />
           <div class="px-3.5">{{ category.name }}</div>
         </div>
@@ -83,11 +94,7 @@ img {
 }
 
 .selected {
-  @apply bg-red-200 hover:bg-red-300/80 dark:bg-red-700 hover:dark:bg-red-600;
-}
-
-.unselected {
-  @apply bg-[#efefef] hover:bg-[#e2e2e2] dark:bg-[#262626] hover:dark:bg-[#333];
+  @apply bg-black text-white hover:bg-black/80 dark:bg-alizarin-crimson-800 hover:dark:bg-alizarin-crimson-700;
 }
 
 .slider-container {
