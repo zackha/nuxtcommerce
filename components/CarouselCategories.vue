@@ -69,7 +69,7 @@ onBeforeUnmount(() => {
           :key="category.id"
           @click="setCategory(category.name)"
           :class="['card', route.query.category === category.name ? 'selected' : 'unselected']">
-          <NuxtImg loading="lazy" :src="category.image?.sourceUrl" class="w-10 h-10 rounded-full object-cover" />
+          <NuxtImg loading="lazy" :src="category.image?.sourceUrl" class="w-[38px] h-[38px] rounded-full object-cover" />
           <div class="px-3.5">{{ category.name }}</div>
         </div>
       </div>
