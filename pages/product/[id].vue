@@ -79,10 +79,13 @@ const addToCart = async () => {
     <div class="mr-6 mt-5 pt-2.5 max-xl:hidden">
       <swiper :modules="modules" @swiper="setThumbsSwiper" class="product-images-thumbs w-14">
         <swiper-slide class="cursor-pointer rounded-xl overflow-hidden border-2 border-white dark:border-black">
-          <NuxtImg class="h-full w-full border-2 border-white bg-neutral-200 dark:bg-neutral-800 dark:border-black rounded-[10px]" :src="product.image?.sourceUrl" />
+          <NuxtImg
+            :alt="product.name"
+            class="h-full w-full border-2 border-white bg-neutral-200 dark:bg-neutral-800 dark:border-black rounded-[10px]"
+            :src="product.image?.sourceUrl" />
         </swiper-slide>
         <swiper-slide class="cursor-pointer rounded-xl overflow-hidden border-2 border-white dark:border-black" v-for="(node, i) in product.galleryImages?.nodes" :key="i">
-          <NuxtImg class="h-full w-full border-2 border-white bg-neutral-200 dark:bg-neutral-800 dark:border-black rounded-[10px]" :src="node.sourceUrl" />
+          <NuxtImg :alt="product.name" class="h-full w-full border-2 border-white bg-neutral-200 dark:bg-neutral-800 dark:border-black rounded-[10px]" :src="node.sourceUrl" />
         </swiper-slide>
       </swiper>
     </div>
@@ -104,9 +107,9 @@ const addToCart = async () => {
           :modules="modules"
           :thumbs="{ swiper: thumbsSwiper }"
           class="lg:w-[530px] lg:h-[530px] xl:w-[600px] xl:h-[600px] lg:rounded-2xl">
-          <swiper-slide><NuxtImg class="h-full w-full bg-neutral-200 dark:bg-neutral-800" :src="product.image?.sourceUrl" /></swiper-slide>
+          <swiper-slide><NuxtImg :alt="product.name" class="h-full w-full bg-neutral-200 dark:bg-neutral-800" :src="product.image?.sourceUrl" /></swiper-slide>
           <swiper-slide v-for="(node, i) in product.galleryImages?.nodes" :key="i">
-            <NuxtImg class="h-full w-full bg-neutral-200 dark:bg-neutral-800" :src="node.sourceUrl" />
+            <NuxtImg :alt="product.name" class="h-full w-full bg-neutral-200 dark:bg-neutral-800" :src="node.sourceUrl" />
           </swiper-slide>
         </swiper>
       </div>
@@ -135,7 +138,11 @@ const addToCart = async () => {
                   'flex w-12 rounded-lg border-2 select-varitaion transition-all duration-200 bg-neutral-200 dark:bg-neutral-800',
                   vars.allPaColor.nodes[0].name === product.allPaColor.nodes[0].name ? 'selected-varitaion' : 'border-[#9b9b9b] dark:border-[#8c8c8c]',
                 ]">
-                <NuxtImg :src="vars.image.sourceUrl" :title="vars.allPaColor.nodes[0].name" class="rounded-md border-2 border-white dark:border-black" />
+                <NuxtImg
+                  :alt="vars.allPaColor.nodes[0].name"
+                  :src="vars.image.sourceUrl"
+                  :title="vars.allPaColor.nodes[0].name"
+                  class="rounded-md border-2 border-white dark:border-black" />
               </NuxtLink>
             </div>
           </div>

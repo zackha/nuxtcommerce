@@ -17,6 +17,7 @@ const categories = computed(() => categoriesData.value);
     <NuxtLink v-for="category in categories" :key="category.id" :to="`/?category=${encodeURIComponent(category.name)}`" class="w-full max-w-[444px] p-2">
       <div class="pb-[75%] relative overflow-hidden">
         <NuxtImg
+          :alt="category.name"
           v-if="category.image"
           class="object-cover absolute top-0 left-0 w-full h-full bg-neutral-200 dark:bg-neutral-800 rounded-[32px]"
           :src="category.image.sourceUrl"

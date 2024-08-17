@@ -50,6 +50,7 @@ onClickOutside(suggestionMenuRef, event => {
   <div class="flex w-full flex-row items-center px-3 lg:px-5 h-20 z-50 fixed bg-white/85 dark:bg-black/85 backdrop-blur-sm dark:backdrop-blur-lg">
     <div class="flex flex-row w-full flex-nowrap items-center gap-2">
       <NuxtLink
+        aria-label="Home"
         class="flex items-center justify-center min-w-[52px] min-h-[52px] max-lg:min-w-12 max-lg:min-h-12 hover:bg-black/5 hover:dark:bg-white/15 max-lg:dark:bg-white/15 max-lg:bg-black/5 max-lg:hover:bg-black/10 max-lg:hover:dark:bg-white/20 rounded-2xl max-lg:rounded-full transition active:scale-95"
         to="/">
         <svg viewBox="0 0 30.72 30.72" class="rounded-lg max-lg:rounded-full bg-[#b31015] w-8 h-8">
@@ -59,24 +60,28 @@ onClickOutside(suggestionMenuRef, event => {
         </svg>
       </NuxtLink>
       <NuxtLink
+        aria-label="Categories"
         exactActiveClass="bg-black dark:bg-white text-white dark:text-black"
         class="font-semibold cursor-pointer px-4 rounded-full hover:bg-black hover:dark:bg-white h-12 items-center justify-center hover:text-white hover:dark:text-black transition active:scale-95 lg:flex hidden"
         to="/categories">
         Categories
       </NuxtLink>
       <NuxtLink
+        aria-label="Favorites"
         exactActiveClass="bg-black dark:bg-white text-white dark:text-black"
         class="font-semibold cursor-pointer px-4 rounded-full hover:bg-black hover:dark:bg-white h-12 items-center justify-center hover:text-white hover:dark:text-black transition active:scale-95 lg:flex hidden"
         to="/favorites">
         Favorites
       </NuxtLink>
       <NuxtLink
+        aria-label="Categories"
         exactActiveClass="!bg-black/10 dark:!bg-white/30"
         class="lg:hidden flex items-center justify-center min-w-12 min-h-12 rounded-full bg-black/5 dark:bg-white/15 hover:bg-black/10 hover:dark:bg-white/20 transition active:scale-95"
         to="/categories">
         <UIcon class="text-[#5f5f5f] dark:text-[#b7b7b7]" name="i-iconamoon-category-fill" size="26" />
       </NuxtLink>
       <NuxtLink
+        aria-label="Favorites"
         exactActiveClass="!bg-black/10 dark:!bg-white/30"
         class="lg:hidden flex items-center justify-center min-w-12 min-h-12 rounded-full bg-black/5 dark:bg-white/15 hover:bg-black/10 hover:dark:bg-white/20 transition active:scale-95"
         to="/favorites">
@@ -152,11 +157,13 @@ onClickOutside(suggestionMenuRef, event => {
             <div class="cursor-pointer transition ease-[ease] duration-300">
               <div class="relative pb-[133%] dark:shadow-[0_8px_24px_rgba(0,0,0,.5)] rounded-2xl overflow-hidden">
                 <NuxtImg
+                  :alt="product.name"
                   loading="lazy"
                   :title="product.name"
                   :src="product.galleryImages.nodes[0].sourceUrl"
                   class="absolute h-full w-full dark:bg-neutral-800 bg-neutral-200 object-cover" />
                 <NuxtImg
+                  :alt="product.name"
                   loading="lazy"
                   :title="product.name"
                   :src="product.image.sourceUrl"
