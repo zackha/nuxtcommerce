@@ -43,7 +43,7 @@ onClickOutside(dropdownRef, event => (isDropdownVisible.value = false));
         'bg-black text-white hover:bg-black dark:bg-white dark:text-black hover:dark:bg-white': isDropdownVisible,
         'bg-[#efefef] hover:bg-[#e2e2e2] dark:bg-[#262626] hover:dark:bg-[#333]': !isDropdownVisible,
       }">
-      <UIcon name="i-iconamoon-options-duotone" size="24" />
+      <UIcon name="i-iconamoon-options-duotone" size="22" />
     </div>
     <Transition name="dropdown">
       <div v-if="isDropdownVisible" class="absolute top-full left-0 z-10 mt-[18px] rounded-2xl text-base font-semibold bg-white dark:bg-[#262626] shadow-[0_0_8px_rgba(0,0,0,.1)]">
