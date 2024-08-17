@@ -79,8 +79,8 @@ onBeforeUnmount(() => {
           v-for="(category, i) in categories"
           :key="category.id"
           @click="setCategory(category.name)"
-          :class="['card text-black transition', route.query.category === category.name ? 'selected' : getCategoryClass(i)]">
-          <NuxtImg :alt="category.name" loading="lazy" :src="category.image?.sourceUrl" class="w-[38px] h-[38px] rounded-full object-cover" />
+          :class="['card text-black transition cat-button-bezel', route.query.category === category.name ? 'selected' : getCategoryClass(i)]">
+          <NuxtImg :alt="category.name" loading="lazy" :src="category.image?.sourceUrl" class="w-[38px] h-[38px] rounded-full object-cover border border-black/30" />
           <div class="px-3.5">{{ category.name }}</div>
         </div>
       </div>
@@ -89,12 +89,15 @@ onBeforeUnmount(() => {
 </template>
 
 <style lang="postcss">
+.cat-button-bezel {
+  box-shadow: inset 0 -1px 1px 0 rgba(0, 0, 0, 0.05), inset 0 1px 0 0 rgba(255, 255, 255, 0.15);
+}
 img {
   @apply pointer-events-none;
 }
 
 .selected {
-  @apply bg-black text-white dark:bg-alizarin-crimson-700 hover:dark:bg-alizarin-crimson-800;
+  @apply bg-red-600 lg:hover:bg-red-700 text-white dark:bg-alizarin-crimson-700 lg:hover:dark:bg-alizarin-crimson-800;
 }
 
 .slider-container {
