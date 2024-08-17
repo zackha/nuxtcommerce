@@ -13,7 +13,7 @@ const { removeFromList, wishlist } = useWishlist();
       :key="product.databaseId"
       class="w-full sm:max-w-[300px] p-2 relative select-none">
       <div class="relative overflow-hidden pb-[125%] rounded-[32px]">
-        <NuxtImg class="absolute w-full h-full object-cover bg-neutral-200 dark:bg-neutral-800" :src="product.image.sourceUrl" loading="lazy" />
+        <NuxtImg :alt="product.name" class="absolute w-full h-full object-cover bg-neutral-200 dark:bg-neutral-800" :src="product.image.sourceUrl" loading="lazy" />
         <NuxtLink class="absolute inset-0 bg-gradient-to-t from-black/50 hover:from-black/60 flex items-end p-5" :to="`/product/${product.slug}-${product.sku.split('-')[0]}`">
           <div class="grid gap-0.5 text-white">
             <div class="flex gap-2 text-sm">

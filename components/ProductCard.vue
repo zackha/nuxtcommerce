@@ -10,11 +10,13 @@ defineProps({
       <div class="cursor-pointer transition ease-[ease] duration-300">
         <div class="relative pb-[133%] dark:shadow-[0_8px_24px_rgba(0,0,0,.5)] rounded-2xl overflow-hidden">
           <NuxtImg
+            :alt="product.name"
             loading="lazy"
             :title="product.name"
             :src="product.galleryImages.nodes[0].sourceUrl"
             class="absolute h-full w-full dark:bg-neutral-800 bg-neutral-200 object-cover" />
           <NuxtImg
+            :alt="product.name"
             loading="lazy"
             :title="product.name"
             :src="product.image.sourceUrl"
