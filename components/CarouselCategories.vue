@@ -80,7 +80,7 @@ onBeforeUnmount(() => {
           :key="category.id"
           @click="setCategory(category.name)"
           :class="['card text-black transition cat-button-bezel', route.query.category === category.name ? 'selected' : getCategoryClass(i)]">
-          <NuxtImg :alt="category.name" loading="lazy" :src="category.image?.sourceUrl" class="w-[38px] h-[38px] rounded-full object-cover border border-black/30" />
+          <NuxtImg :alt="category.name" loading="lazy" :src="category.image?.sourceUrl" class="w-[38px] h-[38px] rounded-full object-cover border border-black/15" />
           <div class="px-3.5">{{ category.name }}</div>
         </div>
       </div>
