@@ -70,7 +70,7 @@ onBeforeUnmount(() => {
         <div
           @click="setCategory('')"
           :class="[
-            'card ml-4 transition',
+            'card ml-2 lg:ml-4 transition',
             !route.query.category ? 'selected' : 'bg-[#efefef] hover:bg-[#e2e2e2] dark:bg-[#262626] hover:dark:bg-[#333] text-black dark:text-white',
           ]">
           <div class="px-3.5">All Categories</div>
@@ -94,7 +94,7 @@ img {
 }
 
 .selected {
-  @apply bg-black text-white dark:bg-alizarin-crimson-800 hover:dark:bg-alizarin-crimson-700;
+  @apply bg-black text-white dark:bg-alizarin-crimson-700 hover:dark:bg-alizarin-crimson-800;
 }
 
 .slider-container {
@@ -106,7 +106,7 @@ img {
 }
 
 .cards-slider {
-  @apply flex cursor-grab w-full overflow-auto gap-4 pr-4;
+  @apply flex cursor-grab w-full overflow-auto gap-2 lg:gap-4 pr-3 lg:pr-4;
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
@@ -150,13 +150,9 @@ img {
 
 .slider-wrapper::before,
 .slider-wrapper::after {
+  @apply absolute h-full top-0 w-2 lg:w-4 z-10;
   content: '';
-  position: absolute;
-  top: 0;
-  width: 16px;
-  height: 100%;
   pointer-events: none;
-  z-index: 1;
 }
 
 .slider-wrapper::before {

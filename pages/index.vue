@@ -52,11 +52,11 @@ const productsEmpty = computed(() => hasFetched.value && !isLoading.value && pro
 </script>
 
 <template>
-  <div class="flex items-center pl-5">
+  <div class="flex items-center pl-3 lg:pl-5">
     <ButtonSortBy />
     <ButtonSelectCategory />
   </div>
-  <div v-if="!productsEmpty" class="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 3xl:grid-cols-7 gap-5 p-5">
+  <div v-if="!productsEmpty" class="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 3xl:grid-cols-7 gap-3 lg:gap-5 p-3 lg:p-5">
     <ProductCard :products="products" />
     <ProductsSkeleton v-if="(!products.length || isLoading) && !productsEmpty" />
     <br ref="tailEl" />

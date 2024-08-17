@@ -11,7 +11,7 @@ const { removeFromList, wishlist } = useWishlist();
       mode="in-out"
       v-for="product in wishlist"
       :key="product.databaseId"
-      class="w-full sm:max-w-[300px] p-2 relative select-none">
+      class="w-full sm:max-w-[300px] p-3 lg:p-2 relative select-none">
       <div class="relative overflow-hidden pb-[125%] rounded-[32px]">
         <NuxtImg :alt="product.name" class="absolute w-full h-full object-cover bg-neutral-200 dark:bg-neutral-800" :src="product.image.sourceUrl" loading="lazy" />
         <NuxtLink class="absolute inset-0 bg-gradient-to-t from-black/50 hover:from-black/60 flex items-end p-5" :to="`/product/${product.slug}-${product.sku.split('-')[0]}`">
