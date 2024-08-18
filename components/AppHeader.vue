@@ -5,7 +5,8 @@ const searchQuery = ref((route.query.q || '').toString());
 const searchResults = ref([]);
 const isLoading = ref(false);
 const suggestionMenu = ref(false);
-const suggestionMenuRef = ref(null);
+const onClickOutsideRef = ref(null);
+const cart = ref(false);
 
 const search = () => {
   router.push({ path: '/', query: { ...route.query, q: searchQuery.value || undefined } });
@@ -41,8 +42,9 @@ const clearSearch = () => {
   router.push({ query: { ...route.query, q: undefined } });
 };
 
-onClickOutside(suggestionMenuRef, event => {
+onClickOutside(onClickOutsideRef, event => {
   suggestionMenu.value = false;
+  cart.value = false;
 });
 </script>
 
@@ -113,6 +115,7 @@ onClickOutside(suggestionMenuRef, event => {
         </div>
       </div>
       <div
+        @click="cart = !cart"
         class="hover:bg-black/5 hover:dark:bg-white/15 max-lg:dark:bg-white/15 max-lg:bg-black/5 max-lg:hover:bg-black/10 max-lg:hover:dark:bg-white/20 min-w-12 min-h-12 flex items-center justify-center rounded-full cursor-pointer">
         <UIcon class="text-[#5f5f5f] dark:text-[#b7b7b7]" name="i-iconamoon-shopping-bag-fill" size="26" />
       </div>
@@ -120,7 +123,7 @@ onClickOutside(suggestionMenuRef, event => {
   </div>
   <div
     v-if="suggestionMenu"
-    ref="suggestionMenuRef"
+    ref="onClickOutsideRef"
     class="fixed top-[72px] lg:top-20 left-0 right-0 z-50 bg-white/85 dark:bg-black/85 backdrop-blur-sm dark:backdrop-blur-lg lg:rounded-b-3xl w-full">
     <div class="max-h-[calc(100vh-72px)] lg:max-h-[calc(100vh-80px)] overflow-auto">
       <!-- Loading State -->
@@ -192,7 +195,118 @@ onClickOutside(suggestionMenuRef, event => {
       </div>
     </div>
   </div>
-  <div v-if="suggestionMenu" class="fixed inset-0 z-40">
-    <div class="w-full h-full bg-black/70"></div>
+  <div v-if="suggestionMenu || cart" class="fixed inset-0 z-40">
+    <div class="w-full h-full bg-black/30 backdrop-blur-lg"></div>
+  </div>
+  <div
+    v-if="cart"
+    ref="onClickOutsideRef"
+    class="select-none mt-[100px] mx-5 shadow-2xl rounded-[2rem] right-0 fixed flex z-50 bg-white/85 dark:bg-black/85 dark:border dark:border-white/10 cart-button-bezel backdrop-blur-lg overflow-hidden">
+    <div class="w-80 relative">
+      <div class="absolute h-full w-full overflow-auto">
+        <div v-for="i in 5" :key="i" class="flex bg-black/5 dark:bg-white/10 m-3 p-3 rounded-3xl overflow-hidden items-center">
+          <img src="https://nuxtcommerce.zackha.com/wp-content/uploads/2024/08/7803315-615-1-300x450.jpg" class="w-24 h-24 object-cover shadow-md rounded-2xl" />
+          <div class="flex-1 px-3 gap-1 flex flex-col">
+            <div class="font-semibold text-sm">Striped triangle bikini top Orange</div>
+            <div class="text-xs font-medium text-neutral-600 dark:text-neutral-400">Size: XL • Qty: 1</div>
+            <div class="font-bold">$27.90</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="w-96 h-full bg-black/5 dark:bg-white/10 my-3 mr-3 p-3 rounded-3xl">
+      <div class="text-xl font-bold px-2 mb-3">Checkout</div>
+      <div class="flex flex-col items-center justify-center">
+        <div class="grid grid-cols-2 gap-3">
+          <div class="col-span-full">
+            <input
+              placeholder="Email address"
+              id="email"
+              name="email"
+              type="email"
+              class="block bg-white/80 dark:bg-black/20 dark:border-white/20 w-full shadow font-semibold border-2 border-transparent transition hover:border-black dark:hover:border-white rounded-2xl py-3 px-4 text-black dark:text-white placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black" />
+          </div>
+          <div class="col-span-1">
+            <input
+              placeholder="First name"
+              id="first-name"
+              name="first-name"
+              type="text"
+              class="block bg-white/80 dark:bg-black/20 dark:border-white/20 w-full shadow font-semibold border-2 border-transparent transition hover:border-black dark:hover:border-white rounded-2xl py-3 px-4 text-black dark:text-white placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black" />
+          </div>
+          <div class="col-span-1">
+            <input
+              placeholder="Last name"
+              id="last-name"
+              name="last-name"
+              type="text"
+              class="block bg-white/80 dark:bg-black/20 dark:border-white/20 w-full shadow font-semibold border-2 border-transparent transition hover:border-black dark:hover:border-white rounded-2xl py-3 px-4 text-black dark:text-white placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black" />
+          </div>
+          <div class="col-span-1">
+            <input
+              placeholder="Phone number"
+              id="phone"
+              name="phone"
+              type="text"
+              class="block bg-white/80 dark:bg-black/20 dark:border-white/20 w-full shadow font-semibold border-2 border-transparent transition hover:border-black dark:hover:border-white rounded-2xl py-3 px-4 text-black dark:text-white placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black" />
+          </div>
+          <div class="col-span-1">
+            <input
+              placeholder="City"
+              id="city"
+              name="city"
+              type="text"
+              class="block bg-white/80 dark:bg-black/20 dark:border-white/20 w-full shadow font-semibold border-2 border-transparent transition hover:border-black dark:hover:border-white rounded-2xl py-3 px-4 text-black dark:text-white placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black" />
+          </div>
+          <div class="col-span-full">
+            <textarea
+              placeholder="Address"
+              id="address"
+              name="address"
+              rows="2"
+              class="block bg-white/80 dark:bg-black/20 dark:border-white/20 w-full shadow font-semibold border-2 border-transparent transition hover:border-black dark:hover:border-white rounded-2xl py-3 px-4 text-black dark:text-white placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black"></textarea>
+          </div>
+        </div>
+        <div class="text-sm font-semibold p-4 text-neutral-600 dark:text-neutral-400">Paying a total of $215 for 4 products.</div>
+        <button class="pay-button-bezel w-full h-12 rounded-xl font-semibold text-white text-lg flex justify-center items-center">Pay $215</button>
+        <div class="text-xs font-medium p-4 flex gap-1 items-end text-neutral-400 dark:text-neutral-600">
+          <UIcon name="i-iconamoon-lock-fill" size="18" />
+          <div>Your payment is secured by Stripe</div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
+
+<style lang="postcss">
+textarea {
+  resize: none;
+}
+.pay-button-bezel {
+  box-shadow: 0 0 0 var(--button-outline, 0px) rgba(92, 133, 222, 0.3), inset 0 -1px 1px 0 rgba(0, 0, 0, 0.25), inset 0 1px 0 0 rgba(255, 255, 255, 0.3),
+    0 1px 1px 0 rgba(0, 0, 0, 0.3);
+  @apply bg-[#2D68FF] outline-none tracking-[-0.125px] transition scale-[var(--button-scale,1)] duration-200;
+  &:hover {
+    @apply bg-[#4177ff];
+  }
+  &:active {
+    --button-outline: 4px;
+    --button-scale: 0.975;
+  }
+}
+
+.cart-button-bezel {
+  box-shadow: inset 0 -1px 1px 0 rgba(0, 0, 0, 0.2), inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+}
+
+::-webkit-scrollbar {
+  @apply w-0 bg-transparent;
+}
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-black/15 dark:bg-white/15 rounded-full border-solid border-white dark:border-black;
+  border-width: 5px;
+}
+</style>
