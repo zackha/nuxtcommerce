@@ -201,20 +201,20 @@ onClickOutside(onClickOutsideRef, event => {
   <div
     v-if="cart"
     ref="onClickOutsideRef"
-    class="select-none mt-[100px] mx-5 shadow-2xl rounded-[2rem] right-0 fixed flex z-50 bg-white/85 cart-button-bezel backdrop-blur-lg overflow-hidden">
+    class="select-none mt-[100px] mx-5 shadow-2xl rounded-[2rem] right-0 fixed flex z-50 bg-white/85 dark:bg-black/85 dark:border dark:border-white/15 cart-button-bezel backdrop-blur-lg overflow-hidden">
     <div class="w-80 relative">
       <div class="absolute h-full w-full overflow-auto">
-        <div v-for="i in 5" :key="i" class="flex bg-black/5 m-3 p-3 rounded-3xl overflow-hidden items-center">
+        <div v-for="i in 5" :key="i" class="flex bg-black/5 dark:bg-white/10 m-3 p-3 rounded-3xl overflow-hidden items-center">
           <img src="https://nuxtcommerce.zackha.com/wp-content/uploads/2024/08/7803315-615-1-300x450.jpg" class="w-24 h-24 object-cover shadow-md rounded-2xl" />
           <div class="flex-1 px-3 gap-1 flex flex-col">
             <div class="font-semibold text-sm">Striped triangle bikini top Orange</div>
-            <div class="text-xs font-medium text-neutral-600">Size: XL • Qty: 1</div>
+            <div class="text-xs font-medium text-neutral-600 dark:text-neutral-400">Size: XL • Qty: 1</div>
             <div class="font-bold">$27.90</div>
           </div>
         </div>
       </div>
     </div>
-    <div class="w-96 h-full bg-black/5 my-3 mr-3 p-3 rounded-3xl">
+    <div class="w-96 h-full bg-black/5 dark:bg-white/10 my-3 mr-3 p-3 rounded-3xl">
       <div class="text-xl font-bold px-2 mb-3">Checkout</div>
       <div class="flex flex-col items-center justify-center">
         <div class="grid grid-cols-2 gap-3">
@@ -224,7 +224,7 @@ onClickOutside(onClickOutsideRef, event => {
               id="email"
               name="email"
               type="email"
-              class="block bg-white/80 w-full shadow font-semibold border-2 border-transparent transition hover:border-black rounded-2xl py-3 px-4 text-black placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black" />
+              class="block bg-white/80 dark:bg-black/80 w-full shadow font-semibold border-2 border-transparent transition hover:border-black dark:hover:border-white rounded-2xl py-3 px-4 text-black dark:text-white placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black" />
           </div>
           <div class="col-span-1">
             <input
@@ -232,7 +232,7 @@ onClickOutside(onClickOutsideRef, event => {
               id="first-name"
               name="first-name"
               type="text"
-              class="block bg-white/80 w-full shadow font-semibold border-2 border-transparent transition hover:border-black rounded-2xl py-3 px-4 text-black placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black" />
+              class="block bg-white/80 dark:bg-black/80 w-full shadow font-semibold border-2 border-transparent transition hover:border-black dark:hover:border-white rounded-2xl py-3 px-4 text-black dark:text-white placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black" />
           </div>
           <div class="col-span-1">
             <input
@@ -240,7 +240,7 @@ onClickOutside(onClickOutsideRef, event => {
               id="last-name"
               name="last-name"
               type="text"
-              class="block bg-white/80 w-full shadow font-semibold border-2 border-transparent transition hover:border-black rounded-2xl py-3 px-4 text-black placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black" />
+              class="block bg-white/80 dark:bg-black/80 w-full shadow font-semibold border-2 border-transparent transition hover:border-black dark:hover:border-white rounded-2xl py-3 px-4 text-black dark:text-white placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black" />
           </div>
           <div class="col-span-1">
             <input
@@ -248,7 +248,7 @@ onClickOutside(onClickOutsideRef, event => {
               id="phone"
               name="phone"
               type="text"
-              class="block bg-white/80 w-full shadow font-semibold border-2 border-transparent transition hover:border-black rounded-2xl py-3 px-4 text-black placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black" />
+              class="block bg-white/80 dark:bg-black/80 w-full shadow font-semibold border-2 border-transparent transition hover:border-black dark:hover:border-white rounded-2xl py-3 px-4 text-black dark:text-white placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black" />
           </div>
           <div class="col-span-1">
             <input
@@ -256,7 +256,7 @@ onClickOutside(onClickOutsideRef, event => {
               id="city"
               name="city"
               type="text"
-              class="block bg-white/80 w-full shadow font-semibold border-2 border-transparent transition hover:border-black rounded-2xl py-3 px-4 text-black placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black" />
+              class="block bg-white/80 dark:bg-black/80 w-full shadow font-semibold border-2 border-transparent transition hover:border-black dark:hover:border-white rounded-2xl py-3 px-4 text-black dark:text-white placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black" />
           </div>
           <div class="col-span-full">
             <textarea
@@ -264,12 +264,12 @@ onClickOutside(onClickOutsideRef, event => {
               id="address"
               name="address"
               rows="2"
-              class="block bg-white/80 w-full shadow font-semibold border-2 border-transparent transition hover:border-black rounded-2xl py-3 px-4 text-black placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black" />
+              class="block bg-white/80 dark:bg-black/80 w-full shadow font-semibold border-2 border-transparent transition hover:border-black dark:hover:border-white rounded-2xl py-3 px-4 text-black dark:text-white placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black" />
           </div>
         </div>
-        <div class="text-sm font-semibold p-4 text-neutral-600">Paying a total of $215 for 4 products.</div>
+        <div class="text-sm font-semibold p-4 text-neutral-600 dark:text-neutral-400">Paying a total of $215 for 4 products.</div>
         <button class="pay-button-bezel w-full h-12 rounded-xl font-semibold text-white text-lg flex justify-center items-center">Pay $215</button>
-        <div class="text-xs font-medium p-4 flex gap-1 items-end text-neutral-400">
+        <div class="text-xs font-medium p-4 flex gap-1 items-end text-neutral-400 dark:text-neutral-600">
           <UIcon name="i-iconamoon-lock-fill" size="18" />
           <div>Your payment is secured by Stripe</div>
         </div>
