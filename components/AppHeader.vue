@@ -224,7 +224,7 @@ onClickOutside(onClickOutsideRef, event => {
               id="email"
               name="email"
               type="email"
-              class="block bg-white/80 dark:bg-black/80 w-full shadow font-semibold border-2 border-transparent transition hover:border-black dark:hover:border-white rounded-2xl py-3 px-4 text-black dark:text-white placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black" />
+              class="block bg-white/80 dark:bg-black/20 dark:border-white/20 w-full shadow font-semibold border-2 border-transparent transition hover:border-black dark:hover:border-white rounded-2xl py-3 px-4 text-black dark:text-white placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black" />
           </div>
           <div class="col-span-1">
             <input
@@ -232,7 +232,7 @@ onClickOutside(onClickOutsideRef, event => {
               id="first-name"
               name="first-name"
               type="text"
-              class="block bg-white/80 dark:bg-black/80 w-full shadow font-semibold border-2 border-transparent transition hover:border-black dark:hover:border-white rounded-2xl py-3 px-4 text-black dark:text-white placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black" />
+              class="block bg-white/80 dark:bg-black/20 dark:border-white/20 w-full shadow font-semibold border-2 border-transparent transition hover:border-black dark:hover:border-white rounded-2xl py-3 px-4 text-black dark:text-white placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black" />
           </div>
           <div class="col-span-1">
             <input
@@ -240,7 +240,7 @@ onClickOutside(onClickOutsideRef, event => {
               id="last-name"
               name="last-name"
               type="text"
-              class="block bg-white/80 dark:bg-black/80 w-full shadow font-semibold border-2 border-transparent transition hover:border-black dark:hover:border-white rounded-2xl py-3 px-4 text-black dark:text-white placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black" />
+              class="block bg-white/80 dark:bg-black/20 dark:border-white/20 w-full shadow font-semibold border-2 border-transparent transition hover:border-black dark:hover:border-white rounded-2xl py-3 px-4 text-black dark:text-white placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black" />
           </div>
           <div class="col-span-1">
             <input
@@ -248,7 +248,7 @@ onClickOutside(onClickOutsideRef, event => {
               id="phone"
               name="phone"
               type="text"
-              class="block bg-white/80 dark:bg-black/80 w-full shadow font-semibold border-2 border-transparent transition hover:border-black dark:hover:border-white rounded-2xl py-3 px-4 text-black dark:text-white placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black" />
+              class="block bg-white/80 dark:bg-black/20 dark:border-white/20 w-full shadow font-semibold border-2 border-transparent transition hover:border-black dark:hover:border-white rounded-2xl py-3 px-4 text-black dark:text-white placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black" />
           </div>
           <div class="col-span-1">
             <input
@@ -256,7 +256,7 @@ onClickOutside(onClickOutsideRef, event => {
               id="city"
               name="city"
               type="text"
-              class="block bg-white/80 dark:bg-black/80 w-full shadow font-semibold border-2 border-transparent transition hover:border-black dark:hover:border-white rounded-2xl py-3 px-4 text-black dark:text-white placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black" />
+              class="block bg-white/80 dark:bg-black/20 dark:border-white/20 w-full shadow font-semibold border-2 border-transparent transition hover:border-black dark:hover:border-white rounded-2xl py-3 px-4 text-black dark:text-white placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black" />
           </div>
           <div class="col-span-full">
             <textarea
@@ -264,7 +264,7 @@ onClickOutside(onClickOutsideRef, event => {
               id="address"
               name="address"
               rows="2"
-              class="block bg-white/80 dark:bg-black/80 w-full shadow font-semibold border-2 border-transparent transition hover:border-black dark:hover:border-white rounded-2xl py-3 px-4 text-black dark:text-white placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black" />
+              class="block bg-white/80 dark:bg-black/20 dark:border-white/20 w-full shadow font-semibold border-2 border-transparent transition hover:border-black dark:hover:border-white rounded-2xl py-3 px-4 text-black dark:text-white placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black"></textarea>
           </div>
         </div>
         <div class="text-sm font-semibold p-4 text-neutral-600 dark:text-neutral-400">Paying a total of $215 for 4 products.</div>
@@ -279,6 +279,9 @@ onClickOutside(onClickOutsideRef, event => {
 </template>
 
 <style lang="postcss">
+textarea {
+  resize: none;
+}
 .pay-button-bezel {
   box-shadow: 0 0 0 var(--button-outline, 0px) rgba(92, 133, 222, 0.3), inset 0 -1px 1px 0 rgba(0, 0, 0, 0.25), inset 0 1px 0 0 rgba(255, 255, 255, 0.3),
     0 1px 1px 0 rgba(0, 0, 0, 0.3);
