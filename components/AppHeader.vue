@@ -6,6 +6,7 @@ const searchResults = ref([]);
 const isLoading = ref(false);
 const suggestionMenu = ref(false);
 const suggestionMenuRef = ref(null);
+const cart = ref(false);
 
 const search = () => {
   router.push({ path: '/', query: { ...route.query, q: searchQuery.value || undefined } });
@@ -113,6 +114,7 @@ onClickOutside(suggestionMenuRef, event => {
         </div>
       </div>
       <div
+        @click="cart = !cart"
         class="hover:bg-black/5 hover:dark:bg-white/15 max-lg:dark:bg-white/15 max-lg:bg-black/5 max-lg:hover:bg-black/10 max-lg:hover:dark:bg-white/20 min-w-12 min-h-12 flex items-center justify-center rounded-full cursor-pointer">
         <UIcon class="text-[#5f5f5f] dark:text-[#b7b7b7]" name="i-iconamoon-shopping-bag-fill" size="26" />
       </div>
@@ -192,7 +194,25 @@ onClickOutside(suggestionMenuRef, event => {
       </div>
     </div>
   </div>
-  <div v-if="suggestionMenu" class="fixed inset-0 z-40">
+  <div v-if="suggestionMenu || cart" class="fixed inset-0 z-40">
     <div class="w-full h-full bg-black/30 backdrop-blur-lg"></div>
   </div>
+  <Transition name="dropdown">
+    <div
+      v-if="cart"
+      class="select-none mt-[100px] mx-5 min-w-96 min-h-96 shadow-2xl rounded-3xl right-0 fixed flex z-50 bg-white/85 dark:bg-black/85 backdrop-blur-sm dark:backdrop-blur-lg"></div>
+  </Transition>
 </template>
+
+<style lang="postcss">
+::-webkit-scrollbar {
+  @apply w-0 bg-transparent;
+}
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-black/15 dark:bg-white/15 rounded-full border-solid border-white dark:border-black;
+  border-width: 5px;
+}
+</style>
