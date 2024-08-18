@@ -46,6 +46,23 @@ onClickOutside(onClickOutsideRef, event => {
   suggestionMenu.value = false;
   cart.value = false;
 });
+
+const isProcessing = ref(false);
+const buttonText = ref('order');
+
+const checkout = async () => {
+  isProcessing.value = true;
+  buttonText.value = 'processing';
+
+  await new Promise(resolve => setTimeout(resolve, 2000));
+
+  buttonText.value = 'completed';
+  isProcessing.value = false;
+
+  setTimeout(() => {
+    buttonText.value = 'order';
+  }, 2000);
+};
 </script>
 
 <template>
@@ -268,7 +285,16 @@ onClickOutside(onClickOutsideRef, event => {
           </div>
         </div>
         <div class="text-sm font-semibold p-4 text-neutral-600 dark:text-neutral-400">Paying a total of $215 for 4 products.</div>
-        <button class="pay-button-bezel w-full h-12 rounded-xl font-semibold text-white text-lg flex justify-center items-center">Pay $215</button>
+        <button
+          @click="checkout"
+          :disabled="buttonText !== 'order'"
+          class="pay-button-bezel w-full h-12 rounded-xl relative font-semibold text-white text-lg flex justify-center items-center">
+          <Transition name="slide-up">
+            <div v-if="buttonText === 'order'" class="absolute">Pay $215</div>
+            <UIcon v-else-if="buttonText === 'processing'" class="absolute" name="i-svg-spinners-90-ring-with-bg" size="22" />
+            <div v-else-if="buttonText === 'completed'" class="absolute">Currently working on!</div>
+          </Transition>
+        </button>
         <div class="text-xs font-medium p-4 flex gap-1 items-end text-neutral-400 dark:text-neutral-600">
           <UIcon name="i-iconamoon-lock-fill" size="18" />
           <div>Your payment is secured by Stripe</div>
