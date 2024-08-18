@@ -193,6 +193,6 @@ onClickOutside(suggestionMenuRef, event => {
     </div>
   </div>
   <div v-if="suggestionMenu" class="fixed inset-0 z-40">
-    <div class="w-full h-full bg-black/70"></div>
+    <div class="w-full h-full bg-black/30 backdrop-blur-lg"></div>
   </div>
 </template>
