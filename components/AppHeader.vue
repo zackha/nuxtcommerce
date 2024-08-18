@@ -58,10 +58,6 @@ const checkout = async () => {
 
   buttonText.value = 'completed';
   isProcessing.value = false;
-
-  setTimeout(() => {
-    buttonText.value = 'order';
-  }, 2000);
 };
 </script>
 
@@ -221,7 +217,7 @@ const checkout = async () => {
     class="select-none mt-[100px] mx-5 shadow-2xl rounded-[2rem] right-0 fixed flex z-50 bg-white/85 dark:bg-black/85 dark:border dark:border-white/10 cart-button-bezel backdrop-blur-lg overflow-hidden">
     <div class="w-80 relative">
       <div class="absolute h-full w-full overflow-auto">
-        <div v-for="i in 5" :key="i" class="flex bg-black/5 dark:bg-white/10 m-3 p-3 rounded-3xl overflow-hidden items-center">
+        <div v-for="i in 1" :key="i" class="flex bg-black/5 dark:bg-white/10 m-3 p-3 rounded-3xl overflow-hidden items-center">
           <img src="https://nuxtcommerce.zackha.com/wp-content/uploads/2024/08/7803315-615-1-300x450.jpg" class="w-24 h-24 object-cover shadow-md rounded-2xl" />
           <div class="flex-1 px-3 gap-1 flex flex-col">
             <div class="font-semibold text-sm">Striped triangle bikini top Orange</div>
@@ -288,11 +284,10 @@ const checkout = async () => {
         <button
           @click="checkout"
           :disabled="buttonText !== 'order'"
-          class="pay-button-bezel w-full h-12 rounded-xl relative font-semibold text-white text-lg flex justify-center items-center">
+          class="pay-button-bezel w-full h-12 rounded-xl relative font-semibold text-white dark:text-black text-lg flex justify-center items-center">
           <Transition name="slide-up">
             <div v-if="buttonText === 'order'" class="absolute">Pay $215</div>
             <UIcon v-else-if="buttonText === 'processing'" class="absolute" name="i-svg-spinners-90-ring-with-bg" size="22" />
-            <div v-else-if="buttonText === 'completed'" class="absolute">Currently working on!</div>
           </Transition>
         </button>
         <div class="text-xs font-medium p-4 flex gap-1 items-end text-neutral-400 dark:text-neutral-600">
@@ -309,11 +304,11 @@ textarea {
   resize: none;
 }
 .pay-button-bezel {
-  box-shadow: 0 0 0 var(--button-outline, 0px) rgba(92, 133, 222, 0.3), inset 0 -1px 1px 0 rgba(0, 0, 0, 0.25), inset 0 1px 0 0 rgba(255, 255, 255, 0.3),
+  box-shadow: 0 0 0 var(--button-outline, 0px) rgba(92, 222, 131, 0.3), inset 0 -1px 1px 0 rgba(0, 0, 0, 0.25), inset 0 1px 0 0 rgba(255, 255, 255, 0.3),
     0 1px 1px 0 rgba(0, 0, 0, 0.3);
-  @apply bg-[#2D68FF] outline-none tracking-[-0.125px] transition scale-[var(--button-scale,1)] duration-200;
+  @apply bg-[#23a26d] dark:bg-[#40d195] outline-none tracking-[-0.125px] transition scale-[var(--button-scale,1)] duration-200;
   &:hover {
-    @apply bg-[#4177ff];
+    @apply brightness-110;
   }
   &:active {
     --button-outline: 4px;
