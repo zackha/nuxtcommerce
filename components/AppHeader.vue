@@ -5,7 +5,7 @@ const searchQuery = ref((route.query.q || '').toString());
 const searchResults = ref([]);
 const isLoading = ref(false);
 const suggestionMenu = ref(false);
-const suggestionMenuRef = ref(null);
+const onClickOutsideRef = ref(null);
 const cart = ref(false);
 
 const search = () => {
@@ -42,8 +42,9 @@ const clearSearch = () => {
   router.push({ query: { ...route.query, q: undefined } });
 };
 
-onClickOutside(suggestionMenuRef, event => {
+onClickOutside(onClickOutsideRef, event => {
   suggestionMenu.value = false;
+  cart.value = false;
 });
 </script>
 
@@ -122,7 +123,7 @@ onClickOutside(suggestionMenuRef, event => {
   </div>
   <div
     v-if="suggestionMenu"
-    ref="suggestionMenuRef"
+    ref="onClickOutsideRef"
     class="fixed top-[72px] lg:top-20 left-0 right-0 z-50 bg-white/85 dark:bg-black/85 backdrop-blur-sm dark:backdrop-blur-lg lg:rounded-b-3xl w-full">
     <div class="max-h-[calc(100vh-72px)] lg:max-h-[calc(100vh-80px)] overflow-auto">
       <!-- Loading State -->
@@ -197,14 +198,29 @@ onClickOutside(suggestionMenuRef, event => {
   <div v-if="suggestionMenu || cart" class="fixed inset-0 z-40">
     <div class="w-full h-full bg-black/30 backdrop-blur-lg"></div>
   </div>
-  <Transition name="dropdown">
-    <div
-      v-if="cart"
-      class="select-none mt-[100px] mx-5 min-w-96 min-h-96 shadow-2xl rounded-3xl right-0 fixed flex z-50 bg-white/85 dark:bg-black/85 backdrop-blur-sm dark:backdrop-blur-lg"></div>
-  </Transition>
+  <div
+    v-if="cart"
+    ref="onClickOutsideRef"
+    class="select-none mt-[100px] mx-5 min-h-96 shadow-2xl rounded-[2rem] right-0 fixed flex z-50 bg-white/85 cart-button-bezel backdrop-blur-lg overflow-hidden">
+    <div class="w-80 max-h-96 overflow-auto">
+      <div class="flex bg-black/5 m-3 p-3 rounded-3xl overflow-hidden items-center">
+        <img src="https://nuxtcommerce.zackha.com/wp-content/uploads/2024/08/7803315-615-1-300x450.jpg" class="w-24 h-24 object-cover shadow-md rounded-2xl" />
+        <div class="flex-1 px-3 gap-1 flex flex-col">
+          <div class="font-semibold text-sm">Striped triangle bikini top Orange</div>
+          <div class="text-xs font-medium text-neutral-600">Size: XL • Qty: 1</div>
+          <div class="font-bold">$27.90</div>
+        </div>
+      </div>
+    </div>
+    <div class="flex w-96 justify-center items-center bg-black/5 my-3 mr-3 rounded-3xl">checkout</div>
+  </div>
 </template>
 
 <style lang="postcss">
+.cart-button-bezel {
+  box-shadow: inset 0 -1px 1px 0 rgba(0, 0, 0, 0.2), inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+}
+
 ::-webkit-scrollbar {
   @apply w-0 bg-transparent;
 }
