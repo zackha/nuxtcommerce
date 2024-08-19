@@ -1,5 +1,5 @@
 <script setup>
-const empty = ref(true);
+const empty = ref(false);
 </script>
 
 <template>
@@ -10,11 +10,16 @@ const empty = ref(true);
       <div class="w-80 relative">
         <div class="absolute h-full w-full overflow-auto">
           <div v-for="i in 1" :key="i" class="flex bg-black/5 dark:bg-white/10 m-3 p-3 rounded-3xl overflow-hidden items-center">
-            <img src="https://nuxtcommerce.zackha.com/wp-content/uploads/2024/08/7803315-615-1-300x450.jpg" class="w-24 h-24 object-cover shadow-md rounded-2xl" />
+            <img src="https://nuxtcommerce.zackha.com/wp-content/uploads/2024/08/7803315-615-1-300x450.jpg" class="w-24 h-28 object-cover shadow-md rounded-2xl" />
             <div class="flex-1 px-3 gap-1 flex flex-col">
-              <div class="font-semibold text-sm">Striped triangle bikini top Orange</div>
-              <div class="text-xs font-medium text-neutral-600 dark:text-neutral-400">Size: XL • Qty: 1</div>
+              <div class="font-medium text-sm">Striped triangle bikini top Orange</div>
               <div class="font-bold">$27.90</div>
+              <div class="flex-wrap text-neutral-600 dark:text-neutral-300 items-baseline text-xs gap-1 flex-row flex">
+                <p>Originally:</p>
+                <p class="line-through">$35.90</p>
+                <p class="text-alizarin-crimson-700">-22%</p>
+              </div>
+              <div class="text-xs font-medium text-neutral-600 dark:text-neutral-300">Size: XL • Qty: 1</div>
             </div>
           </div>
         </div>
