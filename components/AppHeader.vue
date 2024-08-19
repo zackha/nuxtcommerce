@@ -210,7 +210,7 @@ onClickOutside(onClickOutsideRef, event => {
 
 <style lang="postcss">
 ::-webkit-scrollbar {
-  @apply w-0 bg-transparent;
+  @apply w-0 h-0 bg-transparent;
 }
 ::-webkit-scrollbar-track {
   @apply bg-transparent;
