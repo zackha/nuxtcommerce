@@ -114,11 +114,11 @@ onClickOutside(onClickOutsideRef, event => {
           </div>
         </div>
       </div>
-      <div
-        @click="cart = !cart"
+      <button
+        @mouseup="cart = !cart"
         class="hover:bg-black/5 hover:dark:bg-white/15 max-lg:dark:bg-white/15 max-lg:bg-black/5 max-lg:hover:bg-black/10 max-lg:hover:dark:bg-white/20 min-w-12 min-h-12 flex items-center justify-center rounded-full cursor-pointer">
         <UIcon class="text-[#5f5f5f] dark:text-[#b7b7b7]" name="i-iconamoon-shopping-bag-fill" size="26" />
-      </div>
+      </button>
     </div>
   </div>
   <div
