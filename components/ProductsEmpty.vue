@@ -9,7 +9,7 @@ const resetSearch = () => {
 
 <template>
   <div
-    class="w-full p-5 text-center min-h-[calc(100vh-204px)] items-center flex flex-col justify-center bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-neutral-100 via-white to-whivia-white dark:from-neutral-900 dark:via-black dark:to-black rounded-xl">
+    class="w-full p-5 text-center min-h-[calc(100vh-204px)] items-center flex flex-col justify-center bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-neutral-100 via-white to-white dark:from-neutral-900 dark:via-black dark:to-black rounded-xl">
     <div class="w-28 h-28 bg-neutral-950/70 rounded-full border-neutral-800 border items-center justify-center flex shadow-lg">
       <UIcon name="i-iconamoon-search-bold" class="w-16 h-16 text-white dark:text-neutral-600" />
     </div>
