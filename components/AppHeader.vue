@@ -58,6 +58,10 @@ const checkout = async () => {
 
   buttonText.value = 'completed';
   isProcessing.value = false;
+
+  setTimeout(() => {
+    buttonText.value = 'order';
+  }, 5000);
 };
 </script>
 
@@ -228,78 +232,100 @@ const checkout = async () => {
       </div>
     </div>
     <div class="w-96 h-full bg-black/5 dark:bg-white/10 my-3 mr-3 p-3 rounded-3xl">
-      <div class="text-xl font-bold px-2 mb-3">Checkout</div>
-      <div class="flex flex-col items-center justify-center">
-        <div class="grid grid-cols-2 gap-3">
-          <div class="col-span-full">
-            <input
-              placeholder="Email address"
-              id="email"
-              name="email"
-              type="email"
-              class="block bg-white/80 dark:bg-black/20 dark:border-white/20 w-full shadow font-semibold border-2 border-transparent transition hover:border-black dark:hover:border-white rounded-2xl py-3 px-4 text-black dark:text-white placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black" />
-          </div>
-          <div class="col-span-1">
-            <input
-              placeholder="First name"
-              id="first-name"
-              name="first-name"
-              type="text"
-              class="block bg-white/80 dark:bg-black/20 dark:border-white/20 w-full shadow font-semibold border-2 border-transparent transition hover:border-black dark:hover:border-white rounded-2xl py-3 px-4 text-black dark:text-white placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black" />
-          </div>
-          <div class="col-span-1">
-            <input
-              placeholder="Last name"
-              id="last-name"
-              name="last-name"
-              type="text"
-              class="block bg-white/80 dark:bg-black/20 dark:border-white/20 w-full shadow font-semibold border-2 border-transparent transition hover:border-black dark:hover:border-white rounded-2xl py-3 px-4 text-black dark:text-white placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black" />
-          </div>
-          <div class="col-span-1">
-            <input
-              placeholder="Phone number"
-              id="phone"
-              name="phone"
-              type="text"
-              class="block bg-white/80 dark:bg-black/20 dark:border-white/20 w-full shadow font-semibold border-2 border-transparent transition hover:border-black dark:hover:border-white rounded-2xl py-3 px-4 text-black dark:text-white placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black" />
-          </div>
-          <div class="col-span-1">
-            <input
-              placeholder="City"
-              id="city"
-              name="city"
-              type="text"
-              class="block bg-white/80 dark:bg-black/20 dark:border-white/20 w-full shadow font-semibold border-2 border-transparent transition hover:border-black dark:hover:border-white rounded-2xl py-3 px-4 text-black dark:text-white placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black" />
-          </div>
-          <div class="col-span-full">
-            <textarea
-              placeholder="Address"
-              id="address"
-              name="address"
-              rows="2"
-              class="block bg-white/80 dark:bg-black/20 dark:border-white/20 w-full shadow font-semibold border-2 border-transparent transition hover:border-black dark:hover:border-white rounded-2xl py-3 px-4 text-black dark:text-white placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black"></textarea>
+      <Transition name="fade" mode="out-in">
+        <div v-if="buttonText === 'completed'">
+          <div class="text-xl font-bold px-2 mb-3">Checkout</div>
+          <div class="flex flex-col items-center justify-center">
+            <div class="grid grid-cols-2 gap-3">
+              <div class="col-span-full">
+                <input
+                  placeholder="Email address"
+                  id="email"
+                  name="email"
+                  type="email"
+                  class="block bg-white/80 dark:bg-black/20 dark:border-white/20 w-full shadow font-semibold border-2 border-transparent transition hover:border-black dark:hover:border-white rounded-2xl py-3 px-4 text-black dark:text-white placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black" />
+              </div>
+              <div class="col-span-1">
+                <input
+                  placeholder="First name"
+                  id="first-name"
+                  name="first-name"
+                  type="text"
+                  class="block bg-white/80 dark:bg-black/20 dark:border-white/20 w-full shadow font-semibold border-2 border-transparent transition hover:border-black dark:hover:border-white rounded-2xl py-3 px-4 text-black dark:text-white placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black" />
+              </div>
+              <div class="col-span-1">
+                <input
+                  placeholder="Last name"
+                  id="last-name"
+                  name="last-name"
+                  type="text"
+                  class="block bg-white/80 dark:bg-black/20 dark:border-white/20 w-full shadow font-semibold border-2 border-transparent transition hover:border-black dark:hover:border-white rounded-2xl py-3 px-4 text-black dark:text-white placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black" />
+              </div>
+              <div class="col-span-1">
+                <input
+                  placeholder="Phone number"
+                  id="phone"
+                  name="phone"
+                  type="text"
+                  class="block bg-white/80 dark:bg-black/20 dark:border-white/20 w-full shadow font-semibold border-2 border-transparent transition hover:border-black dark:hover:border-white rounded-2xl py-3 px-4 text-black dark:text-white placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black" />
+              </div>
+              <div class="col-span-1">
+                <input
+                  placeholder="City"
+                  id="city"
+                  name="city"
+                  type="text"
+                  class="block bg-white/80 dark:bg-black/20 dark:border-white/20 w-full shadow font-semibold border-2 border-transparent transition hover:border-black dark:hover:border-white rounded-2xl py-3 px-4 text-black dark:text-white placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black" />
+              </div>
+              <div class="col-span-full">
+                <textarea
+                  placeholder="Address"
+                  id="address"
+                  name="address"
+                  rows="2"
+                  class="block bg-white/80 dark:bg-black/20 dark:border-white/20 w-full shadow font-semibold border-2 border-transparent transition hover:border-black dark:hover:border-white rounded-2xl py-3 px-4 text-black dark:text-white placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black"></textarea>
+              </div>
+            </div>
+            <div class="text-sm font-semibold p-4 text-neutral-600 dark:text-neutral-400">Paying a total of $215 for 4 products.</div>
+            <button
+              @click="checkout"
+              :disabled="buttonText !== 'order'"
+              class="pay-button-bezel w-full h-12 rounded-xl relative font-semibold text-white dark:text-black text-lg flex justify-center items-center">
+              <Transition name="slide-up">
+                <div v-if="buttonText === 'order'" class="absolute">Pay $215</div>
+                <UIcon v-else-if="buttonText === 'processing'" class="absolute" name="i-svg-spinners-90-ring-with-bg" size="22" />
+              </Transition>
+            </button>
+            <div class="text-xs font-medium p-4 flex gap-1 items-end text-neutral-400 dark:text-neutral-600">
+              <UIcon name="i-iconamoon-lock-fill" size="18" />
+              <div>Your payment is secured by Stripe</div>
+            </div>
           </div>
         </div>
-        <div class="text-sm font-semibold p-4 text-neutral-600 dark:text-neutral-400">Paying a total of $215 for 4 products.</div>
-        <button
-          @click="checkout"
-          :disabled="buttonText !== 'order'"
-          class="pay-button-bezel w-full h-12 rounded-xl relative font-semibold text-white dark:text-black text-lg flex justify-center items-center">
-          <Transition name="slide-up">
-            <div v-if="buttonText === 'order'" class="absolute">Pay $215</div>
-            <UIcon v-else-if="buttonText === 'processing'" class="absolute" name="i-svg-spinners-90-ring-with-bg" size="22" />
-          </Transition>
-        </button>
-        <div class="text-xs font-medium p-4 flex gap-1 items-end text-neutral-400 dark:text-neutral-600">
-          <UIcon name="i-iconamoon-lock-fill" size="18" />
-          <div>Your payment is secured by Stripe</div>
+        <div v-else class="h-[458px] flex flex-col justify-center items-center">
+          <div class="flex flex-col items-center justify-center mt-2 mb-4 gap-1">
+            <div class="bg-green-500/20 dark:bg-green-700/20 flex rounded-full p-3 mb-1">
+              <UIcon name="i-iconamoon-check-circle-1-fill" size="46" class="text-[#23a26d] dark:text-[#40d195] shadow-md" />
+            </div>
+            <div class="text-lg font-semibold">Payment Success!</div>
+            <div class="text-sm text-neutral-500 dark:text-neutral-300">Your payment has been successfully done.</div>
+          </div>
         </div>
-      </div>
+      </Transition>
     </div>
   </div>
 </template>
 
 <style lang="postcss">
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 250ms;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
 textarea {
   resize: none;
 }
