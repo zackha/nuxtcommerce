@@ -233,7 +233,7 @@ const checkout = async () => {
     </div>
     <div class="w-96 h-full bg-black/5 dark:bg-white/10 my-3 mr-3 p-3 rounded-3xl">
       <Transition name="fade" mode="out-in">
-        <div v-if="buttonText === 'completed'">
+        <div v-if="buttonText !== 'completed'">
           <div class="text-xl font-bold px-2 mb-3">Checkout</div>
           <div class="flex flex-col items-center justify-center">
             <div class="grid grid-cols-2 gap-3">
