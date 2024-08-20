@@ -116,8 +116,12 @@ onClickOutside(onClickOutsideRef, event => {
       </div>
       <button
         @mouseup="cart = !cart"
-        class="hover:bg-black/5 hover:dark:bg-white/15 max-lg:dark:bg-white/15 max-lg:bg-black/5 max-lg:hover:bg-black/10 max-lg:hover:dark:bg-white/20 min-w-12 min-h-12 flex items-center justify-center rounded-full cursor-pointer">
+        class="hover:bg-black/5 hover:dark:bg-white/15 max-lg:dark:bg-white/15 max-lg:bg-black/5 max-lg:hover:bg-black/10 max-lg:hover:dark:bg-white/20 min-w-12 min-h-12 flex items-center justify-center rounded-full cursor-pointer relative">
         <UIcon class="text-[#5f5f5f] dark:text-[#b7b7b7]" name="i-iconamoon-shopping-bag-fill" size="26" />
+        <span class="absolute top-1 right-1 flex h-[18px] w-[18px]">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-alizarin-crimson-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-[18px] w-[18px] bg-alizarin-crimson-700 text-[10px] items-center justify-center shadow font-semibold text-white">5</span>
+        </span>
       </button>
     </div>
   </div>
