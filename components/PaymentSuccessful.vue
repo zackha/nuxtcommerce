@@ -5,7 +5,7 @@
         <UIcon name="i-iconamoon-check-circle-1-fill" size="46" class="text-[#23a26d] dark:text-[#40d195] shadow-md" />
       </div>
       <div class="text-lg font-semibold">Payment Success!</div>
-      <div class="text-sm text-neutral-500 dark:text-neutral-300">Your payment has been successfully done.</div>
+      <div class="text-sm text-neutral-500 dark:text-neutral-300">Your payment was successful.</div>
     </div>
   </div>
 </template>
