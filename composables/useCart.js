@@ -11,7 +11,10 @@ export const useCart = () => {
         buttonText.value = 'added';
         setTimeout(() => (buttonText.value = 'add'), 2000);
       })
-      .catch(() => (buttonText.value = 'add'));
+      .catch(err => {
+        buttonText.value = 'add';
+        alert(JSON.stringify(err.response.errors[0].message.replace(/<a[^>]*>(.*?)<\/a>/g, '').trim()));
+      });
   };
 
   const handleRemoveFromCart = key => {
