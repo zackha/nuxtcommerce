@@ -10,6 +10,7 @@ export const addToCartMutation = gql`
           node {
             sku
             slug
+            name
           }
         }
         variation {
