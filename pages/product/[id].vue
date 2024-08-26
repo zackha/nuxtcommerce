@@ -22,10 +22,7 @@ const slug = parts.join('-');
 const productResult = ref({});
 const selectedVariation = ref(null);
 
-onMounted(async () => {
-  const data = await getProduct(slug, sku);
-  productResult.value = data.product;
-});
+onMounted(() => getProduct(slug, sku).then(data => (productResult.value = data.product)));
 
 const product = computed(() => productResult.value);
 
