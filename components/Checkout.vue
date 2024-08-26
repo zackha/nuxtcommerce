@@ -1,19 +1,25 @@
 <script setup>
+const { cart } = useCart();
+
+const userDetails = ref({ email: '', firstName: '', lastName: '', phone: '', city: '', address1: '' });
+
 const isProcessing = ref(false);
 const buttonText = ref('order');
 
-const checkout = async () => {
+const handleCheckout = async () => {
   isProcessing.value = true;
   buttonText.value = 'processing';
+  const checkoutData = {
+    billing: { ...userDetails.value },
+    paymentMethod: 'cod',
+  };
 
-  await new Promise(resolve => setTimeout(resolve, 2000));
-
-  buttonText.value = 'completed';
-  isProcessing.value = false;
-
-  setTimeout(() => {
-    buttonText.value = 'order';
-  }, 5000);
+  await checkout(checkoutData).then(() => {
+    cart.value = [];
+    localStorage.setItem('cart', JSON.stringify(cart.value));
+    buttonText.value = 'completed';
+    isProcessing.value = false;
+  });
 };
 </script>
 
@@ -22,10 +28,11 @@ const checkout = async () => {
     <Transition name="fade" mode="out-in">
       <div v-if="buttonText !== 'completed'">
         <div class="text-xl font-bold px-2 mb-3">Checkout</div>
-        <div class="flex flex-col items-center justify-center">
+        <form @submit.prevent="handleCheckout" class="flex flex-col items-center justify-center">
           <div class="grid grid-cols-2 gap-3">
             <div class="col-span-full">
               <input
+                v-model="userDetails.email"
                 placeholder="Email address"
                 id="email"
                 name="email"
@@ -34,6 +41,7 @@ const checkout = async () => {
             </div>
             <div class="col-span-1">
               <input
+                v-model="userDetails.firstName"
                 placeholder="First name"
                 id="first-name"
                 name="first-name"
@@ -42,6 +50,7 @@ const checkout = async () => {
             </div>
             <div class="col-span-1">
               <input
+                v-model="userDetails.lastName"
                 placeholder="Last name"
                 id="last-name"
                 name="last-name"
@@ -50,6 +59,7 @@ const checkout = async () => {
             </div>
             <div class="col-span-1">
               <input
+                v-model="userDetails.phone"
                 placeholder="Phone number"
                 id="phone"
                 name="phone"
@@ -58,6 +68,7 @@ const checkout = async () => {
             </div>
             <div class="col-span-1">
               <input
+                v-model="userDetails.city"
                 placeholder="City"
                 id="city"
                 name="city"
@@ -66,6 +77,7 @@ const checkout = async () => {
             </div>
             <div class="col-span-full">
               <textarea
+                v-model="userDetails.address1"
                 placeholder="Address"
                 id="address"
                 name="address"
@@ -75,7 +87,7 @@ const checkout = async () => {
           </div>
           <div class="text-sm font-semibold p-4 text-neutral-600 dark:text-neutral-400">Paying a total of $215 for 4 products.</div>
           <button
-            @click="checkout"
+            type="submit"
             :disabled="buttonText !== 'order'"
             class="pay-button-bezel w-full h-12 rounded-xl relative font-semibold text-white dark:text-black text-lg flex justify-center items-center">
             <Transition name="slide-up">
@@ -87,7 +99,7 @@ const checkout = async () => {
             <UIcon name="i-iconamoon-lock-fill" size="18" />
             <div>Your payment is secured by Stripe</div>
           </div>
-        </div>
+        </form>
       </div>
       <PaymentSuccessful v-else />
     </Transition>
