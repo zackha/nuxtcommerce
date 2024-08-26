@@ -48,6 +48,7 @@ export const getProductQuery = gql`
         }
         variations(where: { orderby: { field: NAME, order: DESC } }) {
           nodes {
+            databaseId
             stockStatus
             stockQuantity
             attributes {

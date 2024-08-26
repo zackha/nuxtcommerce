@@ -1,8 +1,17 @@
 export const useCart = () => {
   const cart = useState('cart', () => []);
+  const buttonText = ref('add');
 
   const handleAddToCart = productId => {
-    productId ? addToCart({ productId }).then(res => updateCart([...cart.value, res.addToCart.cartItem])) : alert('Please select a size');
+    buttonText.value = 'loading';
+
+    addToCart({ productId })
+      .then(res => {
+        updateCart([...cart.value, res.addToCart.cartItem]);
+        buttonText.value = 'added';
+        setTimeout(() => (buttonText.value = 'add'), 2000);
+      })
+      .catch(() => (buttonText.value = 'add'));
   };
 
   const handleRemoveFromCart = key => {
@@ -22,6 +31,7 @@ export const useCart = () => {
   return {
     cart,
     handleAddToCart,
+    buttonText,
     handleRemoveFromCart,
   };
 };

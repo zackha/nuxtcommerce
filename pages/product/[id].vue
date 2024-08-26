@@ -40,7 +40,7 @@ const sortedVariations = computed(() => {
 watchEffect(() => {
   if (sortedVariations.value.length > 0) {
     const variationInStock = sortedVariations.value.find(variation => variation.stockStatus === 'IN_STOCK');
-    selectedVariation.value = variationInStock ? variationInStock.attributes.nodes.map(attr => attr.value).toString() : null;
+    selectedVariation.value = variationInStock ? variationInStock : null;
   }
 });
 
@@ -51,22 +51,7 @@ const calculateDiscountPercentage = computed(() => {
   return Math.round(((salePriceValue - regularPriceValue) / regularPriceValue) * 100);
 });
 
-const isLoading = ref(false);
-const buttonText = ref('add');
-
-const addToCart = async () => {
-  isLoading.value = true;
-  buttonText.value = 'loading';
-
-  await new Promise(resolve => setTimeout(resolve, 2000));
-
-  buttonText.value = 'added';
-  isLoading.value = false;
-
-  setTimeout(() => {
-    buttonText.value = 'add';
-  }, 2000);
-};
+const { handleAddToCart, buttonText } = useCart();
 </script>
 
 <template>
@@ -147,24 +132,15 @@ const addToCart = async () => {
           <div class="pb-4 px-3 lg:px-0 border-b border-[#efefef] dark:border-[#262626]">
             <div class="text-sm font-semibold leading-5 opacity-50 flex gap-1">
               Size:
-              <div class="uppercase">{{ selectedVariation }}</div>
+              <div class="uppercase">{{ selectedVariation.attributes.nodes.map(attr => attr.value).toString() }}</div>
             </div>
             <div class="flex gap-2 mt-2 mb-4 flex-wrap">
               <label
                 class="py-1 px-3 rounded-md cursor-pointer select-varitaion border-2 border-[#9b9b9b] dark:border-[#8c8c8c] transition-all duration-200"
-                v-for="(variation, i) in sortedVariations"
-                :key="i"
-                :class="[
-                  variation.stockStatus === 'OUT_OF_STOCK' ? 'disabled' : '',
-                  selectedVariation === variation.attributes.nodes.map(attr => attr.value).toString() ? 'selected-varitaion' : '',
-                ]">
-                <input
-                  type="radio"
-                  class="hidden"
-                  name="variation"
-                  :value="variation.attributes.nodes.map(attr => attr.value).toString()"
-                  :disabled="variation.stockStatus === 'OUT_OF_STOCK'"
-                  v-model="selectedVariation" />
+                v-for="variation in sortedVariations"
+                :key="variation.databaseId"
+                :class="[variation.stockStatus === 'OUT_OF_STOCK' ? 'disabled' : '', selectedVariation.databaseId === variation.databaseId ? 'selected-varitaion' : '']">
+                <input type="radio" class="hidden" name="variation" :value="variation" :disabled="variation.stockStatus === 'OUT_OF_STOCK'" v-model="selectedVariation" />
                 <span class="font-semibold uppercase" :title="`Size: ${variation.attributes.nodes.map(attr => attr.value).toString()}`">
                   {{ variation.attributes.nodes.map(attr => attr.value).toString() }}
                 </span>
@@ -173,13 +149,13 @@ const addToCart = async () => {
 
             <div class="flex">
               <button
-                @click="addToCart"
+                @click="handleAddToCart(selectedVariation.databaseId)"
                 :disabled="buttonText !== 'add'"
                 class="button-bezel w-full h-12 rounded-md relative tracking-wide font-semibold text-white text-sm flex justify-center items-center">
                 <Transition name="slide-up">
                   <div v-if="buttonText === 'add'" class="absolute">Add to Cart</div>
                   <UIcon v-else-if="buttonText === 'loading'" class="absolute" name="i-svg-spinners-90-ring-with-bg" size="22" />
-                  <div v-else-if="buttonText === 'added'" class="absolute">Currently working on!</div>
+                  <div v-else-if="buttonText === 'added'" class="absolute">Added to Cart!</div>
                 </Transition>
               </button>
               <ButtonWishlist :product="product" />
