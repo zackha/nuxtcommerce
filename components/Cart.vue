@@ -9,7 +9,7 @@ const { cart, handleRemoveFromCart } = useCart();
     <div v-else class="flex w-full h-full">
       <div class="w-80 relative">
         <div class="absolute h-full w-full overflow-auto">
-          <div v-for="product in cart.slice().reverse()" :key="product.key" class="flex bg-black/5 dark:bg-white/10 m-3 p-3 gap-3 rounded-3xl overflow-hidden items-center">
+          <div v-for="product in cart.slice().reverse()" :key="product.key" class="flex bg-black/5 dark:bg-white/10 m-3 p-3 gap-3 rounded-3xl items-center group relative">
             <NuxtImg :src="product.variation.node.image.sourceUrl" class="w-24 h-28 object-cover shadow-md rounded-2xl" />
             <div class="flex-1 gap-1 flex flex-col">
               <div class="font-medium text-sm line-clamp-2 overflow-hidden text-ellipsis">{{ product.variation.node.name }}</div>
@@ -23,6 +23,11 @@ const { cart, handleRemoveFromCart } = useCart();
                 Size: {{ product.variation.attributes.map(attr => attr.value.toUpperCase()).join(', ') }} • Qty: {{ product.quantity }}
               </div>
             </div>
+            <button
+              @click="handleRemoveFromCart(product.key)"
+              class="absolute opacity-0 group-hover:opacity-100 -top-1 -right-1 transition bg-red-700 flex p-1 items-center justify-center rounded-full hover:bg-red-500 active:scale-95">
+              <UIcon name="i-iconamoon-trash-light" size="18" />
+            </button>
           </div>
         </div>
       </div>
