@@ -51,7 +51,7 @@ const calculateDiscountPercentage = computed(() => {
   return Math.round(((salePriceValue - regularPriceValue) / regularPriceValue) * 100);
 });
 
-const { handleAddToCart, buttonText } = useCart();
+const { handleAddToCart, addToCartButtonStatus } = useCart();
 </script>
 
 <template>
@@ -150,12 +150,12 @@ const { handleAddToCart, buttonText } = useCart();
             <div class="flex">
               <button
                 @click="handleAddToCart(selectedVariation.databaseId)"
-                :disabled="buttonText !== 'add'"
+                :disabled="addToCartButtonStatus !== 'add'"
                 class="button-bezel w-full h-12 rounded-md relative tracking-wide font-semibold text-white text-sm flex justify-center items-center">
                 <Transition name="slide-up">
-                  <div v-if="buttonText === 'add'" class="absolute">Add to Cart</div>
-                  <UIcon v-else-if="buttonText === 'loading'" class="absolute" name="i-svg-spinners-90-ring-with-bg" size="22" />
-                  <div v-else-if="buttonText === 'added'" class="absolute">Added to Cart!</div>
+                  <div v-if="addToCartButtonStatus === 'add'" class="absolute">Add to Cart</div>
+                  <UIcon v-else-if="addToCartButtonStatus === 'loading'" class="absolute" name="i-svg-spinners-90-ring-with-bg" size="22" />
+                  <div v-else-if="addToCartButtonStatus === 'added'" class="absolute">Added to Cart!</div>
                 </Transition>
               </button>
               <ButtonWishlist :product="product" />

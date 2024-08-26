@@ -1,18 +1,19 @@
 export const useCart = () => {
   const cart = useState('cart', () => []);
-  const buttonText = ref('add');
+  const addToCartButtonStatus = ref('add');
+  const removeFromCartButtonStatus = ref('remove');
 
   const handleAddToCart = productId => {
-    buttonText.value = 'loading';
+    addToCartButtonStatus.value = 'loading';
 
     addToCart({ productId })
       .then(res => {
         updateCart([...cart.value, res.addToCart.cartItem]);
-        buttonText.value = 'added';
-        setTimeout(() => (buttonText.value = 'add'), 2000);
+        addToCartButtonStatus.value = 'added';
+        setTimeout(() => (addToCartButtonStatus.value = 'add'), 2000);
       })
       .catch(err => {
-        buttonText.value = 'add';
+        addToCartButtonStatus.value = 'add';
         const errorMessage = err.response.errors[0].message
           .replace(/<a[^>]*>(.*?)<\/a>/g, '')
           .replace(/&mdash;/g, '—')
@@ -22,7 +23,11 @@ export const useCart = () => {
   };
 
   const handleRemoveFromCart = key => {
-    updateItemQuantities({ items: [{ key, quantity: 0 }] }).then(() => updateCart(cart.value.filter(item => item.key !== key)));
+    removeFromCartButtonStatus.value = 'loading';
+    updateItemQuantities({ items: [{ key, quantity: 0 }] }).then(() => {
+      removeFromCartButtonStatus.value = 'remove';
+      updateCart(cart.value.filter(item => item.key !== key));
+    });
   };
 
   const updateCart = newCart => {
@@ -38,7 +43,8 @@ export const useCart = () => {
   return {
     cart,
     handleAddToCart,
-    buttonText,
+    addToCartButtonStatus,
     handleRemoveFromCart,
+    removeFromCartButtonStatus,
   };
 };

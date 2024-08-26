@@ -1,5 +1,5 @@
 <script setup>
-const { cart, handleRemoveFromCart } = useCart();
+const { cart, handleRemoveFromCart, removeFromCartButtonStatus } = useCart();
 </script>
 
 <template>
@@ -26,7 +26,7 @@ const { cart, handleRemoveFromCart } = useCart();
             <button
               @click="handleRemoveFromCart(product.key)"
               class="absolute opacity-0 group-hover:opacity-100 -top-1 -right-1 transition bg-red-700 flex p-1 items-center justify-center rounded-full hover:bg-red-500 active:scale-95">
-              <UIcon name="i-iconamoon-trash-light" size="18" />
+              <UIcon :name="removeFromCartButtonStatus === 'remove' ? 'i-iconamoon-trash-light' : 'i-svg-spinners-90-ring-with-bg'" size="18" />
             </button>
           </div>
         </div>
