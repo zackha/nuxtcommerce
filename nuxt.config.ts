@@ -2,7 +2,19 @@ import pkg from './package.json';
 
 export default defineNuxtConfig({
   devtools: { enabled: false },
-  modules: ['nuxt-graphql-request', '@vueuse/nuxt', '@nuxt/ui', '@nuxt/image'],
+  modules: ['nuxt-graphql-request', '@vueuse/nuxt', '@nuxt/ui', '@nuxt/image', 'notivue/nuxt'],
+
+  notivue: {
+    position: 'top-center',
+    limit: 3,
+    notifications: {
+      global: {
+        duration: 3000,
+      },
+    },
+  },
+
+  css: ['notivue/notification.css', 'notivue/animations.css'],
 
   runtimeConfig: {
     public: {

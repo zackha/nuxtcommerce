@@ -17,6 +17,7 @@
   "dependencies": {
     "@nuxt/image": "^1.7.0",
     "@nuxt/ui": "^2.18.4",
+    "notivue": "^2.4.4",
     "nuxt": "^3.13.0",
     "nuxt-graphql-request": "^8.1.1",
     "swiper": "^11.1.10",

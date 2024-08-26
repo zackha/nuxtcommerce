@@ -13,7 +13,11 @@ export const useCart = () => {
       })
       .catch(err => {
         buttonText.value = 'add';
-        alert(JSON.stringify(err.response.errors[0].message.replace(/<a[^>]*>(.*?)<\/a>/g, '').trim()));
+        const errorMessage = err.response.errors[0].message
+          .replace(/<a[^>]*>(.*?)<\/a>/g, '')
+          .replace(/&mdash;/g, '—')
+          .trim();
+        push.error(errorMessage);
       });
   };
 
