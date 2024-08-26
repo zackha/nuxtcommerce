@@ -6,6 +6,12 @@ export const addToCartMutation = gql`
       cartItem {
         key
         quantity
+        product {
+          node {
+            sku
+            slug
+          }
+        }
         variation {
           node {
             name
