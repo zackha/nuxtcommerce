@@ -7,54 +7,24 @@ const { cart } = useCart();
   <div class="w-96 h-full bg-black/5 dark:bg-white/10 my-3 mr-3 p-3 rounded-3xl">
     <div class="text-xl font-bold px-2 mb-3">Checkout</div>
     <form @submit.prevent="handleCheckout" class="flex flex-col items-center justify-center">
-      <div class="grid grid-cols-2 gap-3">
+      <div class="grid grid-cols-2 gap-3 billing">
         <div class="col-span-full">
-          <input
-            v-model="userDetails.email"
-            placeholder="Email address"
-            name="email"
-            type="email"
-            class="block bg-white/80 dark:bg-black/20 dark:border-white/20 w-full shadow font-semibold border-2 border-transparent transition hover:border-black dark:hover:border-white rounded-2xl py-3 px-4 text-black dark:text-white placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black" />
+          <input required v-model="userDetails.email" placeholder="Email address" name="email" type="email" class="" />
         </div>
         <div class="col-span-1">
-          <input
-            v-model="userDetails.firstName"
-            placeholder="First name"
-            name="first-name"
-            type="text"
-            class="block bg-white/80 dark:bg-black/20 dark:border-white/20 w-full shadow font-semibold border-2 border-transparent transition hover:border-black dark:hover:border-white rounded-2xl py-3 px-4 text-black dark:text-white placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black" />
+          <input required v-model="userDetails.firstName" placeholder="First name" name="first-name" type="text" />
         </div>
         <div class="col-span-1">
-          <input
-            v-model="userDetails.lastName"
-            placeholder="Last name"
-            name="last-name"
-            type="text"
-            class="block bg-white/80 dark:bg-black/20 dark:border-white/20 w-full shadow font-semibold border-2 border-transparent transition hover:border-black dark:hover:border-white rounded-2xl py-3 px-4 text-black dark:text-white placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black" />
+          <input required v-model="userDetails.lastName" placeholder="Last name" name="last-name" type="text" />
         </div>
         <div class="col-span-1">
-          <input
-            v-model="userDetails.phone"
-            placeholder="Phone number"
-            name="phone"
-            type="text"
-            class="block bg-white/80 dark:bg-black/20 dark:border-white/20 w-full shadow font-semibold border-2 border-transparent transition hover:border-black dark:hover:border-white rounded-2xl py-3 px-4 text-black dark:text-white placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black" />
+          <input required v-model="userDetails.phone" placeholder="Phone number" name="phone" type="text" />
         </div>
         <div class="col-span-1">
-          <input
-            v-model="userDetails.city"
-            placeholder="City"
-            name="city"
-            type="text"
-            class="block bg-white/80 dark:bg-black/20 dark:border-white/20 w-full shadow font-semibold border-2 border-transparent transition hover:border-black dark:hover:border-white rounded-2xl py-3 px-4 text-black dark:text-white placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black" />
+          <input required v-model="userDetails.city" placeholder="City" name="city" type="text" />
         </div>
         <div class="col-span-full">
-          <textarea
-            v-model="userDetails.address1"
-            placeholder="Address"
-            name="address"
-            rows="2"
-            class="block bg-white/80 dark:bg-black/20 dark:border-white/20 w-full shadow font-semibold border-2 border-transparent transition hover:border-black dark:hover:border-white rounded-2xl py-3 px-4 text-black dark:text-white placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black"></textarea>
+          <textarea required v-model="userDetails.address1" placeholder="Address" name="address" rows="2"></textarea>
         </div>
       </div>
       <div class="text-sm font-semibold p-4 text-neutral-600 dark:text-neutral-400">
@@ -78,6 +48,28 @@ const { cart } = useCart();
 </template>
 
 <style lang="postcss">
+:root {
+  --background: #fff;
+  --border: #ccc;
+}
+.dark {
+  --background: #000;
+  --border: #999;
+}
+
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px var(--background, #fff) inset !important;
+  box-shadow: 0 0 0px 1000px var(--background, #fff) inset !important;
+  border-color: var(--border) !important;
+}
+
+.billing input,
+.billing textarea {
+  @apply block bg-white/80 dark:bg-black/20 dark:border-white/20 w-full shadow font-semibold border-2 border-transparent transition hover:border-black dark:hover:border-white rounded-2xl py-3 px-4 text-black dark:text-white placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black focus-visible:dark:border-white;
+}
+
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 250ms;
