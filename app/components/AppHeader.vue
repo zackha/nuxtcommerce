@@ -6,7 +6,8 @@ const searchResults = ref([]);
 const isLoading = ref(false);
 const suggestionMenu = ref(false);
 const onClickOutsideRef = ref(null);
-const cart = ref(false);
+const cartModal = ref(false);
+const { cart } = useCart();
 
 const search = () => {
   router.push({ path: '/', query: { ...route.query, q: searchQuery.value || undefined } });
@@ -44,7 +45,7 @@ const clearSearch = () => {
 
 onClickOutside(onClickOutsideRef, event => {
   suggestionMenu.value = false;
-  cart.value = false;
+  cartModal.value = false;
 });
 </script>
 
@@ -115,12 +116,14 @@ onClickOutside(onClickOutsideRef, event => {
         </div>
       </div>
       <button
-        @mouseup="cart = !cart"
+        @mouseup="cartModal = !cartModal"
         class="hover:bg-black/5 hover:dark:bg-white/15 max-lg:dark:bg-white/15 max-lg:bg-black/5 max-lg:hover:bg-black/10 max-lg:hover:dark:bg-white/20 min-w-12 min-h-12 flex items-center justify-center rounded-full cursor-pointer relative">
         <UIcon class="text-[#5f5f5f] dark:text-[#b7b7b7]" name="i-iconamoon-shopping-bag-fill" size="26" />
-        <span class="absolute top-1 right-1 flex h-[18px] w-[18px]">
+        <span v-if="cart.length" class="absolute top-1 right-1 flex h-[18px] w-[18px]">
           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-alizarin-crimson-400 opacity-75"></span>
-          <span class="relative inline-flex rounded-full h-[18px] w-[18px] bg-alizarin-crimson-700 text-[10px] items-center justify-center shadow font-semibold text-white">5</span>
+          <span class="relative inline-flex rounded-full h-[18px] w-[18px] bg-alizarin-crimson-700 text-[10px] items-center justify-center shadow font-semibold text-white">
+            {{ cart.length }}
+          </span>
         </span>
       </button>
     </div>
@@ -199,16 +202,16 @@ onClickOutside(onClickOutsideRef, event => {
       </div>
     </div>
   </div>
-  <div v-if="suggestionMenu || cart" :class="['fixed inset-0 ', cart ? 'z-40' : 'z-30']">
+  <div v-if="suggestionMenu || cartModal" :class="['fixed inset-0 ', cartModal ? 'z-40' : 'z-30']">
     <div class="w-full h-full bg-black/30 backdrop-blur-lg"></div>
   </div>
   <button
-    v-if="cart"
+    v-if="cartModal"
     class="hover:bg-white/65 dark:hover:bg-white/10 transition shadow-2xl mt-4 mx-5 items-center justify-center min-w-12 min-h-12 rounded-[2rem] right-0 fixed flex z-50 bg-white/85 dark:bg-black/30 dark:border dark:border-white/10 cart-button-bezel backdrop-blur-lg">
     <UIcon class="text-[#5f5f5f] dark:text-[#b7b7b7]" name="i-iconamoon-close" size="26" />
   </button>
   <Transition name="dropdown">
-    <Cart v-if="cart" ref="onClickOutsideRef" />
+    <Cart v-if="cartModal" ref="onClickOutsideRef" />
   </Transition>
 </template>
 

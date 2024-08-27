@@ -5,10 +5,23 @@ export const addToCartMutation = gql`
     addToCart(input: $input) {
       cartItem {
         key
+        quantity
+        product {
+          node {
+            sku
+            slug
+            name
+          }
+        }
         variation {
           node {
             name
             databaseId
+            salePrice(format: RAW)
+            regularPrice(format: RAW)
+            image {
+              sourceUrl(size: WOOCOMMERCE_THUMBNAIL)
+            }
           }
           attributes {
             value
