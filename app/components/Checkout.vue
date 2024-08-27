@@ -1,5 +1,6 @@
 <script setup>
 const { userDetails, checkoutStatus, handleCheckout } = useCheckout();
+const { cart } = useCart();
 </script>
 
 <template>
@@ -11,7 +12,6 @@ const { userDetails, checkoutStatus, handleCheckout } = useCheckout();
           <input
             v-model="userDetails.email"
             placeholder="Email address"
-            id="email"
             name="email"
             type="email"
             class="block bg-white/80 dark:bg-black/20 dark:border-white/20 w-full shadow font-semibold border-2 border-transparent transition hover:border-black dark:hover:border-white rounded-2xl py-3 px-4 text-black dark:text-white placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black" />
@@ -20,7 +20,6 @@ const { userDetails, checkoutStatus, handleCheckout } = useCheckout();
           <input
             v-model="userDetails.firstName"
             placeholder="First name"
-            id="first-name"
             name="first-name"
             type="text"
             class="block bg-white/80 dark:bg-black/20 dark:border-white/20 w-full shadow font-semibold border-2 border-transparent transition hover:border-black dark:hover:border-white rounded-2xl py-3 px-4 text-black dark:text-white placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black" />
@@ -29,7 +28,6 @@ const { userDetails, checkoutStatus, handleCheckout } = useCheckout();
           <input
             v-model="userDetails.lastName"
             placeholder="Last name"
-            id="last-name"
             name="last-name"
             type="text"
             class="block bg-white/80 dark:bg-black/20 dark:border-white/20 w-full shadow font-semibold border-2 border-transparent transition hover:border-black dark:hover:border-white rounded-2xl py-3 px-4 text-black dark:text-white placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black" />
@@ -38,7 +36,6 @@ const { userDetails, checkoutStatus, handleCheckout } = useCheckout();
           <input
             v-model="userDetails.phone"
             placeholder="Phone number"
-            id="phone"
             name="phone"
             type="text"
             class="block bg-white/80 dark:bg-black/20 dark:border-white/20 w-full shadow font-semibold border-2 border-transparent transition hover:border-black dark:hover:border-white rounded-2xl py-3 px-4 text-black dark:text-white placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black" />
@@ -47,7 +44,6 @@ const { userDetails, checkoutStatus, handleCheckout } = useCheckout();
           <input
             v-model="userDetails.city"
             placeholder="City"
-            id="city"
             name="city"
             type="text"
             class="block bg-white/80 dark:bg-black/20 dark:border-white/20 w-full shadow font-semibold border-2 border-transparent transition hover:border-black dark:hover:border-white rounded-2xl py-3 px-4 text-black dark:text-white placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black" />
@@ -56,19 +52,20 @@ const { userDetails, checkoutStatus, handleCheckout } = useCheckout();
           <textarea
             v-model="userDetails.address1"
             placeholder="Address"
-            id="address"
             name="address"
             rows="2"
             class="block bg-white/80 dark:bg-black/20 dark:border-white/20 w-full shadow font-semibold border-2 border-transparent transition hover:border-black dark:hover:border-white rounded-2xl py-3 px-4 text-black dark:text-white placeholder:text-neutral-400 text-sm leading-6 focus-visible:outline-none focus-visible:border-black"></textarea>
         </div>
       </div>
-      <div class="text-sm font-semibold p-4 text-neutral-600 dark:text-neutral-400">Paying a total of $215 for 4 products.</div>
+      <div class="text-sm font-semibold p-4 text-neutral-600 dark:text-neutral-400">
+        Paying a total of ${{ cart.reduce((total, item) => total + parseFloat(item.variation.node.salePrice), 0).toFixed(2) }} for {{ cart.length }} products.
+      </div>
       <button
         type="submit"
         :disabled="checkoutStatus !== 'order'"
         class="pay-button-bezel w-full h-12 rounded-xl relative font-semibold text-white dark:text-black text-lg flex justify-center items-center">
         <Transition name="slide-up">
-          <div v-if="checkoutStatus === 'order'" class="absolute">Pay $215</div>
+          <div v-if="checkoutStatus === 'order'" class="absolute">Pay ${{ cart.reduce((total, item) => total + parseFloat(item.variation.node.salePrice), 0).toFixed(2) }}</div>
           <UIcon v-else-if="checkoutStatus === 'processing'" class="absolute" name="i-svg-spinners-90-ring-with-bg" size="22" />
         </Transition>
       </button>
