@@ -1,5 +1,5 @@
 <template>
-  <div class="w-96 h-96 p-3">
+  <div class="w-[calc(100vw-24px)] sm:w-96 h-96 p-3">
     <div
       class="bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-red-100 via-white/0 to-white/0 dark:from-red-700/20 dark:via-black/0 dark:to-black/0 rounded-3xl w-full h-full flex items-center justify-center">
       <div class="flex flex-col items-center justify-center mt-2 mb-4 gap-2">

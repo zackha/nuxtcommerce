@@ -4,10 +4,10 @@ const { cart } = useCart();
 </script>
 
 <template>
-  <div class="w-96 h-full bg-black/5 dark:bg-white/10 my-3 mr-3 p-3 rounded-3xl">
+  <div class="md:w-96 h-full bg-black/5 dark:bg-white/10 my-3 mr-3 p-3 max-md:ml-3 rounded-3xl">
     <div class="text-xl font-bold px-2 mb-3">Checkout</div>
     <form @submit.prevent="handleCheckout" class="flex flex-col items-center justify-center">
-      <div class="grid grid-cols-2 gap-3 billing">
+      <div class="grid grid-cols-2 gap-3 billing w-full">
         <div class="col-span-full">
           <input required v-model="userDetails.email" placeholder="Email address" name="email" type="email" class="" />
         </div>
