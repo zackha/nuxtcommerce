@@ -1,7 +1,14 @@
 export const useCheckout = () => {
   const { cart } = useCart();
   const order = useState('order', () => {});
-  const userDetails = ref({ email: '', firstName: '', lastName: '', phone: '', city: '', address1: '' });
+  const userDetails = useState('userDetails', () => ({
+    email: '',
+    firstName: '',
+    lastName: '',
+    phone: '',
+    city: '',
+    address1: '',
+  }));
   const checkoutStatus = ref('order');
 
   const handleCheckout = async () => {

@@ -3,7 +3,7 @@ const { order } = useCheckout();
 </script>
 
 <template>
-  <div class="w-96 h-full rounded-3xl">
+  <div class="w-[calc(100vw-24px)] sm:w-96 h-full rounded-3xl">
     <div class="flex flex-col items-center justify-center mb-6 mt-8 gap-1">
       <div class="bg-green-500/20 dark:bg-green-700/20 flex rounded-full p-3 mb-1">
         <UIcon name="i-iconamoon-check-circle-1-fill" size="46" class="text-[#23a26d] dark:text-[#40d195] shadow-md" />
