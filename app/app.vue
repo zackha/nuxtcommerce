@@ -12,6 +12,7 @@ useHead({
     { name: 'twitter:card', content: 'summary_large_image' },
     { name: 'twitter:site', content: '@zhatlen' },
     { name: 'twitter:creator', content: '@zhatlen' },
+    { name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, viewport-fit=cover' },
   ],
 });
 </script>
