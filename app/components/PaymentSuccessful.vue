@@ -13,19 +13,19 @@ const { order } = useCheckout();
     </div>
     <div class="bg-black/5 dark:bg-white/10 rounded-2xl p-5 m-5 gap-2 flex flex-col font-light text-sm capitalize">
       <div class="flex justify-between items-center">
-        <span class="text-neutral-400">Amount:</span>
+        <span class="dark:text-neutral-400 text-neutral-600">Amount:</span>
         <span class="font-semibold text-lg">{{ order.total }}</span>
       </div>
       <div class="flex justify-between items-center">
-        <span class="text-neutral-400">Order Number:</span>
+        <span class="dark:text-neutral-400 text-neutral-600">Order Number:</span>
         <span class="font-semibold">#{{ order.orderNumber }}</span>
       </div>
       <div class="flex justify-between items-center">
-        <span class="text-neutral-400">Date:</span>
+        <span class="dark:text-neutral-400 text-neutral-600">Date:</span>
         <span class="font-semibold">{{ useDateFormat(order.date, 'MMMM DD, YYYY') }}</span>
       </div>
       <div class="flex justify-between items-center">
-        <span class="text-neutral-400">Payment method:</span>
+        <span class="dark:text-neutral-400 text-neutral-600">Payment method:</span>
         <span class="font-semibold">{{ order.paymentMethodTitle }}</span>
       </div>
     </div>

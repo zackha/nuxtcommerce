@@ -1,6 +1,6 @@
 {
   "name": "nuxtcommerce",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "private": true,
   "author": "zackha",
   "description": "Headless storefront for Woocommerce (Nuxt/Vue)",
@@ -20,12 +20,12 @@
     "notivue": "^2.4.4",
     "nuxt": "^3.13.0",
     "nuxt-graphql-request": "^8.1.1",
-    "swiper": "^11.1.11",
+    "swiper": "^11.1.12",
     "vue": "latest"
   },
   "devDependencies": {
-    "@iconify-json/iconamoon": "^1.1.5",
-    "@iconify-json/svg-spinners": "^1.1.3",
+    "@iconify-json/iconamoon": "^1.2.0",
+    "@iconify-json/svg-spinners": "^1.2.0",
     "@vueuse/core": "^10.11.1",
     "@vueuse/nuxt": "^10.11.1",
     "lru-cache": "^10.4.3",
