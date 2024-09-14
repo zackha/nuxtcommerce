@@ -21,28 +21,27 @@ const images = computed(() => {
       container: 'items-center',
       shadow: 'shadow-none',
     }">
-    <div
+    <button
       @click="isOpenImageSliderModal = false"
       class="flex p-2 absolute z-50 right-3 top-3 bg-white/50 hover:bg-white rounded-full items-center justify-center shadow transition backdrop-blur-sm">
       <UIcon name="i-iconamoon-close" class="text-black" size="16" />
-    </div>
+    </button>
     <UCarousel
+      v-slot="{ item }"
       :items="images"
       :ui="{
         item: 'basis-full',
         container: 'rounded-3xl',
-        indicators: {
-          wrapper: 'relative bottom-0 mt-4',
-        },
+      }"
+      :prev-button="{
+        icon: 'i-iconamoon-arrow-left-2-duotone',
+      }"
+      :next-button="{
+        icon: 'i-iconamoon-arrow-right-2-duotone',
       }"
       class="w-full mx-auto"
-      indicators>
-      <template #default="{ item }">
-        <img :src="item" class="w-full select-none" draggable="false" />
-      </template>
-      <template #indicator="{ onClick, page, active }">
-        <UButton :label="String(page)" :variant="active ? 'solid' : 'outline'" size="2xs" class="rounded-full min-w-6 justify-center" @click="onClick(page)" />
-      </template>
+      arrows>
+      <img :src="item" class="w-full select-none" draggable="false" />
     </UCarousel>
   </UModal>
 </template>
