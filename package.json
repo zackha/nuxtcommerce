@@ -15,7 +15,7 @@
     "release": "bumpp"
   },
   "dependencies": {
-    "@nuxt/image": "^1.8.0",
+    "@nuxt/image": "^1.8.1",
     "@nuxt/ui": "^2.18.6",
     "notivue": "^2.4.5",
     "nuxt": "^3.13.2",
