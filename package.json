@@ -1,6 +1,6 @@
 {
   "name": "nuxtcommerce",
-  "version": "2.2.8",
+  "version": "2.2.9",
   "private": true,
   "author": "zackha",
   "description": "Headless storefront for Woocommerce (Nuxt/Vue)",
@@ -18,7 +18,7 @@
     "@nuxt/image": "^1.8.1",
     "@nuxt/ui": "^2.19.2",
     "notivue": "^2.4.5",
-    "nuxt": "^3.14.0",
+    "nuxt": "^3.14.159",
     "nuxt-graphql-request": "^8.1.1",
     "swiper": "^11.1.14",
     "vue": "latest"
