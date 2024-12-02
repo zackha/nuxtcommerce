@@ -1266,8 +1266,8 @@ packages:
   argparse@2.0.1:
     resolution: {integrity: sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q==}
 
-  ast-kit@1.3.1:
-    resolution: {integrity: sha512-3bIRV4s/cNAee2rKjuvYdoG+0CMqtOIgCvWrJL6zG8R0fDyMwYzStspX5JqXPbdMzM+qxHZ6g2rMHKhr3HkPlQ==}
+  ast-kit@1.3.2:
+    resolution: {integrity: sha512-gdvX700WVC6sHCJQ7bJGfDvtuKAh6Sa6weIZROxfzUZKP7BjvB8y0SMlM/o4omSQ3L60PQSJROBJsb0vEViVnA==}
     engines: {node: '>=16.14.0'}
 
   ast-walker-scope@0.6.2:
@@ -2716,8 +2716,8 @@ packages:
     resolution: {integrity: sha512-7x81NCL719oNbsq/3mh+hVrAWmFuEYUqrq/Iw3kUzH8ReypT9QQ0BLoJS7/G9k6N81XjW4qHWtjWwe/9eLy1EQ==}
     engines: {node: '>=12'}
 
-  openapi-typescript@7.4.3:
-    resolution: {integrity: sha512-xTIjMIIOv9kNhsr8JxaC00ucbIY/6ZwuJPJBZMSh5FA2dicZN5uM805DWVJojXdom8YI4AQTavPDPHMx/3g0vQ==}
+  openapi-typescript@7.4.4:
+    resolution: {integrity: sha512-7j3nktnRzlQdlHnHsrcr6Gqz8f80/RhfA2I8s1clPI+jkY0hLNmnYVKBfuUEli5EEgK1B6M+ibdS5REasPlsUw==}
     hasBin: true
     peerDependencies:
       typescript: ^5.x
@@ -3482,8 +3482,8 @@ packages:
     resolution: {integrity: sha512-t0rzBq87m3fVcduHDUFhKmyyX+9eo6WQjZvf51Ea/M0Q7+T374Jp1aUiyUl0GKxp8M/OETVHSDvmkyPgvX+X2w==}
     engines: {node: '>=10'}
 
-  type-fest@4.29.0:
-    resolution: {integrity: sha512-RPYt6dKyemXJe7I6oNstcH24myUGSReicxcHTvCLgzm4e0n8y05dGvcGB15/SoPRBmhlMthWQ9pvKyL81ko8nQ==}
+  type-fest@4.29.1:
+    resolution: {integrity: sha512-Y1zUveI92UYM/vo1EFlQSsNf74+hfKH+7saZJslF0Fw92FRaiTAnHPIvo9d7SLxXt/gAYqA4RXyDTioMQCCp0A==}
     engines: {node: '>=16'}
 
   type-is@1.6.18:
@@ -4346,7 +4346,7 @@ snapshots:
       string-length: 6.0.0
       strip-ansi: 7.1.0
       ts-toolbelt: 9.6.0
-      type-fest: 4.29.0
+      type-fest: 4.29.1
       zod: 3.23.8
 
   '@molt/types@0.2.0':
@@ -5091,7 +5091,7 @@ snapshots:
       '@babel/types': 7.26.0
       '@rollup/pluginutils': 5.1.3(rollup@4.28.0)
       '@vue/compiler-sfc': 3.5.13
-      ast-kit: 1.3.1
+      ast-kit: 1.3.2
       local-pkg: 0.5.1
       magic-string-ast: 0.6.3
     optionalDependencies:
@@ -5374,7 +5374,7 @@ snapshots:
 
   argparse@2.0.1: {}
 
-  ast-kit@1.3.1:
+  ast-kit@1.3.2:
     dependencies:
       '@babel/parser': 7.26.2
       pathe: 1.1.2
@@ -5382,7 +5382,7 @@ snapshots:
   ast-walker-scope@0.6.2:
     dependencies:
       '@babel/parser': 7.26.2
-      ast-kit: 1.3.1
+      ast-kit: 1.3.2
 
   async-sema@3.1.1: {}
 
@@ -5857,7 +5857,7 @@ snapshots:
 
   dot-prop@9.0.0:
     dependencies:
-      type-fest: 4.29.0
+      type-fest: 4.29.1
 
   dotenv@16.4.5: {}
 
@@ -6752,7 +6752,7 @@ snapshots:
       node-fetch-native: 1.6.4
       ofetch: 1.4.1
       ohash: 1.1.4
-      openapi-typescript: 7.4.3(typescript@5.6.3)
+      openapi-typescript: 7.4.4(typescript@5.6.3)
       pathe: 1.1.2
       perfect-debounce: 1.0.0
       pkg-types: 1.2.1
@@ -7034,7 +7034,7 @@ snapshots:
       is-docker: 2.2.1
       is-wsl: 2.2.0
 
-  openapi-typescript@7.4.3(typescript@5.6.3):
+  openapi-typescript@7.4.4(typescript@5.6.3):
     dependencies:
       '@redocly/openapi-core': 1.25.15(supports-color@9.4.0)
       ansi-colors: 4.1.3
@@ -7059,7 +7059,7 @@ snapshots:
     dependencies:
       '@babel/code-frame': 7.26.2
       index-to-position: 0.1.2
-      type-fest: 4.29.0
+      type-fest: 4.29.1
 
   parse-path@7.0.0:
     dependencies:
@@ -7431,7 +7431,7 @@ snapshots:
 
   remeda@2.11.0:
     dependencies:
-      type-fest: 4.29.0
+      type-fest: 4.29.1
 
   replace-in-file@6.3.5:
     dependencies:
@@ -7870,7 +7870,7 @@ snapshots:
 
   type-fest@0.21.3: {}
 
-  type-fest@4.29.0: {}
+  type-fest@4.29.1: {}
 
   type-is@1.6.18:
     dependencies:
