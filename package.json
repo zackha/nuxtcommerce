@@ -24,8 +24,8 @@
     "vue": "latest"
   },
   "devDependencies": {
-    "@iconify-json/iconamoon": "^1.2.1",
-    "@iconify-json/svg-spinners": "^1.2.1",
+    "@iconify-json/iconamoon": "^1.2.2",
+    "@iconify-json/svg-spinners": "^1.2.2",
     "@vueuse/core": "^10.11.1",
     "@vueuse/nuxt": "^10.11.1",
     "lru-cache": "^10.4.3",
