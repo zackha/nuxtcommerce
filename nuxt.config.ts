@@ -3,7 +3,14 @@ import pkg from './package.json';
 export default defineNuxtConfig({
   devtools: { enabled: false },
 
-  modules: ['nuxt-graphql-request', '@vueuse/nuxt', '@nuxt/ui', '@nuxt/image', 'notivue/nuxt'],
+  modules: [
+    'nuxt-graphql-request',
+    '@vueuse/nuxt',
+    '@nuxt/ui',
+    '@nuxt/image',
+    'notivue/nuxt',
+    '@nuxthub/core',
+  ],
 
   future: { compatibilityVersion: 4 },
 
