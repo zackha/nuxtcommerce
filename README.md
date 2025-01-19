@@ -43,3 +43,5 @@ Don't hesitate to get in touch if you have any questions or suggestions:
 
 Email: zckhtln@icloud.com</br>
 Twitter: [@ZHatlen](https://twitter.com/ZHatlen)
+
+[<img src="https://api.gitsponsors.com/api/badge/img?id=623408022" height="20">](https://api.gitsponsors.com/api/badge/link?p=xnKbnMYlcR3afRIY6B121fe0yL/MMr5pJVdLPgAnPawT4N6TPHIh8pnTgySEwXSSm0dn+3jdfTXpM34lY3BOl3fk0Y5VWUBAWBr3J04AeL9uiskXQ8xrfbWjL2SIon91CO6cyx9n0BBfcAZxWvR8kw==)

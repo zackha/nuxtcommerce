@@ -12,7 +12,7 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "release": "bumpp"
+    "deploy": "bumpp && nuxthub deploy"
   },
   "dependencies": {
     "@nuxt/image": "^1.9.0",
