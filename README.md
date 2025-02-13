@@ -54,10 +54,10 @@ To get started with NuxtCommerce, follow these steps:
 
 3. **Set up environment variables:**
 
-   Create a [.env](http://_vscodecontentref_/0) file in the root directory and add the following variables:
+   Create a .env file in the root directory and add the following variables:
 
    ```sh
-   WP_GRAPHQL_URL=https://your-woocommerce-site.com/graphql
+   GQL_HOST=https://your-woocommerce-site.com/graphql
    ```
 
 4. **Run the development server:**
