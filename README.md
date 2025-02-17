@@ -87,7 +87,7 @@ To begin, make sure the following plugins are installed and activated on your Wo
 
 To populate your WooCommerce store with product data, follow these steps:
 
-1. Download the product data files from [this link](https://github.com/zackha/nuxtcommerce/blob/master/public/products.zip). The zip file contains both variable and variation product CSV files.
+1. Download the product data files from [this link](https://github.com/zackha/nuxtcommerce/raw/refs/heads/master/public/products.zip). The zip file contains both variable and variation product CSV files.
 2. Navigate to the WooCommerce admin panel.
 3. Go to **Products > Import**, then upload the CSV files from the downloaded zip.
 4. Follow the on-screen instructions to map the CSV columns to WooCommerce fields and complete the import.
