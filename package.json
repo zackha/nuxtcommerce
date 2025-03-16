@@ -16,10 +16,10 @@
   },
   "dependencies": {
     "@nuxt/image": "^1.9.0",
-    "@nuxt/ui": "^2.21.0",
+    "@nuxt/ui": "^2.21.1",
     "@nuxthub/core": "0.8.11",
     "notivue": "^2.4.5",
-    "nuxt": "^3.15.4",
+    "nuxt": "^3.16.0",
     "nuxt-graphql-request": "^8.1.1",
     "swiper": "^11.2.5",
     "vue": "latest"
@@ -31,7 +31,7 @@
     "@vueuse/nuxt": "^10.11.1",
     "lru-cache": "^10.4.3",
     "ohash": "^1.1.6",
-    "wrangler": "^3.114.0"
+    "wrangler": "^3.114.1"
   },
   "packageManager": "pnpm@9.15.3+sha512.1f79bc245a66eb0b07c5d4d83131240774642caaa86ef7d0434ab47c0d16f66b04e21e0c086eb61e62c77efc4d7f7ec071afad3796af64892fae66509173893a"
 }
