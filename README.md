@@ -13,6 +13,11 @@
   </p>
 </p>
 
+## We Love Our Stars ⭐⭐⭐⭐⭐
+
+Thanks to the following people who have given us a star on our repo:
+[![Stargazers repo roster for @zackha/nuxtcommerce](https://reporoster.com/stars/zackha/nuxtcommerce)](https://github.com/zackha/nuxtcommerce/stargazers)
+
 ## Introduction
 
 NuxtCommerce is a dynamic and lively e-commerce platform developed with Nuxt 3. Developed for WooCommerce, NuxtCommerce optimizes data flow with [WPGraphQL](https://github.com/wp-graphql/wp-graphql), offering an efficient shopping experience. It stands out with its Pinterest-style user-friendly interface and fashion-oriented structure. With its dark mode feature and open-source nature, it offers flexibility and continuous development opportunities.
