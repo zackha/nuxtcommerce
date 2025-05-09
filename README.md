@@ -16,7 +16,7 @@
 ## We Love Our Stars ⭐⭐⭐⭐⭐
 
 Thanks to the following people who have given us a star on our repo:
-[![Stargazers repo roster for @zackha/nuxtcommerce](https://reporoster.com/stars/zackha/nuxtcommerce)](https://github.com/zackha/nuxtcommerce/stargazers)
+[![Stargazers repo roster for @zackha/nuxtcommerce](https://reporoster.com/stars/dark/zackha/nuxtcommerce#gh-dark-mode-only)](https://github.com/zackha/nuxtcommerce/stargazers)
 
 ## Introduction
 
