@@ -16,10 +16,10 @@
   },
   "dependencies": {
     "@nuxt/image": "^1.10.0",
-    "@nuxt/ui": "^2.22.0",
-    "@nuxthub/core": "0.8.11",
+    "@nuxt/ui": "^3.2.0",
+    "@nuxthub/core": "0.9.0",
     "notivue": "^2.4.5",
-    "nuxt": "^3.17.4",
+    "nuxt": "^3.17.5",
     "nuxt-graphql-request": "^8.1.1",
     "swiper": "^11.2.8",
     "vue": "latest"
@@ -27,11 +27,11 @@
   "devDependencies": {
     "@iconify-json/iconamoon": "^1.2.2",
     "@iconify-json/svg-spinners": "^1.2.2",
-    "@vueuse/core": "^10.11.1",
-    "@vueuse/nuxt": "^10.11.1",
-    "lru-cache": "^10.4.3",
-    "ohash": "^1.1.6",
-    "wrangler": "^3.114.9"
+    "@vueuse/core": "^13.4.0",
+    "@vueuse/nuxt": "^13.4.0",
+    "lru-cache": "^11.1.0",
+    "ohash": "^2.0.11",
+    "wrangler": "^4.22.0"
   },
   "packageManager": "pnpm@10.11.0+sha512.6540583f41cc5f628eb3d9773ecee802f4f9ef9923cc45b69890fb47991d4b092964694ec3a4f738a420c918a333062c8b925d312f42e4f0c263eb603551f977"
 }
