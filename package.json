@@ -21,7 +21,7 @@
     "notivue": "^2.4.5",
     "nuxt": "^3.17.5",
     "nuxt-graphql-request": "^8.1.1",
-    "swiper": "^11.2.8",
+    "swiper": "^11.2.9",
     "vue": "latest"
   },
   "devDependencies": {
