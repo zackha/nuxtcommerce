@@ -1,6 +1,6 @@
 {
   "name": "nuxtcommerce",
-  "version": "2.2.39",
+  "version": "2.2.40",
   "private": true,
   "author": "zackha",
   "description": "Headless storefront for Woocommerce (Nuxt/Vue)",
