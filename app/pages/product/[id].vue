@@ -23,15 +23,15 @@ const slug = computed(() => {
 });
 const sku = computed(() => id.value.split('-').at(-1));
 
-const { data: product } = await useFetch(
-  () => (slug.value ? '/api/product' : null),
-  {
-    query: { slug: slug, sku },
-    transform: res => res.product,
-    default: () => ({}),
-    watch: [id],
-  },
-);
+const { data: product, refresh } = await useFetch('/api/product', {
+  query: { slug: slug.value, sku: sku.value },
+  transform: res => res.product,
+  default: () => ({}),
+});
+
+watch(id, () => {
+  refresh();
+});
 
 const selectedVariation = ref(null);
 

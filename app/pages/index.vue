@@ -1,17 +1,47 @@
 <script setup>
 const route = useRoute();
 const { siteName } = useAppConfig();
-const url = useRequestURL();
-const canonical = url.origin + url.pathname;
 
-useSeoMeta({
-  title: 'Home',
-  ogTitle: 'Home',
-  description: `Discover the latest products on ${siteName}.`,
-  ogDescription: `Discover the latest products on ${siteName}.`,
-  ogUrl: canonical,
-  canonical,
+const title = computed(() => {
+  const q = route.query.q?.toString();
+  const category = route.query.category?.toString();
+  if (q && category) {
+    return `Search "${q}" in ${category}`;
+  }
+  if (q) {
+    return `Search "${q}"`;
+  }
+  if (category) {
+    return `Category: ${category}`;
+  }
+  return 'Home';
 });
+
+const description = computed(() => {
+  const q = route.query.q?.toString();
+  const category = route.query.category?.toString();
+  if (q || category) {
+    const search = q ? `results for "${q}"` : 'products';
+    const inCategory = category ? ` in ${category}` : '';
+    return `Explore ${search}${inCategory} on ${siteName}.`;
+  }
+  return `Discover the latest products on ${siteName}.`;
+});
+
+const canonical = computed(() => {
+  const url = useRequestURL();
+  const search = new URLSearchParams(route.query).toString();
+  return url.origin + url.pathname + (search ? `?${search}` : '');
+});
+
+useSeoMeta(() => ({
+  title: title.value,
+  ogTitle: title.value,
+  description: description.value,
+  ogDescription: description.value,
+  ogUrl: canonical.value,
+  canonical: canonical.value,
+}));
 
 const productsData = ref([]);
 const isLoading = ref(false);
