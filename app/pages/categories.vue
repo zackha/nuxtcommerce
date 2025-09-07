@@ -14,7 +14,11 @@ useSeoMeta({
 });
 
 onMounted(() => {
-  listCategories().then(response => (categoriesData.value = response.productCategories.nodes.filter(category => category.products.nodes.length && category.children.nodes.length)));
+  $fetch('/api/categories').then(response => (
+    (categoriesData.value = response.productCategories.nodes.filter(
+      category => category.products.nodes.length && category.children.nodes.length
+    ))
+  ));
 });
 
 const categories = computed(() => categoriesData.value);

@@ -23,7 +23,11 @@ const slug = parts.join('-');
 const productResult = ref({});
 const selectedVariation = ref(null);
 
-onMounted(() => getProduct(slug, sku).then(data => (productResult.value = data.product)));
+onMounted(() => {
+  $fetch('/api/product', {
+    query: { slug, sku },
+  }).then(data => (productResult.value = data.product));
+});
 
 const product = computed(() => productResult.value);
 

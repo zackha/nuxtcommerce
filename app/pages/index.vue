@@ -32,7 +32,9 @@ async function fetch() {
   isLoading.value = true;
 
   try {
-    const response = await listProducts(variables.value);
+    const response = await $fetch('/api/products', {
+      query: variables.value,
+    });
     productsData.value.push(...response.products.nodes);
     pageInfo.value = response.products.pageInfo;
     hasFetched.value = true;

@@ -6,7 +6,10 @@ export const useCart = () => {
   const handleAddToCart = productId => {
     addToCartButtonStatus.value = 'loading';
 
-    addToCart({ productId })
+    $fetch('/api/cart/add', {
+      method: 'POST',
+      body: { productId },
+    })
       .then(res => {
         updateCart([...cart.value, res.addToCart.cartItem]);
         addToCartButtonStatus.value = 'added';
@@ -24,7 +27,10 @@ export const useCart = () => {
 
   const handleRemoveFromCart = key => {
     removeFromCartButtonStatus.value = 'loading';
-    updateItemQuantities({ items: [{ key, quantity: 0 }] }).then(() => {
+    $fetch('/api/cart/update', {
+      method: 'POST',
+      body: { items: [{ key, quantity: 0 }] },
+    }).then(() => {
       removeFromCartButtonStatus.value = 'remove';
       updateCart(cart.value.filter(item => item.key !== key));
     });
