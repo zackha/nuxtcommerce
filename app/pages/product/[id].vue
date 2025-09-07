@@ -16,20 +16,21 @@ const modules = [Navigation, Pagination, Thumbs];
 
 const route = useRoute();
 const id = computed(() => route.params.id);
-const parts = id.value.split('-');
-const sku = parts.pop();
-const slug = parts.join('-');
+const slug = computed(() => {
+  const parts = id.value.split('-');
+  parts.pop();
+  return parts.join('-');
+});
+const sku = computed(() => id.value.split('-').at(-1));
 
-const productResult = ref({});
-const selectedVariation = ref(null);
-
-onMounted(() => {
-  $fetch('/api/product', {
-    query: { slug, sku },
-  }).then(data => (productResult.value = data.product));
+const { data: product } = await useFetch('/api/product', {
+  query: () => ({ slug: slug.value, sku: sku.value }),
+  watch: [id],
+  transform: res => res.product,
+  default: () => ({}),
 });
 
-const product = computed(() => productResult.value);
+const selectedVariation = ref(null);
 
 const sizeOrder = ['xxs', 'xs', 's', 'm', 'l', 'xl', '2xl', '23-24', '25', '26-27', '28-29', '30', '31-32', '33', '34-25'];
 
