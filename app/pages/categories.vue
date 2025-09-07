@@ -1,5 +1,17 @@
 <script setup>
 const categoriesData = ref([]);
+const { siteName } = useAppConfig();
+const url = useRequestURL();
+const canonical = url.origin + url.pathname;
+
+useSeoMeta({
+  title: 'Categories',
+  ogTitle: 'Categories',
+  description: `Browse product categories on ${siteName}.`,
+  ogDescription: `Browse product categories on ${siteName}.`,
+  ogUrl: canonical,
+  canonical,
+});
 
 onMounted(() => {
   listCategories().then(response => (categoriesData.value = response.productCategories.nodes.filter(category => category.products.nodes.length && category.children.nodes.length)));

@@ -52,6 +52,24 @@ const calculateDiscountPercentage = computed(() => {
   return Math.round(((salePriceValue - regularPriceValue) / regularPriceValue) * 100);
 });
 
+const url = useRequestURL();
+const canonical = url.origin + url.pathname;
+const plainDescription = computed(() => {
+  const raw = product.value?.description?.replace(/<[^>]+>/g, '');
+  return raw ? raw.slice(0, 160) : '';
+});
+
+useSeoMeta(() => ({
+  title: product.value?.name,
+  ogTitle: product.value?.name,
+  description: plainDescription.value,
+  ogDescription: plainDescription.value,
+  ogImage: product.value?.image?.sourceUrl,
+  ogUrl: canonical,
+  canonical,
+  twitterCard: 'summary_large_image',
+}));
+
 const { handleAddToCart, addToCartButtonStatus } = useCart();
 </script>
 
