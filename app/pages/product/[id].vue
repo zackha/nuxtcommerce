@@ -23,14 +23,37 @@ const slug = computed(() => {
 });
 const sku = computed(() => id.value.split('-').at(-1));
 
-const { data: product, refresh } = await useFetch('/api/product', {
-  query: { slug: slug.value, sku: sku.value },
+const { data: seoProduct } = await useFetch('/api/product-seo', {
+  query: { slug: slug.value },
   transform: res => res.product,
   default: () => ({}),
 });
 
+const product = ref({});
+
+async function loadSeo() {
+  const data = await $fetch('/api/product-seo', {
+    query: { slug: slug.value },
+  });
+  seoProduct.value = data.product;
+}
+
+async function loadProduct() {
+  product.value = {};
+  const data = await $fetch('/api/product', {
+    query: { slug: slug.value, sku: sku.value },
+  });
+  product.value = data.product;
+}
+
+onMounted(() => {
+  loadSeo();
+  loadProduct();
+});
+
 watch(id, () => {
-  refresh();
+  loadSeo();
+  loadProduct();
 });
 
 const selectedVariation = ref(null);
@@ -63,16 +86,16 @@ const calculateDiscountPercentage = computed(() => {
 const url = useRequestURL();
 const canonical = url.origin + url.pathname;
 const plainDescription = computed(() => {
-  const raw = product.value?.description?.replace(/<[^>]+>/g, '');
+  const raw = seoProduct.value?.description?.replace(/<[^>]+>/g, '');
   return raw ? raw.slice(0, 160) : '';
 });
 
 useSeoMeta(() => ({
-  title: product.value?.name,
-  ogTitle: product.value?.name,
+  title: seoProduct.value?.name,
+  ogTitle: seoProduct.value?.name,
   description: plainDescription.value,
   ogDescription: plainDescription.value,
-  ogImage: product.value?.image?.sourceUrl,
+  ogImage: seoProduct.value?.image?.sourceUrl,
   ogUrl: canonical,
   canonical,
   twitterCard: 'summary_large_image',

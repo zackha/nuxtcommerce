@@ -30,8 +30,7 @@ const description = computed(() => {
 
 const canonical = computed(() => {
   const url = useRequestURL();
-  const search = new URLSearchParams(route.query).toString();
-  return url.origin + url.pathname + (search ? `?${search}` : '');
+  return url.origin + route.fullPath;
 });
 
 useSeoMeta(() => ({
