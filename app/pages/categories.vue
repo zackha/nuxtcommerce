@@ -11,6 +11,11 @@ useSeoMeta({
   ogDescription: `Browse product categories on ${siteName}.`,
   ogUrl: canonical,
   canonical,
+  keywords: `categories, ${siteName}`,
+  twitterTitle: 'Categories',
+  twitterDescription: `Browse product categories on ${siteName}.`,
+  ogImage: 'https://commerce.nuxt.dev/social-card.jpg',
+  twitterImage: 'https://commerce.nuxt.dev/social-card.jpg',
 });
 
 onMounted(() => {

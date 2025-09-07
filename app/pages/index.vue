@@ -2,15 +2,50 @@
 const route = useRoute();
 const { siteName } = useAppConfig();
 const url = useRequestURL();
-const canonical = url.origin + url.pathname;
+const canonical = computed(() => {
+  const base = `${url.origin}${url.pathname}`;
+  const params = new URLSearchParams();
+  if (typeof route.query.q === 'string' && route.query.q) params.set('q', route.query.q);
+  if (typeof route.query.category === 'string' && route.query.category) params.set('category', route.query.category);
+  const query = params.toString();
+  return query ? `${base}?${query}` : base;
+});
 
-useSeoMeta({
-  title: 'Home',
-  ogTitle: 'Home',
-  description: `Discover the latest products on ${siteName}.`,
-  ogDescription: `Discover the latest products on ${siteName}.`,
-  ogUrl: canonical,
-  canonical,
+useSeoMeta(() => {
+  const q = typeof route.query.q === 'string' ? route.query.q : undefined;
+  const category = typeof route.query.category === 'string' ? route.query.category : undefined;
+
+  let title = 'Home';
+  let description = `Discover the latest products on ${siteName}.`;
+  const keywords = new Set(['ecommerce', siteName]);
+
+  if (category) {
+    title = `${category} Products`;
+    description = `Browse ${category} products on ${siteName}.`;
+    keywords.add(category);
+  }
+
+  if (q) {
+    title = `Search results for "${q}"`;
+    description = `Search results for "${q}" on ${siteName}.`;
+    keywords.add(q);
+  }
+
+  const canonicalUrl = canonical.value;
+
+  return {
+    title,
+    ogTitle: title,
+    description,
+    ogDescription: description,
+    ogUrl: canonicalUrl,
+    canonical: canonicalUrl,
+    keywords: Array.from(keywords).join(', '),
+    twitterTitle: title,
+    twitterDescription: description,
+    ogImage: 'https://commerce.nuxt.dev/social-card.jpg',
+    twitterImage: 'https://commerce.nuxt.dev/social-card.jpg',
+  };
 });
 
 const productsData = ref([]);
