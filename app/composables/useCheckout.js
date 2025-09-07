@@ -18,7 +18,10 @@ export const useCheckout = () => {
       paymentMethod: 'cod',
     };
 
-    await checkout(checkoutData).then(res => {
+    await $fetch('/api/checkout', {
+      method: 'POST',
+      body: checkoutData,
+    }).then(res => {
       cart.value = [];
       localStorage.setItem('cart', JSON.stringify(cart.value));
       order.value = res.checkout.order;

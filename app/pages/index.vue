@@ -1,5 +1,18 @@
 <script setup>
 const route = useRoute();
+const { siteName } = useAppConfig();
+const url = useRequestURL();
+const canonical = url.origin + url.pathname;
+
+useSeoMeta({
+  title: 'Home',
+  ogTitle: 'Home',
+  description: `Discover the latest products on ${siteName}.`,
+  ogDescription: `Discover the latest products on ${siteName}.`,
+  ogUrl: canonical,
+  canonical,
+});
+
 const productsData = ref([]);
 const isLoading = ref(false);
 const hasFetched = ref(false);
@@ -19,7 +32,9 @@ async function fetch() {
   isLoading.value = true;
 
   try {
-    const response = await listProducts(variables.value);
+    const response = await $fetch('/api/products', {
+      query: variables.value,
+    });
     productsData.value.push(...response.products.nodes);
     pageInfo.value = response.products.pageInfo;
     hasFetched.value = true;

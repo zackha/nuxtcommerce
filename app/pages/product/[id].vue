@@ -23,7 +23,11 @@ const slug = parts.join('-');
 const productResult = ref({});
 const selectedVariation = ref(null);
 
-onMounted(() => getProduct(slug, sku).then(data => (productResult.value = data.product)));
+onMounted(() => {
+  $fetch('/api/product', {
+    query: { slug, sku },
+  }).then(data => (productResult.value = data.product));
+});
 
 const product = computed(() => productResult.value);
 
@@ -51,6 +55,24 @@ const calculateDiscountPercentage = computed(() => {
   const regularPriceValue = parseFloat(product.value.regularPrice.replace(/[^0-9]/g, ''));
   return Math.round(((salePriceValue - regularPriceValue) / regularPriceValue) * 100);
 });
+
+const url = useRequestURL();
+const canonical = url.origin + url.pathname;
+const plainDescription = computed(() => {
+  const raw = product.value?.description?.replace(/<[^>]+>/g, '');
+  return raw ? raw.slice(0, 160) : '';
+});
+
+useSeoMeta(() => ({
+  title: product.value?.name,
+  ogTitle: product.value?.name,
+  description: plainDescription.value,
+  ogDescription: plainDescription.value,
+  ogImage: product.value?.image?.sourceUrl,
+  ogUrl: canonical,
+  canonical,
+  twitterCard: 'summary_large_image',
+}));
 
 const { handleAddToCart, addToCartButtonStatus } = useCart();
 </script>

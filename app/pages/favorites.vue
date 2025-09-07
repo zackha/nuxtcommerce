@@ -1,5 +1,17 @@
 <script setup>
 const { removeFromList, wishlist } = useWishlist();
+const { siteName } = useAppConfig();
+const url = useRequestURL();
+const canonical = url.origin + url.pathname;
+
+useSeoMeta({
+  title: 'Favorites',
+  ogTitle: 'Favorites',
+  description: `Your favorite products saved on ${siteName}.`,
+  ogDescription: `Your favorite products saved on ${siteName}.`,
+  ogUrl: canonical,
+  canonical,
+});
 </script>
 
 <template>

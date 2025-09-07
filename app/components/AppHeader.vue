@@ -16,7 +16,9 @@ const search = () => {
 
 async function fetch() {
   try {
-    const response = await searchProducts(searchQuery.value);
+    const response = await $fetch('/api/search', {
+      query: { search: searchQuery.value },
+    });
     searchResults.value = response.products.nodes;
   } finally {
     isLoading.value = false;
