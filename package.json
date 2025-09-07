@@ -1,6 +1,6 @@
 {
   "name": "nuxtcommerce",
-  "version": "2.2.42",
+  "version": "3.1.0",
   "private": true,
   "author": "zackha",
   "description": "Headless storefront for Woocommerce (Nuxt/Vue)",
@@ -29,8 +29,6 @@
     "@iconify-json/svg-spinners": "^1.2.4",
     "@vueuse/core": "^13.9.0",
     "@vueuse/nuxt": "^13.9.0",
-    "lru-cache": "^11.2.1",
-    "ohash": "^2.0.11",
     "wrangler": "^4.34.0"
   },
   "packageManager": "pnpm@10.15.1"

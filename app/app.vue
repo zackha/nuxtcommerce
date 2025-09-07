@@ -1,19 +1,25 @@
 <script setup lang="ts">
-const { siteName } = useAppConfig();
+const { siteName, siteDescription } = useAppConfig();
 
 useHead({
   htmlAttrs: {
     lang: 'en',
   },
-  title: siteName,
-  meta: [
-    { name: 'description', content: 'NuxtCommerce is a dynamic e-commerce solution developed with Nuxt 3 and GraphQL, tailored for WooCommerce.' },
-    { property: 'og:image', content: 'https://commerce.nuxt.dev/social-card.jpg' },
-    { name: 'twitter:card', content: 'summary_large_image' },
-    { name: 'twitter:site', content: '@zhatlen' },
-    { name: 'twitter:creator', content: '@zhatlen' },
-    { name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, viewport-fit=cover' },
-  ],
+  titleTemplate: titleChunk => (titleChunk ? `${titleChunk} - ${siteName}` : siteName),
+});
+
+useSeoMeta({
+  description: siteDescription,
+  ogType: 'website',
+  ogImage: 'https://commerce.nuxt.dev/social-card.jpg',
+  ogSiteName: siteName,
+  ogLocale: 'en_US',
+  twitterCard: 'summary_large_image',
+  twitterSite: '@zhatlen',
+  twitterCreator: '@zhatlen',
+  twitterImage: 'https://commerce.nuxt.dev/social-card.jpg',
+  keywords: `${siteName}, ecommerce, nuxt, woocommerce`,
+  viewport: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, viewport-fit=cover',
 });
 </script>
 

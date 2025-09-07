@@ -1,7 +1,9 @@
 export const useWishlist = product => {
-  const wishlist = ref([]);
+  const wishlist = useState('wishlist', () => []);
 
-  const isWishlisted = computed(() => wishlist.value.some(item => item.databaseId === product.databaseId));
+  const isWishlisted = computed(() =>
+    product ? wishlist.value.some(item => item.databaseId === product.databaseId) : false
+  );
 
   const updateLocalStorage = () => {
     localStorage.setItem('wishlist', JSON.stringify(wishlist.value));
@@ -9,7 +11,9 @@ export const useWishlist = product => {
 
   const toggleWishlist = item => {
     if (isWishlisted.value) {
-      wishlist.value = wishlist.value.filter(existingItem => existingItem.databaseId !== product.databaseId);
+      wishlist.value = wishlist.value.filter(
+        existingItem => existingItem.databaseId !== item.databaseId
+      );
     } else {
       wishlist.value.push(item);
     }

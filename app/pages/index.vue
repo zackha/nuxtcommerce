@@ -1,5 +1,53 @@
 <script setup>
 const route = useRoute();
+const { siteName } = useAppConfig();
+const url = useRequestURL();
+const canonical = computed(() => {
+  const base = `${url.origin}${url.pathname}`;
+  const params = new URLSearchParams();
+  if (typeof route.query.q === 'string' && route.query.q) params.set('q', route.query.q);
+  if (typeof route.query.category === 'string' && route.query.category) params.set('category', route.query.category);
+  const query = params.toString();
+  return query ? `${base}?${query}` : base;
+});
+
+useHead(() => {
+  const q = typeof route.query.q === 'string' ? route.query.q : undefined;
+  const category = typeof route.query.category === 'string' ? route.query.category : undefined;
+
+  let title = '';
+  let description = '';
+  const keywords = new Set(['ecommerce', siteName]);
+
+  if (category) {
+    title = `${category} Products`;
+    description = `Browse ${category} products on ${siteName}.`;
+    keywords.add(category);
+  }
+
+  if (q) {
+    title = `Search results for "${q}"`;
+    description = `Search results for "${q}" on ${siteName}.`;
+    keywords.add(q);
+  }
+
+  const canonicalUrl = canonical.value;
+
+  return {
+    title,
+    ogTitle: title,
+    description,
+    ogDescription: description,
+    ogUrl: canonicalUrl,
+    canonical: canonicalUrl,
+    keywords: Array.from(keywords).join(', '),
+    twitterTitle: title,
+    twitterDescription: description,
+    ogImage: 'https://commerce.nuxt.dev/social-card.jpg',
+    twitterImage: 'https://commerce.nuxt.dev/social-card.jpg',
+  };
+});
+
 const productsData = ref([]);
 const isLoading = ref(false);
 const hasFetched = ref(false);
@@ -19,7 +67,9 @@ async function fetch() {
   isLoading.value = true;
 
   try {
-    const response = await listProducts(variables.value);
+    const response = await $fetch('/api/products', {
+      query: variables.value,
+    });
     productsData.value.push(...response.products.nodes);
     pageInfo.value = response.products.pageInfo;
     hasFetched.value = true;

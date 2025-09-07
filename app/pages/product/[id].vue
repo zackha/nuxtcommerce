@@ -23,7 +23,11 @@ const slug = parts.join('-');
 const productResult = ref({});
 const selectedVariation = ref(null);
 
-onMounted(() => getProduct(slug, sku).then(data => (productResult.value = data.product)));
+onMounted(() => {
+  $fetch('/api/product', {
+    query: { slug, sku },
+  }).then(data => (productResult.value = data.product));
+});
 
 const product = computed(() => productResult.value);
 
@@ -51,6 +55,56 @@ const calculateDiscountPercentage = computed(() => {
   const regularPriceValue = parseFloat(product.value.regularPrice.replace(/[^0-9]/g, ''));
   return Math.round(((salePriceValue - regularPriceValue) / regularPriceValue) * 100);
 });
+
+const { siteName } = useAppConfig();
+const url = useRequestURL();
+const canonical = url.origin + url.pathname;
+const image = computed(() => product.value?.image?.sourceUrl);
+const plainDescription = computed(() => {
+  const raw = product.value?.description?.replace(/<[^>]+>/g, '');
+  return raw ? raw.slice(0, 160) : '';
+});
+
+useHead(() => {
+  const title = product.value?.name || siteName;
+  const description = plainDescription.value;
+  const img = image.value;
+  const keywords = [product.value?.name, product.value?.allPaStyle?.nodes?.[0]?.name, siteName].filter(Boolean).join(', ');
+
+  return {
+    title,
+    ogTitle: title,
+    description,
+    ogDescription: description,
+    ogImage: img,
+    ogUrl: canonical,
+    canonical,
+    ogType: 'product',
+    twitterTitle: title,
+    twitterDescription: description,
+    twitterImage: img,
+    keywords,
+  };
+});
+
+const productSchema = computed(() => ({
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: product.value?.name,
+  description: plainDescription.value,
+  image: image.value ? [image.value] : [],
+  sku: product.value?.sku,
+  brand: { '@type': 'Brand', name: siteName },
+}));
+
+useHead(() => ({
+  script: [
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify(productSchema.value),
+    },
+  ],
+}));
 
 const { handleAddToCart, addToCartButtonStatus } = useCart();
 </script>

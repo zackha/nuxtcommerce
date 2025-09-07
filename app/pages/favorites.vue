@@ -1,5 +1,23 @@
 <script setup>
 const { removeFromList, wishlist } = useWishlist();
+const { siteName } = useAppConfig();
+const url = useRequestURL();
+const canonical = url.origin + url.pathname;
+
+useSeoMeta({
+  title: 'Favorites',
+  ogTitle: 'Favorites',
+  description: `Your favorite products saved on ${siteName}.`,
+  ogDescription: `Your favorite products saved on ${siteName}.`,
+  ogUrl: canonical,
+  canonical,
+  keywords: `favorites, wishlist, ${siteName}`,
+  twitterTitle: 'Favorites',
+  twitterDescription: `Your favorite products saved on ${siteName}.`,
+  ogImage: 'https://commerce.nuxt.dev/social-card.jpg',
+  twitterImage: 'https://commerce.nuxt.dev/social-card.jpg',
+  robots: 'noindex, nofollow',
+});
 </script>
 
 <template>

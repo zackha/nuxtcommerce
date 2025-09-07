@@ -1,8 +1,29 @@
 <script setup>
 const categoriesData = ref([]);
+const { siteName } = useAppConfig();
+const url = useRequestURL();
+const canonical = url.origin + url.pathname;
+
+useSeoMeta({
+  title: 'Categories',
+  ogTitle: 'Categories',
+  description: `Browse product categories on ${siteName}.`,
+  ogDescription: `Browse product categories on ${siteName}.`,
+  ogUrl: canonical,
+  canonical,
+  keywords: `categories, ${siteName}`,
+  twitterTitle: 'Categories',
+  twitterDescription: `Browse product categories on ${siteName}.`,
+  ogImage: 'https://commerce.nuxt.dev/social-card.jpg',
+  twitterImage: 'https://commerce.nuxt.dev/social-card.jpg',
+});
 
 onMounted(() => {
-  listCategories().then(response => (categoriesData.value = response.productCategories.nodes.filter(category => category.products.nodes.length && category.children.nodes.length)));
+  $fetch('/api/categories').then(response => (
+    (categoriesData.value = response.productCategories.nodes.filter(
+      category => category.products.nodes.length && category.children.nodes.length
+    ))
+  ));
 });
 
 const categories = computed(() => categoriesData.value);
