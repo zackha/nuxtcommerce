@@ -11,6 +11,12 @@ useSeoMeta({
   ogDescription: `Your favorite products saved on ${siteName}.`,
   ogUrl: canonical,
   canonical,
+  keywords: `favorites, wishlist, ${siteName}`,
+  twitterTitle: 'Favorites',
+  twitterDescription: `Your favorite products saved on ${siteName}.`,
+  ogImage: 'https://commerce.nuxt.dev/social-card.jpg',
+  twitterImage: 'https://commerce.nuxt.dev/social-card.jpg',
+  robots: 'noindex, nofollow',
 });
 </script>
 

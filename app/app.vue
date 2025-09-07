@@ -12,9 +12,13 @@ useSeoMeta({
   description: siteDescription,
   ogType: 'website',
   ogImage: 'https://commerce.nuxt.dev/social-card.jpg',
+  ogSiteName: siteName,
+  ogLocale: 'en_US',
   twitterCard: 'summary_large_image',
   twitterSite: '@zhatlen',
   twitterCreator: '@zhatlen',
+  twitterImage: 'https://commerce.nuxt.dev/social-card.jpg',
+  keywords: `${siteName}, ecommerce, nuxt, woocommerce`,
   viewport: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, viewport-fit=cover',
 });
 </script>
