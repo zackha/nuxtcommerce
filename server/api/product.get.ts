@@ -4,10 +4,12 @@ import { requestQuery } from '~~/server/utils/wpgraphql';
 
 export default defineCachedEventHandler(async event => {
   const { slug, sku } = getQuery(event);
-  if (!slug || !sku) {
-    throw createError({ statusCode: 400, statusMessage: 'slug and sku are required' });
+  if (!slug) {
+    throw createError({ statusCode: 400, statusMessage: 'slug is required' });
   }
-  return await requestQuery(getProductQuery, { slug, sku });
+  const variables: Record<string, any> = { slug };
+  if (sku) variables.sku = sku;
+  return await requestQuery(getProductQuery, variables);
 }, {
   maxAge: 60 * 5,
   getKey: event => event.req.url!,

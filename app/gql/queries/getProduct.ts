@@ -1,7 +1,7 @@
 import { gql } from 'nuxt-graphql-request/utils';
 
 export const getProductQuery = gql`
-  query getProduct($slug: ID!, $sku: String!) {
+  query getProduct($slug: ID!, $sku: String) {
     product(id: $slug, idType: SLUG) {
       ... on VariableProduct {
         databaseId
