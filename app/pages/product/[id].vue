@@ -1,11 +1,11 @@
 <script setup>
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Navigation, Pagination, Thumbs } from 'swiper/modules';
-const { isOpenImageSliderModal } = useComponents();
-
+import { getProductQuery } from '~/gql/queries/getProduct';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+const { isOpenImageSliderModal } = useComponents();
 
 const thumbsSwiper = ref(null);
 const setThumbsSwiper = swiper => {
@@ -20,16 +20,10 @@ const parts = id.value.split('-');
 const sku = parts.pop();
 const slug = parts.join('-');
 
-const productResult = ref({});
+const { data: productResult } = await useGraphql('product', getProductQuery, { slug, sku });
 const selectedVariation = ref(null);
 
-onMounted(() => {
-  $fetch('/api/product', {
-    query: { slug, sku },
-  }).then(data => (productResult.value = data.product));
-});
-
-const product = computed(() => productResult.value);
+const product = computed(() => productResult.value?.product || {});
 
 const sizeOrder = ['xxs', 'xs', 's', 'm', 'l', 'xl', '2xl', '23-24', '25', '26-27', '28-29', '30', '31-32', '33', '34-25'];
 

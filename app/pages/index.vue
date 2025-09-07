@@ -1,4 +1,5 @@
 <script setup>
+import { getProductsQuery } from '~/gql/queries/getProducts';
 const route = useRoute();
 const { siteName } = useAppConfig();
 const url = useRequestURL();
@@ -67,11 +68,13 @@ async function fetch() {
   isLoading.value = true;
 
   try {
-    const response = await $fetch('/api/products', {
-      query: variables.value,
-    });
-    productsData.value.push(...response.products.nodes);
-    pageInfo.value = response.products.pageInfo;
+    const { data } = await useGraphql(
+      `products-${pageInfo.value.endCursor || 'start'}`,
+      getProductsQuery,
+      variables.value
+    );
+    productsData.value.push(...data.value.products.nodes);
+    pageInfo.value = data.value.products.pageInfo;
     hasFetched.value = true;
   } finally {
     isLoading.value = false;

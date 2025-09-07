@@ -1,5 +1,6 @@
 <script setup>
-const categoriesData = ref([]);
+import { getCategoriesQuery } from '~/gql/queries/getCategories';
+
 const { siteName } = useAppConfig();
 const url = useRequestURL();
 const canonical = url.origin + url.pathname;
@@ -18,15 +19,13 @@ useSeoMeta({
   twitterImage: 'https://commerce.nuxt.dev/social-card.jpg',
 });
 
-onMounted(() => {
-  $fetch('/api/categories').then(response => (
-    (categoriesData.value = response.productCategories.nodes.filter(
-      category => category.products.nodes.length && category.children.nodes.length
-    ))
-  ));
-});
+const { data: categoriesData } = await useGraphql('categories', getCategoriesQuery);
 
-const categories = computed(() => categoriesData.value);
+const categories = computed(() =>
+  (categoriesData.value?.productCategories?.nodes || []).filter(
+    category => category.products.nodes.length && category.children.nodes.length
+  )
+);
 </script>
 
 <template>
