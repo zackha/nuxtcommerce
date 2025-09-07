@@ -65,13 +65,11 @@ const plainDescription = computed(() => {
   return raw ? raw.slice(0, 160) : '';
 });
 
-useSeoMeta(() => {
+useHead(() => {
   const title = product.value?.name || siteName;
   const description = plainDescription.value;
   const img = image.value;
-  const keywords = [product.value?.name, product.value?.allPaStyle?.nodes?.[0]?.name, siteName]
-    .filter(Boolean)
-    .join(', ');
+  const keywords = [product.value?.name, product.value?.allPaStyle?.nodes?.[0]?.name, siteName].filter(Boolean).join(', ');
 
   return {
     title,

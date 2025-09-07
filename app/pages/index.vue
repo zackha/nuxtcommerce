@@ -11,12 +11,12 @@ const canonical = computed(() => {
   return query ? `${base}?${query}` : base;
 });
 
-useSeoMeta(() => {
+useHead(() => {
   const q = typeof route.query.q === 'string' ? route.query.q : undefined;
   const category = typeof route.query.category === 'string' ? route.query.category : undefined;
 
-  let title = 'Home';
-  let description = `Discover the latest products on ${siteName}.`;
+  let title = '';
+  let description = '';
   const keywords = new Set(['ecommerce', siteName]);
 
   if (category) {
