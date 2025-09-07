@@ -2,6 +2,7 @@ export const useCart = () => {
   const cart = useState('cart', () => []);
   const addToCartButtonStatus = ref('add');
   const removeFromCartButtonStatus = ref('remove');
+  const { push } = useNotivue();
 
   const handleAddToCart = productId => {
     addToCartButtonStatus.value = 'loading';
