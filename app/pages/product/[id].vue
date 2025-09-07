@@ -63,7 +63,7 @@ const plainDescription = computed(() => {
   return raw ? raw.slice(0, 160) : '';
 });
 
-useSeoMeta(() => ({
+useHead(() => ({
   title: product.value?.name,
   ogTitle: product.value?.name,
   description: plainDescription.value,
