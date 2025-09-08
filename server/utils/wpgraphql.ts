@@ -1,5 +1,6 @@
 import { GraphQLClient } from 'graphql-request';
 import { getCookie, setCookie, createError } from 'h3';
+import type { H3Event } from 'h3';
 
 let client: GraphQLClient;
 
@@ -10,7 +11,7 @@ function getClient() {
   return client;
 }
 
-export async function requestQuery(query: string, variables: any = {}) {
+export const requestQuery = defineCachedFunction(async (event: H3Event, query: string, variables: any = {}) => {
   try {
     return await getClient().request(query, variables);
   } catch (error: any) {
@@ -19,7 +20,11 @@ export async function requestQuery(query: string, variables: any = {}) {
       statusMessage: error?.message || 'GraphQL query request failed',
     });
   }
-}
+}, {
+  name: 'wp-queries',
+  maxAge: 60 * 60,
+  getKey: (_event, query, variables) => query + JSON.stringify(variables),
+});
 
 export async function requestMutation(event: any, query: string, variables: any = {}) {
   const session = getCookie(event, 'woocommerce-session');
