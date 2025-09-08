@@ -1,12 +1,9 @@
+// nuxt.config.ts
 import pkg from './package.json';
 
 export default defineNuxtConfig({
   devtools: { enabled: false },
-
   modules: ['nuxt-graphql-request', '@vueuse/nuxt', '@nuxt/ui', '@nuxt/image', 'notivue/nuxt', '@nuxthub/core'],
-
-  future: { compatibilityVersion: 4 },
-
   notivue: {
     position: 'top-center',
     limit: 3,
@@ -16,15 +13,12 @@ export default defineNuxtConfig({
       },
     },
   },
-
   css: ['notivue/notification.css', 'notivue/animations.css'],
-
   runtimeConfig: {
     public: {
       version: pkg.version,
     },
   },
-
   graphql: {
     clients: {
       default: {
@@ -32,12 +26,10 @@ export default defineNuxtConfig({
       },
     },
   },
-
   nitro: {
     prerender: {
       routes: ['/sitemap.xml', '/robots.txt'],
     },
   },
-
   compatibilityDate: '2024-08-03',
 });

@@ -1,3 +1,4 @@
+<!--app/pages/product/[id].vue-->
 <script setup>
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Navigation, Pagination, Thumbs } from 'swiper/modules';

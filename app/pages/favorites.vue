@@ -1,3 +1,4 @@
+<!--app/pages/favorites.vue-->
 <script setup>
 const { removeFromList, wishlist } = useWishlist();
 const { siteName } = useAppConfig();

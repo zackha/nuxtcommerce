@@ -1,3 +1,4 @@
+<!--app/app.vue-->
 <script setup lang="ts">
 const { siteName, siteDescription } = useAppConfig();
 

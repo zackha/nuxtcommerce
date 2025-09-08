@@ -1,3 +1,4 @@
+<!--app/pages/index.vue-->
 <script setup>
 const route = useRoute();
 const { siteName } = useAppConfig();
