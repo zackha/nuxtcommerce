@@ -1,16 +1,23 @@
 import { getRequestURL, setHeader } from 'h3';
 
-export default defineEventHandler(event => {
-  setHeader(event, 'Content-Type', 'application/xml');
-  const url = getRequestURL(event);
-  const base = url.origin;
-  const routes = ['/', '/categories', '/favorites'];
+export default cachedEventHandler(
+  event => {
+    setHeader(event, 'Content-Type', 'application/xml');
+    const url = getRequestURL(event);
+    const base = url.origin;
+    const routes = ['/', '/categories', '/favorites'];
 
-  return (
-    `<?xml version="1.0" encoding="UTF-8"?>\n` +
-    `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
-    routes.map(route => `  <url><loc>${base}${route}</loc></url>`).join('\n') +
-    `\n</urlset>`
-  );
-});
+    return (
+      `<?xml version="1.0" encoding="UTF-8"?>\n` +
+      `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
+      routes.map(route => `  <url><loc>${base}${route}</loc></url>`).join('\n') +
+      `\n</urlset>`
+    );
+  },
+  {
+    name: 'sitemap-xml',
+    maxAge: 60 * 60,
+    getKey: event => event.path,
+  },
+);
 
