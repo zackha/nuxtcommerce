@@ -1,11 +1,7 @@
 import { getQuery } from 'h3';
-import { getProductQuery } from '~/gql/queries/getProduct';
-import { requestQuery } from '~~/server/utils/wpgraphql';
+import { getProductCached } from '~~/server/utils/product';
 
-export default defineCachedEventHandler(async event => {
+export default defineEventHandler(async event => {
   const { slug, sku } = getQuery(event);
-  return await requestQuery(getProductQuery, { slug, sku });
-}, {
-  maxAge: 60 * 5,
-  getKey: event => event.req.url!,
+  return await getProductCached(event, slug as string | undefined, sku as string | undefined);
 });

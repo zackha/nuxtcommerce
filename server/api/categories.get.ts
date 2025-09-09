@@ -5,4 +5,6 @@ export default defineCachedEventHandler(async () => {
   return await requestQuery(getCategoriesQuery);
 }, {
   maxAge: 60 * 60,
+  name: 'categories',
+  getKey: () => 'all',
 });
