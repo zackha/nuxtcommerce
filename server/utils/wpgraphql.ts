@@ -2,53 +2,36 @@
 import { GraphQLClient, type RequestDocument, type Variables } from 'graphql-request';
 import { getCookie, setCookie, createError, type H3Event } from 'h3';
 
-let _client: GraphQLClient | null = null;
-
-function client() {
-  if (!_client) {
-    const { gqlHost } = useRuntimeConfig();
-    _client = new GraphQLClient(gqlHost, {
-      headers: { 'content-type': 'application/json' },
-    });
-  }
-  return _client;
+function getClient(): GraphQLClient {
+  const { gqlHost } = useRuntimeConfig();
+  return new GraphQLClient(gqlHost, { headers: { 'content-type': 'application/json' } });
 }
 
-type GqlVars = Variables | undefined;
-
-export async function requestQuery<T = unknown>(query: RequestDocument, variables?: GqlVars): Promise<T> {
+async function handleError<T>(promise: Promise<T>, message: string): Promise<T> {
   try {
-    return await client().request<T>(query, variables);
-  } catch (err: any) {
-    throw createError({
-      statusCode: 502,
-      statusMessage: err?.message || 'GraphQL query failed',
-    });
+    return await promise;
+  } catch (error: any) {
+    throw createError({ statusCode: 502, statusMessage: error?.message || message });
   }
 }
 
-export async function requestMutation<T = unknown>(event: H3Event, query: RequestDocument, variables?: GqlVars): Promise<T> {
-  const cookieName = 'woocommerce-session';
-  const session = getCookie(event, cookieName);
+export async function requestQuery<T = unknown>(query: RequestDocument, variables?: Variables): Promise<T> {
+  return handleError(getClient().request<T>(query, variables), 'GraphQL query failed');
+}
 
-  try {
-    if (!session) {
-      // İlk istek: rawRequest ile header yakala
-      const queryString = typeof query === 'string' ? query : (query as any).loc?.source.body;
-      const res = await client().rawRequest<T>(queryString, variables);
-      const newSession = res.headers.get(cookieName);
-      if (newSession) {
-        setCookie(event, cookieName, `Session ${newSession}`, { path: '/', httpOnly: true, sameSite: 'lax' });
-      }
-      return res.data;
+export async function requestMutation<T = unknown>(event: H3Event, query: RequestDocument, variables?: Variables): Promise<T> {
+  const session = getCookie(event, 'woocommerce-session');
+  const client = getClient();
+
+  if (!session) {
+    const queryString = typeof query === 'string' ? query : (query as any).loc?.source.body;
+    const res = await handleError(client.rawRequest<T>(queryString, variables), 'GraphQL mutation failed');
+    const newSession = res.headers.get('woocommerce-session');
+    if (newSession) {
+      setCookie(event, 'woocommerce-session', `Session ${newSession}`, { path: '/', httpOnly: true, sameSite: 'lax' });
     }
-
-    // Var olan session ile normal request
-    return await client().request<T>(query, variables, { [cookieName]: session });
-  } catch (err: any) {
-    throw createError({
-      statusCode: 502,
-      statusMessage: err?.message || 'GraphQL mutation failed',
-    });
+    return res.data;
   }
+
+  return handleError(client.request<T>(query, variables, { ['woocommerce-session']: session }), 'GraphQL mutation failed');
 }
