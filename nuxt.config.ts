@@ -4,6 +4,26 @@ import pkg from './package.json';
 export default defineNuxtConfig({
   devtools: { enabled: false },
   modules: ['nuxt-graphql-request', '@vueuse/nuxt', '@nuxt/ui', '@nuxt/image', 'notivue/nuxt', '@nuxthub/core'],
+  hub: {
+    cache: true,
+  },
+  routeRules: {
+    '/': {
+      cache: {
+        maxAge: 60,
+      },
+    },
+    '/categories': {
+      cache: {
+        maxAge: 60 * 60,
+      },
+    },
+    '/product/**': {
+      cache: {
+        maxAge: 60 * 5,
+      },
+    },
+  },
   notivue: {
     position: 'top-center',
     limit: 3,

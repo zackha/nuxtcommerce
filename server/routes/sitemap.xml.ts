@@ -1,6 +1,6 @@
 import { getRequestURL, setHeader } from 'h3';
 
-export default defineEventHandler(event => {
+export default defineCachedEventHandler(event => {
   setHeader(event, 'Content-Type', 'application/xml');
   const url = getRequestURL(event);
   const base = url.origin;
@@ -12,5 +12,9 @@ export default defineEventHandler(event => {
     routes.map(route => `  <url><loc>${base}${route}</loc></url>`).join('\n') +
     `\n</urlset>`
   );
+}, {
+  maxAge: 60 * 60,
+  name: 'sitemap',
+  getKey: () => 'sitemap',
 });
 

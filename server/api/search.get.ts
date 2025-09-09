@@ -7,5 +7,6 @@ export default defineCachedEventHandler(async event => {
   return await requestQuery(getSearchProductsQuery, { search });
 }, {
   maxAge: 60,
+  name: 'search',
   getKey: event => event.req.url!,
 });
