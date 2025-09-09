@@ -1,3 +1,4 @@
+// server/routes/robots.txt.ts
 import { getRequestURL, setHeader } from 'h3';
 
 export default defineEventHandler(event => {
@@ -5,4 +6,3 @@ export default defineEventHandler(event => {
   const url = getRequestURL(event);
   return `User-agent: *\nAllow: /\nSitemap: ${url.origin}/sitemap.xml`;
 });
-

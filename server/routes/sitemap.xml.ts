@@ -1,3 +1,4 @@
+// server/routes/sitemap.xml.ts
 import { getRequestURL, setHeader } from 'h3';
 
 export default defineEventHandler(event => {
@@ -13,4 +14,3 @@ export default defineEventHandler(event => {
     `\n</urlset>`
   );
 });
-

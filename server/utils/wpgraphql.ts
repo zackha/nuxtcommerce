@@ -1,3 +1,4 @@
+// server/utils/wpgraphql.ts
 import { GraphQLClient } from 'graphql-request';
 import { getCookie, setCookie, createError } from 'h3';
 
