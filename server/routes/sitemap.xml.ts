@@ -2,15 +2,11 @@
 import { getRequestURL, setHeader } from 'h3';
 
 export default defineEventHandler(event => {
-  setHeader(event, 'Content-Type', 'application/xml');
-  const url = getRequestURL(event);
-  const base = url.origin;
+  setHeader(event, 'Content-Type', 'application/xml; charset=utf-8');
+  const { origin } = getRequestURL(event);
   const routes = ['/', '/categories', '/favorites'];
-
-  return (
-    `<?xml version="1.0" encoding="UTF-8"?>\n` +
-    `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
-    routes.map(route => `  <url><loc>${base}${route}</loc></url>`).join('\n') +
-    `\n</urlset>`
-  );
+  const body = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'];
+  for (const r of routes) body.push(`  <url><loc>${origin}${r}</loc></url>`);
+  body.push('</urlset>');
+  return body.join('\n');
 });

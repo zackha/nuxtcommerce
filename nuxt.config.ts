@@ -6,6 +6,10 @@ export default defineNuxtConfig({
 
   modules: ['nuxt-graphql-request', '@vueuse/nuxt', '@nuxt/ui', '@nuxt/image', 'notivue/nuxt', '@nuxthub/core'],
 
+  hub: {
+    cache: true,
+  },
+
   notivue: {
     position: 'top-center',
     limit: 3,
