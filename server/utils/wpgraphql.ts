@@ -1,7 +1,6 @@
 // server/utils/wpgraphql.ts
 import { GraphQLClient, type RequestDocument, type Variables } from 'graphql-request';
 import { getCookie, setCookie, createError, type H3Event } from 'h3';
-import { useRuntimeConfig } from '#imports';
 
 let _client: GraphQLClient | null = null;
 
