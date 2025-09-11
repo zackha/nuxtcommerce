@@ -107,7 +107,20 @@ useHead(() => ({
   ],
 }));
 
-const { handleAddToCart, addToCartButtonStatus } = useCart();
+const {
+  cart,
+  itemStatus,
+  handleAddToCart,
+  increaseQuantity,
+  decreaseQuantity,
+} = useCart();
+
+const cartItem = computed(() => {
+  if (!selectedVariation.value || !cart.value) {
+    return null;
+  }
+  return cart.value.find(item => item.variation?.node.databaseId === selectedVariation.value.databaseId);
+});
 </script>
 
 <template>
@@ -206,18 +219,47 @@ const { handleAddToCart, addToCartButtonStatus } = useCart();
               </label>
             </div>
 
-            <div class="flex">
+            <div class="flex gap-2">
+              <div v-if="cartItem" class="flex items-center justify-center w-full h-12 rounded-md border-2 border-neutral-300 dark:border-neutral-700">
+                <button
+                    @click="decreaseQuantity(cartItem)"
+                    :disabled="itemStatus[cartItem.key] === 'loading'"
+                    class="px-5 text-2xl font-bold hover:bg-neutral-100 dark:hover:bg-neutral-800 h-full rounded-l-md disabled:opacity-50 disabled:cursor-not-allowed">-</button>
+
+                <div class="flex-grow text-center font-semibold">
+                  <UIcon v-if="itemStatus[cartItem.key] === 'loading'" name="i-svg-spinners-90-ring-with-bg" size="22"/>
+                  <span v-else-if="itemStatus[cartItem.key] === 'added'">
+                    Added to cart
+                  </span>
+                  <span v-else-if="itemStatus[cartItem.key] === 'increased'">
+                    Increased to {{ cartItem.quantity }}
+                  </span>
+                  <span v-else-if="itemStatus[cartItem.key] === 'decreased'">
+                    Decreased to {{ cartItem.quantity }}
+                  </span>
+                  <span v-else>
+                    {{ cartItem.quantity }} in cart
+                  </span>
+                </div>
+
+                <button
+                    @click="increaseQuantity(cartItem)"
+                    :disabled="itemStatus[cartItem.key] === 'loading'"
+                    class="px-5 text-2xl font-bold hover:bg-neutral-100 dark:hover:bg-neutral-800 h-full rounded-r-md disabled:opacity-50 disabled:cursor-not-allowed">+</button>
+              </div>
+
               <button
-                @click="handleAddToCart(selectedVariation.databaseId)"
-                :disabled="addToCartButtonStatus !== 'add'"
-                class="button-bezel w-full h-12 rounded-md relative tracking-wide font-semibold text-white text-sm flex justify-center items-center">
-                <Transition name="slide-up">
-                  <div v-if="addToCartButtonStatus === 'add'" class="absolute">Add to Cart</div>
-                  <UIcon v-else-if="addToCartButtonStatus === 'loading'" class="absolute" name="i-svg-spinners-90-ring-with-bg" size="22" />
-                  <div v-else-if="addToCartButtonStatus === 'added'" class="absolute">Added to Cart!</div>
+                  v-else
+                  @click="handleAddToCart(selectedVariation.databaseId)"
+                  :disabled="itemStatus[selectedVariation.databaseId] === 'loading'"
+                  class="button-bezel w-full h-12 rounded-md relative tracking-wide font-semibold text-white text-sm flex justify-center items-center disabled:opacity-50 disabled:cursor-not-allowed">
+                <Transition name="slide-up" mode="out-in">
+                  <div v-if="!itemStatus[selectedVariation.databaseId] || itemStatus[selectedVariation.databaseId] === 'idle'" class="absolute">Add to cart</div>
+                  <UIcon v-else-if="itemStatus[selectedVariation.databaseId] === 'loading'" class="absolute" name="i-svg-spinners-90-ring-with-bg" size="22"/>
+                  <div v-else-if="itemStatus[selectedVariation.databaseId] === 'added'" class="absolute">Added</div>
                 </Transition>
               </button>
-              <ButtonWishlist :product="product" />
+              <ButtonWishlist :product="product"/>
             </div>
           </div>
           <div class="px-3 lg:px-0">

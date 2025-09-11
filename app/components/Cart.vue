@@ -1,5 +1,5 @@
 <script setup>
-const { cart, handleRemoveFromCart, removeFromCartButtonStatus } = useCart();
+const { cart, handleRemoveFromCart, itemStatus } = useCart();
 const { order } = useCheckout();
 </script>
 
@@ -29,9 +29,13 @@ const { order } = useCheckout();
                 </div>
               </div>
               <button
-                @click="handleRemoveFromCart(product.key)"
-                class="absolute md:opacity-0 group-hover:opacity-100 top-2 right-2 md:-top-1 md:-right-1 transition bg-red-700 flex p-1 items-center justify-center rounded-full hover:bg-red-500 active:scale-95">
-                <UIcon :name="removeFromCartButtonStatus === 'remove' ? 'i-iconamoon-trash-light' : 'i-svg-spinners-90-ring-with-bg'" size="18" class="text-white" />
+                  @click="handleRemoveFromCart(product.key)"
+                  :disabled="itemStatus[product.key] === 'loading'"
+                  class="absolute md:opacity-0 group-hover:opacity-100 top-2 right-2 md:-top-1 md:-right-1 transition bg-red-700 flex p-1 items-center justify-center rounded-full hover:bg-red-500 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed">
+                <UIcon
+                    :name="itemStatus[product.key] === 'loading' ? 'i-svg-spinners-90-ring-with-bg' : 'i-iconamoon-trash-light'"
+                    size="18"
+                    class="text-white" />
               </button>
             </div>
           </div>
