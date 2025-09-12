@@ -20,12 +20,12 @@ const { order } = useCheckout();
                 <div class="font-medium text-sm line-clamp-2 overflow-hidden text-ellipsis">{{ product.product.node.name }}</div>
                 <div class="font-bold">${{ Number(product.variation.node.salePrice).toFixed(2) }}</div>
                 <div class="flex-wrap text-neutral-600 dark:text-neutral-300 items-baseline text-xs gap-1 flex-row flex">
-                  <p>Originally:</p>
+                  <p>{{ $t("product.originally") }}:</p>
                   <p class="line-through">${{ Number(product.variation.node.regularPrice).toFixed(2) }}</p>
                   <p class="text-alizarin-crimson-700">-{{ ((1 - product.variation.node.salePrice / product.variation.node.regularPrice) * 100).toFixed(0) }}%</p>
                 </div>
                 <div class="text-xs font-medium text-neutral-600 dark:text-neutral-300">
-                  Size: {{ product.variation.attributes.map(attr => attr.value.toUpperCase()).join(', ') }} • Qty: {{ product.quantity }}
+                  {{ $t("product.size") }}: {{ product.variation.attributes.map(attr => attr.value.toUpperCase()).join(', ') }} • {{ $t("product.quantity") }}: {{ product.quantity }}
                 </div>
               </div>
               <button
