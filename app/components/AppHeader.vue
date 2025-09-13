@@ -1,9 +1,6 @@
 <script setup>
 const router = useRouter();
 const route = useRoute();
-const colorMode = useColorMode()
-const { light, dark } = useAppConfig().site.logo
-
 const searchQuery = ref((route.query.q || '').toString());
 const searchResults = ref([]);
 const isLoading = ref(false);
@@ -30,11 +27,6 @@ async function fetch() {
 }
 
 onMounted(fetch);
-
-const logoUrl = computed(() => {
-  const logo = colorMode.value === 'dark' ? light : dark
-  return "/" + logo.replace(/^\/+/g, '')
-})
 
 const throttledFetch = useDebounceFn(async () => {
   await fetch();
@@ -64,18 +56,10 @@ onClickOutside(onClickOutsideRef, event => {
   <div class="flex w-full flex-row items-center px-3 lg:px-5 h-[72px] lg:h-20 z-40 fixed bg-white/85 dark:bg-black/85 backdrop-blur-sm dark:backdrop-blur-lg">
     <div class="flex flex-row w-full flex-nowrap items-center gap-2">
       <NuxtLink
-          aria-label="Home"
-          class="flex items-center justify-center min-w-[52px] min-h-[52px] max-lg:min-w-12 max-lg:min-h-12 hover:bg-black/5 hover:dark:bg-white/15 max-lg:dark:bg-white/15 max-lg:bg-black/5 max-lg:hover:bg-black/10 max-lg:hover:dark:bg-white/20 rounded-2xl max-lg:rounded-full transition active:scale-95 group"
-          :to="localePath('/')">
-          <div class="transform-gpu duration-200 ease-in-out group-hover:scale-[130%]">
-            <img
-                class="rounded-lg max-lg:rounded-full bg-[#b31015] w-8 h-8"
-                :src="logoUrl"
-                alt="Logo"
-                loading="lazy"
-                title="logo"
-            />
-          </div>
+        aria-label="Home"
+        class="flex items-center justify-center min-w-[52px] min-h-[52px] max-lg:min-w-12 max-lg:min-h-12 hover:bg-black/5 hover:dark:bg-white/15 max-lg:dark:bg-white/15 max-lg:bg-black/5 max-lg:hover:bg-black/10 max-lg:hover:dark:bg-white/20 rounded-2xl max-lg:rounded-full transition active:scale-95"
+        :to="localePath('/')">
+        <img class="rounded-lg max-lg:rounded-full bg-[#b31015] w-8 h-8" src="/logo.svg" alt="Logo" loading="lazy" title="logo" />
       </NuxtLink>
       <NuxtLink
         aria-label="Categories"

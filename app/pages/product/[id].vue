@@ -178,12 +178,12 @@ const { handleAddToCart, addToCartButtonStatus } = useCart();
                 :to="localePath(`/product/${vars.slug}-${product.sku.split('-')[0]}`)"
                 :class="[
                   'flex w-12 rounded-lg border-2 select-varitaion transition-all duration-200 bg-neutral-200 dark:bg-neutral-800',
-                  vars.allPaStyle.nodes[0].name === product.allPaStyle.nodes[0].name ? 'selected-varitaion' : 'border-[#9b9b9b] dark:border-[#8c8c8c]',
+                  vars.allPaColor.nodes[0].name === product.allPaColor.nodes[0].name ? 'selected-varitaion' : 'border-[#9b9b9b] dark:border-[#8c8c8c]',
                 ]">
                 <NuxtImg
-                  :alt="vars.allPaStyle.nodes[0].name"
+                  :alt="vars.allPaColor.nodes[0].name"
                   :src="vars.image.sourceUrl"
-                  :title="vars.allPaStyle.nodes[0].name"
+                  :title="vars.allPaColor.nodes[0].name"
                   class="rounded-md border-2 border-white dark:border-black" />
               </NuxtLink>
             </div>
