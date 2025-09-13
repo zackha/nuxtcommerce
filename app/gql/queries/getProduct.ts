@@ -19,7 +19,7 @@ export const getProductQuery = gql`
             sourceUrl(size: LARGE)
           }
         }
-        allPaColor {
+        allPaStyle {
           nodes {
             name
           }
@@ -37,7 +37,7 @@ export const getProductQuery = gql`
                 image {
                   sourceUrl(size: WOOCOMMERCE_THUMBNAIL)
                 }
-                allPaColor {
+                allPaStyle {
                   nodes {
                     name
                   }
