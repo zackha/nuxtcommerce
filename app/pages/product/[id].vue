@@ -58,7 +58,7 @@ const calculateDiscountPercentage = computed(() => {
   return Math.round(((salePriceValue - regularPriceValue) / regularPriceValue) * 100);
 });
 
-const { siteName } = useAppConfig();
+const { name } = useAppConfig();
 const url = useRequestURL();
 const canonical = url.origin + url.pathname;
 const image = computed(() => product.value?.image?.sourceUrl);
@@ -68,10 +68,10 @@ const plainDescription = computed(() => {
 });
 
 useHead(() => {
-  const title = product.value?.name || siteName;
+  const title = product.value?.name || name;
   const description = plainDescription.value;
   const img = image.value;
-  const keywords = [product.value?.name, product.value?.allPaStyle?.nodes?.[0]?.name, siteName].filter(Boolean).join(', ');
+  const keywords = [product.value?.name, product.value?.allPaStyle?.nodes?.[0]?.name, name].filter(Boolean).join(', ');
 
   return {
     title,
@@ -96,7 +96,7 @@ const productSchema = computed(() => ({
   description: plainDescription.value,
   image: image.value ? [image.value] : [],
   sku: product.value?.sku,
-  brand: { '@type': 'Brand', name: siteName },
+  brand: { '@type': 'Brand', name: name },
 }));
 
 useHead(() => ({
@@ -178,12 +178,12 @@ const { handleAddToCart, addToCartButtonStatus } = useCart();
                 :to="localePath(`/product/${vars.slug}-${product.sku.split('-')[0]}`)"
                 :class="[
                   'flex w-12 rounded-lg border-2 select-varitaion transition-all duration-200 bg-neutral-200 dark:bg-neutral-800',
-                  vars.allPaColor.nodes[0].name === product.allPaColor.nodes[0].name ? 'selected-varitaion' : 'border-[#9b9b9b] dark:border-[#8c8c8c]',
+                  vars.allPaStyle.nodes[0].name === product.allPaStyle.nodes[0].name ? 'selected-varitaion' : 'border-[#9b9b9b] dark:border-[#8c8c8c]',
                 ]">
                 <NuxtImg
-                  :alt="vars.allPaColor.nodes[0].name"
+                  :alt="vars.allPaStyle.nodes[0].name"
                   :src="vars.image.sourceUrl"
-                  :title="vars.allPaColor.nodes[0].name"
+                  :title="vars.allPaStyle.nodes[0].name"
                   class="rounded-md border-2 border-white dark:border-black" />
               </NuxtLink>
             </div>

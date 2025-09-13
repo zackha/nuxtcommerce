@@ -1,7 +1,7 @@
 <!--app/pages/index.vue-->
 <script setup>
 const route = useRoute();
-const { siteName } = useAppConfig();
+const { name } = useAppConfig().site;
 const url = useRequestURL();
 const canonical = computed(() => {
   const base = `${url.origin}${url.pathname}`;
@@ -18,17 +18,17 @@ useHead(() => {
 
   let title = '';
   let description = '';
-  const keywords = new Set(['ecommerce', siteName]);
+  const keywords = new Set(['ecommerce', name]);
 
   if (category) {
     title = `${category} Products`;
-    description = `Browse ${category} products on ${siteName}.`;
+    description = `Browse ${category} products on ${name}.`;
     keywords.add(category);
   }
 
   if (q) {
     title = `Search results for "${q}"`;
-    description = `Search results for "${q}" on ${siteName}.`;
+    description = `Search results for "${q}" on ${name}.`;
     keywords.add(q);
   }
 

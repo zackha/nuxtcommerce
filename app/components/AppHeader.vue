@@ -1,6 +1,9 @@
 <script setup>
 const router = useRouter();
 const route = useRoute();
+const colorMode = useColorMode()
+const { light, dark } = useAppConfig().site.logo
+
 const searchQuery = ref((route.query.q || '').toString());
 const searchResults = ref([]);
 const isLoading = ref(false);
@@ -27,6 +30,11 @@ async function fetch() {
 }
 
 onMounted(fetch);
+
+const logoUrl = computed(() => {
+  const logo = colorMode.value === 'dark' ? light : dark
+  return "/" + logo.replace(/^\/+/g, '')
+})
 
 const throttledFetch = useDebounceFn(async () => {
   await fetch();
@@ -56,14 +64,18 @@ onClickOutside(onClickOutsideRef, event => {
   <div class="flex w-full flex-row items-center px-3 lg:px-5 h-[72px] lg:h-20 z-40 fixed bg-white/85 dark:bg-black/85 backdrop-blur-sm dark:backdrop-blur-lg">
     <div class="flex flex-row w-full flex-nowrap items-center gap-2">
       <NuxtLink
-        aria-label="Home"
-        class="flex items-center justify-center min-w-[52px] min-h-[52px] max-lg:min-w-12 max-lg:min-h-12 hover:bg-black/5 hover:dark:bg-white/15 max-lg:dark:bg-white/15 max-lg:bg-black/5 max-lg:hover:bg-black/10 max-lg:hover:dark:bg-white/20 rounded-2xl max-lg:rounded-full transition active:scale-95"
-        :to="localePath('/')">
-        <svg viewBox="0 0 30.72 30.72" class="rounded-lg max-lg:rounded-full bg-[#b31015] w-8 h-8">
-          <path
-            d="M -1e-4,1e-4 H 15.3296 C 14.7944,0.0047 14.2692,0.1464 13.8054,0.4117 13.334,0.6813 12.9429,1.0691 12.6707,1.536 L -1e-4,23.2893 Z m 15.3807,0 h 15.3392 v 5.1132 c -0.4077,-0.1874 -0.8524,-0.2855 -1.304,-0.2855 -0.5439,0 -1.0786,0.142 -1.5494,0.4116 -0.4711,0.2696 -0.8623,0.6577 -1.1341,1.1245 L 23.7908,11.4167 18.0395,1.536 C 17.7674,1.0691 17.376,0.6813 16.9048,0.4117 16.4411,0.1464 15.9158,0.0047 15.3806,1e-4 Z M 30.7198,13.6563 V 25.8989 H 26.6036 L 23.791,30.7198 H 11.8305 c 4.2401,-0.0117 7.3693,-1.8658 9.5244,-5.4729 l 5.2487,-9.0088 2.8114,-4.8214 z M 11.6157,25.8941 4.1115,25.8924 15.3602,6.5839 l 5.6126,9.6542 -3.7579,6.4525 c -1.4357,2.348 -3.0668,3.2035 -5.5992,3.2035 z"
-            fill="#ed3237" />
-        </svg>
+          aria-label="Home"
+          class="flex items-center justify-center min-w-[52px] min-h-[52px] max-lg:min-w-12 max-lg:min-h-12 hover:bg-black/5 hover:dark:bg-white/15 max-lg:dark:bg-white/15 max-lg:bg-black/5 max-lg:hover:bg-black/10 max-lg:hover:dark:bg-white/20 rounded-2xl max-lg:rounded-full transition active:scale-95 group"
+          :to="localePath('/')">
+          <div class="transform-gpu duration-200 ease-in-out group-hover:scale-[130%]">
+            <img
+                class="rounded-lg max-lg:rounded-full bg-[#b31015] w-8 h-8"
+                :src="logoUrl"
+                alt="Logo"
+                loading="lazy"
+                title="logo"
+            />
+          </div>
       </NuxtLink>
       <NuxtLink
         aria-label="Categories"

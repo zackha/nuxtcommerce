@@ -1,6 +1,6 @@
 <!--app/pages/categories.vue-->
 <script setup>
-const { siteName } = useAppConfig();
+const { name } = useAppConfig().site;
 const url = useRequestURL();
 const localePath = useLocalePath();
 
@@ -10,13 +10,13 @@ const canonical = url.origin + url.pathname;
 useSeoMeta({
   title: 'Categories',
   ogTitle: 'Categories',
-  description: `Browse product categories on ${siteName}.`,
-  ogDescription: `Browse product categories on ${siteName}.`,
+  description: `Browse product categories on ${name}.`,
+  ogDescription: `Browse product categories on ${name}.`,
   ogUrl: canonical,
   canonical,
-  keywords: `categories, ${siteName}`,
+  keywords: `categories, ${name}`,
   twitterTitle: 'Categories',
-  twitterDescription: `Browse product categories on ${siteName}.`,
+  twitterDescription: `Browse product categories on ${name}.`,
   ogImage: 'https://commerce.nuxt.dev/social-card.jpg',
   twitterImage: 'https://commerce.nuxt.dev/social-card.jpg',
 });
