@@ -58,7 +58,7 @@ const calculateDiscountPercentage = computed(() => {
   return Math.round(((salePriceValue - regularPriceValue) / regularPriceValue) * 100);
 });
 
-const { siteName } = useAppConfig();
+const { name } = useAppConfig();
 const url = useRequestURL();
 const canonical = url.origin + url.pathname;
 const image = computed(() => product.value?.image?.sourceUrl);
@@ -68,10 +68,10 @@ const plainDescription = computed(() => {
 });
 
 useHead(() => {
-  const title = product.value?.name || siteName;
+  const title = product.value?.name || name;
   const description = plainDescription.value;
   const img = image.value;
-  const keywords = [product.value?.name, product.value?.allPaStyle?.nodes?.[0]?.name, siteName].filter(Boolean).join(', ');
+  const keywords = [product.value?.name, product.value?.allPaStyle?.nodes?.[0]?.name, name].filter(Boolean).join(', ');
 
   return {
     title,
@@ -96,7 +96,7 @@ const productSchema = computed(() => ({
   description: plainDescription.value,
   image: image.value ? [image.value] : [],
   sku: product.value?.sku,
-  brand: { '@type': 'Brand', name: siteName },
+  brand: { '@type': 'Brand', name: name },
 }));
 
 useHead(() => ({
