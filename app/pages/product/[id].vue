@@ -211,7 +211,8 @@ const { handleAddToCart, addToCartButtonStatus } = useCart();
               <button
                 @click="handleAddToCart(selectedVariation.databaseId)"
                 :disabled="addToCartButtonStatus !== 'add'"
-                class="button-bezel w-full h-12 rounded-md relative tracking-wide font-semibold text-white text-sm flex justify-center items-center">
+                class="w-full h-12 rounded-md relative tracking-wide font-semibold text-white text-sm flex justify-center items-center"
+                :class="addToCartButtonStatus === 'added' ? 'button-bezel-added' : 'button-bezel'">
                 <Transition name="slide-up">
                   <div v-if="addToCartButtonStatus === 'add'" class="absolute">{{ $t('cart.add_to_cart') }}</div>
                   <UIcon v-else-if="addToCartButtonStatus === 'loading'" class="absolute" name="i-svg-spinners-90-ring-with-bg" size="22" />
@@ -286,6 +287,24 @@ const { handleAddToCart, addToCartButtonStatus } = useCart();
     --button-outline: 4px;
     --button-scale: 0.975;
   }
+}
+
+.button-bezel-added {
+  box-shadow: 0 0 0 var(--button-outline, 0px) rgba(96, 222, 92, 0.3), inset 0 -1px 1px 0 rgba(0, 0, 0, 0.25), inset 0 1px 0 0 rgba(255, 255, 255, 0.3),
+    0 1px 2px 0 rgba(0, 0, 0, 0.5);
+  @apply bg-green-600 outline-none tracking-[-0.125px] transition scale-[var(--button-scale,1)] duration-200;
+  &:hover {
+    @apply bg-green-500;
+  }
+  &:active {
+    --button-outline: 4px;
+    --button-scale: 0.975;
+  }
+}
+
+button.button-bezel,
+button.button-bezel-added {
+  @apply transition-colors duration-300;
 }
 
 .description ul li {
