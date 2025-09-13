@@ -1,0 +1,85 @@
+{
+  "general": {
+    "go_back": "Gå tilbake",
+    "loading": "Laster..."
+  },
+  "theme": {
+    "dark": "Mørk",
+    "light": "Lys",
+    "system": "System",
+    "toggle": "Bytt tema"
+  },
+  "nav": {
+    "home": "Hjem",
+    "categories": "Kategorier",
+    "favorites": "Favoritter",
+    "products": "Produkter"
+  },
+  "footer": {
+    "developed_by_author": "av {author}",
+    "change_language": "Endre språk"
+  },
+  "search": {
+    "placeholder": "Søk...",
+    "placeholder_in_category": "Søk i {category}...",
+    "no_results_for_query": "Ingen resultater for {query}",
+    "no_results_suggestion": "Prøv å forbedre resultatene dine ved å dobbeltsjekke stavemåten, eller prøv et mer generelt nøkkelord.",
+    "view_all_results": "Vis alle resultater",
+    "new_products": "Nye Produkter",
+    "no_products_matching": "Ingen produkter samsvarer",
+    "no_products_found_matching": "Ingen produkter funnet som samsvarer",
+    "no_products_found": "Ingen produkter funnet",
+    "use_search_bar_above": "Du kan bruke søkefeltet ovenfor for å prøve å søke med andre termer.",
+    "in": "i",
+    "reset_search": "Tilbakestill søk"
+  },
+  "filter": {
+    "all_categories": "Alle Kategorier",
+    "newest": "Nyeste",
+    "price_low_high": "Pris: Lav til Høy",
+    "price_high_low": "Pris: Høy til Lav"
+  },
+  "checkout": {
+    "title": "Kasse",
+    "form": {
+      "first_name": "Fornavn",
+      "last_name": "Etternavn",
+      "email": "E-post",
+      "phone": "Telefon",
+      "city": "By",
+      "address": "Adresse"
+    },
+    "pay": {
+      "description": "Betaler totalt {total} for {items} varer",
+      "btn": "Betal {total}",
+      "secure": "Din betaling er sikret av {method}",
+      "success": "Betaling vellykket!",
+      "processed": "Takk for ditt kjøp! Din bestilling blir behandlet.",
+      "total": "Totalt",
+      "order_number": "Ordrenummer",
+      "date": "Dato",
+      "payment_method": "Betalingsmetode"
+    }
+  },
+  "product": {
+    "originally": "Opprinnelig",
+    "size": "Størrelse",
+    "quantity": "Antall",
+    "sku": "artikkelnummer",
+    "vat_included": "MVA inkludert",
+    "featured_information": "Fremhevet Informasjon",
+    "free_return": "Gratis retur innen 15 dager. Klikk for mer informasjon.",
+    "information": "Informasjon",
+    "shop_similar": "Sammenlign lignende produkter"
+  },
+  "cart": {
+    "empty": "Handlekurven din er tom",
+    "notting_added": "Du har ikke lagt til noen varer i handlekurven ennå.",
+    "add_to_cart": "Legg i handlekurv",
+    "added_to_cart": "Lagt til i handlekurven"
+  },
+  "favorites": {
+    "nothing_to_show_yet": "Ingenting å vise... ennå!",
+    "wishlist_lives_here": "Ønskelister du lager vil vises her. Dette er noen av dine favoritt-ting..."
+  }
+}

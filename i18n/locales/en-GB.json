@@ -1,0 +1,85 @@
+{
+  "general": {
+    "go_back": "Go Back",
+    "loading": "Loading..."
+  },
+  "theme": {
+    "dark": "Dark",
+    "light": "Light",
+    "system": "System",
+    "toggle": "Toggle theme"
+  },
+  "nav": {
+    "home": "Home",
+    "categories": "Categories",
+    "favorites": "Favorites",
+    "products": "Products"
+  },
+  "footer": {
+    "developed_by_author": "by {author}",
+    "change_language": "Change language"
+  },
+  "search": {
+    "placeholder": "Search...",
+    "placeholder_in_category": "Search in {category}...",
+    "no_results_for_query": "No results for {query}",
+    "no_results_suggestion": "Try improving your results by double checking your spelling, or trying a more general keyword.",
+    "view_all_results": "View all results",
+    "new_products": "New Products",
+    "no_products_matching": " No products matching",
+    "no_products_found_matching": "No products found matching",
+    "no_products_found": "No products found",
+    "use_search_bar_above": "You can use the search bar above to try searching with different terms.",
+    "in": "in",
+    "reset_search": "Reset Search"
+  },
+  "filter": {
+    "all_categories": "All Categories",
+    "newest": "Newest",
+    "price_low_high": "Price: Low to High",
+    "price_high_low": "Price: High to Low"
+  },
+  "checkout": {
+    "title": "Checkout",
+    "form": {
+      "first_name": "First Name",
+      "last_name": "Last Name",
+      "email": "Email",
+      "phone": "Phone",
+      "city": "City",
+      "address": "Address"
+    },
+    "pay": {
+      "description": "Paying a total of {total} for {items} items",
+      "btn": "Pay {total}",
+      "secure": "your payment is secured by {method}",
+      "success": "Payment successful!",
+      "processed": "Thank you for your purchase! Your order is being processed.",
+      "total": "Total",
+      "order_number": "Order Number",
+      "date": "Date",
+      "payment_method": "Payment Method"
+    }
+  },
+  "product": {
+    "originally": "Originally",
+    "size": "Size",
+    "quantity": "Quantity",
+    "sku": "article number",
+    "vat_included": "VAT included",
+    "featured_information": "Featured Information",
+    "free_return": "Free returns within 15 days. Click for detailed",
+    "information": "Information",
+    "shop_similar": "Shop similar"
+  },
+  "cart": {
+    "empty": "Your cart is empty",
+    "notting_added": "You haven't added any items to your cart yet.",
+    "add_to_cart": "Add to cart",
+    "added_to_cart": "Added to cart"
+  },
+  "favorites": {
+    "nothing_to_show_yet": "Nothing to show... yet!",
+    "wishlist_lives_here": "Wishlist you create will live here. These are a few of your favorite things..."
+  }
+}

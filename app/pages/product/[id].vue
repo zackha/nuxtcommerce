@@ -3,6 +3,7 @@
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Navigation, Pagination, Thumbs } from 'swiper/modules';
 const { isOpenImageSliderModal } = useComponents();
+const localePath = useLocalePath();
 
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -174,11 +175,11 @@ const cartItem = computed(() => {
             <div class="flex justify-between flex-row items-baseline">
               <div class="flex flex-row items-baseline">
                 <p class="text-xl font-bold text-alizarin-crimson-700" v-html="product.salePrice"></p>
-                <p class="text-sm ml-2">VAT included</p>
+                <p class="text-sm ml-2">{{ $t('product.vat_included') }}</p>
               </div>
             </div>
             <div class="flex-wrap items-baseline flex-row flex">
-              <p class="text-sm">Originally:</p>
+              <p class="text-sm">{{ $t('product.originally') }}:</p>
               <p class="text-sm ml-1 line-through" v-html="product.regularPrice"></p>
               <p class="text-sm ml-1 text-alizarin-crimson-700">{{ calculateDiscountPercentage }}%</p>
             </div>
@@ -187,7 +188,7 @@ const cartItem = computed(() => {
           <div class="flex gap-2 px-3 lg:px-0" v-for="(variation, i) in product.productTypes?.nodes" :key="i">
             <div v-for="(vars, i) in variation.products.nodes" :key="i">
               <NuxtLink
-                :to="`/product/${vars.slug}-${product.sku.split('-')[0]}`"
+                :to="localePath(`/product/${vars.slug}-${product.sku.split('-')[0]}`)"
                 :class="[
                   'flex w-12 rounded-lg border-2 select-varitaion transition-all duration-200 bg-neutral-200 dark:bg-neutral-800',
                   vars.allPaColor.nodes[0].name === product.allPaColor.nodes[0].name ? 'selected-varitaion' : 'border-[#9b9b9b] dark:border-[#8c8c8c]',
@@ -203,7 +204,7 @@ const cartItem = computed(() => {
 
           <div class="pb-4 px-3 lg:px-0 border-b border-[#efefef] dark:border-[#262626]">
             <div class="text-sm font-semibold leading-5 opacity-50 flex gap-1">
-              Size:
+              {{ $t('product.size') }}:
               <div class="uppercase">{{ selectedVariation.attributes.nodes.map(attr => attr.value).toString() }}</div>
             </div>
             <div class="flex gap-2 mt-2 mb-4 flex-wrap">
@@ -263,14 +264,14 @@ const cartItem = computed(() => {
             </div>
           </div>
           <div class="px-3 lg:px-0">
-            <div class="text-base mb-2 font-semibold">Featured Information</div>
+            <div class="text-base mb-2 font-semibold">{{ $t('product.featured_information') }}</div>
             <div class="description leading-7 text-sm">
               <ul>
                 <li>
-                  Free returns within 15 days. Click for detailed
-                  <a class="underline" href="#">information</a>
+                  {{ $t('product.free_return') }}
+                  <a class="underline" href="#">{{ $t('product.information') }}</a>
                 </li>
-                <li>Article number: {{ product.sku }}</li>
+                <li>{{ $t('product.sku') }}: {{ product.sku }}</li>
                 <div v-html="product.description"></div>
               </ul>
             </div>
@@ -279,7 +280,7 @@ const cartItem = computed(() => {
       </div>
     </div>
   </div>
-  <div class="text-lg lg:text-xl lg:text-center font-semibold mt-4 pt-4 px-3 border-t border-[#efefef] dark:border-[#262626] lg:border-none">Shop similar</div>
+  <div class="text-lg lg:text-xl lg:text-center font-semibold mt-4 pt-4 px-3 border-t border-[#efefef] dark:border-[#262626] lg:border-none">{{ $t('product.shop_similar') }}</div>
   <div class="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 3xl:grid-cols-7 gap-4 px-3 lg:px-5 xl:px-8 mt-4 lg:mt-5">
     <ProductCard :products="product.related?.nodes" />
     <ProductsSkeleton v-if="!product.name" />
@@ -327,6 +328,24 @@ const cartItem = computed(() => {
     --button-outline: 4px;
     --button-scale: 0.975;
   }
+}
+
+.button-bezel-added {
+  box-shadow: 0 0 0 var(--button-outline, 0px) rgba(96, 222, 92, 0.3), inset 0 -1px 1px 0 rgba(0, 0, 0, 0.25), inset 0 1px 0 0 rgba(255, 255, 255, 0.3),
+    0 1px 2px 0 rgba(0, 0, 0, 0.5);
+  @apply bg-green-600 outline-none tracking-[-0.125px] transition scale-[var(--button-scale,1)] duration-200;
+  &:hover {
+    @apply bg-green-500;
+  }
+  &:active {
+    --button-outline: 4px;
+    --button-scale: 0.975;
+  }
+}
+
+button.button-bezel,
+button.button-bezel-added {
+  @apply transition-colors duration-300;
 }
 
 .description ul li {

@@ -6,8 +6,8 @@
         <div class="bg-alizarin-crimson-500/20 dark:bg-alizarin-crimson-700/20 flex rounded-full p-5 mb-1">
           <UIcon name="i-iconamoon-shopping-bag-fill" size="46" class="text-alizarin-crimson-600 dark:text-alizarin-crimson-700 shadow-md" />
         </div>
-        <div class="text-lg font-semibold">Your Cart is Empty</div>
-        <div class="text-sm text-neutral-500 dark:text-neutral-400">You haven't added any items to your cart yet.</div>
+        <div class="text-lg font-semibold">{{ $t('cart.empty') }}</div>
+        <div class="text-sm text-neutral-500 dark:text-neutral-400 text-center">{{ $t('cart.notting_added') }}</div>
       </div>
     </div>
   </div>

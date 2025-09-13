@@ -14,23 +14,21 @@ const resetSearch = () => {
       <UIcon name="i-iconamoon-search-bold" class="w-16 h-16 text-white dark:text-neutral-600" />
     </div>
     <div v-if="route.query.category && route.query.q" class="font-extrabold text-3xl my-6 text-center">
-      No products matching
+      {{ $t('search.no_products_matching') }}
       <strong class="text-alizarin-crimson-700">"{{ route.query.q }}"</strong>
-      in
+      -
       <strong class="text-alizarin-crimson-700">{{ route.query.category }}</strong>
     </div>
     <div v-else-if="route.query.q" class="font-extrabold text-3xl my-6">
-      No products found matching
+      {{ $t('search.no_products_found_matching') }}
       <strong class="text-alizarin-crimson-700">"{{ route.query.q }}"</strong>
     </div>
-    <div v-else class="font-extrabold text-3xl my-6">No products found</div>
-    <div class="text-center mb-5">
-      You can use the search bar above to try searching
-      <br />
-      with different terms.
+    <div v-else class="font-extrabold text-3xl my-6">{{ $t('search.no_products_found') }}</div>
+    <div class="text-center mb-5 max-w-md">
+      {{ $t('search.use_search_bar_above') }}
     </div>
     <button @click="resetSearch" class="px-4 py-2 bg-black/40 hover:bg-black/60 dark:bg-white/10 hover:dark:bg-white/20 text-white rounded-full active:scale-95 transition">
-      Reset Search
+      {{ $t('search.reset_search') }}
     </button>
   </div>
 </template>

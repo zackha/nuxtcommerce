@@ -1,0 +1,85 @@
+{
+  "general": {
+    "go_back": "Zurück",
+    "loading": "Laden..."
+  },
+  "theme": {
+    "dark": "Dunkel",
+    "light": "Hell",
+    "system": "System",
+    "toggle": "Thema wechseln"
+  },
+  "nav": {
+    "home": "Startseite",
+    "categories": "Kategorien",
+    "favorites": "Favoriten",
+    "products": "Produkte"
+  },
+  "footer": {
+    "developed_by_author": "von {author}",
+    "change_language": "Sprache ändern"
+  },
+  "search": {
+    "placeholder": "Suchen...",
+    "placeholder_in_category": "In {category} suchen...",
+    "no_results_for_query": "Keine Ergebnisse für {query}",
+    "no_results_suggestion": "Verbessern Sie Ihre Ergebnisse, indem Sie die Rechtschreibung überprüfen oder ein allgemeineres Stichwort verwenden.",
+    "view_all_results": "Alle Ergebnisse anzeigen",
+    "new_products": "Neue Produkte",
+    "no_products_matching": "Keine passenden Produkte",
+    "no_products_found_matching": "Keine passenden Produkte gefunden",
+    "no_products_found": "Keine Produkte gefunden",
+    "use_search_bar_above": "Sie können die Suchleiste oben verwenden, um mit anderen Begriffen zu suchen.",
+    "in": "in",
+    "reset_search": "Suche zurücksetzen"
+  },
+  "filter": {
+    "all_categories": "Alle Kategorien",
+    "newest": "Neueste",
+    "price_low_high": "Preis: Niedrig bis Hoch",
+    "price_high_low": "Preis: Hoch bis Niedrig"
+  },
+  "checkout": {
+    "title": "Kasse",
+    "form": {
+      "first_name": "Vorname",
+      "last_name": "Nachname",
+      "email": "E-Mail",
+      "phone": "Telefon",
+      "city": "Stadt",
+      "address": "Adresse"
+    },
+    "pay": {
+      "description": "Gesamtzahlung von {total} für {items} Artikel",
+      "btn": "{total} bezahlen",
+      "secure": "Ihre Zahlung ist durch {method} gesichert",
+      "success": "Zahlung erfolgreich!",
+      "processed": "Vielen Dank für Ihren Einkauf! Ihre Bestellung wird bearbeitet.",
+      "total": "Gesamt",
+      "order_number": "Bestellnummer",
+      "date": "Datum",
+      "payment_method": "Zahlungsmethode"
+    }
+  },
+  "product": {
+    "originally": "Ursprünglich",
+    "size": "Größe",
+    "quantity": "Menge",
+    "sku": "Artikelnummer",
+    "vat_included": "MwSt. inbegriffen",
+    "featured_information": "Ausgewählte Informationen",
+    "free_return": "Kostenlose Rücksendung innerhalb von 15 Tagen. Klicken Sie hier für weitere Informationen.",
+    "information": "Informationen",
+    "shop_similar": "Ähnliche Artikel kaufen"
+  },
+  "cart": {
+    "empty": "Ihr Warenkorb ist leer",
+    "notting_added": "Sie haben noch keine Artikel in Ihren Warenkorb gelegt.",
+    "add_to_cart": "In den Warenkorb",
+    "added_to_cart": "Zum Warenkorb hinzugefügt"
+  },
+  "favorites": {
+    "nothing_to_show_yet": "Noch nichts zu sehen... noch nicht!",
+    "wishlist_lives_here": "Wunschlisten, die Sie erstellen, werden hier angezeigt. Das sind einige Ihrer Lieblingssachen..."
+  }
+}
