@@ -1,0 +1,85 @@
+{
+  "general": {
+    "go_back": "Ga terug",
+    "loading": "Laden..."
+  },
+  "theme": {
+    "dark": "Donker",
+    "light": "Licht",
+    "system": "Systeem",
+    "toggle": "Thema wisselen"
+  },
+  "nav": {
+    "home": "Home",
+    "categories": "Categorieën",
+    "favorites": "Favorieten",
+    "products": "Producten"
+  },
+  "footer": {
+    "developed_by_author": "door {author}",
+    "change_language": "Taal wijzigen"
+  },
+  "search": {
+    "placeholder": "Zoeken...",
+    "placeholder_in_category": "Zoeken in {category}...",
+    "no_results_for_query": "Geen resultaten voor {query}",
+    "no_results_suggestion": "Controleer de spelling of probeer een algemener trefwoord om je resultaten te verbeteren.",
+    "view_all_results": "Bekijk alle resultaten",
+    "new_products": "Nieuwe Producten",
+    "no_products_matching": "Geen overeenkomende producten",
+    "no_products_found_matching": "Geen producten gevonden die overeenkomen",
+    "no_products_found": "Geen producten gevonden",
+    "use_search_bar_above": "Gebruik de zoekbalk hierboven om met andere termen te zoeken.",
+    "in": "in",
+    "reset_search": "Zoekopdracht resetten"
+  },
+  "filter": {
+    "all_categories": "Alle Categorieën",
+    "newest": "Nieuwste",
+    "price_low_high": "Prijs: Laag naar Hoog",
+    "price_high_low": "Prijs: Hoog naar Laag"
+  },
+  "checkout": {
+    "title": "Afrekenen",
+    "form": {
+      "first_name": "Voornaam",
+      "last_name": "Achternaam",
+      "email": "E-mail",
+      "phone": "Telefoon",
+      "city": "Stad",
+      "address": "Adres"
+    },
+    "pay": {
+      "description": "U betaalt een totaal van {total} voor {items} artikelen",
+      "btn": "Betaal {total}",
+      "secure": "Uw betaling is beveiligd door {method}",
+      "success": "Betaling succesvol!",
+      "processed": "Bedankt voor uw aankoop! Uw bestelling wordt verwerkt.",
+      "total": "Totaal",
+      "order_number": "Bestelnummer",
+      "date": "Datum",
+      "payment_method": "Betaalmethode"
+    }
+  },
+  "product": {
+    "originally": "Oorspronkelijk",
+    "size": "Maat",
+    "quantity": "Aantal",
+    "sku": "artikelnummer",
+    "vat_included": "Inclusief BTW",
+    "featured_information": "Uitgelichte Informatie",
+    "free_return": "Gratis retourneren binnen 15 dagen. Klik voor meer informatie.",
+    "information": "Information",
+    "shop_similar": "Shop vergelijkbaar"
+  },
+  "cart": {
+    "empty": "Je winkelwagen is leeg",
+    "notting_added": "Je hebt nog geen artikelen aan je winkelwagen toegevoegd.",
+    "add_to_cart": "Toevoegen aan winkelwagen",
+    "added_to_cart": "Toegevoegd aan winkelwagen"
+  },
+  "favorites": {
+    "nothing_to_show_yet": "Nog niets te zien... nog niet!",
+    "wishlist_lives_here": "De verlanglijst die je maakt, komt hier te staan. Dit zijn een paar van je favoriete dingen..."
+  }
+}

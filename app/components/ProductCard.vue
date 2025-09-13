@@ -1,4 +1,6 @@
 <script setup>
+const localePath = useLocalePath();
+
 defineProps({
   products: Object,
 });
@@ -6,7 +8,7 @@ defineProps({
 
 <template>
   <article v-for="product in products">
-    <NuxtLink :to="`/product/${product.slug}-${product.sku.split('-')[0]}`" class="group select-none">
+    <NuxtLink :to="localePath(`/product/${product.slug}-${product.sku.split('-')[0]}`)" class="group select-none">
       <div class="cursor-pointer transition ease-[ease] duration-300">
         <div class="relative pb-[133%] dark:shadow-[0_8px_24px_rgba(0,0,0,.5)] rounded-2xl overflow-hidden">
           <NuxtImg

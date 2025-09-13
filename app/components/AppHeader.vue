@@ -8,9 +8,10 @@ const suggestionMenu = ref(false);
 const onClickOutsideRef = ref(null);
 const cartModal = ref(false);
 const { cart } = useCart();
+const localePath = useLocalePath();
 
 const search = () => {
-  router.push({ path: '/', query: { ...route.query, q: searchQuery.value || undefined } });
+  router.push({ path: localePath('/'), query: { ...route.query, q: searchQuery.value || undefined } });
   suggestionMenu.value = false;
 };
 
@@ -57,7 +58,7 @@ onClickOutside(onClickOutsideRef, event => {
       <NuxtLink
         aria-label="Home"
         class="flex items-center justify-center min-w-[52px] min-h-[52px] max-lg:min-w-12 max-lg:min-h-12 hover:bg-black/5 hover:dark:bg-white/15 max-lg:dark:bg-white/15 max-lg:bg-black/5 max-lg:hover:bg-black/10 max-lg:hover:dark:bg-white/20 rounded-2xl max-lg:rounded-full transition active:scale-95"
-        to="/">
+        :to="localePath('/')">
         <svg viewBox="0 0 30.72 30.72" class="rounded-lg max-lg:rounded-full bg-[#b31015] w-8 h-8">
           <path
             d="M -1e-4,1e-4 H 15.3296 C 14.7944,0.0047 14.2692,0.1464 13.8054,0.4117 13.334,0.6813 12.9429,1.0691 12.6707,1.536 L -1e-4,23.2893 Z m 15.3807,0 h 15.3392 v 5.1132 c -0.4077,-0.1874 -0.8524,-0.2855 -1.304,-0.2855 -0.5439,0 -1.0786,0.142 -1.5494,0.4116 -0.4711,0.2696 -0.8623,0.6577 -1.1341,1.1245 L 23.7908,11.4167 18.0395,1.536 C 17.7674,1.0691 17.376,0.6813 16.9048,0.4117 16.4411,0.1464 15.9158,0.0047 15.3806,1e-4 Z M 30.7198,13.6563 V 25.8989 H 26.6036 L 23.791,30.7198 H 11.8305 c 4.2401,-0.0117 7.3693,-1.8658 9.5244,-5.4729 l 5.2487,-9.0088 2.8114,-4.8214 z M 11.6157,25.8941 4.1115,25.8924 15.3602,6.5839 l 5.6126,9.6542 -3.7579,6.4525 c -1.4357,2.348 -3.0668,3.2035 -5.5992,3.2035 z"
@@ -68,28 +69,28 @@ onClickOutside(onClickOutsideRef, event => {
         aria-label="Categories"
         exactActiveClass="bg-black dark:bg-white text-white dark:text-black"
         class="font-semibold cursor-pointer px-4 rounded-full hover:bg-black hover:dark:bg-white h-12 items-center justify-center hover:text-white hover:dark:text-black transition active:scale-95 lg:flex hidden"
-        to="/categories">
-        Categories
+        :to="localePath('/categories')">
+        {{ $t('nav.categories') }}
       </NuxtLink>
       <NuxtLink
         aria-label="Favorites"
         exactActiveClass="bg-black dark:bg-white text-white dark:text-black"
         class="font-semibold cursor-pointer px-4 rounded-full hover:bg-black hover:dark:bg-white h-12 items-center justify-center hover:text-white hover:dark:text-black transition active:scale-95 lg:flex hidden"
-        to="/favorites">
-        Favorites
+        :to="localePath('/favorites')">
+        {{ $t('nav.favorites') }}
       </NuxtLink>
       <NuxtLink
         aria-label="Categories"
         exactActiveClass="!bg-black/10 dark:!bg-white/30"
         class="lg:hidden flex items-center justify-center min-w-12 min-h-12 rounded-full bg-black/5 dark:bg-white/15 hover:bg-black/10 hover:dark:bg-white/20 transition active:scale-95"
-        to="/categories">
+        :to="localePath('/categories')">
         <UIcon class="text-[#5f5f5f] dark:text-[#b7b7b7]" name="i-iconamoon-category-fill" size="26" />
       </NuxtLink>
       <NuxtLink
         aria-label="Favorites"
         exactActiveClass="!bg-black/10 dark:!bg-white/30"
         class="lg:hidden flex items-center justify-center min-w-12 min-h-12 rounded-full bg-black/5 dark:bg-white/15 hover:bg-black/10 hover:dark:bg-white/20 transition active:scale-95"
-        to="/favorites">
+        :to="localePath('/favorites')">
         <UIcon class="text-[#5f5f5f] dark:text-[#b7b7b7]" name="i-iconamoon-heart-fill" size="26" />
       </NuxtLink>
       <div class="flex flex-shrink flex-grow flex-col text-sm font-semibold text-[#111] dark:text-[#eee]">
@@ -108,7 +109,7 @@ onClickOutside(onClickOutsideRef, event => {
                 type="text"
                 v-model="searchQuery"
                 @keyup.enter="search"
-                :placeholder="route.query.category ? `Search in ${route.query.category}...` : 'Search...'" />
+                :placeholder="route.query.category ? $t('search.placeholder_in_category', { category: route.query.category }) : $t('search.placeholder')" />
               <div v-if="searchQuery || suggestionMenu" @click.stop="clearSearch" class="flex items-center justify-center cursor-pointer transition-all">
                 <UIcon v-if="!isLoading" class="text-black dark:text-white" name="i-iconamoon-close-circle-1-fill" size="24" />
                 <UIcon v-else name="i-svg-spinners-bars-rotate-fade" size="20" />
@@ -147,22 +148,20 @@ onClickOutside(onClickOutsideRef, event => {
           <UIcon name="i-iconamoon-search-bold" class="w-16 h-16 dark:text-white" />
         </div>
         <div class="font-semibold text-3xl my-6">
-          No items matching for:
+          {{ $t('search.no_results_for_query') }}
           <strong>{{ searchQuery }}</strong>
         </div>
-        <div class="text-sm text-center mb-5">
-          Try improving your results by double checking your spelling
-          <br />
-          or trying a more general keyword.
+        <div class="text-sm text-center mb-5 max-w-md">
+          {{ $t('search.no_results_suggestion') }}
         </div>
       </div>
       <!-- Results State-->
       <div v-else class="mx-auto p-3 lg:p-4 max-w-screen-2xl">
-        <h2 v-if="!searchQuery" class="text-2xl font-bold tracking-tight">New Products</h2>
+        <h2 v-if="!searchQuery" class="text-2xl font-bold tracking-tight">{{ $t('search.new_products') }}</h2>
         <div class="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 lg:gap-5 mt-3 lg:mt-5">
           <NuxtLink
             @click="suggestionMenu = false"
-            :to="`/product/${product.slug}-${product.sku.split('-')[0]}`"
+            :to="localePath(`/product/${product.slug}-${product.sku.split('-')[0]}`)"
             v-for="(product, i) in searchResults"
             :key="i"
             class="group select-none">
@@ -199,7 +198,7 @@ onClickOutside(onClickOutsideRef, event => {
         <button
           @click="search"
           class="bg-black/15 dark:bg-white/15 hover:bg-black/10 hover:dark:bg-white/20 px-4 py-2 rounded-full active:scale-95 tracking-wide text-sm transition">
-          View All Results
+          {{ $t('search.view_all_results') }}
         </button>
       </div>
     </div>
