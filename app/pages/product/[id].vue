@@ -108,9 +108,7 @@ useHead(() => ({
   ],
 }));
 
-const { handleAddToCart, addToCartButtonStatus, increment, decrement, findItemByVariationId } = useCart();
-const inCartItem = computed(() => selectedVariation.value && findItemByVariationId(selectedVariation.value.databaseId));
-const selectedQty = computed(() => (inCartItem.value ? inCartItem.value.quantity : 0));
+const { handleAddToCart, addToCartButtonStatus } = useCart();
 </script>
 
 <template>
@@ -208,14 +206,8 @@ const selectedQty = computed(() => (inCartItem.value ? inCartItem.value.quantity
                 </span>
               </label>
             </div>
-            <div class="flex items-center">
-              <template v-if="inCartItem">
-                <button @click="decrement(selectedVariation.databaseId)" class="button-bezel w-12 h-12 rounded-md font-bold text-white text-lg">−</button>
-                <div class="w-12 text-center font-semibold">{{ selectedQty }}</div>
-                <button @click="increment(selectedVariation.databaseId)" class="button-bezel w-12 h-12 rounded-md font-bold text-white text-lg">+</button>
-              </template>
+            <div class="flex">
               <button
-                v-else
                 @click="handleAddToCart(selectedVariation.databaseId)"
                 :disabled="addToCartButtonStatus !== 'add'"
                 class="button-bezel w-full h-12 rounded-md relative tracking-wide font-semibold text-white text-sm flex justify-center items-center">

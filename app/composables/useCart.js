@@ -77,6 +77,5 @@ export const useCart = () => {
     removeFromCartButtonStatus,
     increment,
     decrement,
-    findItemByVariationId,
   };
 };

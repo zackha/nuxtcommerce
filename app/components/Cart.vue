@@ -1,6 +1,6 @@
 <!--app/components/Cart.vue-->
 <script setup>
-const { cart, handleRemoveFromCart, removeFromCartButtonStatus } = useCart();
+const { cart, handleRemoveFromCart, removeFromCartButtonStatus, increment, decrement } = useCart();
 const { order } = useCheckout();
 </script>
 
@@ -25,9 +25,21 @@ const { order } = useCheckout();
                   <p class="line-through">${{ (Number(product.variation.node.regularPrice) * product.quantity).toFixed(2) }}</p>
                   <p class="text-alizarin-crimson-700">-{{ ((1 - product.variation.node.salePrice / product.variation.node.regularPrice) * 100).toFixed(0) }}%</p>
                 </div>
-                <div class="text-xs font-medium text-neutral-600 dark:text-neutral-300">
-                  {{ $t('product.size') }}: {{ product.variation.attributes.map(attr => attr.value.toUpperCase()).join(', ') }} • {{ $t('product.quantity') }}:
-                  {{ product.quantity }}
+                <div class="text-xs flex gap-2 font-medium text-neutral-600 dark:text-neutral-300">
+                  <div>{{ $t('product.size') }}: {{ product.variation.attributes.map(attr => attr.value.toUpperCase()).join(', ') }} • {{ $t('product.quantity') }}:</div>
+                  <div class="flex items-center gap-1">
+                    <UIcon
+                      name="iconamoon:sign-minus-circle-fill"
+                      size="14"
+                      class="text-black dark:text-white cursor-pointer"
+                      @click="decrement(product.variation.node.databaseId)" />
+                    <span class="text-center">{{ product.quantity }}</span>
+                    <UIcon
+                      name="iconamoon:sign-plus-circle-fill"
+                      size="14"
+                      class="text-black dark:text-white cursor-pointer"
+                      @click="increment(product.variation.node.databaseId)" />
+                  </div>
                 </div>
               </div>
               <button
