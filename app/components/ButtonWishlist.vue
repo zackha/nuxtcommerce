@@ -1,3 +1,4 @@
+<!--app/components/ButtonWishlist.vue-->
 <script setup>
 const props = defineProps({
   product: Object,

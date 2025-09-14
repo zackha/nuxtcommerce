@@ -1,3 +1,4 @@
+// app/gql/mutations/checkout.ts
 import { gql } from 'nuxt-graphql-request/utils';
 
 export const checkoutMutation = gql`

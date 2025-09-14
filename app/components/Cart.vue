@@ -1,3 +1,4 @@
+<!--app/components/Cart.vue-->
 <script setup>
 const { cart, handleRemoveFromCart, removeFromCartButtonStatus } = useCart();
 const { order } = useCheckout();

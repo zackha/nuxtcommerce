@@ -1,3 +1,4 @@
+<!--app/components/AppHeader.vue-->
 <script setup>
 const router = useRouter();
 const route = useRoute();

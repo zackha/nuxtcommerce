@@ -1,5 +1,4 @@
 // server/routes/sitemap.xml.ts
-import { getRequestURL, setHeader } from 'h3';
 
 export default defineEventHandler(event => {
   setHeader(event, 'Content-Type', 'application/xml; charset=utf-8');

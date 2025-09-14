@@ -1,3 +1,4 @@
+<!--app/components/EmptyCart.vue-->
 <template>
   <div class="w-[calc(100vw-24px)] sm:w-96 h-96 p-3">
     <div

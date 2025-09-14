@@ -1,3 +1,4 @@
+<!--app/components/ImageSliderWithModal.vue-->
 <script setup lang="ts">
 const { isOpenImageSliderModal } = useComponents();
 const props = defineProps({

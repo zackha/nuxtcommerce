@@ -1,3 +1,4 @@
+<!--app/components/PaymentSuccessful.vue-->
 <script setup>
 const { order } = useCheckout();
 </script>

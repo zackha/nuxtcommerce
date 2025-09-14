@@ -1,3 +1,4 @@
+<!--app/components/ProductCard.vue-->
 <script setup>
 const localePath = useLocalePath();
 

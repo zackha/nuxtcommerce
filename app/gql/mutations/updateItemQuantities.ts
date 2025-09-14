@@ -1,3 +1,4 @@
+// app/gql/mutations/updateItemQuantities.ts
 import { gql } from 'nuxt-graphql-request/utils';
 
 export const updateItemQuantitiesMutation = gql`

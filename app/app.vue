@@ -1,20 +1,19 @@
 <!--app/app.vue-->
 <script setup lang="ts">
-const { name, description } = useAppConfig().site;
+const { site } = useAppConfig();
+const { name, description } = site;
 
 useHead({
-  htmlAttrs: {
-    lang: 'en',
-  },
-  titleTemplate: titleChunk => (titleChunk ? `${titleChunk} - ${name}` : name),
+  htmlAttrs: { lang: 'en' },
+  titleTemplate: (chunk?: string) => (chunk ? `${chunk} - ${name}` : name),
 });
 
 useSeoMeta({
-  description: description,
+  description,
   ogType: 'website',
-  ogImage: 'https://commerce.nuxt.dev/social-card.jpg',
   ogSiteName: name,
   ogLocale: 'en_US',
+  ogImage: 'https://commerce.nuxt.dev/social-card.jpg',
   twitterCard: 'summary_large_image',
   twitterSite: '@zhatlen',
   twitterCreator: '@zhatlen',
@@ -26,9 +25,9 @@ useSeoMeta({
 
 <template>
   <AppHeader />
-  <div class="pt-[72px] lg:pt-20 min-h-[calc(100vh-72px)]">
+  <main class="pt-[72px] lg:pt-20 min-h-[calc(100vh-72px)]">
     <NuxtPage />
-  </div>
+  </main>
   <AppFooter />
   <Notivue v-slot="item">
     <Notification :item="item" :theme="materialTheme" />

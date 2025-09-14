@@ -28,7 +28,11 @@ export async function requestMutation<T = unknown>(event: H3Event, query: Reques
     const res = await handleError(client.rawRequest<T>(queryString, variables), 'GraphQL mutation failed');
     const newSession = res.headers.get('woocommerce-session');
     if (newSession) {
-      setCookie(event, 'woocommerce-session', `Session ${newSession}`, { path: '/', httpOnly: true, sameSite: 'lax' });
+      setCookie(event, 'woocommerce-session', `Session ${newSession}`, {
+        path: '/',
+        httpOnly: true,
+        sameSite: 'lax',
+      });
     }
     return res.data;
   }

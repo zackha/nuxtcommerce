@@ -1,5 +1,4 @@
 // server/api/products.get.ts
-import { getQuery } from 'h3';
 import { getProductsQuery } from '~/gql/queries/getProducts';
 import { requestQuery } from '~~/server/utils/wpgraphql';
 

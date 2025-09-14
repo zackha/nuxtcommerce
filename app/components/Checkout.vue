@@ -1,3 +1,4 @@
+<!--app/components/Checkout.vue-->
 <script setup>
 const { userDetails, checkoutStatus, handleCheckout } = useCheckout();
 const { cart } = useCart();

@@ -1,3 +1,4 @@
+<!--app/components/ProductsSkeleton.vue-->
 <template>
   <div v-for="i in 21" :key="i">
     <div class="rounded-2xl overflow-hidden w-full pb-[133%] bg-neutral-200 dark:bg-neutral-800 skeleton"></div>

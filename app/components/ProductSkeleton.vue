@@ -1,3 +1,4 @@
+<!--app/components/ProductSkeleton.vue-->
 <template>
   <div class="justify-center flex flex-col lg:flex-row lg:mx-5">
     <ButtonBack />
