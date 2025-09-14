@@ -3,6 +3,7 @@ export const useCart = () => {
   const addToCartButtonStatus = ref('add');
   const removeFromCartButtonStatus = ref('remove');
   const { push } = useNotivue();
+  const findItemByVariationId = id => cart.value.find(i => i?.variation?.node?.databaseId === id);
 
   const handleAddToCart = productId => {
     addToCartButtonStatus.value = 'loading';
@@ -42,6 +43,27 @@ export const useCart = () => {
     localStorage.setItem('cart', JSON.stringify(newCart));
   };
 
+  const changeQty = (key, quantity) => {
+    $fetch('/api/cart/update', { method: 'POST', body: { items: [{ key, quantity }] } });
+    if (quantity > 0) {
+      const idx = cart.value.findIndex(i => i.key === key);
+      cart.value[idx].quantity = quantity;
+      updateCart([...cart.value]);
+    } else {
+      updateCart(cart.value.filter(i => i.key !== key));
+    }
+  };
+
+  const increment = id => {
+    const item = findItemByVariationId(id);
+    item ? changeQty(item.key, item.quantity + 1) : handleAddToCart(id);
+  };
+
+  const decrement = id => {
+    const item = findItemByVariationId(id);
+    if (item) changeQty(item.key, item.quantity - 1);
+  };
+
   onMounted(() => {
     const storedCart = localStorage.getItem('cart');
     if (storedCart) cart.value = JSON.parse(storedCart);
@@ -53,5 +75,8 @@ export const useCart = () => {
     addToCartButtonStatus,
     handleRemoveFromCart,
     removeFromCartButtonStatus,
+    increment,
+    decrement,
+    findItemByVariationId,
   };
 };
