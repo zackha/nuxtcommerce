@@ -58,7 +58,7 @@ const calculateDiscountPercentage = computed(() => {
   return Math.round(((salePriceValue - regularPriceValue) / regularPriceValue) * 100);
 });
 
-const { siteName } = useAppConfig();
+const { name } = useAppConfig();
 const url = useRequestURL();
 const canonical = url.origin + url.pathname;
 const image = computed(() => product.value?.image?.sourceUrl);
@@ -68,10 +68,10 @@ const plainDescription = computed(() => {
 });
 
 useHead(() => {
-  const title = product.value?.name || siteName;
+  const title = product.value?.name || name;
   const description = plainDescription.value;
   const img = image.value;
-  const keywords = [product.value?.name, product.value?.allPaStyle?.nodes?.[0]?.name, siteName].filter(Boolean).join(', ');
+  const keywords = [product.value?.name, product.value?.allPaStyle?.nodes?.[0]?.name, name].filter(Boolean).join(', ');
 
   return {
     title,
@@ -96,7 +96,7 @@ const productSchema = computed(() => ({
   description: plainDescription.value,
   image: image.value ? [image.value] : [],
   sku: product.value?.sku,
-  brand: { '@type': 'Brand', name: siteName },
+  brand: { '@type': 'Brand', name: name },
 }));
 
 useHead(() => ({
@@ -108,20 +108,7 @@ useHead(() => ({
   ],
 }));
 
-const {
-  cart,
-  itemStatus,
-  handleAddToCart,
-  increaseQuantity,
-  decreaseQuantity,
-} = useCart();
-
-const cartItem = computed(() => {
-  if (!selectedVariation.value || !cart.value) {
-    return null;
-  }
-  return cart.value.find(item => item.variation?.node.databaseId === selectedVariation.value.databaseId);
-});
+const { handleAddToCart, addToCartButtonStatus } = useCart();
 </script>
 
 <template>
@@ -220,47 +207,18 @@ const cartItem = computed(() => {
               </label>
             </div>
 
-            <div class="flex gap-2">
-              <div v-if="cartItem" class="flex items-center justify-center w-full h-12 rounded-md border-2 border-neutral-300 dark:border-neutral-700">
-                <button
-                    @click="decreaseQuantity(cartItem)"
-                    :disabled="itemStatus[cartItem.key] === 'loading'"
-                    class="px-5 text-2xl font-bold hover:bg-neutral-100 dark:hover:bg-neutral-800 h-full rounded-l-md disabled:opacity-50 disabled:cursor-not-allowed">-</button>
-
-                <div class="flex-grow text-center font-semibold">
-                  <UIcon v-if="itemStatus[cartItem.key] === 'loading'" name="i-svg-spinners-90-ring-with-bg" size="22"/>
-                  <span v-else-if="itemStatus[cartItem.key] === 'added'">
-                    Added to cart
-                  </span>
-                  <span v-else-if="itemStatus[cartItem.key] === 'increased'">
-                    Increased to {{ cartItem.quantity }}
-                  </span>
-                  <span v-else-if="itemStatus[cartItem.key] === 'decreased'">
-                    Decreased to {{ cartItem.quantity }}
-                  </span>
-                  <span v-else>
-                    {{ cartItem.quantity }} in cart
-                  </span>
-                </div>
-
-                <button
-                    @click="increaseQuantity(cartItem)"
-                    :disabled="itemStatus[cartItem.key] === 'loading'"
-                    class="px-5 text-2xl font-bold hover:bg-neutral-100 dark:hover:bg-neutral-800 h-full rounded-r-md disabled:opacity-50 disabled:cursor-not-allowed">+</button>
-              </div>
-
+            <div class="flex">
               <button
-                  v-else
-                  @click="handleAddToCart(selectedVariation.databaseId)"
-                  :disabled="itemStatus[selectedVariation.databaseId] === 'loading'"
-                  class="button-bezel w-full h-12 rounded-md relative tracking-wide font-semibold text-white text-sm flex justify-center items-center disabled:opacity-50 disabled:cursor-not-allowed">
-                <Transition name="slide-up" mode="out-in">
-                  <div v-if="!itemStatus[selectedVariation.databaseId] || itemStatus[selectedVariation.databaseId] === 'idle'" class="absolute">Add to cart</div>
-                  <UIcon v-else-if="itemStatus[selectedVariation.databaseId] === 'loading'" class="absolute" name="i-svg-spinners-90-ring-with-bg" size="22"/>
-                  <div v-else-if="itemStatus[selectedVariation.databaseId] === 'added'" class="absolute">Added</div>
+                @click="handleAddToCart(selectedVariation.databaseId)"
+                :disabled="addToCartButtonStatus !== 'add'"
+                class="button-bezel w-full h-12 rounded-md relative tracking-wide font-semibold text-white text-sm flex justify-center items-center">
+                <Transition name="slide-up">
+                  <div v-if="addToCartButtonStatus === 'add'" class="absolute">{{ $t('cart.add_to_cart') }}</div>
+                  <UIcon v-else-if="addToCartButtonStatus === 'loading'" class="absolute" name="i-svg-spinners-90-ring-with-bg" size="22" />
+                  <div v-else-if="addToCartButtonStatus === 'added'" class="absolute">{{ $t('cart.added_to_cart') }}!</div>
                 </Transition>
               </button>
-              <ButtonWishlist :product="product"/>
+              <ButtonWishlist :product="product" />
             </div>
           </div>
           <div class="px-3 lg:px-0">
@@ -328,24 +286,6 @@ const cartItem = computed(() => {
     --button-outline: 4px;
     --button-scale: 0.975;
   }
-}
-
-.button-bezel-added {
-  box-shadow: 0 0 0 var(--button-outline, 0px) rgba(96, 222, 92, 0.3), inset 0 -1px 1px 0 rgba(0, 0, 0, 0.25), inset 0 1px 0 0 rgba(255, 255, 255, 0.3),
-    0 1px 2px 0 rgba(0, 0, 0, 0.5);
-  @apply bg-green-600 outline-none tracking-[-0.125px] transition scale-[var(--button-scale,1)] duration-200;
-  &:hover {
-    @apply bg-green-500;
-  }
-  &:active {
-    --button-outline: 4px;
-    --button-scale: 0.975;
-  }
-}
-
-button.button-bezel,
-button.button-bezel-added {
-  @apply transition-colors duration-300;
 }
 
 .description ul li {
