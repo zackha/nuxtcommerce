@@ -1,7 +1,7 @@
 <!--app/pages/favorites.vue-->
 <script setup>
 const { removeFromList, wishlist } = useWishlist();
-const { siteName } = useAppConfig();
+const { name } = useAppConfig().site;
 const url = useRequestURL();
 const localePath = useLocalePath();
 
@@ -10,13 +10,13 @@ const canonical = url.origin + url.pathname;
 useSeoMeta({
   title: 'Favorites',
   ogTitle: 'Favorites',
-  description: `Your favorite products saved on ${siteName}.`,
-  ogDescription: `Your favorite products saved on ${siteName}.`,
+  description: `Your favorite products saved on ${name}.`,
+  ogDescription: `Your favorite products saved on ${name}.`,
   ogUrl: canonical,
   canonical,
-  keywords: `favorites, wishlist, ${siteName}`,
+  keywords: `favorites, wishlist, ${name}`,
   twitterTitle: 'Favorites',
-  twitterDescription: `Your favorite products saved on ${siteName}.`,
+  twitterDescription: `Your favorite products saved on ${name}.`,
   ogImage: 'https://commerce.nuxt.dev/social-card.jpg',
   twitterImage: 'https://commerce.nuxt.dev/social-card.jpg',
   robots: 'noindex, nofollow',

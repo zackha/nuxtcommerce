@@ -1,6 +1,6 @@
 {
   "name": "nuxtcommerce",
-  "version": "3.1.7",
+  "version": "3.1.8",
   "private": true,
   "author": "zackha",
   "description": "Headless storefront for Woocommerce (Nuxt/Vue)",
@@ -32,5 +32,5 @@
     "@vueuse/nuxt": "^13.9.0",
     "wrangler": "^4.36.0"
   },
-  "packageManager": "pnpm@10.15.1"
+  "packageManager": "pnpm@10.16.1"
 }
