@@ -1,3 +1,4 @@
+<!--app/components/AppFooter.vue-->
 <script setup>
 const config = useRuntimeConfig();
 const colorMode = useColorMode();

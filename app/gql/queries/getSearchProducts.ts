@@ -1,3 +1,4 @@
+// app/gql/queries/getSearchProducts.ts
 import { gql } from 'nuxt-graphql-request/utils';
 
 export const getSearchProductsQuery = gql`

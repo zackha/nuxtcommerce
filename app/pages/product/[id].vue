@@ -206,7 +206,6 @@ const { handleAddToCart, addToCartButtonStatus } = useCart();
                 </span>
               </label>
             </div>
-
             <div class="flex">
               <button
                 @click="handleAddToCart(selectedVariation.databaseId)"

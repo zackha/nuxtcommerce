@@ -1,3 +1,4 @@
+<!--app/components/ProductsEmpty.vue-->
 <script setup>
 const route = useRoute();
 const router = useRouter();

@@ -64,7 +64,7 @@
   "product": {
     "originally": "Originally",
     "size": "Size",
-    "quantity": "Quantity",
+    "quantity": "Qty",
     "sku": "article number",
     "vat_included": "VAT included",
     "featured_information": "Featured Information",

@@ -1,3 +1,4 @@
+// app/gql/queries/getCategories.ts
 import { gql } from 'nuxt-graphql-request/utils';
 
 export const getCategoriesQuery = gql`

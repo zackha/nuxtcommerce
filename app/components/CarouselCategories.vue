@@ -1,3 +1,4 @@
+<!--app/components/CarouselCategories.vue-->
 <script setup>
 const router = useRouter();
 const route = useRoute();

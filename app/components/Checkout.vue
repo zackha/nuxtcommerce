@@ -1,6 +1,9 @@
+<!--app/components/Checkout.vue-->
 <script setup>
 const { userDetails, checkoutStatus, handleCheckout } = useCheckout();
 const { cart } = useCart();
+
+const totalQuantity = computed(() => cart.value.reduce((s, i) => s + (i.quantity || 0), 0));
 </script>
 
 <template>
@@ -30,8 +33,8 @@ const { cart } = useCart();
       <div class="text-sm font-semibold p-4 text-neutral-600 dark:text-neutral-400">
         {{
           $t('checkout.pay.description', {
-            total: cart.reduce((total, item) => total + parseFloat(item.variation.node.salePrice), 0).toFixed(2),
-            items: cart.length,
+            total: cart.reduce((total, item) => total + parseFloat(item.variation.node.salePrice) * (item.quantity ?? 1), 0).toFixed(2),
+            items: totalQuantity,
           })
         }}
       </div>
@@ -43,7 +46,7 @@ const { cart } = useCart();
           <div v-if="checkoutStatus === 'order'" class="absolute">
             {{
               $t('checkout.pay.btn', {
-                total: cart.reduce((total, item) => total + parseFloat(item.variation.node.salePrice), 0).toFixed(2),
+                total: cart.reduce((total, item) => total + parseFloat(item.variation.node.salePrice) * (item.quantity ?? 1), 0).toFixed(2),
               })
             }}
           </div>

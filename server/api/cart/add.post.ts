@@ -1,5 +1,4 @@
 // server/api/cart/add.post.ts
-import { readBody } from 'h3';
 import { addToCartMutation } from '~/gql/mutations/addToCart';
 import { requestMutation } from '~~/server/utils/wpgraphql';
 
