@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import {computed} from 'vue';
-
 type PriceVariant = 'default' | 'card' | 'cart';
 
 interface Props {
   salePrice: string;
   regularPrice: string;
   variant?: PriceVariant;
-  quantity?: number; // Add the optional quantity prop
+  quantity?: number;
 }
 
 const props = withDefaults(defineProps<Props>(), {
