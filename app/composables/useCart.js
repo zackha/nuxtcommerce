@@ -1,29 +1,32 @@
+import { push } from 'notivue';
+
 export const useCart = () => {
   const cart = useState('cart', () => []);
   const addToCartButtonStatus = ref('add');
   const removeFromCartButtonStatus = ref('remove');
-  const { push } = useNotivue();
-  const findItemByVariationId = id => cart.value.find(i => i?.variation?.node?.databaseId === id);
+  const findItem = id => cart.value.find(i => i?.variation?.node?.databaseId === id);
 
   const handleAddToCart = productId => {
     addToCartButtonStatus.value = 'loading';
-
-    $fetch('/api/cart/add', {
-      method: 'POST',
-      body: { productId },
-    })
+    $fetch('/api/cart/add', { method: 'POST', body: { productId } })
       .then(res => {
-        updateCart([...cart.value, res.addToCart.cartItem]);
+        const incoming = res.addToCart.cartItem;
+        const existing = cart.value.find(i => i.key === incoming.key);
+        if (existing) {
+          existing.quantity = incoming.quantity;
+          if (typeof incoming?.variation?.node?.stockQuantity === 'number') {
+            existing.variation.node.stockQuantity = incoming.variation.node.stockQuantity;
+          }
+          updateCart([...cart.value]);
+        } else {
+          updateCart([...cart.value, incoming]);
+        }
         addToCartButtonStatus.value = 'added';
         setTimeout(() => (addToCartButtonStatus.value = 'add'), 2000);
       })
       .catch(err => {
         addToCartButtonStatus.value = 'add';
-        const errorMessage = err.response.errors[0].message
-          .replace(/<a[^>]*>(.*?)<\/a>/g, '')
-          .replace(/&mdash;/g, '—')
-          .trim();
-        push.error(errorMessage);
+        push.error('Insufficient stock');
       });
   };
 
@@ -45,22 +48,17 @@ export const useCart = () => {
 
   const changeQty = (key, quantity) => {
     $fetch('/api/cart/update', { method: 'POST', body: { items: [{ key, quantity }] } });
-    if (quantity > 0) {
-      const idx = cart.value.findIndex(i => i.key === key);
-      cart.value[idx].quantity = quantity;
-      updateCart([...cart.value]);
-    } else {
-      updateCart(cart.value.filter(i => i.key !== key));
-    }
+    updateCart(quantity > 0 ? cart.value.map(i => (i.key === key ? { ...i, quantity } : i)) : cart.value.filter(i => i.key !== key));
   };
 
   const increment = id => {
-    const item = findItemByVariationId(id);
-    item ? changeQty(item.key, item.quantity + 1) : handleAddToCart(id);
+    const item = findItem(id);
+    if (item.quantity >= (item?.variation?.node?.stockQuantity ?? Infinity)) return push.error('Insufficient stock');
+    changeQty(item.key, item.quantity + 1);
   };
 
   const decrement = id => {
-    const item = findItemByVariationId(id);
+    const item = findItem(id);
     if (item) changeQty(item.key, item.quantity - 1);
   };
 

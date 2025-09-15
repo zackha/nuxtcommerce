@@ -20,6 +20,8 @@ export const addToCartMutation = gql`
             databaseId
             salePrice(format: RAW)
             regularPrice(format: RAW)
+            stockQuantity
+            stockStatus
             image {
               sourceUrl(size: WOOCOMMERCE_THUMBNAIL)
             }
