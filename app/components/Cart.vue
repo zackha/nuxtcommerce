@@ -33,12 +33,12 @@ const { order } = useCheckout();
                 </div>
               </div>
               <div
-                class="absolute md:opacity-0 group-hover:opacity-100 top-2 right-2 md:-top-1 md:-right-1 transition space-y-0.5 flex flex-col p-0.5 bg-neutral-800 border border-white/5 items-center justify-center rounded-full">
-                <div class="bg-white/10 hover:bg-white/30 transition-all rounded-full p-0.5 w-5 h-5 flex items-center justify-center">
+                class="absolute md:opacity-0 group-hover:opacity-100 top-2 right-2 md:-top-1 md:-right-1 transition space-y-0.5 flex flex-col p-0.5 dark:bg-white/10 bg-black/10 backdrop-blur border dark:border-white/5 border-black/5 items-center justify-center rounded-full">
+                <div class="dark:bg-white/10 bg-white/50 dark:hover:bg-white/30 hover:bg-white/100 transition-all rounded-full p-0.5 w-5 h-5 flex items-center justify-center">
                   <UIcon size="14" name="i-iconamoon-sign-plus" class="text-black dark:text-white cursor-pointer" @click="increment(product.variation.node.databaseId)" />
                 </div>
                 <span class="text-center text-sm">{{ product.quantity }}</span>
-                <div class="bg-white/10 hover:bg-white/30 transition-all rounded-full p-0.5 w-5 h-5 flex items-center justify-center">
+                <div class="dark:bg-white/10 bg-white/50 dark:hover:bg-white/30 hover:bg-white/100 transition-all rounded-full p-0.5 w-5 h-5 flex items-center justify-center">
                   <UIcon
                     size="14"
                     :name="product.quantity > 1 ? 'i-iconamoon-sign-minus' : 'i-iconamoon-trash-light'"
