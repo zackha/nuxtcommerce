@@ -39,10 +39,7 @@ useSeoMeta({
           class="absolute inset-0 bg-gradient-to-t from-black/50 hover:from-black/60 flex items-end p-5"
           :to="localePath(`/product/${product.slug}-${product.sku.split('-')[0]}`)">
           <div class="grid gap-0.5 text-white">
-            <div class="flex gap-2 text-sm">
-              <span v-html="product.salePrice"></span>
-              <span class="line-through text-white/50" v-html="product.regularPrice"></span>
-            </div>
+            <ProductPrice :sale-price="product.salePrice" :regular-price="product.regularPrice" variant="card" />
             <div class="font-bold">{{ product.name }}</div>
             <div class="text-sm font-medium">{{ product.allPaStyle.nodes[0].name }}</div>
           </div>

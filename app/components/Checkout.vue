@@ -4,6 +4,18 @@ const { userDetails, checkoutStatus, handleCheckout } = useCheckout();
 const { cart } = useCart();
 
 const totalQuantity = computed(() => cart.value.reduce((s, i) => s + (i.quantity || 0), 0));
+
+const cartTotal = computed(() => {
+  const total = cart.value.reduce((accumulator, item) => {
+    const node = item.variation.node;
+    const regularPrice = parseFloat(node.regularPrice) || 0;
+    const salePrice = parseFloat(node.salePrice) || 0;
+    const priceToUse = salePrice > 0 && salePrice < regularPrice ? salePrice : regularPrice;
+    return accumulator + priceToUse * (item.quantity ?? 1);
+  }, 0);
+
+  return total.toFixed(2);
+});
 </script>
 
 <template>
@@ -33,7 +45,7 @@ const totalQuantity = computed(() => cart.value.reduce((s, i) => s + (i.quantity
       <div class="text-sm font-semibold p-4 text-neutral-600 dark:text-neutral-400">
         {{
           $t('checkout.pay.description', {
-            total: cart.reduce((total, item) => total + parseFloat(item.variation.node.salePrice) * (item.quantity ?? 1), 0).toFixed(2),
+            total: cartTotal,
             items: totalQuantity,
           })
         }}
@@ -46,7 +58,7 @@ const totalQuantity = computed(() => cart.value.reduce((s, i) => s + (i.quantity
           <div v-if="checkoutStatus === 'order'" class="absolute">
             {{
               $t('checkout.pay.btn', {
-                total: cart.reduce((total, item) => total + parseFloat(item.variation.node.salePrice) * (item.quantity ?? 1), 0).toFixed(2),
+                total: cartTotal,
               })
             }}
           </div>
