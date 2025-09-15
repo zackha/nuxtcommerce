@@ -4,7 +4,6 @@ import { push } from 'notivue';
 export const useCart = () => {
   const cart = useState<CartItem[]>('cart', () => []);
   const addToCartButtonStatus = ref<AddBtnStatus>('add');
-  const removeFromCartButtonStatus = ref<RemoveBtnStatus>('remove');
 
   const findItem = (variationId: number) => cart.value.find(i => i.variation?.node?.databaseId === variationId);
 
@@ -43,15 +42,6 @@ export const useCart = () => {
     updateCart(quantity <= 0 ? cart.value.filter(i => i.key !== key) : cart.value.map(i => (i.key === key ? { ...i, quantity } : i)));
   };
 
-  const handleRemoveFromCart = (key: string) => {
-    try {
-      removeFromCartButtonStatus.value = 'loading';
-      changeQty(key, 0);
-    } finally {
-      removeFromCartButtonStatus.value = 'remove';
-    }
-  };
-
   const increment = (variationId: number) => {
     const item = findItem(variationId);
     if (!item) return handleAddToCart(variationId);
@@ -79,9 +69,7 @@ export const useCart = () => {
   return {
     cart,
     addToCartButtonStatus,
-    removeFromCartButtonStatus,
     handleAddToCart,
-    handleRemoveFromCart,
     increment,
     decrement,
   };

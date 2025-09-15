@@ -1,6 +1,6 @@
 <!--app/components/Cart.vue-->
 <script setup>
-const { cart, handleRemoveFromCart, removeFromCartButtonStatus, increment, decrement } = useCart();
+const { cart, increment, decrement } = useCart();
 const { order } = useCheckout();
 </script>
 
@@ -26,27 +26,26 @@ const { order } = useCheckout();
                   <p class="text-alizarin-crimson-700">-{{ ((1 - product.variation.node.salePrice / product.variation.node.regularPrice) * 100).toFixed(0) }}%</p>
                 </div>
                 <div class="text-xs flex gap-2 font-medium text-neutral-600 dark:text-neutral-300">
-                  <div>{{ $t('product.size') }}: {{ product.variation.attributes.map(attr => attr.value.toUpperCase()).join(', ') }} • {{ $t('product.quantity') }}:</div>
-                  <div class="flex items-center gap-1">
-                    <UIcon
-                      name="iconamoon:sign-minus-circle-fill"
-                      size="14"
-                      class="text-black dark:text-white cursor-pointer"
-                      @click="decrement(product.variation.node.databaseId)" />
-                    <span class="text-center">{{ product.quantity }}</span>
-                    <UIcon
-                      name="iconamoon:sign-plus-circle-fill"
-                      size="14"
-                      class="text-black dark:text-white cursor-pointer"
-                      @click="increment(product.variation.node.databaseId)" />
+                  <div>
+                    {{ $t('product.size') }}: {{ product.variation.attributes.map(attr => attr.value.toUpperCase()).join(', ') }} • {{ $t('product.quantity') }}:
+                    {{ product.quantity }}
                   </div>
                 </div>
               </div>
-              <button
-                @click="handleRemoveFromCart(product.key)"
-                class="absolute md:opacity-0 group-hover:opacity-100 top-2 right-2 md:-top-1 md:-right-1 transition bg-red-700 flex p-1 items-center justify-center rounded-full hover:bg-red-500 active:scale-95">
-                <UIcon :name="removeFromCartButtonStatus === 'remove' ? 'i-iconamoon-trash-light' : 'i-svg-spinners-90-ring-with-bg'" size="18" class="text-white" />
-              </button>
+              <div
+                class="absolute md:opacity-0 group-hover:opacity-100 top-2 right-2 md:-top-1 md:-right-1 transition space-y-0.5 flex flex-col p-0.5 bg-neutral-800 border border-white/5 items-center justify-center rounded-full">
+                <div class="bg-white/10 hover:bg-white/30 transition-all rounded-full p-0.5 w-5 h-5 flex items-center justify-center">
+                  <UIcon size="14" name="i-iconamoon-sign-plus" class="text-black dark:text-white cursor-pointer" @click="increment(product.variation.node.databaseId)" />
+                </div>
+                <span class="text-center text-sm">{{ product.quantity }}</span>
+                <div class="bg-white/10 hover:bg-white/30 transition-all rounded-full p-0.5 w-5 h-5 flex items-center justify-center">
+                  <UIcon
+                    size="14"
+                    :name="product.quantity > 1 ? 'i-iconamoon-sign-minus' : 'i-iconamoon-trash-light'"
+                    class="text-black dark:text-white cursor-pointer"
+                    @click="decrement(product.variation.node.databaseId)" />
+                </div>
+              </div>
             </div>
           </div>
         </div>
