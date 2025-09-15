@@ -1,3 +1,4 @@
+// app/composables/useCart.ts
 import { push } from 'notivue';
 
 export const useCart = () => {
@@ -38,16 +39,11 @@ export const useCart = () => {
   };
 
   const changeQty = (key: string, quantity: number) => {
-    try {
-      $fetch('/api/cart/update', { method: 'POST', body: { items: [{ key, quantity }] } });
-      if (quantity <= 0) updateCart(cart.value.filter(i => i.key !== key));
-      else updateCart(cart.value.map(i => (i.key === key ? { ...i, quantity } : i)));
-    } catch {
-      push.error('Unable to update quantity');
-    }
+    $fetch('/api/cart/update', { method: 'POST', body: { items: [{ key, quantity }] } });
+    updateCart(quantity <= 0 ? cart.value.filter(i => i.key !== key) : cart.value.map(i => (i.key === key ? { ...i, quantity } : i)));
   };
 
-  const handleRemoveFromCart = async (key: string) => {
+  const handleRemoveFromCart = (key: string) => {
     try {
       removeFromCartButtonStatus.value = 'loading';
       changeQty(key, 0);
@@ -56,7 +52,7 @@ export const useCart = () => {
     }
   };
 
-  const increment = async (variationId: number) => {
+  const increment = (variationId: number) => {
     const item = findItem(variationId);
     if (!item) return handleAddToCart(variationId);
     const max = item.variation?.node?.stockQuantity ?? Infinity;
@@ -64,7 +60,7 @@ export const useCart = () => {
     changeQty(item.key, item.quantity + 1);
   };
 
-  const decrement = async (variationId: number) => {
+  const decrement = (variationId: number) => {
     const item = findItem(variationId);
     if (item) changeQty(item.key, item.quantity - 1);
   };
