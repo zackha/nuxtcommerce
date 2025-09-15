@@ -10,9 +10,7 @@ const cartTotal = computed(() => {
     const node = item.variation.node;
     const regularPrice = parseFloat(node.regularPrice) || 0;
     const salePrice = parseFloat(node.salePrice) || 0;
-
     const priceToUse = salePrice > 0 && salePrice < regularPrice ? salePrice : regularPrice;
-
     return accumulator + priceToUse * (item.quantity ?? 1);
   }, 0);
 

@@ -20,12 +20,12 @@ export const getProductQuery = gql`
             sourceUrl(size: LARGE)
           }
         }
-        allPaStyle {
+        allPaColor {
           nodes {
             name
           }
         }
-        allPaColor {
+        allPaStyle {
           nodes {
             name
           }
@@ -67,7 +67,7 @@ export const getProductQuery = gql`
               name
               regularPrice
               salePrice
-              allPaColor {
+              allPaStyle {
                 nodes {
                   name
                 }
