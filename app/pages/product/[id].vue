@@ -51,13 +51,6 @@ watchEffect(() => {
   }
 });
 
-const calculateDiscountPercentage = computed(() => {
-  if (!product.value.salePrice || !product.value.regularPrice) return 0;
-  const salePriceValue = parseFloat(product.value.salePrice.replace(/[^0-9]/g, ''));
-  const regularPriceValue = parseFloat(product.value.regularPrice.replace(/[^0-9]/g, ''));
-  return Math.round(((salePriceValue - regularPriceValue) / regularPriceValue) * 100);
-});
-
 const { handleAddToCart, addToCartButtonStatus } = useCart();
 </script>
 
@@ -110,19 +103,8 @@ const { handleAddToCart, addToCartButtonStatus } = useCart();
         <div class="flex-col flex gap-4 lg:max-h-[530px] xl:max-h-[600px] overflow-hidden">
           <div class="p-3 lg:pb-4 lg:p-0 border-b border-[#efefef] dark:border-[#262626]">
             <h1 class="text-2xl font-semibold mb-1">{{ product.name }}</h1>
-            <div class="flex justify-between flex-row items-baseline">
-              <div class="flex flex-row items-baseline">
-                <p class="text-xl font-bold text-alizarin-crimson-700" v-html="product.salePrice"></p>
-                <p class="text-sm ml-2">{{ $t('product.vat_included') }}</p>
-              </div>
-            </div>
-            <div class="flex-wrap items-baseline flex-row flex">
-              <p class="text-sm">{{ $t('product.originally') }}:</p>
-              <p class="text-sm ml-1 line-through" v-html="product.regularPrice"></p>
-              <p class="text-sm ml-1 text-alizarin-crimson-700">{{ calculateDiscountPercentage }}%</p>
-            </div>
+            <ProductPrice :sale-price="product.salePrice" :regular-price="product.regularPrice" />
           </div>
-
           <div class="flex gap-2 px-3 lg:px-0" v-for="(variation, i) in product.productTypes?.nodes" :key="i">
             <div v-for="(vars, i) in variation.products.nodes" :key="i">
               <NuxtLink
