@@ -58,60 +58,11 @@ const calculateDiscountPercentage = computed(() => {
   return Math.round(((salePriceValue - regularPriceValue) / regularPriceValue) * 100);
 });
 
-const { name } = useAppConfig();
-const url = useRequestURL();
-const canonical = url.origin + url.pathname;
-const image = computed(() => product.value?.image?.sourceUrl);
-const plainDescription = computed(() => {
-  const raw = product.value?.description?.replace(/<[^>]+>/g, '');
-  return raw ? raw.slice(0, 160) : '';
-});
-
-useHead(() => {
-  const title = product.value?.name || name;
-  const description = plainDescription.value;
-  const img = image.value;
-  const keywords = [product.value?.name, product.value?.allPaStyle?.nodes?.[0]?.name, name].filter(Boolean).join(', ');
-
-  return {
-    title,
-    ogTitle: title,
-    description,
-    ogDescription: description,
-    ogImage: img,
-    ogUrl: canonical,
-    canonical,
-    ogType: 'product',
-    twitterTitle: title,
-    twitterDescription: description,
-    twitterImage: img,
-    keywords,
-  };
-});
-
-const productSchema = computed(() => ({
-  '@context': 'https://schema.org',
-  '@type': 'Product',
-  name: product.value?.name,
-  description: plainDescription.value,
-  image: image.value ? [image.value] : [],
-  sku: product.value?.sku,
-  brand: { '@type': 'Brand', name: name },
-}));
-
-useHead(() => ({
-  script: [
-    {
-      type: 'application/ld+json',
-      children: JSON.stringify(productSchema.value),
-    },
-  ],
-}));
-
 const { handleAddToCart, addToCartButtonStatus } = useCart();
 </script>
 
 <template>
+  <ProductSeo v-if="product?.name" :info="product" />
   <ProductSkeleton v-if="!product.name" />
   <div v-else class="justify-center flex flex-col lg:flex-row lg:mx-5">
     <ButtonBack />
