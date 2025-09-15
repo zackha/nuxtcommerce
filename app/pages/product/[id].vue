@@ -8,7 +8,6 @@ const localePath = useLocalePath();
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import ProductPrice from "~/components/ProductPrice.vue";
 
 const thumbsSwiper = ref(null);
 const setThumbsSwiper = swiper => {
@@ -52,60 +51,18 @@ watchEffect(() => {
   }
 });
 
-const { name } = useAppConfig();
-const url = useRequestURL();
-const canonical = url.origin + url.pathname;
-const image = computed(() => product.value?.image?.sourceUrl);
-const plainDescription = computed(() => {
-  const raw = product.value?.description?.replace(/<[^>]+>/g, '');
-  return raw ? raw.slice(0, 160) : '';
+const calculateDiscountPercentage = computed(() => {
+  if (!product.value.salePrice || !product.value.regularPrice) return 0;
+  const salePriceValue = parseFloat(product.value.salePrice.replace(/[^0-9]/g, ''));
+  const regularPriceValue = parseFloat(product.value.regularPrice.replace(/[^0-9]/g, ''));
+  return Math.round(((salePriceValue - regularPriceValue) / regularPriceValue) * 100);
 });
-
-useHead(() => {
-  const title = product.value?.name || name;
-  const description = plainDescription.value;
-  const img = image.value;
-  const keywords = [product.value?.name, product.value?.allPaStyle?.nodes?.[0]?.name, name].filter(Boolean).join(', ');
-
-  return {
-    title,
-    ogTitle: title,
-    description,
-    ogDescription: description,
-    ogImage: img,
-    ogUrl: canonical,
-    canonical,
-    ogType: 'product',
-    twitterTitle: title,
-    twitterDescription: description,
-    twitterImage: img,
-    keywords,
-  };
-});
-
-const productSchema = computed(() => ({
-  '@context': 'https://schema.org',
-  '@type': 'Product',
-  name: product.value?.name,
-  description: plainDescription.value,
-  image: image.value ? [image.value] : [],
-  sku: product.value?.sku,
-  brand: { '@type': 'Brand', name: name },
-}));
-
-useHead(() => ({
-  script: [
-    {
-      type: 'application/ld+json',
-      children: JSON.stringify(productSchema.value),
-    },
-  ],
-}));
 
 const { handleAddToCart, addToCartButtonStatus } = useCart();
 </script>
 
 <template>
+  <ProductSeo v-if="product?.name" :info="product" />
   <ProductSkeleton v-if="!product.name" />
   <div v-else class="justify-center flex flex-col lg:flex-row lg:mx-5">
     <ButtonBack />
@@ -153,7 +110,17 @@ const { handleAddToCart, addToCartButtonStatus } = useCart();
         <div class="flex-col flex gap-4 lg:max-h-[530px] xl:max-h-[600px] overflow-hidden">
           <div class="p-3 lg:pb-4 lg:p-0 border-b border-[#efefef] dark:border-[#262626]">
             <h1 class="text-2xl font-semibold mb-1">{{ product.name }}</h1>
-            <ProductPrice :sale-price="product.salePrice" :regular-price="product.regularPrice" />
+            <div class="flex justify-between flex-row items-baseline">
+              <div class="flex flex-row items-baseline">
+                <p class="text-xl font-bold text-alizarin-crimson-700" v-html="product.salePrice"></p>
+                <p class="text-sm ml-2">{{ $t('product.vat_included') }}</p>
+              </div>
+            </div>
+            <div class="flex-wrap items-baseline flex-row flex">
+              <p class="text-sm">{{ $t('product.originally') }}:</p>
+              <p class="text-sm ml-1 line-through" v-html="product.regularPrice"></p>
+              <p class="text-sm ml-1 text-alizarin-crimson-700">{{ calculateDiscountPercentage }}%</p>
+            </div>
           </div>
 
           <div class="flex gap-2 px-3 lg:px-0" v-for="(variation, i) in product.productTypes?.nodes" :key="i">
@@ -162,12 +129,12 @@ const { handleAddToCart, addToCartButtonStatus } = useCart();
                 :to="localePath(`/product/${vars.slug}-${product.sku.split('-')[0]}`)"
                 :class="[
                   'flex w-12 rounded-lg border-2 select-varitaion transition-all duration-200 bg-neutral-200 dark:bg-neutral-800',
-                  vars.allPaStyle?.nodes[0]?.name === product.allPaStyle.nodes[0].name ? 'selected-varitaion' : 'border-[#9b9b9b] dark:border-[#8c8c8c]',
+                  vars.allPaColor.nodes[0].name === product.allPaColor.nodes[0].name ? 'selected-varitaion' : 'border-[#9b9b9b] dark:border-[#8c8c8c]',
                 ]">
                 <NuxtImg
-                  :alt="vars.allPaColor?.nodes[0]?.name"
+                  :alt="vars.allPaColor.nodes[0].name"
                   :src="vars.image.sourceUrl"
-                  :title="vars.allPaColor?.nodes[0]?.name"
+                  :title="vars.allPaColor.nodes[0].name"
                   class="rounded-md border-2 border-white dark:border-black" />
               </NuxtLink>
             </div>
