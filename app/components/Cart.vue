@@ -19,12 +19,11 @@ const { order } = useCheckout();
               <NuxtImg :src="product.variation.node.image.sourceUrl" class="w-24 h-28 object-cover shadow-md rounded-2xl" />
               <div class="flex-1 gap-1 flex flex-col">
                 <div class="font-medium text-sm line-clamp-2 overflow-hidden text-ellipsis">{{ product.product.node.name }}</div>
-                <div class="font-bold">${{ (Number(product.variation.node.salePrice) * product.quantity).toFixed(2) }}</div>
-                <div class="flex-wrap text-neutral-600 dark:text-neutral-300 items-baseline text-xs gap-1 flex-row flex">
-                  <p>{{ $t('product.originally') }}:</p>
-                  <p class="line-through">${{ (Number(product.variation.node.regularPrice) * product.quantity).toFixed(2) }}</p>
-                  <p class="text-alizarin-crimson-700">-{{ ((1 - product.variation.node.salePrice / product.variation.node.regularPrice) * 100).toFixed(0) }}%</p>
-                </div>
+                <ProductPrice
+                    :sale-price="product.variation.node.salePrice"
+                    :regular-price="product.variation.node.regularPrice"
+                    :quantity="product.quantity"
+                    variant="cart" />
                 <div class="text-xs flex gap-2 font-medium text-neutral-600 dark:text-neutral-300">
                   <div>
                     {{ $t('product.size') }}: {{ product.variation.attributes.map(attr => attr.value.toUpperCase()).join(', ') }} • {{ $t('product.quantity') }}:
