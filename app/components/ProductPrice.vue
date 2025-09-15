@@ -57,10 +57,10 @@ const discountPercentage = computed(() => {
       </div>
     </div>
 
-    <div v-else-if="variant === 'card'" class="flex gap-2 text-sm">
+    <div v-else-if="variant === 'card'" class="flex gap-1">
       <template v-if="isSale">
         <span v-html="salePrice"></span>
-        <span class="line-through text-white/50" v-html="regularPrice"></span>
+        <span class="text-[#5f5f5f] dark:text-[#a3a3a3] line-through" v-html="regularPrice"></span>
       </template>
       <template v-else>
         <span v-html="regularPrice"></span>
@@ -68,7 +68,7 @@ const discountPercentage = computed(() => {
     </div>
 
     <div v-else-if="variant === 'cart'">
-      <div v-if="isSale">
+      <div v-if="isSale" class="gap-1 flex flex-col">
         <div class="font-bold">${{ totalSalePrice.toFixed(2) }}</div>
         <div class="flex-wrap text-neutral-600 dark:text-neutral-300 items-baseline text-xs gap-1 flex-row flex">
           <p>{{ $t('product.originally') }}:</p>

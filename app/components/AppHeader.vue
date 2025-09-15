@@ -183,7 +183,7 @@ const totalQuantity = computed(() => cart.value.reduce((s, i) => s + (i.quantity
                 <ProductPrice :sale-price="product.salePrice" :regular-price="product.regularPrice" variant="card" />
                 <div>{{ product.name }}</div>
                 <div class="font-normal text-[#5f5f5f] dark:text-[#a3a3a3]">
-                  {{ product.allPaStyle?.nodes[0]?.name }}
+                  {{ product.allPaStyle.nodes[0].name }}
                 </div>
               </div>
             </div>

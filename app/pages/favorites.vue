@@ -41,7 +41,7 @@ useSeoMeta({
           <div class="grid gap-0.5 text-white">
             <ProductPrice :sale-price="product.salePrice" :regular-price="product.regularPrice" variant="card" />
             <div class="font-bold">{{ product.name }}</div>
-            <div class="text-sm font-medium">{{ product.allPaStyle?.nodes[0]?.name }}</div>
+            <div class="text-sm font-medium">{{ product.allPaStyle.nodes[0].name }}</div>
           </div>
         </NuxtLink>
       </div>
