@@ -14,9 +14,9 @@
   <br/><br/>
   <a href="https://github.com/zackha/nuxtcommerce/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/zackha/nuxtcommerce?style=flat&color=ff4757"></a>
   <a href="https://github.com/zackha/nuxtcommerce/issues"><img alt="Issues" src="https://img.shields.io/github/issues/zackha/nuxtcommerce?style=flat"></a>
-  <img alt="Built with Nuxt" src="https://img.shields.io/badge/Nuxt-4.x-00DC82?logo=nuxt.js&logoColor=white&style=flat"/>
-  <img alt="TypeScript Ready" src="https://img.shields.io/badge/TypeScript-ready-3178C6?logo=typescript&logoColor=white&style=flat"/>
-  <img alt="PNPM" src="https://img.shields.io/badge/pnpm-10.x-F69220?logo=pnpm&logoColor=white&style=flat"/>
+  <img alt="Built with Nuxt" src="https://img.shields.io/badge/Nuxt-238636?logo=nuxt&logoColor=white&style=flat"/>
+  <img alt="GraphQL" src="https://img.shields.io/badge/GraphQL-E10098?logo=graphql&logoColor=white&style=flat"/>
+  <img alt="WooCommerce" src="https://img.shields.io/badge/WooCommerce-96588A?logo=woo&logoColor=white&style=flat"/>
 </p>
 
 ## Table of Contents
