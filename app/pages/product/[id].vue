@@ -77,7 +77,6 @@ const { handleAddToCart, addToCartButtonStatus } = useCart();
       <div class="relative">
         <swiper
           :style="{
-            '--swiper-navigation-size': '16px',
             '--swiper-navigation-color': '#000',
             '--swiper-pagination-color': 'rgb(0 0 0 / 50%)',
           }"
@@ -186,7 +185,7 @@ const { handleAddToCart, addToCartButtonStatus } = useCart();
 }
 .swiper-button-next,
 .swiper-button-prev {
-  @apply bg-white/50 hover:bg-white p-6 rounded-full flex items-center justify-center shadow transition backdrop-blur-sm;
+  @apply bg-white/50 hover:bg-white p-3.5 m-2 rounded-full flex items-center justify-center shadow transition backdrop-blur-sm;
 }
 
 .swiper-button-prev.swiper-button-disabled,
