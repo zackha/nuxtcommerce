@@ -73,51 +73,142 @@ To get started with NuxtCommerce, follow these steps:
 
    Your application should now be running on [http://localhost:3000](http://localhost:3000).
 
-## WordPress Setup Guide
+# WordPress + WooCommerce + WPGraphQL Setup
 
-This guide will help you set up your WordPress site with WooCommerce and GraphQL for seamless integration. Follow the steps below carefully to ensure a successful configuration.
+> This project uses **WordPress + WooCommerce** as the headless backend and **WPGraphQL** (+ WooGraphQL) as the API layer consumed by the Nuxt app. Follow the steps below carefully.
 
-### Step 1: Install Required Plugins
+## 1) Fresh WordPress install (quick checklist)
 
-To begin, make sure the following plugins are installed and activated on your WordPress site:
+1. Install WordPress on your host (or local with e.g. Local, MAMP, Docker).
+2. Log in to `/wp-admin`.
+3. Go to **Settings → General** and set:
 
-- [**WooCommerce**](https://woocommerce.com/): The essential plugin for creating an e-commerce store.
-- [**WPGraphQL**](https://www.wpgraphql.com/): Enables GraphQL support for WordPress.
-- [**WPGraphQL CORS**](https://github.com/funkhaus/wp-graphql-cors): Allows Cross-Origin Resource Sharing for WPGraphQL.
-- [**WPGraphQL WooCommerce (WooGraphQL)**](https://github.com/wp-graphql/wp-graphql-woocommerce): Adds WooCommerce-specific GraphQL functionalities.
+   - Site Language, Timezone, Date/Time format
+   - Ensure **WordPress Address** and **Site Address** use **https\://** in production
 
-> **Tip:** You can install these plugins directly from the WordPress Plugin Repository or upload them manually if you have the plugin files.
+4. Go to **Settings → Permalinks** and choose **Post name**.
 
-### Step 2: Upload Product Data
+   > **Important:** Pretty permalinks are required for `/graphql` to work reliably.
 
-To populate your WooCommerce store with product data, follow these steps:
+---
+
+## 2) Required plugins
+
+Install and activate the following:
+
+- [**WooCommerce**](https://woocommerce.com/) – core e-commerce
+- [**WPGraphQL**](https://www.wpgraphql.com/) – GraphQL API for WordPress
+- [**WPGraphQL WooCommerce (WooGraphQL)**](https://github.com/wp-graphql/wp-graphql-woocommerce) – WooCommerce schema for WPGraphQL
+- **(Optional but useful)** Regenerate Thumbnails – to rebuild image sizes after changes
+
+You can install from the Plugins menu or upload ZIPs if needed.
+
+## 3) WooCommerce onboarding
+
+Open **WooCommerce → Settings** and complete these tabs:
+
+- **General**
+
+  - Store Address, Selling/Shipping locations, Default Customer Location
+  - Currency options (e.g., NOK, EUR, USD)
+
+- **Products**
+
+  - Enable/disable reviews as you prefer
+  - (Optional) Measurements: weight/unit, dimensions
+
+- **Tax** (if applicable)
+
+  - Enable taxes and set classes/rates
+
+- **Shipping**
+
+  - Create at least one **Shipping Zone** and **Method** (e.g., “Flat rate”)
+
+- **Payments**
+
+  - Enable **Cash on Delivery** (COD) to match the demo checkout in this repo:
+
+    - _Payments → Cash on delivery → Enable_
+
+  - You can add online gateways (Stripe, PayPal, Vipps, etc.) later
+
+- **Accounts & Privacy**
+
+  - Decide whether guest checkout is allowed
+
+- **Advanced**
+
+  - REST API settings are not required here; GraphQL is a separate endpoint
+
+> The sample checkout in this project posts `paymentMethod: 'cod'`. Make sure COD is enabled to test end-to-end quickly.
+
+## 4) Product attributes & taxonomies (important for GraphQL schema)
+
+This project expects product attributes that match the GraphQL fields used in queries:
+
+- **Color** → attribute slug `pa_color` (used via `allPaColor`)
+- **Style** → attribute slug `pa_style` (used via `allPaStyle`)
+
+Create them in **Products → Attributes**:
+
+1. Add **Color** (`slug: color` → WooCommerce will store as taxonomy `pa_color`).
+2. Add **Style** (`slug: style` → taxonomy `pa_style`).
+3. Add **Size** if you plan to manage sizes (`slug: size` → `pa_size`).
+
+For each attribute, **Configure terms** (e.g., Color: Red/Blue/Black, Style: Casual/Sport, etc.).
+
+## 5) Import products (CSV) or create manually
+
+### CSV Import (recommended for quick demo)
 
 1. Download the product data files from [this link](https://github.com/zackha/nuxtcommerce/raw/refs/heads/master/public/products.zip). The zip file contains both variable and variation product CSV files.
-2. Navigate to the WooCommerce admin panel.
-3. Go to **Products > Import**, then upload the CSV files from the downloaded zip.
-4. Follow the on-screen instructions to map the CSV columns to WooCommerce fields and complete the import.
+2. Go to **Products → All Products → Import**.
+3. Upload the CSV(s), map columns carefully:
 
-> **Note:** Ensure your CSV files are properly formatted to avoid errors during the import process.
+   - Product Type: **variable** for parent products
+   - Attributes must map to `pa_color`, `pa_style`.
+   - Variations CSV must reference the correct parent
 
-### Step 3: Configure WPGraphQL
+4. Complete the import wizard.
 
-1. Navigate to **WPGraphQL > Settings** in the WordPress admin dashboard.
-2. Locate the **GraphQL Endpoint URL** and copy it. The default endpoint is typically `/graphql`.
-3. Open your project’s `.env` file and add the following line:
+> After import, ensure products are **Published**, **In Stock**, and have **Prices**.
 
-   ```env
-   GQL_HOST=<your_graphql_endpoint_url>
-   ```
+## 6) Media sizes (thumbnails & large)
 
-   Replace `<your_graphql_endpoint_url>` with the copied URL from WPGraphQL settings.
+The frontend queries use image sizes like:
 
-> **Important:** Make sure your server allows CORS (Cross-Origin Resource Sharing) to enable communication between your WordPress backend and frontend application.
+- `WOOCOMMERCE_THUMBNAIL` (WooCommerce thumbnail)
+- `LARGE` (WordPress large)
 
-By following these steps, your WordPress site will be ready to integrate WooCommerce with GraphQL. For additional troubleshooting or advanced customization, refer to the official documentation of each plugin.
+To get crisp images:
 
-## Contributing
+1. Go to **WooCommerce → Settings → Products → Display** _(or Appearance → Customize → WooCommerce)_ and confirm your **thumbnail** dimensions.
+2. Go to **Settings → Media** for **Large** size dimensions.
+3. If you changed dimensions or imported images, run **Tools → Regenerate Thumbnails**.
 
-Contributions of any kind are welcome! You can open an issue for requests, bug reports, or general feedback, or you can directly create a pull request(PR).
+## 7) Connect frontend to backend
+
+In your Nuxt project, create `.env`:
+
+```bash
+GQL_HOST=https://your-woocommerce-site.com/graphql
+```
+
+This is read by `runtimeConfig.gqlHost` and used by the server utility that proxies and caches GraphQL calls.
+
+## 🙌 Contributors & Acknowledgements
+
+We sincerely thank everyone who has contributed to **NuxtCommerce**.
+Your support, feedback, and ideas keep this project moving forward. 🚀
+
+✨ **Special thanks**
+
+| Collaborator |
+| :----------: |
+| [<img src="https://github.com/rikp777.png?size=115" width=115><br><sub>@rikp777</sub>](https://github.com/rikp777) |
+
+<sub>More contributors will be highlighted here as the project grows.</sub>
 
 ## Contact
 
