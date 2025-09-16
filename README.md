@@ -30,7 +30,6 @@
 * [API Endpoints (Server)](#api-endpoints-server)
 * [Internationalization (i18n)](#internationalization-i18n)
 * [Performance & Caching](#performance--caching)
-* [Screens & UX Highlights](#screens--ux-highlights)
 * [Contributors & Acknowledgements](#-contributors--acknowledgements)
 * [Contact](#contact)
 
