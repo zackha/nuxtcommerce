@@ -250,15 +250,6 @@ Client (`$fetch` to `/api/*`) → Nitro server proxies to WPGraphQL → GET endp
 * Image optimization via `@nuxt/image`
 * Prerender: `/`, `/sitemap.xml`, `/robots.txt`
 
-## Screens & UX Highlights
-
-* Infinite product grid with smooth skeletons
-* Product detail with **Swiper** gallery + modal lightbox
-* Variation/size selection, “Add to Cart” feedback states
-* Wishlist toggle + favorites grid
-* Search drawer with instant results
-* Clean, responsive, dark-mode friendly design
-
 ## 🙌 Contributors & Acknowledgements
 
 We sincerely thank everyone who has contributed to **NuxtCommerce**.
