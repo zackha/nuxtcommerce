@@ -1,6 +1,5 @@
 <!--app/pages/product/[id].vue-->
 <script setup>
-import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Navigation, Pagination, Thumbs } from 'swiper/modules';
 const { isOpenImageSliderModal } = useComponents();
 const localePath = useLocalePath();
@@ -13,8 +12,6 @@ const thumbsSwiper = ref(null);
 const setThumbsSwiper = swiper => {
   thumbsSwiper.value = swiper;
 };
-
-const modules = [Navigation, Pagination, Thumbs];
 
 const route = useRoute();
 const id = computed(() => route.params.id);
@@ -59,43 +56,21 @@ const { handleAddToCart, addToCartButtonStatus } = useCart();
   <ProductSkeleton v-if="!product.name" />
   <div v-else class="justify-center flex flex-col lg:flex-row lg:mx-5">
     <ButtonBack />
-    <div class="mr-6 mt-5 pt-2.5 max-xl:hidden">
-      <swiper :modules="modules" @swiper="setThumbsSwiper" class="product-images-thumbs w-14">
-        <swiper-slide class="cursor-pointer rounded-xl overflow-hidden border-2 border-white dark:border-black">
-          <NuxtImg
-            :alt="product.name"
-            class="h-full w-full border-2 border-white bg-neutral-200 dark:bg-neutral-800 dark:border-black rounded-[10px]"
-            :src="product.image?.sourceUrl" />
-        </swiper-slide>
-        <swiper-slide class="cursor-pointer rounded-xl overflow-hidden border-2 border-white dark:border-black" v-for="(node, i) in product.galleryImages?.nodes" :key="i">
-          <NuxtImg :alt="product.name" class="h-full w-full border-2 border-white bg-neutral-200 dark:bg-neutral-800 dark:border-black rounded-[10px]" :src="node.sourceUrl" />
-        </swiper-slide>
-      </swiper>
+    <div class="mr-6 mt-5 pt-2.5 max-xl:hidden ">
+      <ProductGallery
+          :product="product"
+          :show-thumbnails="true"
+          @swiper-instance="setThumbsSwiper"
+      />
     </div>
-    <div
-      class="flex lg:p-5 lg:gap-5 flex-col lg:flex-row lg:border lg:border-transparent lg:dark:border-[#262626] lg:rounded-[32px] lg:shadow-[0_1px_20px_rgba(0,0,0,.15)] lg:mt-2.5 select-none">
+    <div class="flex lg:p-5 lg:gap-5 flex-col lg:flex-row lg:border lg:border-transparent lg:dark:border-[#262626] lg:rounded-[32px] lg:shadow-[0_1px_20px_rgba(0,0,0,.15)] lg:mt-2.5 select-none">
       <div class="relative">
-        <swiper
-          :style="{
-            '--swiper-navigation-color': '#000',
-            '--swiper-pagination-color': 'rgb(0 0 0 / 50%)',
-          }"
-          :spaceBetween="4"
-          :slidesPerView="1.5"
-          :pagination="{
-            dynamicBullets: true,
-          }"
-          :navigation="true"
-          :modules="modules"
-          :thumbs="{ swiper: thumbsSwiper }"
-          class="lg:w-[530px] lg:h-[530px] xl:w-[600px] xl:h-[600px] lg:rounded-2xl">
-          <swiper-slide @click="isOpenImageSliderModal = true">
-            <NuxtImg :alt="product.name" class="h-full w-full bg-neutral-200 dark:bg-neutral-800" :src="product.image?.sourceUrl" />
-          </swiper-slide>
-          <swiper-slide @click="isOpenImageSliderModal = true" v-for="(node, i) in product.galleryImages?.nodes" :key="i">
-            <NuxtImg :alt="product.name" class="h-full w-full bg-neutral-200 dark:bg-neutral-800" :src="node.sourceUrl" />
-          </swiper-slide>
-        </swiper>
+        <ProductGallery
+            :product="product"
+            :show-thumbnails="false"
+            :linked-swiper="thumbsSwiper"
+            @openImageModal="isOpenImageSliderModal = true"
+        />
       </div>
       <ImageSliderWithModal :product="product" v-model="isOpenImageSliderModal" />
       <div class="w-full lg:max-w-[28rem]">
