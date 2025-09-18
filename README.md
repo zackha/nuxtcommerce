@@ -19,11 +19,6 @@
   <img alt="WooCommerce" src="https://img.shields.io/badge/WooCommerce-96588A?logo=woo&logoColor=white&style=flat"/>
 </p>
 
-> **Note**  
-> You can view the orders you create during the live demo at [NuxtCommerce Admin](https://nuxtcommerce-admin.vercel.app/).  
-> From there, you can also update their statuses and add notes to your orders.
-
-
 ## Table of Contents
 
 * [Features](#features)
@@ -273,3 +268,8 @@ Have questions or suggestions?
 
 * Email: **[zckhtln@icloud.com](mailto:zckhtln@icloud.com)**
 * X (Twitter): [**@ZHatlen**](https://twitter.com/ZHatlen)
+
+
+> **Note**  
+> You can view the orders you create during the live demo at [NuxtCommerce Admin](https://nuxtcommerce-admin.vercel.app/).  
+> From there, you can also update their statuses and add notes to your orders.
