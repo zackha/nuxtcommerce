@@ -2,7 +2,6 @@
 import { computed } from 'vue';
 import type { PropType } from 'vue';
 
-// Define types for better code quality
 interface Image {
   sourceUrl: string;
 }
@@ -15,39 +14,32 @@ interface Product {
   };
 }
 
-// Define the component's props
 const props = defineProps({
   product: {
     type: Object as PropType<Product>,
     required: true,
   },
-  // v-model for showing/hiding the modal
   modelValue: {
     type: Boolean,
     default: false,
   },
-  // The index of the image to display
   initialIndex: {
     type: Number,
     default: 0,
   }
 });
 
-// Define the emits for v-model
 const emit = defineEmits(['update:modelValue']);
 
-// Create a reactive list of all product images
 const allImages = computed(() => {
   if (!props.product?.image) return [];
   return [props.product.image, ...(props.product.galleryImages?.nodes || [])];
 });
 
-// Compute the URL of the specific image to show based on the index
 const currentImageUrl = computed(() => {
   return allImages.value[props.initialIndex]?.sourceUrl || '';
 });
 
-// Computed property to link the v-model to the UModal's state
 const isOpen = computed({
   get() {
     return props.modelValue;

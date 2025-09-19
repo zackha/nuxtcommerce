@@ -21,6 +21,7 @@ const emit = defineEmits(['openImageModal', 'update:modelValue']);
 // IMAGE DATA
 const allImages = computed(() => {
   if (!props.product?.image) return [];
+  //todo return preview image?
   return [props.product.image, ...(props.product.galleryImages?.nodes || [])];
 });
 
