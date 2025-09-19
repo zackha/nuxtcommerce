@@ -41,19 +41,15 @@ const containerStyle = computed(() => ({
   transition: isDragging.value ? 'none' : 'transform 0.3s ease-out',
 }));
 
-// --- 1. UPDATED FUNCTION ---
-// This function now calculates the offset differently for mobile and desktop.
+// FUNCTIONS
 const calculateOffset = (targetIndex: number) => {
   if (!viewportRef.value || slideRefs.value.length === 0) return 0;
-
   const viewportWidth = viewportRef.value.offsetWidth;
 
-  // On mobile (screens smaller than 1024px), use a standard full-width slider logic.
   if (window.innerWidth < 1024) {
     return -(targetIndex * viewportWidth);
   }
 
-  // On desktop, use the original centered carousel logic.
   const targetSlide = slideRefs.value[targetIndex];
   if (!targetSlide) return 0;
   const targetSlideWidth = targetSlide.offsetWidth;
@@ -61,7 +57,7 @@ const calculateOffset = (targetIndex: number) => {
   let precedingSlidesWidth = 0;
   for (let i = 0; i < targetIndex; i++) {
     precedingSlidesWidth += slideRefs.value[i].offsetWidth;
-    precedingSlidesWidth += 16; // 16px gap for desktop
+    precedingSlidesWidth += 16;
   }
 
   return (viewportWidth / 2) - precedingSlidesWidth - (targetSlideWidth / 2);
@@ -77,17 +73,17 @@ const goToSlide = (index: number) => {
 const nextSlide = () => {
   if (currentIndex.value >= allImages.value.length - 1) {
     goToSlide(0);
-    return;
+  } else {
+    goToSlide(currentIndex.value + 1);
   }
-  goToSlide(currentIndex.value + 1);
 };
 
 const prevSlide = () => {
   if (currentIndex.value <= 0) {
     goToSlide(allImages.value.length - 1);
-    return;
+  } else {
+    goToSlide(currentIndex.value - 1);
   }
-  goToSlide(currentIndex.value - 1);
 };
 
 // DRAG / SWIPE HANDLERS
@@ -112,20 +108,18 @@ const onDragEnd = (event: PointerEvent) => {
   isDragging.value = false;
   document.body.style.cursor = 'default';
 
-  const dragThreshold = 50;
-  const dragDistance = event.clientX - startDragX.value;
+  if (hasDragged.value) {
+    const dragThreshold = 50;
+    const dragDistance = event.clientX - startDragX.value;
 
-  if (dragDistance < -dragThreshold) {
-    nextSlide();
-  } else if (dragDistance > dragThreshold) {
-    prevSlide();
+    if (dragDistance < -dragThreshold) {
+      nextSlide();
+    } else if (dragDistance > dragThreshold) {
+      prevSlide();
+    } else {
+      goToSlide(currentIndex.value);
+    }
   } else {
-    goToSlide(currentIndex.value);
-  }
-};
-
-const handleSlideClick = () => {
-  if (!hasDragged.value) {
     emit('openImageModal');
   }
 };
@@ -174,7 +168,11 @@ onUnmounted(() => {
     <div class="relative w-full select-none p-1 lg:p-0">
       <div
           ref="viewportRef"
-          class="h-auto lg:h-[530px] xl:h-[600px] w-full lg:max-w-[1000px] mx-auto overflow-hidden cursor-grab rounded-xl"
+          class="h-auto lg:h-[530px] md:h-[600px] w-full lg:max-w-[1000px] mx-auto overflow-hidden cursor-grab rounded-xl"
+          @pointerdown="onDragStart"
+          @pointermove="onDragMove"
+          @pointerup="onDragEnd"
+          @pointerleave="onDragEnd"
       >
         <div class="flex items-center h-full" :style="containerStyle">
           <div
@@ -182,7 +180,6 @@ onUnmounted(() => {
               :key="i"
               :ref="el => { if (el) slideRefs[i] = el as HTMLElement }"
               class="flex-shrink-0 w-full lg:w-auto h-full flex justify-center items-center lg:pr-4"
-              @click="handleSlideClick"
           >
             <NuxtImg
                 :alt="product.name"
@@ -218,7 +215,6 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
-/* Scoped styles remain the same */
 .nav-button {
   position: absolute;
   top: 50%;
@@ -235,11 +231,9 @@ onUnmounted(() => {
   border: 1px solid rgba(0, 0, 0, 0.05);
   z-index: 10;
 }
-
 .nav-button.left-0 {
   left: 1rem;
 }
-
 .nav-button.right-0 {
   right: 1rem;
 }
