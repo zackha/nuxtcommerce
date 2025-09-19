@@ -8,10 +8,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-const thumbsSwiper = ref(null);
-const setThumbsSwiper = swiper => {
-  thumbsSwiper.value = swiper;
-};
+const activeIndex = ref(0);
 
 const route = useRoute();
 const id = computed(() => route.params.id);
@@ -60,7 +57,7 @@ const { handleAddToCart, addToCartButtonStatus } = useCart();
       <ProductGallery
           :product="product"
           :show-thumbnails="true"
-          @swiper-instance="setThumbsSwiper"
+          v-model="activeIndex"
       />
     </div>
     <div class="flex lg:p-5 lg:gap-5 flex-col lg:flex-row lg:border lg:border-transparent lg:dark:border-[#262626] lg:rounded-[32px] lg:shadow-[0_1px_20px_rgba(0,0,0,.15)] lg:mt-2.5 select-none">
@@ -68,11 +65,15 @@ const { handleAddToCart, addToCartButtonStatus } = useCart();
         <ProductGallery
             :product="product"
             :show-thumbnails="false"
-            :linked-swiper="thumbsSwiper"
+            v-model="activeIndex"
             @openImageModal="isOpenImageSliderModal = true"
         />
       </div>
-      <ImageSliderWithModal :product="product" v-model="isOpenImageSliderModal" />
+      <ProductModal
+          :product="product"
+          v-model="isOpenImageSliderModal"
+          :initial-index="activeIndex"
+      />
       <div class="w-full lg:max-w-[28rem]">
         <div class="flex-col flex gap-4 lg:max-h-[530px] xl:max-h-[600px] overflow-hidden">
           <div class="p-3 lg:pb-4 lg:p-0 border-b border-[#efefef] dark:border-[#262626]">
