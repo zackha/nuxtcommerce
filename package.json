@@ -20,7 +20,7 @@
     "@nuxthub/core": "0.9.0",
     "@nuxtjs/i18n": "10.1.0",
     "notivue": "^2.4.5",
-    "nuxt": "^4.2.0",
+    "nuxt": "^4.2.1",
     "nuxt-graphql-request": "^8.1.1",
     "swiper": "^12.0.3",
     "vue": "latest"
@@ -30,7 +30,7 @@
     "@iconify-json/svg-spinners": "^1.2.4",
     "@vueuse/core": "^13.9.0",
     "@vueuse/nuxt": "^13.9.0",
-    "wrangler": "^4.45.4"
+    "wrangler": "^4.53.0"
   },
   "packageManager": "pnpm@10.18.1+sha512.77a884a165cbba2d8d1c19e3b4880eee6d2fcabd0d879121e282196b80042351d5eb3ca0935fa599da1dc51265cc68816ad2bddd2a2de5ea9fdf92adbec7cd34"
 }
