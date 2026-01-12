@@ -1,7 +1,8 @@
 {
   "general": {
     "go_back": "Gå tilbake",
-    "loading": "Laster..."
+    "loading": "Laster...",
+    "show_less": "Vis mindre"
   },
   "theme": {
     "dark": "Mørk",

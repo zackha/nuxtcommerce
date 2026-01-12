@@ -1,7 +1,8 @@
 {
   "general": {
     "go_back": "Ga terug",
-    "loading": "Laden..."
+    "loading": "Laden...",
+    "show_less": "Toon minder"
   },
   "theme": {
     "dark": "Donker",

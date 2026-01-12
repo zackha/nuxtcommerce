@@ -12,6 +12,7 @@ export const getProductQuery = gql`
         regularPrice
         salePrice
         description
+        shortDescription
         image {
           sourceUrl(size: LARGE)
         }

@@ -1,7 +1,8 @@
 {
   "general": {
     "go_back": "Zurück",
-    "loading": "Laden..."
+    "loading": "Laden...",
+    "show_less": "Weniger anzeigen"
   },
   "theme": {
     "dark": "Dunkel",
