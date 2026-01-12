@@ -1,5 +1,10 @@
 <script setup>
 import storesData from '~/data/stores.json';
+const config = useRuntimeConfig();
+
+if (!config.public.enableStoreLocator) {
+  throw createError({ statusCode: 404, statusMessage: 'Page Not Found' });
+}
 
 const { t } = useI18n();
 

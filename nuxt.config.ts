@@ -39,6 +39,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     gqlHost: process.env.GQL_HOST || '',
     public: {
+      enableStoreLocator: true,
       version: pkg.version,
     },
   },
