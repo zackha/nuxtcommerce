@@ -19,6 +19,7 @@
     "@nuxt/ui": "^2.22.3",
     "@nuxthub/core": "0.9.0",
     "@nuxtjs/i18n": "10.1.0",
+    "leaflet": "^1.9.4",
     "notivue": "^2.4.5",
     "nuxt": "^4.2.1",
     "nuxt-graphql-request": "^8.1.1",

@@ -16,6 +16,16 @@
     "products": "Products"
   },
   "footer": {
+    "shop": "Shop",
+    "company": "Company",
+    "support": "Support",
+    "about_us": "About Us",
+    "careers": "Careers",
+    "contact": "Contact",
+    "faq": "FAQ",
+    "newsletter_title": "Stay in the loop",
+    "newsletter_desc": "Subscribe to our newsletter to receive updates on new collections and offers.",
+    "email_placeholder": "Your email address...",
     "developed_by_author": "by {author}",
     "change_language": "Change language"
   },
@@ -65,12 +75,19 @@
     "originally": "Originally",
     "size": "Size",
     "quantity": "Quantity",
-    "sku": "article number",
+    "sku": "Article number",
     "vat_included": "VAT included",
     "featured_information": "Featured Information",
-    "free_return": "Free returns within 15 days. Click for detailed",
+    "specifications": "Specifications",
+    "free_return": "Free returns within 15 days. Click for more information.",
     "information": "Information",
-    "shop_similar": "Shop similar"
+    "shop_similar": "Shop similar",
+    "shipping_returns": "Shipping & Returns",
+    "return_policy": "Return Policy",
+    "return_policy_title": "Return Policy",
+    "return_policy_text": "You have the right to cancel your order up to 15 days after receipt without giving any reason. After cancellation, you have another 14 days to return your product. You will then be credited with the full order amount including shipping costs.",
+    "article_details": "Article Details",
+    "sku_label": "Article Number"
   },
   "cart": {
     "empty": "Your cart is empty",
@@ -81,5 +98,24 @@
   "favorites": {
     "nothing_to_show_yet": "Nothing to show... yet!",
     "wishlist_lives_here": "Wishlist you create will live here. These are a few of your favorite things..."
+  },
+  "stores": {
+    "find_store": "Find a store",
+    "search_placeholder": "Search by city or address...",
+    "no_stores_found": "No stores found",
+    "open": "Open",
+    "closed": "Closed",
+    "call": "Call",
+    "navigate": "Navigate",
+    "opening_hours": "Opening hours"
+  },
+  "days": {
+    "monday": "Monday",
+    "tuesday": "Tuesday",
+    "wednesday": "Wednesday",
+    "thursday": "Thursday",
+    "friday": "Friday",
+    "saturday": "Saturday",
+    "sunday": "Sunday"
   }
 }

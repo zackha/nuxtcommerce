@@ -16,6 +16,16 @@
     "products": "Producten"
   },
   "footer": {
+    "shop": "Winkel",
+    "company": "Bedrijf",
+    "support": "Klantenservice",
+    "about_us": "Over ons",
+    "careers": "Vacatures",
+    "contact": "Contact",
+    "faq": "Veelgestelde vragen",
+    "newsletter_title": "Blijf op de hoogte",
+    "newsletter_desc": "Schrijf je in voor onze nieuwsbrief en ontvang updates over nieuwe collecties en aanbiedingen.",
+    "email_placeholder": "Je emailadres...",
     "developed_by_author": "door {author}",
     "change_language": "Taal wijzigen"
   },
@@ -68,9 +78,16 @@
     "sku": "artikelnummer",
     "vat_included": "Inclusief BTW",
     "featured_information": "Uitgelichte Informatie",
+    "specifications": "Specificaties",
     "free_return": "Gratis retourneren binnen 15 dagen. Klik voor meer informatie.",
-    "information": "Information",
-    "shop_similar": "Shop vergelijkbaar"
+    "information": "Informatie",
+    "shop_similar": "Shop vergelijkbaar",
+    "shipping_returns": "Verzending & Retour",
+    "return_policy": "Retourbeleid",
+    "return_policy_title": "Retourbeleid",
+    "return_policy_text": "U heeft het recht om uw bestelling tot 15 dagen na ontvangst zonder opgave van reden te annuleren. Na annulering heeft u nogmaals 14 dagen om uw product retour te sturen. U krijgt dan het volledige orderbedrag inclusief verzendkosten gecrediteerd.",
+    "article_details": "Artikel Details",
+    "sku_label": "Artikelnummer"
   },
   "cart": {
     "empty": "Je winkelwagen is leeg",
@@ -81,5 +98,24 @@
   "favorites": {
     "nothing_to_show_yet": "Nog niets te zien... nog niet!",
     "wishlist_lives_here": "De verlanglijst die je maakt, komt hier te staan. Dit zijn een paar van je favoriete dingen..."
+  },
+  "stores": {
+    "find_store": "Vind een winkel",
+    "search_placeholder": "Zoek op stad of adres...",
+    "no_stores_found": "Geen winkels gevonden",
+    "open": "Open",
+    "closed": "Gesloten",
+    "call": "Bel",
+    "navigate": "Navigeer",
+    "opening_hours": "Openingstijden"
+  },
+  "days": {
+    "monday": "Maandag",
+    "tuesday": "Dinsdag",
+    "wednesday": "Woensdag",
+    "thursday": "Donderdag",
+    "friday": "Vrijdag",
+    "saturday": "Zaterdag",
+    "sunday": "Zondag"
   }
 }

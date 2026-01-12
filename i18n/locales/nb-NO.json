@@ -16,6 +16,16 @@
     "products": "Produkter"
   },
   "footer": {
+    "shop": "Butikk",
+    "company": "Selskap",
+    "support": "Kundeservice",
+    "about_us": "Om oss",
+    "careers": "Karriere",
+    "contact": "Kontakt",
+    "faq": "FAQ",
+    "newsletter_title": "Hold deg oppdatert",
+    "newsletter_desc": "Meld deg på nyhetsbrevet vårt for å få oppdateringer om nye kolleksjoner og tilbud.",
+    "email_placeholder": "Din e-postadresse...",
     "developed_by_author": "av {author}",
     "change_language": "Endre språk"
   },
@@ -65,12 +75,19 @@
     "originally": "Opprinnelig",
     "size": "Størrelse",
     "quantity": "Antall",
-    "sku": "artikkelnummer",
-    "vat_included": "MVA inkludert",
-    "featured_information": "Fremhevet Informasjon",
+    "sku": "Artikkelnummer",
+    "vat_included": "Inkl. mva",
+    "featured_information": "Produktinformasjon",
+    "specifications": "Spesifikasjoner",
     "free_return": "Gratis retur innen 15 dager. Klikk for mer informasjon.",
     "information": "Informasjon",
-    "shop_similar": "Sammenlign lignende produkter"
+    "shop_similar": "Lignende produkter",
+    "shipping_returns": "Frakt og retur",
+    "return_policy": "Returrett",
+    "return_policy_title": "Retningslinjer for retur",
+    "return_policy_text": "Du har rett til å kansellere bestillingen din opptil 15 dager etter mottak uten å oppgi noen grunn. Etter kansellering har du ytterligere 14 dager på deg til å returnere produktet ditt. Du vil da bli kreditert hele bestillingsbeløpet inkludert fraktkostnader.",
+    "article_details": "Artikkeldetaljer",
+    "sku_label": "Artikkelnummer"
   },
   "cart": {
     "empty": "Handlekurven din er tom",
@@ -81,5 +98,24 @@
   "favorites": {
     "nothing_to_show_yet": "Ingenting å vise... ennå!",
     "wishlist_lives_here": "Ønskelister du lager vil vises her. Dette er noen av dine favoritt-ting..."
+  },
+  "stores": {
+    "find_store": "Finn butikk",
+    "search_placeholder": "Søk etter by eller adresse...",
+    "no_stores_found": "Ingen butikker funnet",
+    "open": "Åpent",
+    "closed": "Stengt",
+    "call": "Ring",
+    "navigate": "Naviger",
+    "opening_hours": "Åpningstider"
+  },
+  "days": {
+    "monday": "Mandag",
+    "tuesday": "Tirsdag",
+    "wednesday": "Onsdag",
+    "thursday": "Torsdag",
+    "friday": "Fredag",
+    "saturday": "Lørdag",
+    "sunday": "Søndag"
   }
 }

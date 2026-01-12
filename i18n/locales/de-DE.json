@@ -16,6 +16,16 @@
     "products": "Produkte"
   },
   "footer": {
+    "shop": "Einkaufen",
+    "company": "Unternehmen",
+    "support": "Hilfe",
+    "about_us": "Über uns",
+    "careers": "Karriere",
+    "contact": "Kontakt",
+    "faq": "FAQ",
+    "newsletter_title": "Bleiben Sie auf dem Laufenden",
+    "newsletter_desc": "Abonnieren Sie unseren Newsletter für Updates zu neuen Kollektionen und Angeboten.",
+    "email_placeholder": "Ihre E-Mail-Adresse...",
     "developed_by_author": "von {author}",
     "change_language": "Sprache ändern"
   },
@@ -66,11 +76,18 @@
     "size": "Größe",
     "quantity": "Menge",
     "sku": "Artikelnummer",
-    "vat_included": "MwSt. inbegriffen",
-    "featured_information": "Ausgewählte Informationen",
-    "free_return": "Kostenlose Rücksendung innerhalb von 15 Tagen. Klicken Sie hier für weitere Informationen.",
-    "information": "Informationen",
-    "shop_similar": "Ähnliche Artikel kaufen"
+    "vat_included": "Inkl. MwSt.",
+    "featured_information": "Produktinformationen",
+    "specifications": "Spezifikationen",
+    "free_return": "Kostenlose Rückgabe innerhalb von 15 Tagen. Klicken für mehr Infos.",
+    "information": "Information",
+    "shop_similar": "Ähnliche Produkte",
+    "shipping_returns": "Versand & Rückgabe",
+    "return_policy": "Rückgaberecht",
+    "return_policy_title": "Rückgaberichtlinie",
+    "return_policy_text": "Sie haben das Recht, Ihre Bestellung bis zu 15 Tage nach Erhalt ohne Angabe von Gründen zu widerrufen. Nach dem Widerruf haben Sie weitere 14 Tage Zeit, Ihr Produkt zurückzusenden. Sie erhalten dann den vollen Bestellbetrag einschließlich Versandkosten gutgeschrieben.",
+    "article_details": "Artikeldetails",
+    "sku_label": "Artikelnummer"
   },
   "cart": {
     "empty": "Ihr Warenkorb ist leer",
@@ -81,5 +98,24 @@
   "favorites": {
     "nothing_to_show_yet": "Noch nichts zu sehen... noch nicht!",
     "wishlist_lives_here": "Wunschlisten, die Sie erstellen, werden hier angezeigt. Das sind einige Ihrer Lieblingssachen..."
+  },
+  "stores": {
+    "find_store": "Filiale finden",
+    "search_placeholder": "Suche nach Stadt oder Adresse...",
+    "no_stores_found": "Keine Filialen gefunden",
+    "open": "Geöffnet",
+    "closed": "Geschlossen",
+    "call": "Anrufen",
+    "navigate": "Navigieren",
+    "opening_hours": "Öffnungszeiten"
+  },
+  "days": {
+    "monday": "Montag",
+    "tuesday": "Dienstag",
+    "wednesday": "Mittwoch",
+    "thursday": "Donnerstag",
+    "friday": "Freitag",
+    "saturday": "Samstag",
+    "sunday": "Sonntag"
   }
 }

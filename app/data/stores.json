@@ -1,0 +1,70 @@
+[
+  {
+    "id": 1,
+    "name": "Flagship Store Amsterdam",
+    "address": "Kalverstraat 1, 1012 NX Amsterdam",
+    "phone": "+31 20 123 4567",
+    "lat": 52.3702,
+    "lng": 4.8952,
+    "weeklyHours": [
+      { "day": "monday", "hours": "09:00 - 18:00" },
+      { "day": "tuesday", "hours": "09:00 - 18:00" },
+      { "day": "wednesday", "hours": "09:00 - 18:00" },
+      { "day": "thursday", "hours": "09:00 - 21:00" },
+      { "day": "friday", "hours": "09:00 - 18:00" },
+      { "day": "saturday", "hours": "10:00 - 17:00" },
+      { "day": "sunday", "hours": "12:00 - 17:00" }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Rotterdam Centrum",
+    "address": "Lijnbaan 50, 3012 ER Rotterdam",
+    "phone": "+31 10 987 6543",
+    "lat": 51.9225,
+    "lng": 4.47917,
+    "weeklyHours": [
+      { "day": "monday", "hours": "Closed" },
+      { "day": "tuesday", "hours": "09:30 - 18:00" },
+      { "day": "wednesday", "hours": "09:30 - 18:00" },
+      { "day": "thursday", "hours": "09:30 - 21:00" },
+      { "day": "friday", "hours": "09:30 - 21:00" },
+      { "day": "saturday", "hours": "09:30 - 17:30" },
+      { "day": "sunday", "hours": "12:00 - 17:00" }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Eindhoven Piazza",
+    "address": "Piazza 30, 5611 AE Eindhoven",
+    "phone": "+31 40 555 1234",
+    "lat": 51.4416,
+    "lng": 5.4697,
+    "weeklyHours": [
+      { "day": "monday", "hours": "10:00 - 18:00" },
+      { "day": "tuesday", "hours": "10:00 - 18:00" },
+      { "day": "wednesday", "hours": "10:00 - 18:00" },
+      { "day": "thursday", "hours": "10:00 - 21:00" },
+      { "day": "friday", "hours": "10:00 - 18:00" },
+      { "day": "saturday", "hours": "10:00 - 17:00" },
+      { "day": "sunday", "hours": "Closed" }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Maastricht Wyck",
+    "address": "Wycker Brugstraat 20, 6221 EC Maastricht",
+    "phone": "+31 43 321 0000",
+    "lat": 50.8491,
+    "lng": 5.6968,
+    "weeklyHours": [
+      { "day": "monday", "hours": "Closed" },
+      { "day": "tuesday", "hours": "10:00 - 18:00" },
+      { "day": "wednesday", "hours": "10:00 - 18:00" },
+      { "day": "thursday", "hours": "10:00 - 21:00" },
+      { "day": "friday", "hours": "10:00 - 18:00" },
+      { "day": "saturday", "hours": "Closed" },
+      { "day": "sunday", "hours": "Closed" }
+    ]
+  }
+]
