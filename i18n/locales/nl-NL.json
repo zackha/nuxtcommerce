@@ -1,5 +1,6 @@
 {
   "general": {
+    "go_back_home": "Ga terug naar home",
     "go_back": "Ga terug",
     "loading": "Laden..."
   },
@@ -81,5 +82,11 @@
   "favorites": {
     "nothing_to_show_yet": "Nog niets te zien... nog niet!",
     "wishlist_lives_here": "De verlanglijst die je maakt, komt hier te staan. Dit zijn een paar van je favoriete dingen..."
+  },
+  "error": {
+    "not_found": "Pagina niet gevonden",
+    "not_found_desc": "De pagina die je zoekt bestaat niet of is verplaatst.",
+    "server_error": "Er ging iets mis",
+    "server_error_desc": "We hebben moeite met het verwerken van je aanvraag. Probeer het later opnieuw."
   }
 }

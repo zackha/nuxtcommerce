@@ -1,5 +1,6 @@
 {
   "general": {
+    "go_back_home": "Go back home",
     "go_back": "Go Back",
     "loading": "Loading..."
   },
@@ -81,5 +82,11 @@
   "favorites": {
     "nothing_to_show_yet": "Nothing to show... yet!",
     "wishlist_lives_here": "Wishlist you create will live here. These are a few of your favorite things..."
+  },
+  "error": {
+    "not_found": "Page not found",
+    "not_found_desc": "The page you are looking for does not exist or has been moved.",
+    "server_error": "Something went wrong",
+    "server_error_desc": "We are having trouble processing your request. Please try again later."
   }
 }

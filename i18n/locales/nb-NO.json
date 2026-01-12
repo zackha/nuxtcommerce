@@ -1,5 +1,6 @@
 {
   "general": {
+    "go_back_home": "Gå tilbake til start",
     "go_back": "Gå tilbake",
     "loading": "Laster..."
   },
@@ -81,5 +82,11 @@
   "favorites": {
     "nothing_to_show_yet": "Ingenting å vise... ennå!",
     "wishlist_lives_here": "Ønskelister du lager vil vises her. Dette er noen av dine favoritt-ting..."
+  },
+  "error": {
+    "not_found": "Siden ble ikke funnet",
+    "not_found_desc": "Siden du leter etter finnes ikke eller har blitt flyttet.",
+    "server_error": "Noe gikk galt",
+    "server_error_desc": "Vi har problemer med å behandle forespørselen din. Vennligst prøv igjen senere."
   }
 }
