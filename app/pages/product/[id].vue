@@ -21,6 +21,11 @@ const id = computed(() => route.params.id);
 const parts = id.value.split('-');
 const sku = parts.pop();
 const slug = parts.join('-');
+const imageFitClasses = ref({});
+const initialSlideIndex = ref(0);
+const isLandscape = ref(false);
+
+const activeTab = ref('description');
 
 const productResult = ref({});
 const selectedVariation = ref(null);
@@ -32,17 +37,58 @@ onMounted(() => {
 });
 
 const product = computed(() => productResult.value);
+const specifications = computed(() => {
+  const variationAttributes = ['pa_color', 'pa_style', 'pa_variant'];
+  return product.value.attributes?.nodes?.filter(attr => !variationAttributes.includes(attr.name)) || [];
+});
+
+const getVariationValue = (variation) =>
+    variation?.attributes?.nodes?.map(a => a.value).join(', ') || '';
+
+const getVariationLabel = (variation) =>
+    variation?.attributes?.nodes?.[0]?.label || 'Option';
+
+const isOutOfStock = (variation) => variation.stockStatus === 'OUT_OF_STOCK';
 
 const sizeOrder = ['xxs', 'xs', 's', 'm', 'l', 'xl', '2xl', '23-24', '25', '26-27', '28-29', '30', '31-32', '33', '34-25'];
 
 const sortedVariations = computed(() => {
   if (!product.value.variations?.nodes) return [];
-  return product.value.variations.nodes.slice().sort((a, b) => {
-    const aSize = a.attributes.nodes[0].value.toLowerCase();
-    const bSize = b.attributes.nodes[0].value.toLowerCase();
-    return sizeOrder.indexOf(aSize) - sizeOrder.indexOf(bSize);
+
+  return [...product.value.variations.nodes].sort((a, b) => {
+    const valA = getVariationValue(a).toLowerCase();
+    const valB = getVariationValue(b).toLowerCase();
+
+    const indexA = sizeOrder.indexOf(valA);
+    const indexB = sizeOrder.indexOf(valB);
+
+    if (indexA > -1 && indexB > -1) return indexA - indexB;
+
+    return valA.localeCompare(valB);
   });
 });
+
+const openModal = (index) => {
+  initialSlideIndex.value = index;
+  isOpenImageSliderModal.value = true;
+};
+
+const handleImageLoad = (event, id) => {
+  const img = event.target;
+  const width = img.naturalWidth;
+  const height = img.naturalHeight;
+  const isWide = width > height;
+
+  if (id === 'main') {
+    isLandscape.value = isWide;
+  }
+
+  if (!isWide) {
+    imageFitClasses.value[id] = 'object-contain p-2';
+  } else {
+    imageFitClasses.value[id] = 'object-cover';
+  }
+};
 
 watchEffect(() => {
   if (sortedVariations.value.length > 0) {
@@ -63,41 +109,60 @@ const { handleAddToCart, addToCartButtonStatus } = useCart();
       <swiper :modules="modules" @swiper="setThumbsSwiper" class="product-images-thumbs w-14">
         <swiper-slide class="cursor-pointer rounded-xl overflow-hidden border-2 border-white dark:border-black">
           <NuxtImg
-            :alt="product.name"
-            class="h-full w-full border-2 border-white bg-neutral-200 dark:bg-neutral-800 dark:border-black rounded-[10px]"
-            :src="product.image?.sourceUrl" />
+              :alt="product.name"
+              class="h-full w-full object-cover border-2 border-white bg-neutral-200 dark:bg-neutral-800 dark:border-black rounded-[10px]"
+              :src="product.image?.sourceUrl" />
         </swiper-slide>
         <swiper-slide class="cursor-pointer rounded-xl overflow-hidden border-2 border-white dark:border-black" v-for="(node, i) in product.galleryImages?.nodes" :key="i">
-          <NuxtImg :alt="product.name" class="h-full w-full border-2 border-white bg-neutral-200 dark:bg-neutral-800 dark:border-black rounded-[10px]" :src="node.sourceUrl" />
+          <NuxtImg :alt="product.name" class="h-full w-full object-cover border-2 border-white bg-neutral-200 dark:bg-neutral-800 dark:border-black rounded-[10px]" :src="node.sourceUrl" />
         </swiper-slide>
       </swiper>
     </div>
     <div
-      class="flex lg:p-5 lg:gap-5 flex-col lg:flex-row lg:border lg:border-transparent lg:dark:border-[#262626] lg:rounded-[32px] lg:shadow-[0_1px_20px_rgba(0,0,0,.15)] lg:mt-2.5 select-none">
+        class="flex lg:p-5 lg:gap-5 flex-col lg:flex-row lg:border lg:border-transparent lg:dark:border-[#262626] lg:rounded-[32px] lg:shadow-[0_1px_20px_rgba(0,0,0,.15)] lg:mt-2.5 select-none">
       <div class="relative">
         <swiper
-          :style="{
-            '--swiper-navigation-color': '#000',
-            '--swiper-pagination-color': 'rgb(0 0 0 / 50%)',
-          }"
-          :spaceBetween="4"
-          :slidesPerView="1.5"
-          :pagination="{
-            dynamicBullets: true,
-          }"
-          :navigation="true"
-          :modules="modules"
-          :thumbs="{ swiper: thumbsSwiper }"
-          class="lg:w-[530px] lg:h-[530px] xl:w-[600px] xl:h-[600px] lg:rounded-2xl">
-          <swiper-slide @click="isOpenImageSliderModal = true">
-            <NuxtImg :alt="product.name" class="h-full w-full bg-neutral-200 dark:bg-neutral-800" :src="product.image?.sourceUrl" />
+            :style="{ '--swiper-navigation-color': '#000', '--swiper-pagination-color': 'rgb(0 0 0 / 50%)' }"
+            :spaceBetween="4"
+            :slidesPerView="1.5"
+            :pagination="{ dynamicBullets: true }"
+            :navigation="true"
+            :modules="modules"
+            :thumbs="{ swiper: thumbsSwiper }"
+            :class="[
+              'lg:h-[530px] xl:h-[600px] lg:rounded-2xl bg-gray-50 dark:bg-neutral-900 transition-all duration-500 ease-in-out',
+              isLandscape ? 'lg:w-[700px] xl:w-[800px]' : 'lg:w-[530px] xl:w-[600px]'
+            ]"
+        >
+          <swiper-slide @click="openModal(0)" class="flex items-center justify-center h-full w-full">
+            <NuxtImg
+                :alt="product.name"
+                @load="handleImageLoad($event, 'main')"
+                :class="[imageFitClasses['main'] || 'opacity-0', 'h-full w-full transition-opacity duration-300']"
+                :src="product.image?.sourceUrl"
+            />
           </swiper-slide>
-          <swiper-slide @click="isOpenImageSliderModal = true" v-for="(node, i) in product.galleryImages?.nodes" :key="i">
-            <NuxtImg :alt="product.name" class="h-full w-full bg-neutral-200 dark:bg-neutral-800" :src="node.sourceUrl" />
+
+          <swiper-slide
+              @click="openModal(i + 1)"
+              v-for="(node, i) in product.galleryImages?.nodes"
+              :key="i"
+              class="flex items-center justify-center h-full w-full"
+          >
+            <NuxtImg
+                :alt="product.name"
+                @load="handleImageLoad($event, i)"
+                :class="[imageFitClasses[i] || 'opacity-0', 'h-full w-full transition-opacity duration-300']"
+                :src="node.sourceUrl"
+            />
           </swiper-slide>
         </swiper>
       </div>
-      <ImageSliderWithModal :product="product" v-model="isOpenImageSliderModal" />
+      <ImageSliderWithModal
+          :product="product"
+          v-model="isOpenImageSliderModal"
+          :initial-slide="initialSlideIndex"
+      />
       <div class="w-full lg:max-w-[28rem]">
         <div class="flex-col flex gap-4 lg:max-h-[530px] xl:max-h-[600px] overflow-hidden">
           <div class="p-3 lg:pb-4 lg:p-0 border-b border-[#efefef] dark:border-[#262626]">
@@ -107,42 +172,42 @@ const { handleAddToCart, addToCartButtonStatus } = useCart();
           <div class="flex gap-2 px-3 lg:px-0" v-for="(variation, i) in product.productTypes?.nodes" :key="i">
             <div v-for="(vars, i) in variation.products.nodes" :key="i">
               <NuxtLink
-                :to="localePath(`/product/${vars.slug}-${product.sku.split('-')[0]}`)"
-                :class="[
-                  'flex w-12 rounded-lg border-2 select-varitaion transition-all duration-200 bg-neutral-200 dark:bg-neutral-800',
+                  :to="localePath(`/product/${vars.slug}-${product.sku.split('-')[0]}`)"
+                  :class="[
+                  'flex w-24 rounded-lg border-2 select-varitaion transition-all duration-200 bg-neutral-200 dark:bg-neutral-800',
                   vars.allPaColor.nodes[0].name === product.allPaColor.nodes[0].name ? 'selected-varitaion' : 'border-[#9b9b9b] dark:border-[#8c8c8c]',
                 ]">
                 <NuxtImg
-                  :alt="vars.allPaColor.nodes[0].name"
-                  :src="vars.image.sourceUrl"
-                  :title="vars.allPaColor.nodes[0].name"
-                  class="rounded-md border-2 border-white dark:border-black" />
+                    :alt="vars.allPaColor.nodes[0].name"
+                    :src="vars.image.sourceUrl"
+                    :title="vars.allPaColor.nodes[0].name"
+                    class="rounded-md border-2 border-white dark:border-black" />
               </NuxtLink>
             </div>
           </div>
 
-          <div class="pb-4 px-3 lg:px-0 border-b border-[#efefef] dark:border-[#262626]">
-            <div class="text-sm font-semibold leading-5 opacity-50 flex gap-1">
-              {{ $t('product.size') }}:
-              <div class="uppercase">{{ selectedVariation.attributes.nodes.map(attr => attr.value).toString() }}</div>
+          <div class="flex flex-col gap-5 pb-6 px-3 lg:px-0 border-b border-[#efefef] dark:border-[#262626]">
+            <div class="text-sm font-semibold leading-none flex items-center gap-1.5 opacity-60" v-if="selectedVariation">
+              <span>{{ getVariationLabel(selectedVariation) }}:</span>
+              <span class="uppercase text-black dark:text-white">{{ getVariationValue(selectedVariation) }}</span>
             </div>
-            <div class="flex gap-2 mt-2 mb-4 flex-wrap">
+            <div class="flex gap-2 mt-2 mb-4 flex-wrap" v-if="sortedVariations.length > 1">
               <label
-                class="py-1 px-3 rounded-md cursor-pointer select-varitaion border-2 border-[#9b9b9b] dark:border-[#8c8c8c] transition-all duration-200"
-                v-for="variation in sortedVariations"
-                :key="variation.databaseId"
-                :class="[variation.stockStatus === 'OUT_OF_STOCK' ? 'disabled' : '', selectedVariation.databaseId === variation.databaseId ? 'selected-varitaion' : '']">
+                  class="py-1 px-3 rounded-md cursor-pointer select-varitaion border-2 border-[#9b9b9b] dark:border-[#8c8c8c] transition-all duration-200"
+                  v-for="variation in sortedVariations"
+                  :key="variation.databaseId"
+                  :class="[variation.stockStatus === 'OUT_OF_STOCK' ? 'disabled' : '', selectedVariation.databaseId === variation.databaseId ? 'selected-varitaion' : '']">
                 <input type="radio" class="hidden" name="variation" :value="variation" :disabled="variation.stockStatus === 'OUT_OF_STOCK'" v-model="selectedVariation" />
-                <span class="font-semibold uppercase" :title="`Size: ${variation.attributes.nodes.map(attr => attr.value).toString()}`">
-                  {{ variation.attributes.nodes.map(attr => attr.value).toString() }}
+                <span class="font-bold uppercase tracking-wide">
+                  {{ getVariationValue(variation) }}
                 </span>
               </label>
             </div>
             <div class="flex">
               <button
-                @click="handleAddToCart(selectedVariation.databaseId)"
-                :disabled="addToCartButtonStatus !== 'add'"
-                class="button-bezel w-full h-12 rounded-md relative tracking-wide font-semibold text-white text-sm flex justify-center items-center">
+                  @click="handleAddToCart(selectedVariation.databaseId)"
+                  :disabled="addToCartButtonStatus !== 'add'"
+                  class="button-bezel w-full h-12 rounded-md relative tracking-wide font-semibold text-white text-sm flex justify-center items-center">
                 <Transition name="slide-up">
                   <div v-if="addToCartButtonStatus === 'add'" class="absolute">{{ $t('cart.add_to_cart') }}</div>
                   <UIcon v-else-if="addToCartButtonStatus === 'loading'" class="absolute" name="i-svg-spinners-90-ring-with-bg" size="22" />
@@ -152,17 +217,61 @@ const { handleAddToCart, addToCartButtonStatus } = useCart();
               <ButtonWishlist :product="product" />
             </div>
           </div>
-          <div class="px-3 lg:px-0">
-            <div class="text-base mb-2 font-semibold">{{ $t('product.featured_information') }}</div>
-            <div class="description leading-7 text-sm">
-              <ul>
-                <li>
-                  {{ $t('product.free_return') }}
-                  <a class="underline" href="#">{{ $t('product.information') }}</a>
-                </li>
-                <li>{{ $t('product.sku') }}: {{ product.sku }}</li>
-                <div v-html="product.description"></div>
-              </ul>
+          <div class="px-3 lg:px-0 flex flex-col h-full overflow-hidden">
+
+            <div class="flex border-b border-[#efefef] dark:border-[#262626] mb-4 sticky top-0 bg-white dark:bg-black z-10">
+              <button
+                  @click="activeTab = 'description'"
+                  class="pb-3 px-1 text-sm font-semibold transition-colors relative mr-6"
+                  :class="activeTab === 'description' ? 'text-black dark:text-white' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'"
+              >
+                {{ $t('product.featured_information') }}
+                <span v-if="activeTab === 'description'" class="absolute bottom-0 left-0 w-full h-[2px] bg-alizarin-crimson-700"></span>
+              </button>
+
+              <button
+                  v-if="specifications.length"
+                  @click="activeTab = 'specs'"
+                  class="pb-3 px-1 text-sm font-semibold transition-colors relative"
+                  :class="activeTab === 'specs' ? 'text-black dark:text-white' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'"
+              >
+                {{ $t('product.specifications') }}
+                <span v-if="activeTab === 'specs'" class="absolute bottom-0 left-0 w-full h-[2px] bg-alizarin-crimson-700"></span>
+              </button>
+            </div>
+
+            <div class="overflow-y-auto pr-2 custom-scrollbar flex-1">
+
+              <div v-show="activeTab === 'description'">
+                <div class="description leading-7 text-sm">
+                  <ul>
+                    <li class="mb-2">
+                      {{ $t('product.free_return') }}
+                      <a class="underline" href="#">{{ $t('product.information') }}</a>
+                    </li>
+                    <li class="mb-4">{{ $t('product.sku') }}: {{ product.sku }}</li>
+                    <div v-html="product.description"></div>
+                  </ul>
+                </div>
+              </div>
+
+              <div v-show="activeTab === 'specs'" v-if="specifications.length">
+                <dl class="grid grid-cols-1 gap-y-4">
+                  <div
+                      v-for="attr in specifications"
+                      :key="attr.id"
+                      class="flex flex-col border-b border-gray-100 dark:border-white/5 pb-2"
+                  >
+                    <dt class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+                      {{ attr.label }}
+                    </dt>
+                    <dd class="mt-1 text-sm font-semibold text-gray-900 dark:text-white">
+                      {{ attr.options.join(', ') }}
+                    </dd>
+                  </div>
+                </dl>
+              </div>
+
             </div>
           </div>
         </div>

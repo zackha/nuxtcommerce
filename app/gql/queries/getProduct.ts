@@ -20,6 +20,14 @@ export const getProductQuery = gql`
             sourceUrl(size: LARGE)
           }
         }
+        attributes {
+          nodes {
+            id
+            label
+            name
+            options
+          }
+        }
         allPaColor {
           nodes {
             name
@@ -53,7 +61,9 @@ export const getProductQuery = gql`
             stockStatus
             stockQuantity
             attributes {
-              nodes {
+             nodes {
+                label 
+                name
                 value
               }
             }
