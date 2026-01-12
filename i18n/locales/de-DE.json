@@ -2,7 +2,8 @@
   "general": {
     "go_back": "Zurück",
     "loading": "Laden...",
-    "show_less": "Weniger anzeigen"
+    "show_less": "Weniger anzeigen",
+    "show_more": "Mehr anzeigen"
   },
   "theme": {
     "dark": "Dunkel",
@@ -66,13 +67,19 @@
     "originally": "Ursprünglich",
     "size": "Größe",
     "quantity": "Menge",
+    "return_policy_text": "Sie haben das Recht, Ihre Bestellung bis zu 15 Tage nach Erhalt ohne Angabe von Gründen zu widerrufen. Nach dem Widerruf haben Sie weitere 14 Tage Zeit, Ihr Produkt zurückzusenden. Sie erhalten dann den vollen Bestellbetrag einschließlich Versandkosten gutgeschrieben.",
     "sku": "Artikelnummer",
-    "vat_included": "MwSt. inbegriffen",
-    "featured_information": "Ausgewählte Informationen",
-    "specification": "Spezifikationen",
-    "free_return": "Kostenlose Rücksendung innerhalb von 15 Tagen. Klicken Sie hier für weitere Informationen.",
-    "information": "Informationen",
-    "shop_similar": "Ähnliche Artikel kaufen"
+    "vat_included": "Inkl. MwSt.",
+    "featured_information": "Produktinformationen",
+    "specifications": "Spezifikationen",
+    "free_return": "Kostenlose Rückgabe innerhalb von 15 Tagen",
+    "click_for_details": "Klicken für Details",
+    "information": "Information",
+    "shop_similar": "Ähnliche Produkte",
+    "shipping_returns": "Versand & Rückgabe",
+    "return_policy": "Rückgaberecht",
+    "return_policy_title": "Rückgaberichtlinie",
+    "article_details": "Artikeldetails"
   },
   "cart": {
     "empty": "Ihr Warenkorb ist leer",

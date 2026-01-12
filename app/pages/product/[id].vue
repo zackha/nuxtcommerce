@@ -218,9 +218,12 @@ const { handleAddToCart, addToCartButtonStatus } = useCart();
               <ButtonWishlist :product="product"/>
             </div>
 
-            <div class="bg-neutral-50 dark:bg-neutral-900/50 rounded-xl p-4 flex items-center gap-3 text-sm text-neutral-600 dark:text-neutral-400 mt-2">
+            <div
+                class="bg-neutral-50 dark:bg-neutral-900/50 rounded-xl p-4 flex items-center gap-3 text-sm text-neutral-600 dark:text-neutral-400 mt-2 cursor-pointer hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
+                @click="activeTab = 'return_policy'; showDetails = true;"
+            >
               <UIcon name="i-iconamoon-check-circle-1-fill" class="text-green-500 shrink-0" size="18" />
-              <span>{{ $t('product.free_return') }} & {{ $t('product.sku') }}: {{ product.sku }}</span>
+              <span>{{ $t('product.free_return') }}</span>
             </div>
 
             <div v-if="product.shortDescription" class="mt-2 px-1">
@@ -255,10 +258,10 @@ const { handleAddToCart, addToCartButtonStatus } = useCart();
           <hr class="border-t border-[#efefef] dark:border-[#262626] mx-3 lg:mx-8" />
 
           <div class="px-3 lg:px-8 py-6 lg:pb-8">
-            <div class="flex border-b border-gray-200 dark:border-neutral-800 mb-6">
+            <div class="flex border-b border-gray-200 dark:border-neutral-800 mb-6 gap-8">
               <button
                   @click="activeTab = 'description'"
-                  class="pb-3 px-1 text-sm font-bold transition-all relative mr-8"
+                  class="pb-3 px-1 text-sm font-bold transition-all relative"
                   :class="activeTab === 'description' ? 'text-black dark:text-white' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'"
               >
                 {{ $t('product.featured_information') }}
@@ -274,10 +277,20 @@ const { handleAddToCart, addToCartButtonStatus } = useCart();
                 {{ $t('product.specifications') }}
                 <span v-if="activeTab === 'specs'" class="absolute bottom-0 left-0 w-full h-[2px] bg-alizarin-crimson-700"></span>
               </button>
+
+              <button
+                  @click="activeTab = 'return_policy'"
+                  class="pb-3 px-1 text-sm font-bold transition-all relative"
+                  :class="activeTab === 'return_policy' ? 'text-black dark:text-white' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'"
+              >
+                {{ $t('product.shipping_returns') || 'Verzending & Retour' }}
+                <span v-if="activeTab === 'return_policy'" class="absolute bottom-0 left-0 w-full h-[2px] bg-alizarin-crimson-700"></span>
+              </button>
             </div>
 
             <div>
               <Transition name="fade" mode="out-in">
+
                 <div v-if="activeTab === 'description'" key="desc" class="text-base leading-relaxed text-neutral-600 dark:text-neutral-300 description select-text max-w-4xl">
                   <div v-html="product.description"></div>
                 </div>
@@ -290,6 +303,21 @@ const { handleAddToCart, addToCartButtonStatus } = useCart();
                     </div>
                   </div>
                 </div>
+
+                <div v-else-if="activeTab === 'return_policy'" key="return_policy" class="select-text max-w-4xl text-sm leading-relaxed text-neutral-600 dark:text-neutral-300">
+                  <h4 class="font-bold text-black dark:text-white mb-2">{{ $t('product.return_policy_title') }}</h4>
+
+                  <p class="mb-6">
+                    {{ $t('product.return_policy_text') }}
+                  </p>
+
+                  <h4 class="font-bold text-black dark:text-white mb-2">{{ $t('product.article_details') }}</h4>
+                  <div class="bg-gray-50 dark:bg-neutral-800 p-4 rounded-lg flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                    <span>{{ $t('product.sku') }}:</span>
+                    <span class="font-mono font-bold select-all text-black dark:text-white">{{ product.sku }}</span>
+                  </div>
+                </div>
+
               </Transition>
             </div>
           </div>

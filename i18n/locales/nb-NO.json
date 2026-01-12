@@ -2,7 +2,8 @@
   "general": {
     "go_back": "Gå tilbake",
     "loading": "Laster...",
-    "show_less": "Vis mindre"
+    "show_less": "Vis mindre",
+    "show_more": "Vis mer"
   },
   "theme": {
     "dark": "Mørk",
@@ -66,13 +67,19 @@
     "originally": "Opprinnelig",
     "size": "Størrelse",
     "quantity": "Antall",
-    "sku": "artikkelnummer",
-    "vat_included": "MVA inkludert",
-    "featured_information": "Fremhevet Informasjon",
-    "specifications": "Spezifikasjoner",
-    "free_return": "Gratis retur innen 15 dager. Klikk for mer informasjon.",
+    "return_policy_text": "Du har rett til å kansellere bestillingen din opptil 15 dager etter mottak uten å oppgi noen grunn. Etter kansellering har du ytterligere 14 dager på deg til å returnere produktet ditt. Du vil da bli kreditert hele bestillingsbeløpet inkludert fraktkostnader.",
+    "sku": "Artikkelnummer",
+    "vat_included": "Inkl. mva",
+    "featured_information": "Produktinformasjon",
+    "specifications": "Spesifikasjoner",
+    "free_return": "Gratis retur innen 15 dager",
+    "click_for_details": "Klikk for detaljer",
     "information": "Informasjon",
-    "shop_similar": "Sammenlign lignende produkter"
+    "shop_similar": "Lignende produkter",
+    "shipping_returns": "Frakt og retur",
+    "return_policy": "Returrett",
+    "return_policy_title": "Retningslinjer for retur",
+    "article_details": "Artikkeldetaljer"
   },
   "cart": {
     "empty": "Handlekurven din er tom",

@@ -2,7 +2,8 @@
   "general": {
     "go_back": "Go Back",
     "loading": "Loading...",
-    "show_less": "Show less"
+    "show_less": "Show less",
+    "show_more": "Show more"
   },
   "theme": {
     "dark": "Dark",
@@ -66,13 +67,19 @@
     "originally": "Originally",
     "size": "Size",
     "quantity": "Quantity",
-    "sku": "article number",
+    "return_policy_text": "You have the right to cancel your order up to 15 days after receipt without giving any reason. After cancellation, you have another 14 days to return your product. You will then be credited with the full order amount including shipping costs.",
+    "sku": "Article number",
     "vat_included": "VAT included",
     "featured_information": "Featured Information",
     "specifications": "Specifications",
-    "free_return": "Free returns within 15 days. Click for detailed",
+    "free_return": "Free returns within 15 days",
+    "click_for_details": "Click for details",
     "information": "Information",
-    "shop_similar": "Shop similar"
+    "shop_similar": "Shop similar",
+    "shipping_returns": "Shipping & Returns",
+    "return_policy": "Return Policy",
+    "return_policy_title": "Return Policy",
+    "article_details": "Article Details"
   },
   "cart": {
     "empty": "Your cart is empty",
