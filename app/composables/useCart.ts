@@ -1,68 +1,100 @@
-// app/composables/useCart.ts
 import { push } from 'notivue';
+
+const CART_STORAGE_KEY = 'cart';
 
 export const useCart = () => {
   const cart = useState<CartItem[]>('cart', () => []);
   const addToCartButtonStatus = ref<AddBtnStatus>('add');
 
-  const findItem = (variationId: number) => cart.value.find(i => i.variation?.node?.databaseId === variationId);
+  const persistCart = () => {
+    if (!process.client) return;
+    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart.value));
+  };
 
-  const updateCart = (next: CartItem[]) => {
-    cart.value = next;
-    if (process.client) localStorage.setItem('cart', JSON.stringify(next));
+  const setCart = (items: CartItem[]) => {
+    cart.value = items;
+    persistCart();
+  };
+
+  const findItem = (variationId: number) => {
+    return cart.value.find(item => item.variation?.node?.databaseId === variationId);
   };
 
   const handleAddToCart = async (productId: number) => {
-    try {
-      addToCartButtonStatus.value = 'loading';
-      const res = await $fetch<AddToCartResponse>('/api/cart/add', { method: 'POST', body: { productId } });
-      const incoming = res.addToCart.cartItem;
-      const idx = cart.value.findIndex(i => i.key === incoming.key);
+    addToCartButtonStatus.value = 'loading';
 
-      if (idx > -1) {
-        const merged = { ...cart.value[idx], ...incoming };
-        if (typeof incoming.variation?.node?.stockQuantity === 'number') {
-          merged.variation.node.stockQuantity = incoming.variation.node.stockQuantity;
-        }
-        updateCart([...cart.value.slice(0, idx), merged, ...cart.value.slice(idx + 1)]);
+    try {
+      const response = await $fetch<AddToCartResponse>('/api/cart/add', {
+        method: 'POST',
+        body: { productId },
+      });
+      const incoming = response.addToCart.cartItem;
+      const itemIndex = cart.value.findIndex(item => item.key === incoming.key);
+
+      if (itemIndex >= 0) {
+        const next = [...cart.value];
+        next[itemIndex] = incoming;
+        setCart(next);
       } else {
-        updateCart([...cart.value, incoming]);
+        setCart([...cart.value, incoming]);
       }
 
       addToCartButtonStatus.value = 'added';
-      setTimeout(() => (addToCartButtonStatus.value = 'add'), 2000);
+      setTimeout(() => {
+        addToCartButtonStatus.value = 'add';
+      }, 2000);
     } catch {
       addToCartButtonStatus.value = 'add';
       push.error('Insufficient stock');
     }
   };
 
-  const changeQty = (key: string, quantity: number) => {
-    $fetch('/api/cart/update', { method: 'POST', body: { items: [{ key, quantity }] } });
-    updateCart(quantity <= 0 ? cart.value.filter(i => i.key !== key) : cart.value.map(i => (i.key === key ? { ...i, quantity } : i)));
+  const changeQuantity = (key: string, quantity: number) => {
+    const next =
+      quantity <= 0
+        ? cart.value.filter(item => item.key !== key)
+        : cart.value.map(item => (item.key === key ? { ...item, quantity } : item));
+
+    setCart(next);
+    void $fetch('/api/cart/update', {
+      method: 'POST',
+      body: { items: [{ key, quantity }] },
+    });
   };
 
   const increment = (variationId: number) => {
     const item = findItem(variationId);
-    if (!item) return handleAddToCart(variationId);
-    const max = item.variation?.node?.stockQuantity ?? Infinity;
-    if (item.quantity >= max) return push.error('Insufficient stock');
-    changeQty(item.key, item.quantity + 1);
+
+    if (!item) {
+      void handleAddToCart(variationId);
+      return;
+    }
+
+    const maxStock = item.variation?.node?.stockQuantity;
+    if (typeof maxStock === 'number' && item.quantity >= maxStock) {
+      push.error('Insufficient stock');
+      return;
+    }
+
+    changeQuantity(item.key, item.quantity + 1);
   };
 
   const decrement = (variationId: number) => {
     const item = findItem(variationId);
-    if (item) changeQty(item.key, item.quantity - 1);
+    if (!item) return;
+    changeQuantity(item.key, item.quantity - 1);
   };
 
   onMounted(() => {
     if (!process.client) return;
-    const stored = localStorage.getItem('cart');
-    if (!stored) return;
+    const raw = localStorage.getItem(CART_STORAGE_KEY);
+    if (!raw) return;
+
     try {
-      updateCart(JSON.parse(stored) as CartItem[]);
+      const parsed = JSON.parse(raw) as CartItem[];
+      setCart(Array.isArray(parsed) ? parsed : []);
     } catch {
-      updateCart([]);
+      setCart([]);
     }
   });
 
