@@ -6,18 +6,19 @@
   "description": "Headless storefront for Woocommerce (Nuxt/Vue)",
   "type": "module",
   "scripts": {
-    "build": "nuxi build --preset=cloudflare_pages",
     "dev": "nuxt dev",
     "dev:ssl": "nuxt dev --https --ssl-cert localhost.pem --ssl-key localhost-key.pem",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "typecheck": "nuxt typecheck",
-    "deploy:pages": "bumpp && pnpm build && wrangler pages deploy dist --project-name commerce"
+    "build": "nuxt build",
+    "deploy:pages": "bumpp && pnpm build && wrangler pages deploy dist --project-name commerce --branch master"
   },
   "dependencies": {
     "@nuxt/image": "^1.11.0",
     "@nuxt/ui": "^2.22.3",
+    "@nuxthub/core": "0.10.6",
     "@nuxtjs/i18n": "10.1.0",
     "graphql-request": "^7.4.0",
     "notivue": "^2.4.5",

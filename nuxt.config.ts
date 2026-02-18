@@ -4,7 +4,7 @@ import pkg from "./package.json";
 export default defineNuxtConfig({
   devtools: { enabled: false },
 
-  modules: ["@vueuse/nuxt", "@nuxt/ui", "@nuxt/image", "notivue/nuxt", "@nuxtjs/i18n"],
+  modules: ["@vueuse/nuxt", "@nuxt/ui", "@nuxt/image", "notivue/nuxt", "@nuxtjs/i18n", "@nuxthub/core"],
 
   i18n: {
     defaultLocale: "en",
@@ -46,7 +46,15 @@ export default defineNuxtConfig({
   },
 
   nitro: {
+    preset: "cloudflare_pages",
     prerender: { routes: ["/sitemap.xml", "/robots.txt"] },
+  },
+
+  hub: {
+    cache: {
+      driver: "cloudflare-kv-binding",
+      binding: "CACHE",
+    },
   },
 
   compatibilityDate: "2025-01-01",
