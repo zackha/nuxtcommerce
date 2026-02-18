@@ -4,7 +4,7 @@ import pkg from './package.json';
 export default defineNuxtConfig({
   devtools: { enabled: false },
 
-  modules: ['nuxt-graphql-request', '@vueuse/nuxt', '@nuxt/ui', '@nuxt/image', 'notivue/nuxt', '@nuxthub/core', '@nuxtjs/i18n'],
+  modules: ['@vueuse/nuxt', '@nuxt/ui', '@nuxt/image', 'notivue/nuxt', '@nuxthub/core', '@nuxtjs/i18n'],
 
   i18n: {
     defaultLocale: 'en',

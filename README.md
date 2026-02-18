@@ -50,7 +50,7 @@
 ## Tech Stack
 
 * **Framework:** Nuxt 4, Vue 3
-* **GraphQL Client (server):** `graphql-request` via `nuxt-graphql-request`
+* **GraphQL Client (server):** `graphql-request` (`GraphQLClient` + `gql`)
 * **Styling/UI:** Tailwind CSS, `@nuxt/ui`, Icons (Iconify)
 * **Images:** `@nuxt/image`
 * **i18n:** `@nuxtjs/i18n`
@@ -105,7 +105,7 @@ pnpm run preview
 Key settings are in **`nuxt.config.ts`**:
 
 * **Runtime Config:** `runtimeConfig.gqlHost` (reads `GQL_HOST`)
-* **Modules:** `@nuxt/ui`, `@nuxt/image`, `@nuxtjs/i18n`, `nuxt-graphql-request`, `notivue/nuxt`, `@nuxthub/core`
+* **Modules:** `@nuxt/ui`, `@nuxt/image`, `@nuxtjs/i18n`, `notivue/nuxt`, `@nuxthub/core`
 * **Route Rules:** SWR caching for `/categories` and `/favorites`, prerender for `/`
 * **Nitro Prerender:** `/sitemap.xml`, `/robots.txt`
 * **NuxtHub Cache:** `hub: { cache: true }` (optional KV cache)

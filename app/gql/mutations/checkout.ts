@@ -1,5 +1,5 @@
 // app/gql/mutations/checkout.ts
-import { gql } from 'nuxt-graphql-request/utils';
+import { gql } from 'graphql-request';
 
 export const checkoutMutation = gql`
   mutation Checkout($input: CheckoutInput!) {

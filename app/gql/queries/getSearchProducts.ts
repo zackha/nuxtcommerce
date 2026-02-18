@@ -1,5 +1,5 @@
 // app/gql/queries/getSearchProducts.ts
-import { gql } from 'nuxt-graphql-request/utils';
+import { gql } from 'graphql-request';
 
 export const getSearchProductsQuery = gql`
   query getSearchProducts($search: String) {

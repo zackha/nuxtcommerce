@@ -1,5 +1,5 @@
 // app/gql/queries/getProduct.ts
-import { gql } from 'nuxt-graphql-request/utils';
+import { gql } from 'graphql-request';
 
 export const getProductQuery = gql`
   query getProduct($slug: ID!, $sku: String!) {

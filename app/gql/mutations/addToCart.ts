@@ -1,5 +1,5 @@
 // app/gql/mutations/addToCart.ts
-import { gql } from 'nuxt-graphql-request/utils';
+import { gql } from 'graphql-request';
 
 export const addToCartMutation = gql`
   mutation addToCart($input: AddToCartInput!) {

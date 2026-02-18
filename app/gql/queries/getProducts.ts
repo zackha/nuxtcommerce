@@ -1,5 +1,5 @@
 // app/gql/queries/getProducts.ts
-import { gql } from 'nuxt-graphql-request/utils';
+import { gql } from 'graphql-request';
 
 export const getProductsQuery = gql`
   query getProducts($after: String, $search: String, $category: String, $order: OrderEnum!, $field: ProductsOrderByEnum!) {

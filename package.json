@@ -20,9 +20,9 @@
     "@nuxt/ui": "^2.22.3",
     "@nuxthub/core": "0.10.6",
     "@nuxtjs/i18n": "10.1.0",
+    "graphql-request": "^7.4.0",
     "notivue": "^2.4.5",
     "nuxt": "^4.3.1",
-    "nuxt-graphql-request": "^8.1.1",
     "swiper": "^12.1.1",
     "vue": "latest"
   },

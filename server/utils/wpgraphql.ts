@@ -1,5 +1,5 @@
 // server/utils/wpgraphql.ts
-import { GraphQLClient, type RequestDocument, type Variables } from 'graphql-request';
+import { GraphQLClient, type Variables } from 'graphql-request';
 import { getCookie, setCookie, createError, type H3Event } from 'h3';
 
 function getClient(): GraphQLClient {
@@ -15,17 +15,16 @@ async function handleError<T>(promise: Promise<T>, message: string): Promise<T> 
   }
 }
 
-export async function requestQuery<T = unknown>(query: RequestDocument, variables?: Variables): Promise<T> {
+export async function requestQuery<T = unknown>(query: string, variables?: Variables): Promise<T> {
   return handleError(getClient().request<T>(query, variables), 'GraphQL query failed');
 }
 
-export async function requestMutation<T = unknown>(event: H3Event, query: RequestDocument, variables?: Variables): Promise<T> {
+export async function requestMutation<T = unknown>(event: H3Event, query: string, variables?: Variables): Promise<T> {
   const session = getCookie(event, 'woocommerce-session');
   const client = getClient();
 
   if (!session) {
-    const queryString = typeof query === 'string' ? query : (query as any).loc?.source.body;
-    const res = await handleError(client.rawRequest<T>(queryString, variables), 'GraphQL mutation failed');
+    const res = await handleError(client.rawRequest<T>(query, variables), 'GraphQL mutation failed');
     const newSession = res.headers.get('woocommerce-session');
     if (newSession) {
       setCookie(event, 'woocommerce-session', `Session ${newSession}`, {

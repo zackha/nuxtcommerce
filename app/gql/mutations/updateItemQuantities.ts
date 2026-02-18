@@ -1,5 +1,5 @@
 // app/gql/mutations/updateItemQuantities.ts
-import { gql } from 'nuxt-graphql-request/utils';
+import { gql } from 'graphql-request';
 
 export const updateItemQuantitiesMutation = gql`
   mutation updateItemQuantities($input: UpdateItemQuantitiesInput!) {
