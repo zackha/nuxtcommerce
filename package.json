@@ -1,19 +1,19 @@
 {
   "name": "nuxtcommerce",
-  "version": "3.1.20",
+  "version": "3.1.21",
   "private": true,
   "author": "zackha",
   "description": "Headless storefront for Woocommerce (Nuxt/Vue)",
   "type": "module",
   "scripts": {
-    "build": "nuxt build",
+    "build": "nuxi build --preset=cloudflare_pages",
     "dev": "nuxt dev",
     "dev:ssl": "nuxt dev --https --ssl-cert localhost.pem --ssl-key localhost-key.pem",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "deploy": "bumpp && pnpm build && npx wrangler deploy",
-    "typecheck": "nuxt typecheck"
+    "typecheck": "nuxt typecheck",
+    "deploy:pages": "bumpp && pnpm build && wrangler pages deploy dist --project-name commerce"
   },
   "dependencies": {
     "@nuxt/image": "^1.11.0",
